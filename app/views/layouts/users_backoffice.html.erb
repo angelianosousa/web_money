@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
     <title>PersonalAgenda</title>
     <%= csrf_meta_tags %>
@@ -87,16 +86,16 @@
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="https://via.placeholder.com/150C/" alt="">John Doe
+                    <img src="https://via.placeholder.com/150C/" alt=""><%= current_user.email %>
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                      <a class="dropdown-item"  href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                  <a class="dropdown-item"  href="javascript:;">Help</a>
-                    <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    <%= link_to "#", class:"dropdown-item" do %>
+                      <i class="fa fa-user pull-right"></i>Profile
+                    <% end %>
+
+                    <%= link_to destroy_user_session_path, method: :delete, data: {confirm: "Quer mesmo sair ?"}, class:"dropdown-item" do %>
+                      <i class="fa fa-sign-out pull-right"></i>Sair
+                    <% end %>
                   </div>
                 </li>
 
@@ -108,7 +107,7 @@
                   <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                     <li class="nav-item">
                       <a class="dropdown-item">
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -120,7 +119,7 @@
                     </li>
                     <li class="nav-item">
                       <a class="dropdown-item">
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -132,7 +131,7 @@
                     </li>
                     <li class="nav-item">
                       <a class="dropdown-item">
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -144,7 +143,7 @@
                     </li>
                     <li class="nav-item">
                       <a class="dropdown-item">
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -172,11 +171,9 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-          <!-- top tiles -->
-
-          LAYOUT USERS BACKOFFICE
-          <%= yield %>
-
+          <div class="row" style="display: inline-block;" >
+            <%= yield %>
+          </div>
         </div>
         <!-- /page content -->
 
