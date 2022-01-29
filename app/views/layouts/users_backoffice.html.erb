@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>PersonalAgenda</title>
+    <title>Finantial System</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -22,7 +22,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Agenda Pessoal</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-money"></i> <span>Finantial System</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -48,10 +48,21 @@
                 <ul class="nav side-menu">
                   <li>
                     <%= link_to users_backoffice_welcome_index_path do %>
-                      <i class="fa fa-home"></i> Home
+                      <i class="fa fa-dashboard"></i> Dashboard
                     <% end %>
                   </li>
                 </ul>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-bar-chart"></i> Finanças <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        <%= link_to "Transações", users_backoffice_transactions_path %>
+                      </li>
+                      <li>
+                        <%= link_to "Contas", users_backoffice_recurrences_path %>
+                      </li>
+                    </ul>
+                  </li>
               </div>
               
             </div>
@@ -99,70 +110,6 @@
                   </div>
                 </li>
 
-                <li role="presentation" class="nav-item dropdown open">
-                  <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <div class="text-center">
-                        <a class="dropdown-item">
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
               </ul>
             </nav>
           </div>
@@ -171,8 +118,10 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-          <div class="row" style="display: inline-block;" >
-            <%= yield %>
+          <div class="row" style="display: inline;" >
+            <div class="col-md-12 col-xl-12 col-sm-12">
+              <%= yield %>
+            </div>
           </div>
         </div>
         <!-- /page content -->

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recurrence: one
+  title: MyString
+  value: 9.99
+  date: 2022-01-29 01:56:13
+
+two:
+  recurrence: two
+  title: MyString
+  value: 9.99
+  date: 2022-01-29 01:56:13

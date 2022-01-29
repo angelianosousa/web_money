@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="col-md-12 col-xl-12 col-sm-12">
+    <div class="container">
+      <%= link_to '', new_users_backoffice_recurrence_path, class:"btn btn-success btn-round fa fa-plus-square", style:"float:right;width:100px;" %>
+      <h4>Contas</h4>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <% @recurrences.each do |recurrence| %>
+    <div class="col-md-4 col-xl-4 col-sm-4">
+      <div class="card text-white bg-dark mb-12" style="margin-bottom:10px;">
+        <p class="card-header" style="background-color:DarkSlateGray;color:#F0F8FF;"><%= recurrence.title.truncate(40) %></p>
+        <div class="card-body">
+          <strong>Categoria: </strong><p class="card-title <%= card_style(recurrence) %>" ><%= recurrence.category %></p>
+          <p class="card-text">R$ <%= recurrence.value %> | <%= I18n.l(recurrence.date_expire.to_date) %></p>
+          <%= link_to "", edit_users_backoffice_recurrence_path(recurrence), class:"btn btn-primary fa fa-edit" %>
+          <%= link_to "", users_backoffice_recurrence_path(recurrence), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
