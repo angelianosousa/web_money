@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   
   namespace :users_backoffice do
     get 'welcome/index'
-    resources :recurrences, except: [:show]
+    resources :recurrences, except: [:show, :new] do
+      post 'payment'
+    end
+
     resources :transactions, except: [:show]
   end
 

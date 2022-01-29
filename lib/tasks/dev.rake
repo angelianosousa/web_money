@@ -5,6 +5,7 @@ namespace :dev do
     spinner_show("Criando novo banco de dados...") { %x( rails db:create ) }
     spinner_show("Construindo tabelas do banco...") { %x( rails db:migrate ) }
     spinner_show("Criando usuário padrão...") { %x( rails dev:add_default_user ) }
+    spinner_show("Criando categorias padrão...") { %x( rails dev:add_categories ) }
     spinner_show("Criando recorrências exemplo...") { %x( rails dev:add_recurrences ) }
     spinner_show("Criando transações exemplo...") { %x( rails dev:add_transactions ) }
   end
@@ -13,11 +14,21 @@ namespace :dev do
     User.create!(email:"user@user.com", password:"user123", password_confirmation:"user123")
   end
 
+  task add_categories: :environment do
+    type = ["Receita", "Despesa"]
+    badge = ["primary", "danger"]
+  
+    2.times do |i|
+      Category.create!(title: type[i], badge: badge[i])
+    end
+  end
+
   task add_recurrences: :environment do
+    
     10.times do |i|
-      Recurrence.create(
+      Recurrence.create!(
         user_profile: User.last.user_profile,
-        category: ["Despesas", "Receita"].sample,
+        category: Category.all.sample,
         title: Faker::Bank.name,
         value: rand(100..10000),
         date_expire: Faker::Date.in_date_period(year: 2022, month: 2)
@@ -27,7 +38,7 @@ namespace :dev do
 
   task add_transactions: :environment do
     20.times do
-      Transaction.create(
+      Transaction.create!(
         recurrence: Recurrence.all.sample,
         title: Faker::Educator.course_name,
         value: rand(100..10000),

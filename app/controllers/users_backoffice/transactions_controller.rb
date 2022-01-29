@@ -3,7 +3,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # GET /transactions or /transactions.json
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.order(id: :desc).all.includes(:recurrence).page(params[:page])
   end
 
   # GET /transactions/new
@@ -21,7 +21,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to transaction_url(@transaction), notice: "Transaction was successfully created." }
+        format.html { redirect_to users_backoffice_transaction_url(@transaction), notice: "Transaction was successfully created." }
         format.json { render :index, status: :created, location: @transaction }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,7 +34,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to transaction_url(@transaction), notice: "Transaction was successfully updated." }
+        format.html { redirect_to users_backoffice_transaction_url(@transaction), notice: "Transaction was successfully updated." }
         format.json { render :index, status: :ok, location: @transaction }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -48,7 +48,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
     @transaction.destroy
 
     respond_to do |format|
-      format.html { redirect_to transactions_url, notice: "Transaction was successfully destroyed." }
+      format.html { redirect_to users_backoffice_transactions_url, notice: "Transaction was successfully destroyed." }
       format.json { head :no_content }
     end
   end

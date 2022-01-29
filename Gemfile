@@ -30,6 +30,7 @@ gem 'devise'
 gem 'rails-i18n'
 gem 'faker'
 gem 'tty-spinner'
+gem 'kaminari'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

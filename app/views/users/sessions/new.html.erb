@@ -1,6 +1,7 @@
 <h2>Login Usuário</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
   <div class="form-group">
     <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", class:"form-control" %>
   </div>
@@ -13,7 +14,7 @@
     <div class="field">
       <%= f.check_box :remember_me, class:"form-control-md" %>
       <%= f.label :Lembrar_de_mim %>
-    </div><br>
+    </div>
   <% end %>
 
   <div class="actions">

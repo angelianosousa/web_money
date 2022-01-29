@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <div class="row">
   <div class="col-md-12 col-xl-12 col-sm-12">
     <div class="container">
@@ -15,8 +13,8 @@
       <div class="card text-white bg-dark mb-12" style="margin-bottom:10px;">
         <p class="card-header" style="background-color:DarkSlateGray;color:#F0F8FF;"><%= transaction.title.truncate(40) %></p>
         <div class="card-body">
-          <strong>Categoria: </strong><p class="card-title <%= card_style(transaction.recurrence) %>" ><%= transaction.recurrence.category %></p>
-          <p class="card-text" ><strong>Conta: </strong><%= transaction.recurrence.title.truncate(35) %></p>
+          <strong>Categoria: </strong><p class="card-title badge badge-<%= transaction.recurrence.category.badge %>" ><%= transaction.recurrence.category.title %></p>
+          <p class="card-text" ><strong>Conta: </strong><%= transaction.recurrence.title.truncate(30) %></p>
           <p class="card-text">R$ <%= transaction.value %> | <%= I18n.l(transaction.date.to_date) %></p>
           <%= link_to "", edit_users_backoffice_transaction_path(transaction), class:"btn btn-primary fa fa-edit" %>
           <%= link_to "", users_backoffice_transaction_path(transaction), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
@@ -25,3 +23,5 @@
     </div>
   <% end %>
 </div>
+
+<%= paginate @transactions, outer_window: 2 %>

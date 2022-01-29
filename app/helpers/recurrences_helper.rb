@@ -1,9 +1,9 @@
 module RecurrencesHelper
-  def card_style(recurrence)
-    if recurrence.category == "Receita" 
-      "badge badge-success"
-    else
-       "badge badge-danger"
-    end
+  def categories_select
+    Category.all.collect { |c| [c.title, c.id]}
+  end
+
+  def count_transactions(recurrence)
+    recurrence.transactions.count
   end
 end

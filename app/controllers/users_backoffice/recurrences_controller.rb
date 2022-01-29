@@ -3,12 +3,25 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
   # GET /recurrences or /recurrences.json
   def index
-    @recurrences = Recurrence.all
+    @recurrences = Recurrence.all.order(id: :desc).includes(:transactions).page(params[:page])
   end
 
-  # GET /recurrences/new
-  def new
-    @recurrence = Recurrence.new
+  def payment
+    @recurrence = Recurrence.find(params[:recurrence_id])
+
+    @transaction = Transaction.new(
+      recurrence_id: @recurrence.id,
+      title: "Pagamento #{@recurrence.title}", 
+      value: "#{@recurrence.value}", 
+      date: Date.today.to_datetime
+    )
+    
+    if @transaction.save
+      @recurrence.update(pay: true)
+      redirect_to users_backoffice_recurrences_url, notice: "Transação criada com sucesso!"
+    else
+      redirect_to users_backoffice_recurrences_url, alert: "#{@recurrence.errors}"
+    end
   end
 
   # GET /recurrences/1/edit
@@ -21,10 +34,10 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
     respond_to do |format|
       if @recurrence.save
-        format.html { redirect_to recurrence_url(@recurrence), notice: "Recurrence was successfully created." }
+        format.html { redirect_to users_backoffice_recurrences_url, notice: "Recurrence was successfully created." }
         format.json { render :index, status: :created, location: @recurrence }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @recurrence.errors, status: :unprocessable_entity }
       end
     end
@@ -34,7 +47,7 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
   def update
     respond_to do |format|
       if @recurrence.update(recurrence_params)
-        format.html { redirect_to recurrence_url(@recurrence), notice: "Recurrence was successfully updated." }
+        format.html { redirect_to users_backoffice_recurrences_url, notice: "Recurrence was successfully updated." }
         format.json { render :index, status: :ok, location: @recurrence }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -48,7 +61,7 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
     @recurrence.destroy
 
     respond_to do |format|
-      format.html { redirect_to recurrences_url, notice: "Recurrence was successfully destroyed." }
+      format.html { redirect_to users_backoffice_recurrences_url, notice: "Recurrence was successfully destroyed." }
       format.json { head :no_content }
     end
   end
