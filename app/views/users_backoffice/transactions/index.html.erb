@@ -1,27 +1,22 @@
-<div class="row">
-  <div class="col-md-12 col-xl-12 col-sm-12">
-    <div class="container">
-      <%= link_to '', new_users_backoffice_transaction_path, class:"btn btn-success btn-round fa fa-plus-square", style:"float:right;width:100px;" %>
-      <h4>Transações</h4>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <% @transactions.each do |transaction| %>
-    <div class="col-md-4 col-xl-4 col-sm-4">
-      <div class="card text-white bg-dark mb-12" style="margin-bottom:10px;">
-        <p class="card-header" style="background-color:DarkSlateGray;color:#F0F8FF;"><%= transaction.title.truncate(40) %></p>
-        <div class="card-body">
-          <strong>Categoria: </strong><p class="card-title badge badge-<%= transaction.recurrence.category.badge %>" ><%= transaction.recurrence.category.title %></p>
-          <p class="card-text" ><strong>Conta: </strong><%= transaction.recurrence.title.truncate(30) %></p>
-          <p class="card-text">R$ <%= transaction.value %> | <%= I18n.l(transaction.date.to_date) %></p>
-          <%= link_to "", edit_users_backoffice_transaction_path(transaction), class:"btn btn-primary fa fa-edit" %>
-          <%= link_to "", users_backoffice_transaction_path(transaction), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
+<nav class="navbar navbar-light bg-light">
+  <div class="container">
+    <h4>Transações</h4>
+    
+    <%= link_to "#", class:"btn btn-success", "data-toggle":"modal", "data-target":"#newTransactionModal" do %>
+      <i class="fa fa-plus-square"></i>
+    <% end %>
+    
+    <%= form_with url: users_backoffice_transactions_path, method: :get, local: true, class:" form-inline my-2 my-sm-2" do |form| %>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= form.search_field :title, class:"form-control", style:"width:210px;" %>
         </div>
+        <%= form.submit 'Pesquisar', class:"btn btn-success btn-md" %>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+</nav>
 
-<%= paginate @transactions, outer_window: 2 %>
+<%= render partial: "/users_backoffice/transactions/search/my_transactions" %>
+
+<%= render partial: 'users_backoffice/transactions/modals/new_transaction', locals: { transaction: @transaction = Transaction.new} %>

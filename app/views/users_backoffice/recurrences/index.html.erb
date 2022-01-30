@@ -1,35 +1,22 @@
-<div class="row">
-  <div class="col-md-12 col-xl-12 col-sm-12">
-    <div class="container">
-      <%= link_to "#", class:"btn btn-success btn-round", "data-toggle":"modal", "data-target":"#newRecurrenceModal", style:"float:right;width:100px;font-size:12px;" do %>
-        <i class="fa fa-plus-square"></i>
-      <% end %>
-      <h4>Contas</h4>
-    </div>
-  </div>
-</div>
+<nav class="navbar navbar-light bg-light">
+  <div class="container">
+    <h4>Contas</h4>
 
-<div class="row">
-  <% @recurrences.each do |recurrence| %>
-    <div class="col-md-4 col-xl-4 col-sm-4">
-      <div class="card text-white bg-dark mb-12" style="margin-bottom:10px;">
-        <p class="card-header" style="background-color:DarkSlateGray;color:#F0F8FF;"><label class="badge badge-primary"><%= count_transactions(recurrence) %></label>&nbsp;&nbsp;<%= recurrence.title.truncate(30) %></p>
-        <div class="card-body">
-          <strong>Categoria: </strong><p class="card-title badge badge-<%= recurrence.category.badge %>" ><%= recurrence.category.title %></p>
-          <p class="card-text">R$ <%= recurrence.value %> | <%= I18n.l(recurrence.date_expire.to_date) %></p>
-          <%= link_to "", class:"btn btn-info", "data-toggle":"modal", "data-target":"#paymentModal_#{recurrence.id}", style:"color:white;font-size:9px;" do %>
-            <i class="fa fa-money"></i>
-          <% end %>
-          <%= link_to "", edit_users_backoffice_recurrence_path(recurrence), class:"btn btn-primary fa fa-edit" %>
-          <%= link_to "", users_backoffice_recurrence_path(recurrence), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
+    <%= link_to "#", class:"btn btn-success", "data-toggle":"modal", "data-target":"#newRecurrenceModal" do %>
+      <i class="fa fa-plus-square"></i>
+    <% end %>
+  
+    <%= form_with url: users_backoffice_recurrences_path, method: :get, local: true, class:" form-inline my-2 my-sm-2" do |form| %>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= form.search_field :title, class:"form-control", style:"width:210px;" %>
         </div>
+        <%= form.submit 'Pesquisar', class:"btn btn-success btn-md" %>
       </div>
-    </div>
+    <% end %>
+  </div>
+</nav>
 
-    <%= render partial: 'users_backoffice/recurrences/modals/payment', locals: { recurrence: recurrence } %>
-  <% end %>
-</div>
-
-<%= paginate @recurrences, outer_window: 3 %>
+<%= render partial: "/users_backoffice/recurrences/search/my_recurrences" %>
 
 <%= render partial: 'users_backoffice/recurrences/modals/new_recurrence', locals: { recurrence: @recurrence = Recurrence.new} %>

@@ -3,7 +3,11 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
   # GET /recurrences or /recurrences.json
   def index
-    @recurrences = Recurrence.all.order(id: :desc).includes(:transactions).page(params[:page])
+    unless params[:title]
+      @recurrences = Recurrence.all.order(id: :desc).page(params[:page])
+    else
+      @recurrences = Recurrence._search_(params[:title], params[:page])
+    end
   end
 
   def payment

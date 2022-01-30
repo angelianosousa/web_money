@@ -3,7 +3,11 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # GET /transactions or /transactions.json
   def index
-    @transactions = Transaction.order(id: :desc).all.includes(:recurrence).page(params[:page])
+    unless params[:title]
+      @transactions = Transaction.order(id: :desc).all.includes(:recurrence => :category).page(params[:page])
+    else
+      @transactions = Transaction._search_(params[:title], params[:page])
+    end
   end
 
   # GET /transactions/new
