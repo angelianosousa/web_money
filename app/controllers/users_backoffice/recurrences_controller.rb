@@ -24,7 +24,7 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
       @recurrence.update(pay: true)
       redirect_to users_backoffice_recurrences_url, notice: "Transação criada com sucesso!"
     else
-      redirect_to users_backoffice_recurrences_url, alert: "#{@recurrence.errors}"
+      redirect_to users_backoffice_recurrences_url, alert: @recurrence.errors.full_messages
     end
   end
 
@@ -41,7 +41,7 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
         format.html { redirect_to users_backoffice_recurrences_url, notice: "Recurrence was successfully created." }
         format.json { render :index, status: :created, location: @recurrence }
       else
-        format.html { render :index, status: :unprocessable_entity }
+        format.html { redirect_to users_backoffice_recurrences_url, alert: @recurrence.errors.full_messages }
         format.json { render json: @recurrence.errors, status: :unprocessable_entity }
       end
     end
@@ -52,9 +52,9 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
     respond_to do |format|
       if @recurrence.update(recurrence_params)
         format.html { redirect_to users_backoffice_recurrences_url, notice: "Recurrence was successfully updated." }
-        format.json { render :index, status: :ok, location: @recurrence }
+        format.json { redirect_to users_backoffice_recurrences_url, status: :ok, location: @recurrence }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, alert: @recurrence.errors.full_messages }
         format.json { render json: @recurrence.errors, status: :unprocessable_entity }
       end
     end

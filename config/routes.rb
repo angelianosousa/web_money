@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       post 'payment'
     end
 
-    resources :transactions, except: [:show]
+    resources :transactions, except: [:show, :new]
   end
 
   root to: "users_backoffice/welcome#index"

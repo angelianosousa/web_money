@@ -10,11 +10,6 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
     end
   end
 
-  # GET /transactions/new
-  def new
-    @transaction = Transaction.new
-  end
-
   # GET /transactions/1/edit
   def edit
   end
@@ -25,10 +20,10 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to users_backoffice_transaction_url(@transaction), notice: "Transaction was successfully created." }
+        format.html { redirect_to users_backoffice_transactions_url, notice: "Transação criada com sucesso!" }
         format.json { render :index, status: :created, location: @transaction }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to users_backoffice_transactions_url, alert: @transaction.errors.full_messages }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
@@ -38,10 +33,10 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to users_backoffice_transaction_url(@transaction), notice: "Transaction was successfully updated." }
+        format.html { redirect_to users_backoffice_transactions_url, notice: "Transação atualizada com sucesso!" }
         format.json { render :index, status: :ok, location: @transaction }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, alert: @transaction.errors.full_messages }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
@@ -52,7 +47,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
     @transaction.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_backoffice_transactions_url, notice: "Transaction was successfully destroyed." }
+      format.html { redirect_to users_backoffice_transactions_url, notice: "Transação apagada com sucesso!" }
       format.json { head :no_content }
     end
   end

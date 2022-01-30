@@ -16,7 +16,7 @@ namespace :dev do
 
   task add_categories: :environment do
     type = ["Receita", "Despesa"]
-    badge = ["primary", "danger"]
+    badge = ["success", "danger"]
   
     2.times do |i|
       Category.create!(title: type[i], badge: badge[i])
@@ -24,7 +24,6 @@ namespace :dev do
   end
 
   task add_recurrences: :environment do
-    
     10.times do |i|
       Recurrence.create!(
         user_profile: User.last.user_profile,
@@ -37,7 +36,7 @@ namespace :dev do
   end
 
   task add_transactions: :environment do
-    20.times do
+    60.times do
       Transaction.create!(
         recurrence: Recurrence.all.sample,
         title: Faker::Educator.course_name,

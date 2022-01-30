@@ -10,19 +10,6 @@
       </div>
       <div class="modal-body">
         <%= form_with(model: [:users_backoffice, @recurrence], method: :post, local: true) do |form| %>
-          <% if @recurrence.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@recurrence.errors.count, "error") %> prohibited this recurrence from being saved:</h2>
-              
-              <div class="alert alert-danger" role="alert">
-                <ul>
-                  <% @recurrence.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-          <% end %>
 
           <div class="form-group">
             <%= form.hidden_field :user_profile_id, value: current_user.id %>
@@ -51,9 +38,9 @@
             </div>
           </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary fa fa-arrow-left" style="height:40px;" data-dismiss="modal"></button>
+          <div class="actions">
             <%= form.submit "Salvar", class:"btn btn-primary", style:"height:40px;" %>
+            <button type="button" class="btn btn-secondary fa fa-arrow-left" style="height:40px;" data-dismiss="modal"></button>
           </div>
         <% end %>
 

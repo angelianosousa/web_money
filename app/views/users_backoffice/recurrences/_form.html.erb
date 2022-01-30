@@ -1,17 +1,4 @@
 <%= form_with(model: [:users_backoffice, @recurrence], local: true) do |form| %>
-  <% if @recurrence.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@recurrence.errors.count, "error") %> prohibited this recurrence from being saved:</h2>
-      
-      <div class="alert alert-danger" role="alert">
-        <ul>
-          <% @recurrence.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
 
   <div class="row">
     <div class="col">
