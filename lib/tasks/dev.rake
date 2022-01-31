@@ -24,15 +24,29 @@ namespace :dev do
   end
 
   task add_recurrences: :environment do
-    10.times do |i|
+    contracts = ["Contrato 01", "Contrato 02", "Contrato 03", "Contrato 04", "Contrato 05"]
+    expenses  = ["Conta de Luz", "Conta de Água", "Comida", "Internet", "TV a Cabo"]
+
+    contracts.each do |contract|
       Recurrence.create!(
         user_profile: User.last.user_profile,
-        category: Category.all.sample,
-        title: Faker::Bank.name,
+        category: Category.first,
+        title: contract,
         value: rand(100..10000),
         date_expire: Faker::Date.in_date_period(year: 2022, month: 2)
       )
     end
+
+    expenses.each do |expense|
+      Recurrence.create!(
+        user_profile: User.last.user_profile,
+        category: Category.second,
+        title: expense,
+        value: rand(100..10000),
+        date_expire: Faker::Date.in_date_period(year: 2022, month: 2)
+      )
+    end
+
   end
 
   task add_transactions: :environment do
