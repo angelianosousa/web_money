@@ -4,7 +4,7 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
   # GET /recurrences or /recurrences.json
   def index
     unless params[:title]
-      @recurrences = Recurrence.all.order(id: :desc).page(params[:page])
+      @recurrences = Recurrence.where(user_profile_id: current_user.user_profile.id).order(id: :desc).page(params[:page])
     else
       @recurrences = Recurrence._search_(params[:title], params[:page])
     end

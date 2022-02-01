@@ -1,18 +1,20 @@
 class UsersBackoffice::WelcomeController < UsersBackofficeController
   def index
-    @all_recipes = Category.all_recipes
-    @all_expenses = Category.all_expenses 
+    @user_profile = current_user.user_profile
 
-    @recipes_per_category = Category.category_sumatory("Receita", params[:recurrence_title])
-    @expenses_per_category = Category.category_sumatory("Despesa", params[:recurrence_title])
+    @all_recipes = Category.all_recipes(@user_profile)
+    @all_expenses = Category.all_expenses(@user_profile)
 
-    @category_recipes_per_date_expire = Category.category_per_date_expire(1, params[:period])
-    @category_expenses_per_date_expire = Category.category_per_date_expire(2, params[:period])
+    @recipes_per_account = Category.category_sumatory("Receita", @user_profile)
+    @expenses_per_account = Category.category_sumatory("Despesa", @user_profile)
 
-    @balance = Category.balance
+    @category_recipes_per_date = Recurrence.category_per_date_expire(@user_profile, 1, params[:period])
+    @category_expenses_per_date = Recurrence.category_per_date_expire(@user_profile, 2, params[:period])
 
-    @min_and_max_recipes = Category.min_and_max_recipes
-    @min_and_max_expenses = Category.min_and_max_expenses
+    @balance = Recurrence.balance(@user_profile)
+
+    @min_and_max_recipes = Recurrence.min_and_max_recipes(@user_profile)
+    @min_and_max_expenses = Recurrence.min_and_max_expenses(@user_profile)
   end
 
 end

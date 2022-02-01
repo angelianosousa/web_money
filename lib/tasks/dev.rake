@@ -1,13 +1,13 @@
 namespace :dev do
   desc "TODO"
   task setup: :environment do
-    spinner_show("Apagando banco de dados...") { %x( rails db:drop ) }
-    spinner_show("Criando novo banco de dados...") { %x( rails db:create ) }
-    spinner_show("Construindo tabelas do banco...") { %x( rails db:migrate ) }
-    spinner_show("Criando usuário padrão...") { %x( rails dev:add_default_user ) }
-    spinner_show("Criando categorias padrão...") { %x( rails dev:add_categories ) }
-    spinner_show("Criando recorrências exemplo...") { %x( rails dev:add_recurrences ) }
-    spinner_show("Criando transações exemplo...") { %x( rails dev:add_transactions ) }
+    spinner_show("Apagando banco de dados...") { %x(rails db:drop) }
+    spinner_show("Criando novo banco de dados...") { %x(rails db:create) }
+    spinner_show("Construindo tabelas do banco...") { %x(rails db:migrate) }
+    spinner_show("Criando usuário padrão...") { %x(rails dev:add_default_user) }
+    spinner_show("Criando categorias padrão...") { %x(rails dev:add_categories) }
+    spinner_show("Criando recorrências exemplo...") { %x(rails dev:add_recurrences) }
+    spinner_show("Criando transações exemplo...") { %x(rails dev:add_transactions) }
   end
 
   task add_default_user: :environment do
@@ -24,7 +24,7 @@ namespace :dev do
   end
 
   task add_recurrences: :environment do
-    contracts = ["Contrato 01", "Contrato 02", "Contrato 03", "Contrato 04", "Contrato 05"]
+    contracts = ["Produto 01", "Produto 02", "Produto 03", "Produto 04", "Produto 05"]
     expenses  = ["Conta de Luz", "Conta de Água", "Comida", "Internet", "TV a Cabo"]
 
     contracts.each do |contract|
@@ -32,8 +32,8 @@ namespace :dev do
         user_profile: User.last.user_profile,
         category: Category.first,
         title: contract,
-        value: rand(100..10000),
-        date_expire: Faker::Date.in_date_period(year: 2022, month: 2)
+        value: [1000, 1000, 2000, 3000, 4000].sample,
+        date_expire: Faker::Date.in_date_period
       )
     end
 
@@ -42,20 +42,22 @@ namespace :dev do
         user_profile: User.last.user_profile,
         category: Category.second,
         title: expense,
-        value: rand(100..10000),
-        date_expire: Faker::Date.in_date_period(year: 2022, month: 2)
+        value: [500, 100, 600, 100, 120].sample,
+        date_expire: Faker::Date.in_date_period
       )
     end
 
   end
 
   task add_transactions: :environment do
-    60.times do
+    50.times do
+      @recurrence = Recurrence.all.sample
+
       Transaction.create!(
-        recurrence: Recurrence.all.sample,
-        title: Faker::Educator.course_name,
-        value: rand(100..10000),
-        date: Faker::Date.in_date_period(year: 2022, month: 2)
+        recurrence: @recurrence,
+        title: "Pagamento: #{@recurrence.title}",
+        value: @recurrence.value,
+        date: @recurrence.date_expire
       )
     end
   end

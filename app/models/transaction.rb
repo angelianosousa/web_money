@@ -9,7 +9,7 @@ class Transaction < ApplicationRecord
 
   # Scope Methods
   scope :_search_, ->(title, page){ 
-    where("lower(title) LIKE ?", "%#{title.downcase}%")
+    where("lower(title) LIKE ?", "%#{title.downcase}%").includes(:recurrence => :category)
     .page(page)
   }
 end
