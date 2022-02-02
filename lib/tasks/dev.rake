@@ -54,6 +54,7 @@ namespace :dev do
       @recurrence = Recurrence.all.sample
 
       Transaction.create!(
+        user_profile: User.last.user_profile,
         recurrence: @recurrence,
         title: "Pagamento: #{@recurrence.title}",
         value: @recurrence.value,

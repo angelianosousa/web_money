@@ -10,20 +10,25 @@ class Recurrence < ApplicationRecord
   paginates_per 12
 
   # Scope Methods
-  scope :_search_, ->(title, page){ 
-    where("lower(title) LIKE ?", "%#{title.downcase}%")
-    .page(page)
+  scope :_search_, ->(title, page, user_profile, recurrence_category){ 
+    unless recurrence_category
+      where("lower(title) LIKE ? and user_profile_id = #{user_profile.id}", "%#{title.downcase}%").page(page)
+    else
+      where(category_id: recurrence_category, user_profile_id: user_profile.id).page(page)
+    end
   }
 
   scope :category_per_date_expire, -> (user_profile, category, period){ 
+    recurrences = where(user_profile: user_profile, category_id: category).includes(:transactions)
+
     if period.nil? || period == "Mês"
-      where(user_profile: user_profile, category_id: category).includes(:transactions).group_by_month(:date_expire).sum(:value)  
+      recurrences.group_by_month(:date_expire).sum(:value)  
     elsif period == "Semana"
-      where(user_profile: user_profile, category_id: category).includes(:transactions).group_by_week(:date_expire).sum(:value)  
+      recurrences.group_by_week(:date_expire).sum(:value)  
     elsif period == "Day"
-      where(user_profile: user_profile, category_id: category).includes(:transactions).group_by_month(:date_expire).sum(:value)
+      recurrences.group_by_day(:date_expire).sum(:value)
     elsif period == "Ano"
-      where(user_profile: user_profile, category_id: category).includes(:transactions).group_by_year(:date_expire).sum(:value)  
+      recurrences.group_by_year(:date_expire).sum(:value)  
     end
   }
 
@@ -33,12 +38,12 @@ class Recurrence < ApplicationRecord
   }
 
   scope :min_and_max_recipes, ->(user_profile){ 
-    account = where(category_id: 1, user_profile: user_profile).select(:id, :title, :value)
+    account = where("category_id = 1 and user_profile_id = #{user_profile.id}").select(:title, :value)
     { "#{account.minimum(:title)}": account.minimum(:value), "#{account.maximum(:title)}": account.maximum(:value) }
   }
 
   scope :min_and_max_expenses, ->(user_profile){ 
-    account = where(category_id: 2, user_profile: user_profile).select(:id, :title, :value)
+    account = where("category_id = 2 and user_profile_id = #{user_profile.id}").select(:title, :value)
     { "#{account.minimum(:title)}": account.minimum(:value), "#{account.maximum(:title)}": account.maximum(:value) }
   }
 end

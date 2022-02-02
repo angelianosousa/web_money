@@ -1,4 +1,4 @@
-<h3>Dashboard</h3>
+<h3>Dashboard - <%= I18n.l(Date.today) %></h3>
 
 <% if params[:period] || params[:start_date] || params[:end_date] %>
   <p>Pesquisa: <%= params[:period] %> <%= "#{params[:start_date]} #{params[:end_date]}" %></p>
@@ -6,17 +6,22 @@
 
 <ul class="nav">
   <%= form_with url: users_backoffice_welcome_index_path, local: true, method: :get, class:"form-inline my-2 my-lg-0" do |form| %>
-  <li class="nav-item">
-    <%= form.select :period, options_for_select(["Dia", "Semana", "Mês", "Ano"]), { prompt: "Periodo" }, { class:"form-control-sm", style:"width:100px" } %>&nbsp;
-  </li>
-  <li class="nav-item">
-    &nbsp;<%= form.submit "Filtrar", class:"btn btn-info btn-sm my-2 my-sm-0"%>
-  </li>
+    <li class="nav-item">
+      <%
+=begin%>
+ <%= form.date_field :start_date, { class:"form-control-sm", style:"width:120px" } %>&nbsp;
+      <%= form.date_field :end_date, { class:"form-control-sm", style:"width:120px" } %>&nbsp; 
+<%
+=end%>
+      <%= form.select :period, options_for_select(["Dia", "Semana", "Mês", "Ano"]), { prompt: "Periodo" }, { class:"form-control-sm", style:"width:100px" } %>&nbsp;
+    </li>
+    <li class="nav-item">
+      &nbsp;<%= form.submit "Filtrar", class:"btn btn-info btn-sm my-2 my-sm-0"%>
+    </li>
   <% end %>
 </ul>
 
-
-<hr>
+<br><hr>
 
 <div class="row">
   <div class="col-xl-12 col-md-12 col-sm-12">
@@ -24,7 +29,7 @@
     <h5>Receitas - R$ <%= @all_recipes %></h5>
 
     <div class="col-md-6 col-xl-6 col-sm-6" >
-      <%= line_chart @category_recipes_per_date, title:"Receita por #{params[:period] ? "#{params[:period]}": "Dia"}", colors: ["#008080"] %>
+      <%= line_chart @category_recipes_per_date, title:"Receita por #{params[:period] ? "#{params[:period]}": "Mês"}", colors: ["#008080"] %>
     </div>
     <div class="col-md-6 col-xl-6 col-sm-6" >
       <%= column_chart @recipes_per_account, title:"Receita por Contas", colors: ["#008080"] %>
@@ -58,15 +63,15 @@
     <h5>Balanço - R$ <%= @all_recipes - @all_expenses %></h5>
 
     <div class="col-md-4 col-xl-4 col-sm-4" >
-      <%= column_chart @balance, title:"Balanço Geral", colors: ["#b00", "#008080"] %>
-    </div>
-
-    <div class="col-md-4 col-xl-4 col-sm-4" >
-      <%= column_chart @min_and_max_expenses, title:"Min e Max - Despesas", colors: ["#b00"] %>
+      <%= column_chart @balance, title:"Balanço Geral", colors: ["#008080", "#b00"] %>
     </div>
 
     <div class="col-md-4 col-xl-4 col-sm-4" >
       <%= column_chart @min_and_max_recipes, title:"Min e Max - Receitas", colors: ["#008080"] %>
+    </div>
+
+    <div class="col-md-4 col-xl-4 col-sm-4" >
+      <%= column_chart @min_and_max_expenses, title:"Min e Max - Despesas", colors: ["#b00"] %>
     </div>
 
   </div>
