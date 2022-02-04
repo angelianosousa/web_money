@@ -1,24 +1,29 @@
-# README
+# Finantial Systema
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Project Description
+The objective from this project is to implement a financial system where the users may create your expenses or recipes e register transactions by month whenever they want e see on the graphics how much money they using e what accounts are more expensive.
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+### Dependencies
+---
 
-* System dependencies
+>* ruby 2.7.5
+>* rails .5.2.0
+>* Postgre SQL
 
-* Configuration
+### Build Project
+---
 
-* Database creation
+~~~ruby
+  - bundle install
+  - rails db:create db:migrate db:seeds
+~~~
 
-* Database initialization
+## Importants Links
+---
+[Projeto em produção][https://www.herokuapp.com/finantial-system.com.br]
 
-* How to run the test suite
+## Author
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Angeliano Sousa [LinkedIn](https://www.linkedin.com/in/angeliano-sousa/)
