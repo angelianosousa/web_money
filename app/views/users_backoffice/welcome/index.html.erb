@@ -5,36 +5,40 @@
 <% end %>
 
 <ul class="nav">
-  <%= form_with url: users_backoffice_welcome_index_path, local: true, method: :get, class:"form-inline my-2 my-lg-0" do |form| %>
-    <li class="nav-item">
-      <%
+  <%
 =begin%>
- <%= form.date_field :start_date, { class:"form-control-sm", style:"width:120px" } %>&nbsp;
-      <%= form.date_field :end_date, { class:"form-control-sm", style:"width:120px" } %>&nbsp; 
-<%
-=end%>
-      <%= form.select :period, options_for_select(["Dia", "Semana", "Mês", "Ano"]), { prompt: "Periodo" }, { class:"form-control-sm", style:"width:100px" } %>&nbsp;
+ <%= form_with url: users_backoffice_welcome_index_path, local: true, method: :get, class:"form-inline my-2 my-lg-0" do |form| %>
+    <li class="nav-item">
+      <%= form.date_field :start_date, { class:"form-control-sm", style:"width:150px" } %>&nbsp;
+      <%= form.date_field :end_date, { class:"form-control-sm", style:"width:150px" } %>&nbsp;
     </li>
     <li class="nav-item">
       &nbsp;<%= form.submit "Filtrar", class:"btn btn-info btn-sm my-2 my-sm-0"%>
     </li>
-  <% end %>
+  <% end %> 
+<%
+=end%>
 </ul>
 
+<% series_column_and_area_chart = [
+  { name: "Despesas", data: @expenses_per_account}, { name: "Receitas", data: @recipes_per_account}
+] %>
+
+<% options_column_and_area_chart = { 
+  title: "Receitas X Despesas",
+  xtitle: "Meses do ano",
+  ytitle: "R$ Valores",
+  dataLabels: { style: { fontSize: '12px', fontWeight: 'bold' } },
+  markers: { size: 8 },
+  chart: { stacked: true },
+  
+} %>
+
 <br><hr>
 
 <div class="row">
   <div class="col-xl-12 col-md-12 col-sm-12">
-
-    <h5>Receitas - R$ <%= @all_recipes %></h5>
-
-    <div class="col-md-6 col-xl-6 col-sm-6" >
-      <%= line_chart @category_recipes_per_date, title:"Receita por #{params[:period] ? "#{params[:period]}": "Mês"}", colors: ["#008080"] %>
-    </div>
-    <div class="col-md-6 col-xl-6 col-sm-6" >
-      <%= column_chart @recipes_per_account, title:"Receita por Contas", colors: ["#008080"] %>
-    </div>
-
+    <%= area_chart series_column_and_area_chart, {**options_column_and_area_chart, theme: {mode:'light', palette: 'palette7'}} %> 
   </div>
 </div>
 
@@ -42,29 +46,32 @@
 
 <div class="row">
   <div class="col-xl-12 col-md-12 col-sm-12">
-
-    <h5>Despesas - R$ <%= @all_expenses %></h5>
-
-    <div class="col-md-6 col-xl-6 col-sm-6" >
-      <%= line_chart @category_expenses_per_date, title:"Despesas por #{params[:period] ? "#{params[:period]}": "Dia"}", colors: ["#b00"] %>
+    <div class="col-xl-6 col-md-6 col-sm-6">
+      <%= column_chart series_column_and_area_chart.second, {**options_column_and_area_chart, colors: ["#008080"], title: "Receitas totais R$ #{@all_recipes}0", dataLabels: {style: {colors: ['#333']}, background: { enabled: true, foreColor: '#fff',}} } %>
     </div>
-    <div class="col-md-6 col-xl-6 col-sm-6" >
-      <%= column_chart @expenses_per_account, title:"Despesas por Contas", colors: ["#b00"] %>
+    <div class="col-xl-6 col-md-6 col-sm-6">
+      <%= column_chart series_column_and_area_chart.first, {**options_column_and_area_chart, colors: ["#b00"], title: "Despesas totais R$ #{@all_expenses}0", dataLabels: {style: {colors: ['#333']}, background: { enabled: true, foreColor: '#fff',}} } %>
     </div>
-
   </div>
 </div>
 
 <br><hr>
 
+<% series_balance = [
+  {name: "Receitas totais", data: @all_recipes}, {name: "Despesas totais", data: @all_expenses}
+] %>
+
+<% options_balance = {
+  title: "Balanço Geral - R$#{@all_recipes - @all_expenses}0",
+  colors: ['#008080']
+} %>
+
 <div class="row">
   <div class="col-xl-12 col-md-12 col-sm-12">
-
-    <h5>Balanço - R$ <%= @all_recipes - @all_expenses %></h5>
 
     <div class="col-md-4 col-xl-4 col-sm-4" >
-      <%= column_chart @balance, title:"Balanço Geral", colors: ["#008080", "#b00"] %>
-    </div>
+      <%= column_chart(@balance, {**options_balance}) %>
+    </div> 
 
     <div class="col-md-4 col-xl-4 col-sm-4" >
       <%= column_chart @min_and_max_recipes, title:"Min e Max - Receitas", colors: ["#008080"] %>

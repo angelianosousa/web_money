@@ -32,6 +32,7 @@ gem 'faker'
 gem 'tty-spinner'
 gem 'kaminari'
 gem "chartkick"
+gem 'apexcharts'
 gem 'groupdate'
 
 # Use ActiveStorage variant

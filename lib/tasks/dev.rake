@@ -1,5 +1,6 @@
 namespace :dev do
-  desc "TODO"
+  desc "Prepar environment for personal tests"
+
   task setup: :environment do
     spinner_show("Apagando banco de dados...") { %x(rails db:drop) }
     spinner_show("Criando novo banco de dados...") { %x(rails db:create) }
@@ -24,43 +25,43 @@ namespace :dev do
   end
 
   task add_recurrences: :environment do
-    contracts = ["Produto 01", "Produto 02", "Produto 03", "Produto 04", "Produto 05"]
-    expenses  = ["Conta de Luz", "Conta de Água", "Comida", "Internet", "TV a Cabo"]
 
-    contracts.each do |contract|
+    12.times do |product|
       Recurrence.create!(
         user_profile: User.last.user_profile,
         category: Category.first,
-        title: contract,
+        title: "Receita #{product + 1}",
         value: [1000, 1000, 2000, 3000, 4000].sample,
-        date_expire: Faker::Date.in_date_period
+        date_expire: "2022-#{product+1}-#{product+1}"
       )
     end
 
-    expenses.each do |expense|
+    12.times do |expense|
       Recurrence.create!(
         user_profile: User.last.user_profile,
         category: Category.second,
-        title: expense,
-        value: [500, 100, 600, 100, 120].sample,
-        date_expire: Faker::Date.in_date_period
+        title: "Despesa #{expense + 1}",
+        value: [1000, 1200, 700, 500, 320].sample,
+        date_expire: "2022-#{expense+1}-#{expense+1}"
       )
     end
 
   end
 
   task add_transactions: :environment do
-    50.times do
-      @recurrence = Recurrence.all.sample
 
-      Transaction.create!(
-        user_profile: User.last.user_profile,
-        recurrence: @recurrence,
-        title: "Pagamento: #{@recurrence.title}",
-        value: @recurrence.value,
-        date: @recurrence.date_expire
-      )
+    Recurrence.all.each do |recurrence|
+      rand(2..5).times do |transaction|
+        Transaction.create!(
+          user_profile: User.last.user_profile,
+          recurrence: recurrence,
+          title: "Pagamento: #{recurrence.title}",
+          value: recurrence.value,
+          date: recurrence.date_expire
+        )
+      end
     end
+
   end
 
   private

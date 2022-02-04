@@ -12,5 +12,9 @@
 //
 //= require activestorage
 //= require turbolinks
+//= require apexcharts
 //= require chartkick
 //= require Chart.bundle
+
+import ApexCharts from 'apexcharts'
+window.ApexCharts = ApexCharts

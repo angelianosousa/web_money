@@ -8,13 +8,13 @@ class UsersBackoffice::WelcomeController < UsersBackofficeController
     @recipes_per_account = Category.category_sumatory("Receita", @user_profile)
     @expenses_per_account = Category.category_sumatory("Despesa", @user_profile)
 
-    @category_recipes_per_date = Recurrence.category_per_date_expire(@user_profile, 1, params[:period])
-    @category_expenses_per_date = Recurrence.category_per_date_expire(@user_profile, 2, params[:period])
+    @category_recipes_per_date = Recurrence.category_per_date_expire(@user_profile, 1)
+    @category_expenses_per_date = Recurrence.category_per_date_expire(@user_profile, 2)
 
-    @balance = Recurrence.balance(@user_profile)
+    @balance = Category.balance(@user_profile, @all_recipes, @all_expenses)
 
-    @min_and_max_recipes = Recurrence.min_and_max_recipes(@user_profile)
-    @min_and_max_expenses = Recurrence.min_and_max_expenses(@user_profile)
+    @min_and_max_recipes = Recurrence.min_and_max_recurrences(@user_profile, 1)
+    @min_and_max_expenses = Recurrence.min_and_max_recurrences(@user_profile, 2)
   end
 
 end

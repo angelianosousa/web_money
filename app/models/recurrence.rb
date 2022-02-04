@@ -18,32 +18,13 @@ class Recurrence < ApplicationRecord
     end
   }
 
-  scope :category_per_date_expire, -> (user_profile, category, period){ 
-    recurrences = where(user_profile: user_profile, category_id: category).includes(:transactions)
-
-    if period.nil? || period == "Mês"
-      recurrences.group_by_month(:date_expire).sum(:value)  
-    elsif period == "Semana"
-      recurrences.group_by_week(:date_expire).sum(:value)  
-    elsif period == "Day"
-      recurrences.group_by_day(:date_expire).sum(:value)
-    elsif period == "Ano"
-      recurrences.group_by_year(:date_expire).sum(:value)  
-    end
+  scope :category_per_date_expire, -> (user_profile, category){
+    where(user_profile: user_profile, category_id: category).includes(:transactions).group_by_month(:date_expire, series: false, format: "%b %Y").sum(:value)
   }
 
-  scope :balance, ->(user_profile){ 
-    { 'Receita': where(category_id: 1, user_profile: user_profile).includes(:transactions).sum(:value), 
-      'Despesa': where(category_id: 2, user_profile: user_profile).includes(:transactions).sum(:value) }
-  }
-
-  scope :min_and_max_recipes, ->(user_profile){ 
-    account = where("category_id = 1 and user_profile_id = #{user_profile.id}").select(:title, :value)
+  scope :min_and_max_recurrences, ->(user_profile, category){ 
+    account = where("category_id = #{category} and user_profile_id = #{user_profile.id}")    
     { "#{account.minimum(:title)}": account.minimum(:value), "#{account.maximum(:title)}": account.maximum(:value) }
   }
 
-  scope :min_and_max_expenses, ->(user_profile){ 
-    account = where("category_id = 2 and user_profile_id = #{user_profile.id}").select(:title, :value)
-    { "#{account.minimum(:title)}": account.minimum(:value), "#{account.maximum(:title)}": account.maximum(:value) }
-  }
 end
