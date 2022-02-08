@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.9'
+ruby '2.7.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
@@ -29,6 +29,11 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'rails-i18n'
 gem 'faker'
+gem 'tty-spinner'
+gem 'kaminari'
+gem "chartkick"
+gem 'apexcharts'
+gem 'groupdate'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

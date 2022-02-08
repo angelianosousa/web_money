@@ -1,15 +1,15 @@
-<h2>Resend confirmation instructions</h2>
+<h2>Reenviar reset de senha</h2>
 
 <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+  <div class="form-group">
+    <%= f.label :Email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class:"form-control" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
+    <%= f.submit "Enviar", class:"btn btn-primary", style:"float:none;margin-left:0;" %>
   </div>
 <% end %>
 

@@ -1,24 +1,24 @@
-<h2>Change your password</h2>
+<h2>Mudar de senha</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
+  <div class="form-group">
+    <%= f.label :Senha %><br />
     <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+      <em>(<%= @minimum_password_length %> letras no minimo)</em><br />
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="form-group">
+    <%= f.label :Confirmar_senha %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Change my password" %>
+    <%= f.submit "Mudar senha", class:"btn btn-primary btn-block", style:"float:none;margin-left:0;" %>
   </div>
 <% end %>
 
