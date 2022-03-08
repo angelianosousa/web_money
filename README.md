@@ -6,14 +6,12 @@ The objective from this project is to implement a financial system where the use
 ## Getting Started
 
 ### Dependencies
----
 
 >* ruby 2.7.5
 >* rails .5.2.0
 >* Postgre SQL
 
 ### Build Project
----
 
 ~~~ruby
   - bundle install
@@ -21,8 +19,8 @@ The objective from this project is to implement a financial system where the use
 ~~~
 
 ## Importants Links
----
-[Projeto em produção][https://www.herokuapp.com/finantial-system.com.br]
+
+* Projeto em produção: <https://finantial-system.herokuapp.com/>
 
 ## Author
 
