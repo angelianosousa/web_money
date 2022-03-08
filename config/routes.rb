@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   
   namespace :users_backoffice do
     get 'welcome/index'
-    get 'welcome/index2'
     resources :recurrences, except: [:show, :new] do
       post 'payment'
     end
