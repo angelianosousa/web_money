@@ -1,4 +1,9 @@
 pt-BR:
+  number:
+    format:
+      delimiter: ","
+      separator: "."
+        
   errors:
     messages:
       expired: "expirou, por favor solicite uma nova"

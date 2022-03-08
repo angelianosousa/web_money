@@ -1,37 +1,25 @@
-<h4>Contas</h4> 
+<div class="container">
+  <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;">
+    <a class="navbar-brand" href="/users_backoffice/recurrences">Contas</a>
 
-<div class="row">
-
-  <div class="col-xl-6 col-md-6 col-sm-6">
-    <div class="row">
-
-      <div class="col-xl-2 col-md-2 col-sm-2">
-        <%= link_to "#", class:"btn btn-success btn-sm my-2 my-sm-3", "data-toggle":"modal", "data-target":"#newRecurrenceModal", style:"width:80px" do %>
-          <i class="fa fa-plus-square"></i>
-        <% end %>
-      </div>
-
-      <div class="col-xl-9 col-md-9 col-sm-9">
-        <%= form_with url: users_backoffice_recurrences_path, method: :get, local: true, class:"form-inline my-2 my-sm-2" do |form| %>
-          <%= form.select :recurrence_category, options_for_select([["Receita", 1], ["Despesa", 2]]), {}, {class:"form-control-sm",  style:"width:100px;"} %>&nbsp;
-          <%= form.submit "Filtrar", class:"btn btn-info btn-sm my-2 my-sm-2" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-xl-6 col-md-6 col-sm-6">
-    <%= form_with url: users_backoffice_recurrences_path, method: :get, local: true, class:" form-inline my-2 my-sm-3" do |form| %>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <%= form.search_field :title, class:"form-control-sm", style:"width:210px;" %>
-        </div>
-        <%= form.submit 'Pesquisar', class:"btn btn-success btn-sm" %>
-      </div>
+    <%= form_with url: users_backoffice_recurrences_path, method: :get, local: true, class:" form-inline my-2 my-lg-0" do |form| %>
+      <%= form.search_field :title, class:"form-control-sm mr-sm-2", style:"width:210px;" %>
+      <%= form.submit 'Pesquisar', class:"btn btn-outline-info btn-sm my-2 my-sm-0" %>
     <% end %>
-  </div>
-</div>
+  </nav>
+</div><br>
 
+<nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;">
+  <%= link_to "#", class:"btn btn-outline-info btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newRecurrenceModal", style:"width:80px" do %>
+    <i class="fa fa-plus-square"></i>
+  <% end %>
+
+  <%= form_with url: users_backoffice_recurrences_path, method: :get, local: true, class:"form-inline my-2 my-sm-2" do |form| %>
+    <%= form.select :recurrence_category, options_for_select([["Receita", 1], ["Despesa", 2]]), {}, {class:"form-control-sm",  style:"width:100px;"} %>&nbsp;
+    <%= form.submit "Filtrar", class:"btn btn-outline-info btn-sm my-2 my-sm-2" %>
+  <% end %>
+
+</nav><br>
 
 <%= render partial: "/users_backoffice/recurrences/search/my_recurrences" %>
 

@@ -3,20 +3,23 @@ class Category < ApplicationRecord
 
   validates :title, :badge, uniqueness: true
 
-  scope :category_sumatory, ->(title_category, user_profile){ 
-    find_by_title(title_category).recurrences.where(user_profile: user_profile).includes(:transactions).group_by_month(:date_expire, series: false, format: "%b %Y").sum(:value) 
+  scope :recipes_sumatory, ->(user_profile){ 
+    first.recurrences.where(user_profile: user_profile).includes(:transactions).group(:title).sum(:price_cents) 
+  }
+
+  scope :expenses_sumatory, ->(user_profile){ 
+    second.recurrences.where(user_profile: user_profile).includes(:transactions).group(:title).sum(:price_cents) 
   }
 
   scope :all_recipes, -> (user_profile){ 
-    first.recurrences.where(user_profile: user_profile).includes(:transactions).sum(:value)
+    first.recurrences.where(user_profile: user_profile).includes(:transactions).sum(:price_cents)
   }
 
   scope :all_expenses, -> (user_profile){ 
-    second.recurrences.where(user_profile: user_profile).includes(:transactions).sum(:value)
+    second.recurrences.where(user_profile: user_profile).includes(:transactions).sum(:price_cents)
   }
 
-  scope :balance, ->(user_profile, all_recipes, all_expenses){ 
-    { 'Receita': all_recipes, 
-      'Despesa': all_expenses }
+  scope :balance, ->(recipes, expenses){
+    recipes - expenses
   }
 end

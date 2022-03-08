@@ -26,9 +26,10 @@ ActiveRecord::Schema.define(version: 2022_02_02_005830) do
     t.bigint "user_profile_id"
     t.bigint "category_id"
     t.string "title"
-    t.decimal "value"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "BRL", null: false
     t.boolean "pay", default: false
-    t.datetime "date_expire"
+    t.datetime "date_expire", default: "2022-03-08 00:00:00"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_recurrences_on_category_id"
@@ -38,7 +39,8 @@ ActiveRecord::Schema.define(version: 2022_02_02_005830) do
   create_table "transactions", force: :cascade do |t|
     t.bigint "recurrence_id"
     t.string "title"
-    t.decimal "value"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "BRL", null: false
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

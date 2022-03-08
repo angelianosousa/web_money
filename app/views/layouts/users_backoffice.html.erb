@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -50,18 +50,22 @@
                 <ul class="nav side-menu">
                   <li>
                     <%= link_to users_backoffice_welcome_index_path do %>
-                      <i class="fa fa-dashboard"></i> Dashboard
+                      <i class="fa fa-bar-chart"></i> Dashboard
                     <% end %>
                   </li>
                 </ul>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bar-chart"></i> Finanças <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-money"></i> Finanças <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li>
-                        <%= link_to "Contas", users_backoffice_recurrences_path %>
+                        <%= link_to users_backoffice_recurrences_path do %>
+                          <i class='fa fa-calculator'></i> Contas
+                        <% end %>
                       </li>
                       <li>
-                        <%= link_to "Transações", users_backoffice_transactions_path %>
+                        <%= link_to users_backoffice_transactions_path do %>
+                          <i class='fa fa-exchange'></i> Movimentações
+                        <% end %>
                       </li>
                     </ul>
                   </li>

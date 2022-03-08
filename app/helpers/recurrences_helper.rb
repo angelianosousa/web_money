@@ -6,4 +6,8 @@ module RecurrencesHelper
   def count_transactions(recurrence)
     recurrence.transactions.count
   end
+
+  def color_recurrence(recurrence)
+    recurrence.category.title == "Receitas" ? 'background-color:#2E8B57;color:#F0F8FF;' : 'background-color:#DC143C;color:#F0F8FF;'
+  end
 end

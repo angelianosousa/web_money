@@ -8,6 +8,9 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
     else
       @recurrences = Recurrence._search_(params[:title], params[:page], current_user.user_profile, params[:recurrence_category])
     end
+    
+    @recurrences_recipes = Recurrence.where(user_profile_id: current_user.user_profile.id, category_id: 1).order(id: :desc)
+    @recurrences_expenses = Recurrence.where(user_profile_id: current_user.user_profile.id, category_id: 2).order(id: :desc)
   end
 
   def payment
@@ -16,7 +19,7 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
     @transaction = Transaction.new(
       recurrence_id: @recurrence.id,
       title: "Pagamento #{@recurrence.title}", 
-      value: "#{@recurrence.value}", 
+      price_cents: "#{@recurrence.price_cents}", 
       date: Date.today.to_datetime
     )
     
@@ -78,6 +81,6 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def recurrence_params
-      params.require(:recurrence).permit(:user_profile_id, :category_id, :title, :value, :date_expire)
+      params.require(:recurrence).permit(:user_profile_id, :category_id, :title, :price_cents, :date_expire)
     end
 end

@@ -4,12 +4,12 @@ one:
   user_profile: one
   category: one
   title: MyString
-  value: 9.99
+  price_cents: 9.99
   date_expire: 2022-01-29 00:10:31
 
 two:
   user_profile: two
   category: two
   title: MyString
-  value: 9.99
+  price_cents: 9.99
   date_expire: 2022-01-29 00:10:31

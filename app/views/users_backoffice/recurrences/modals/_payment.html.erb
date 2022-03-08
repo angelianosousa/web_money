@@ -13,9 +13,9 @@
 
           <div class="card text-white bg-dark mb-3">
             <div class="card-body">
-              <h5 class="card-title"><strong><%= form.label :'title:' %> </strong><%= "Pagamento: #{recurrence.title}" %></h5>
+              <h5 class="card-title"><strong><%= form.label :'Title:' %> </strong><%= "Pagamento: #{recurrence.title}" %></h5>
               <h5 class="card-title"><strong><%= form.label :'Category:' %> </strong><%= recurrence.category.title %></h5>
-              <p class="card-text"><strong><%= form.label :'value:' %> </strong><%= "R$ #{recurrence.value}" %> | <%= I18n.l(Date.today.to_date) %></p>
+              <p class="card-text"><strong><%= form.label :'Price_cents:' %> </strong><%= "R$#{recurrence.price_cents}" %> | <%= I18n.l(Date.today.to_date) %></p>
             </div>
           </div>
 
