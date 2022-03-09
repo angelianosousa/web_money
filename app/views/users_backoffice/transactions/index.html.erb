@@ -3,16 +3,13 @@
     <a class="navbar-brand" href="/users_backoffice/transactions">Transações</a>
 
     <%= form_with url: users_backoffice_transactions_path, method: :get, local: true, class:"form-inline my-2 my-lg-0" do |form| %>
-      <%= form.search_field :title, class:"form-control-sm mr-sm-2", style:"width:210px;" %>
+      <%= form.search_field :title, class:"form-control-sm mr-sm-2", style:"width:120px;", placeholder:"Pesquisar" %>
       <%= form.submit 'Pesquisar', class:"btn btn-outline-info btn-sm my-2 my-sm-0" %>
     <% end %>
   </nav>
 </div><br>
 
 <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;">
-  <%= link_to "#", class:"btn btn-outline-info btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:120px" do %>
-    <i class="fa fa-plus-square"></i> Nova Conta
-  <% end %>
 
   <%= form_with url: users_backoffice_transactions_path, method: :get, local: true, class:"form-inline my-2 my-sm-2" do |form| %>
     <%= form.select :order_per_attribute, options_for_select([["Titulo", :title], ["Data", :date], ["R$ Valor", :price_cents]]), {}, {class:"form-control-sm",  style:"width:100px;"} %>&nbsp;
@@ -20,6 +17,9 @@
     <%= form.submit "Filtrar", class:"btn btn-outline-info btn-sm my-2 my-sm-2" %>
   <% end %>
 
+  <%= link_to "#", class:"btn btn-outline-info btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:200px" do %>
+    <i class="fa fa-plus-square"></i> Nova Movimentação
+  <% end %>
 </nav><br>
 
 <%= render partial: "/users_backoffice/transactions/search/my_transactions" %>
