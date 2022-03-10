@@ -8,8 +8,6 @@ class UsersBackoffice::WelcomeController < UsersBackofficeController
     @recipes_per_account = Category.recipes_sumatory(@user_profile)
     @expenses_per_account = Category.expenses_sumatory(@user_profile)
 
-    @transactions_on_time = Transaction.transactions_on_time(@user_profile)
-
     # @category_recipes_per_date = Recurrence.category_per_date_expire(@user_profile, 1)
     # @category_expenses_per_date = Recurrence.category_per_date_expire(@user_profile, 2)
 
