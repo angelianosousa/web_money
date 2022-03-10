@@ -20,8 +20,4 @@ class Transaction < ApplicationRecord
       order("#{order_per_attribute}": :"#{up_down}").page(page)
     end
   }
-
-  scope :transactions_on_time, -> (user_profile){ 
-    where(user_profile: user_profile).group_by_month(:date).sum(:price_cents)
-  }
 end
