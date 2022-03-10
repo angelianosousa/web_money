@@ -85,6 +85,8 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.10.0)
+    et-orbi (1.2.7)
+      tzinfo
     execjs (2.8.1)
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
@@ -92,6 +94,9 @@ GEM
     ffi (1.15.5-java)
     ffi (1.15.5-x64-mingw32)
     ffi (1.15.5-x86-mingw32)
+    fugit (1.5.2)
+      et-orbi (~> 1.1, >= 1.1.8)
+      raabro (~> 1.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
     groupdate (6.0.1)
@@ -158,6 +163,7 @@ GEM
     public_suffix (4.0.6)
     puma (3.12.6)
     puma (3.12.6-java)
+    raabro (1.4.0)
     racc (1.6.0)
     racc (1.6.0-java)
     rack (2.2.3)
@@ -221,6 +227,9 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
+    sidekiq-cron (1.2.0)
+      fugit (~> 1.1)
+      sidekiq (>= 4.2.1)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -291,6 +300,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   sidekiq (~> 6.4)
+  sidekiq-cron (~> 1.1)
   spring
   spring-watcher-listen (~> 2.0.0)
   tty-spinner

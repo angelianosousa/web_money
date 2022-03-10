@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  require 'sidekiq/cron/web'
 
+  # Sidekiq routes
+  mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
+  
   devise_for :users
   
   namespace :users_backoffice do

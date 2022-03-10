@@ -1,10 +1,14 @@
-Sidekiq.configure_client do |config|
-  config.redis = { db: 1 }
-end
+# Sidekiq.configure_server do |config|
+#   config.redis = { url: 'redis://redis.example.com:7372/0' }
+# end
 
-Sidekiq.configure_server do |config|
-  config.redis = { db: 1 }
-  config.periodic do |job|
-    job.register('* * * * * *', "CreateReminder", tz: ActiveSupport::TimeZone.new("America/Fortaleza"))
-  end
+# Sidekiq.configure_client do |config|
+#   config.redis = { url: 'redis://redis.example.com:7372/0' }
+# end
+
+#initializers/sidekiq.rb
+schedule_file = "config/schedule.yml"
+
+if File.exist?(schedule_file) && Sidekiq.server?
+  Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
 end

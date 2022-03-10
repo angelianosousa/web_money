@@ -22,12 +22,12 @@ class User < ApplicationRecord
 
   def default_accounts
     # Receitas
-    Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Pagamento 1", price_cents: 200.00)
-    Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Pagamento 2", price_cents: 200.00)
-    Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Pagamento 3", price_cents: 350.00)
+    Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Pagamento 1", price_cents: 0, date_expire: Date.today)
+    Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Pagamento 2", price_cents: 0, date_expire: Date.today)
+    Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Pagamento 3", price_cents: 0, date_expire: Date.today)
     # Despesas
-    Recurrence.create(user_profile_id: User.last.id, category_id: 2, title:"Conta de Internet", price_cents: 100.00)
-    Recurrence.create(user_profile_id: User.last.id, category_id: 2, title:"Conta de Água", price_cents: 200.00)
-    Recurrence.create(user_profile_id: User.last.id, category_id: 2, title:"Conta de Luz", price_cents: 300.00)
+    Recurrence.create(user_profile_id: User.last.id, category_id: 2, title:"Conta de Internet", price_cents: 0, date_expire: Date.today)
+    Recurrence.create(user_profile_id: User.last.id, category_id: 2, title:"Conta de Água", price_cents: 0, date_expire: Date.today)
+    Recurrence.create(user_profile_id: User.last.id, category_id: 2, title:"Conta de Luz", price_cents: 0, date_expire: Date.today)
   end
 end
