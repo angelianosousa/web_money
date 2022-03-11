@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
     resources :transactions, except: [:show, :new]
     resources :notifications, only: [:index]
-    get '/notifications/mark_as_read/:id', to: "notifications#mark_as_read" 
+    patch '/notifications/mark_as_read/:id', to: "notifications#mark_as_read" 
   end
 
   root to: "users_backoffice/welcome#index"

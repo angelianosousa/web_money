@@ -6,7 +6,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
     unless params[:title] || params[:order_per_attribute] || params[:up_down]
       @transactions = Transaction.order(date: :asc).where(user_profile: current_user.user_profile).includes(:recurrence => :category).page(params[:page])
     else
-      @transactions = Transaction._search_(params[:title], params[:page], current_user.user_profile, params[:order_per_attribute], params[:up_down])
+      @transactions = Transaction._search_(params[:title], params[:page], current_user.user_profile.id, params[:order_per_attribute], params[:up_down])
     end
   end
 
@@ -17,9 +17,11 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
   # POST /transactions or /transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
+    @transaction.user_profile = current_user.user_profile
+    @transaction.category = Recurrence.find(@transaction.recurrence_id).category
 
     respond_to do |format|
-      if @transaction.save
+      if @transaction.save!
         format.html { redirect_to users_backoffice_transactions_url, notice: "Transação criada com sucesso!" }
         format.json { render :index, status: :created, location: @transaction }
       else

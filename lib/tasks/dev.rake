@@ -46,6 +46,7 @@ namespace :dev do
       rand(2..5).times do
         Transaction.create!(
           user_profile: User.last.user_profile,
+          category: recurrence.category,
           recurrence: recurrence,
           title: "Pagamento: #{recurrence.title}",
           price_cents: recurrence.price_cents,

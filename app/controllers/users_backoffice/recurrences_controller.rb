@@ -18,13 +18,14 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
     @transaction = Transaction.new(
       recurrence_id: @recurrence.id,
+      user_profile_id: @recurrence.user_profile_id,
       category_id: @recurrence.category_id,
-      title: "Pagamento #{@recurrence.title}", 
-      price_cents: "#{@recurrence.price_cents}", 
+      title: "Pagamento - #{@recurrence.title}",
+      price_cents: "#{@recurrence.price_cents}",
       date: Date.today.to_datetime
     )
     
-    if @transaction.save
+    if @transaction.save!
       @recurrence.update(pay: true)
       redirect_to users_backoffice_recurrences_url, notice: "Pagamento registrado com sucesso!"
     else

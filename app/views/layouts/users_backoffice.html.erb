@@ -11,7 +11,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'users_backoffice' %>
 
   </head>
@@ -100,24 +100,33 @@
                   </div>
                 </li>
                 <li role="presentation" class="nav-item dropdown open">
+                  <% @notifications_unread = Notification.unread(current_user.user_profile) %>
                   <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green"><%= Notification.all.count %></span>
+                    <span class="badge bg-green"><%= @notifications_unread.count %></span>
                   </a>
                   <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                    <% Notification.unread(current_user.user_profile).each do |notification| %>
+                    <% unless @notifications_unread.nil? %>
+                      <% @notifications_unread.each do |notification| %>
+                        <li class="nav-item">
+                          <div class="dropdown-item">
+                            <span class="icon"><i class='fa fa-warning text-danger'></i></span>
+                            <span>
+                              <span><strong><%= notification.title %></strong></span>
+                            </span><br>
+                            <span class="message">
+                              <%= notification.description %><br>
+                            </span>
+                            <%= link_to "Marcar como lido", users_backoffice_path(notification), method: :patch %>
+                          </div>
+                        </li>
+                      <% end %>
+                    <% else %>
                       <li class="nav-item">
-                        <div class="dropdown-item">
-                          <span class="icon"><i class='fa fa-warning text-danger'></i></span>
-                          <span>
-                            <span><strong><%= notification.title %></strong></span>
-                          </span><br>
+                        <div class="dropdown-item text-center">
                           <span class="message">
-                            <%= notification.description %>
+                            Sem notificações por aqui...
                           </span>
-                          <%= form_with url: users_backoffice_path(notification), local: true do |form| %>
-                            <%= form.submit "Marcar como lido" %>
-                          <% end %>
                         </div>
                       </li>
                     <% end %>
@@ -160,8 +169,8 @@
       </div>
     </div>
 
-      <%= javascript_include_tag 'application' %>
-      <%= javascript_include_tag 'users_backoffice' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'users_backoffice' %>
 
     <% if notice %>
       <%= javascript_tag do %>
