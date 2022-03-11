@@ -64,12 +64,7 @@
                       </li>
                       <li>
                         <%= link_to users_backoffice_transactions_path do %>
-                            <i class='fa fa-exchange' style='text-align:left;'></i> Movimentações
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to users_backoffice_notifications_path do %>
-                            <i class='fa fa-warning' style='text-align:left;'></i> Notificações
+                          <i class='fa fa-exchange' style='text-align:left;'></i> Movimentações
                         <% end %>
                       </li>
                     </ul>
@@ -121,7 +116,7 @@
                             <%= notification.description %>
                           </span>
                           <%= form_with url: users_backoffice_path(notification), local: true do |form| %>
-                            <%= form.button "Marcar como lido" %>
+                            <%= form.submit "Marcar como lido" %>
                           <% end %>
                         </div>
                       </li>

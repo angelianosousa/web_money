@@ -27,7 +27,7 @@
         <% else %>
           <% @notifications_unread.each do |notification| %>
             <div class='card-body'>
-              <strong><p class="card-title"><%= notification.title %></p></strong>
+              <p class="card-title"><span class='icon'><i class='fa fa-warning text-danger'></i></span> <strong><%= I18n.l notification.created_at.to_date %> | <%= notification.title %></strong></p>
               <p class='card-text'><%= notification.description %></p>
               <%= link_to "Marcar como lido", users_backoffice_path(notification), method: :patch %>
             </div>
@@ -43,7 +43,7 @@
         <% else %>
           <% @notifications_read.each do |notification| %>
             <div class='card-body'>
-              <strong><p class="card-title"><%= notification.title %></p></strong>
+              <p class="card-title"><span class='icon'><i class='fa fa-warning text-danger'></i></span> <strong><%= I18n.l notification.created_at.to_date %> | <%= notification.title %></strong></p>
               <p class='card-text'><%= notification.description %></p>
             </div>
           <% end %>
