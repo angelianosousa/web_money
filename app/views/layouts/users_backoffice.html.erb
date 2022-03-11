@@ -23,7 +23,7 @@
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <%= link_to users_backoffice_welcome_index_path, class:"site_title" do %>
-                <i class="fa fa-money"></i>  Finances System
+                <i class="fa fa-bank"></i>  Finances System
               <% end %>
             </div>
 
@@ -160,6 +160,9 @@
       </div>
     </div>
 
+      <%= javascript_include_tag 'application' %>
+      <%= javascript_include_tag 'users_backoffice' %>
+
     <% if notice %>
       <%= javascript_tag do %>
         $.bootstrapGrowl('<%= notice %>', {
@@ -169,8 +172,19 @@
           stackup_spacing: 10 // spacing between consecutively stacked growls.
         });
       <% end %>
+      <%= notice %>
     <% end %>
-    
-    <%= javascript_include_tag 'users_backoffice' %>
+
+    <% unless alert.nil? %>
+      <div id="error_explanation">
+
+        <ul>
+        <% alert.each do |key, value| %>
+          <li><%= "O Campo: #{key} #{value}" %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+     
   </body>
 </html>

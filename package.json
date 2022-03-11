@@ -10,6 +10,7 @@
     "chart.js": "^3.7.1",
     "chartkick": "^4.1.1",
     "font-awesome": "4.6.3",
-    "jquery": "2.2.4"
+    "jquery": "2.2.4",
+    "sweet-alert": "^2.0.5"
   }
 }
