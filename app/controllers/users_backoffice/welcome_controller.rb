@@ -11,7 +11,10 @@ class UsersBackoffice::WelcomeController < UsersBackofficeController
     # @category_recipes_per_date = Recurrence.category_per_date_expire(@user_profile, 1)
     # @category_expenses_per_date = Recurrence.category_per_date_expire(@user_profile, 2)
 
+    # TODO Gráfico de transações que são receitas organizadas por meses
     @transactions_recipes_per_date = nil#Transaction.transactions_recipes_per_date(@user_profile)
+    # TODO Gráfico de transações que são despesas organizadas por meses
+    @transactions_expenses_per_date = nil
 
     @balance = Category.balance(@all_recipes, @all_expenses)
 
