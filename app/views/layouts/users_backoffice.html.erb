@@ -67,6 +67,11 @@
                             <i class='fa fa-exchange' style='text-align:left;'></i> Movimentações
                         <% end %>
                       </li>
+                      <li>
+                        <%= link_to users_backoffice_notifications_path do %>
+                            <i class='fa fa-warning' style='text-align:left;'></i> Notificações
+                        <% end %>
+                      </li>
                     </ul>
                   </li>
               </div>
@@ -105,25 +110,27 @@
                     <span class="badge bg-green"><%= Notification.all.count %></span>
                   </a>
                   <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                    <% 3.times do %>
+                    <% Notification.unread(current_user.user_profile).each do |notification| %>
                       <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <div class="dropdown-item">
+                          <span class="icon"><i class='fa fa-warning text-danger'></i></span>
                           <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
+                            <span><strong><%= notification.title %></strong></span>
+                          </span><br>
                           <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
+                            <%= notification.description %>
                           </span>
-                        </a>
+                          <%= form_with url: users_backoffice_path(notification), local: true do |form| %>
+                            <%= form.button "Marcar como lido" %>
+                          <% end %>
+                        </div>
                       </li>
                     <% end %>
                     
                     <li class="nav-item">
                       <div class="text-center">
                         <a class="dropdown-item">
-                          <strong>See All Alerts</strong>
+                          <strong><%= link_to "Todas as notificações", users_backoffice_notifications_path %></strong>
                           <i class="fa fa-angle-right"></i>
                         </a>
                       </div>

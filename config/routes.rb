@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
-
+  
   # Sidekiq routes
   mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
   
@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     end
 
     resources :transactions, except: [:show, :new]
+    resources :notifications, only: [:index]
+    get '/notifications/mark_as_read/:id', to: "notifications#mark_as_read" 
   end
 
   root to: "users_backoffice/welcome#index"

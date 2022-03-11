@@ -24,12 +24,14 @@ ActiveRecord::Schema.define(version: 2022_03_09_232116) do
 
   create_table "notifications", force: :cascade do |t|
     t.bigint "recurrence_id"
+    t.bigint "user_profile_id"
     t.string "title"
     t.string "description"
-    t.string "link"
+    t.boolean "read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recurrence_id"], name: "index_notifications_on_recurrence_id"
+    t.index ["user_profile_id"], name: "index_notifications_on_user_profile_id"
   end
 
   create_table "recurrences", force: :cascade do |t|
@@ -39,7 +41,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_232116) do
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "BRL", null: false
     t.boolean "pay", default: false
-    t.datetime "date_expire", default: "2022-03-08 00:00:00"
+    t.datetime "date_expire", default: "2022-03-11 00:00:00"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_recurrences_on_category_id"
@@ -80,6 +82,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_232116) do
   end
 
   add_foreign_key "notifications", "recurrences"
+  add_foreign_key "notifications", "user_profiles"
   add_foreign_key "recurrences", "categories"
   add_foreign_key "recurrences", "user_profiles"
   add_foreign_key "transactions", "recurrences"
