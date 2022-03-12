@@ -32,7 +32,6 @@ gem 'faker'
 gem 'tty-spinner'
 gem 'kaminari'
 gem "chartkick"
-# gem 'apexcharts'
 gem 'groupdate'
 gem 'money-rails', '~>1.12'
 

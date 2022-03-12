@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h6 class="modal-title" id="paymentModalLabel"><strong>Pagar Conta: </strong><br><%= recurrence.title %></h6>
+        <h6 class="modal-title" id="paymentModalLabel"><strong>Conta: </strong><%= recurrence.title %></h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -11,11 +11,11 @@
       <div class="modal-body">
         <%= form_with url: users_backoffice_recurrence_payment_path(recurrence), local: true do |form| %>
 
-          <div class="card text-white bg-dark mb-3">
+          <div class="card mb-3" style='border-color:DarkSlateGray;'>
             <div class="card-body">
-              <h5 class="card-title"><strong><%= form.label :'Title:' %> </strong><%= "Pagamento: #{recurrence.title}" %></h5>
-              <h5 class="card-title"><strong><%= form.label :'Category:' %> </strong><%= recurrence.category.title %></h5>
-              <p class="card-text"><strong><%= form.label :'Price_cents:' %> </strong><%= "R$#{recurrence.price_cents}" %> | <%= I18n.l(Date.today.to_date) %></p>
+              <h5 class="card-title"><strong><%= form.label :'Titulo:' %> </strong><%= "Pagamento: #{recurrence.title}" %></h5>
+              <h5 class="card-title"><strong><%= form.label :'Categoria:' %> </strong><%= recurrence.category.title %></h5>
+              <p class="card-text"><strong><%= form.label :'Valor:' %> </strong><%= humanized_money_with_symbol recurrence.price_cents %> | <%= I18n.l(Date.today.to_date) %></p>
             </div>
           </div>
 

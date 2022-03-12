@@ -29,18 +29,26 @@ class Transaction < ApplicationRecord
     where("recurrence_id = #{recurrence} and user_profile_id = #{user_profile_id}").includes(:category).page(page)
   }
 
-  # Search transactions recipes classified per date
+  # Filter transactions recipes classified per date
   scope :transactions_recipes_per_date, -> (user_profile){
-    where(user_profile: user_profile, category_id: RECIPES).select(:title, :price_cents).group_by_day(:created_at, format: "%b %Y").sum(:price_cents)
+    where(user_profile: user_profile, category_id: RECIPES).group(:title).group_by_month(:date, format: "%b %Y").sum(:price_cents)
+  }
+
+  # Filter transactions expenses classified per date
+  scope :transactions_expenses_per_date, -> (user_profile){
+    where(user_profile: user_profile, category_id: EXPENSES).group(:title).group_by_month(:date, format: "%b %Y").sum(:price_cents)
   }
 
   # Filter per transactions recipes 
   scope :transactions_recipes, -> (user_profile){ 
-    where(user_profile: user_profile, category_id: RECIPES).sum(:price_cents)
+    where(user_profile: user_profile, category_id: RECIPES).group(:title).sum(:price_cents)
   }
 
   # Filter per transactions expenses
   scope :transactions_expenses, -> (user_profile){ 
-    where(user_profile: user_profile, category_id: EXPENSES).sum(:price_cents)
+    where(user_profile: user_profile, category_id: EXPENSES).group(:title).sum(:price_cents)
   }
+
+  # Balance for all moviments
+  scope :balance, ->(recipes, expenses){ recipes.values.sum - expenses.values.sum }
 end
