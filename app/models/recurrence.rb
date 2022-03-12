@@ -14,11 +14,11 @@ class Recurrence < ApplicationRecord
   paginates_per 12
 
   # Scope Methods
-  scope :_search_, ->(title, page, user_profile, recurrence_category){ 
-    unless recurrence_category
-      where("lower(title) LIKE ? and user_profile_id = #{user_profile.id}", "%#{title.downcase}%").page(page)
+  scope :_search_, ->(title, page, user_profile_id, category_id){ 
+    unless category_id
+      where("lower(title) LIKE ? and user_profile_id = ?", "%#{title.strip.downcase}%", "#{user_profile_id}").page(page)
     else
-      where(category_id: recurrence_category, user_profile_id: user_profile.id).page(page)
+      where(category_id: category_id, user_profile_id: user_profile_id).page(page)
     end
   }
 

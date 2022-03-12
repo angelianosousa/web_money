@@ -3,14 +3,14 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
   # GET /recurrences or /recurrences.json
   def index
-    unless params[:title] || params[:recurrence_category]
+    unless params[:title] || params[:category_id]
       @recurrences = Recurrence.where(user_profile_id: current_user.user_profile.id).order(id: :desc).page(params[:page])
     else
-      @recurrences = Recurrence._search_(params[:title], params[:page], current_user.user_profile, params[:recurrence_category])
+      @recurrences = Recurrence._search_(params[:title], params[:page], current_user.user_profile.id, params[:category_id])
     end
-    
-    @recurrences_recipes = Recurrence.where(user_profile_id: current_user.user_profile.id, category_id: 1).order(id: :desc)
-    @recurrences_expenses = Recurrence.where(user_profile_id: current_user.user_profile.id, category_id: 2).order(id: :desc)
+
+    @recurrences_recipes = Recurrence.where(user_profile_id: current_user.user_profile.id, category_id: 1).order(id: :desc).page(params[:page])
+    @recurrences_expenses = Recurrence.where(user_profile_id: current_user.user_profile.id, category_id: 2).order(id: :desc).page(params[:page])
   end
 
   def payment

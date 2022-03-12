@@ -1,27 +1,52 @@
 <div class="container">
   <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;">
     <a class="navbar-brand" href="/users_backoffice/transactions">Transações</a>
-
-    <%= form_with url: users_backoffice_transactions_path, method: :get, local: true, class:"form-inline my-2 my-lg-0" do |form| %>
-      <%= form.search_field :title, class:"form-control-sm mr-sm-2", style:"width:120px;", placeholder:"Pesquisar" %>
-      <%= form.submit 'Pesquisar', class:"btn btn-outline-info btn-sm my-2 my-sm-0" %>
-    <% end %>
   </nav>
 </div><br>
 
 <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;">
 
-  <%= form_with url: users_backoffice_transactions_path, method: :get, local: true, class:"form-inline my-2 my-sm-2" do |form| %>
-    <%= form.select :order_per_attribute, options_for_select([["Titulo", :title], ["Data", :date], ["R$ Valor", :price_cents]]), {}, {class:"form-control-sm",  style:"width:100px;"} %>&nbsp;
-    <%= form.select :up_down, options_for_select([["Ascendente", :asc], ["Decrescente", :desc]]), {}, {class:"form-control-sm",  style:"width:130px;"} %>&nbsp;
-    <%= form.submit "Filtrar", class:"btn btn-outline-info btn-sm my-2 my-sm-2" %>
-  <% end %>
+  <div class='' style='align-right'>
+    <%= link_to "#", class:"btn btn-outline-info btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:270px" do %>
+      <i class="fa fa-plus-square"></i> Nova Movimentação
+    <% end %>
 
-  <%= link_to "#", class:"btn btn-outline-info btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:200px" do %>
-    <i class="fa fa-plus-square"></i> Nova Movimentação
-  <% end %>
+    <a class="btn btn-outline-info btn-sm my-2 my-sm-0" data-toggle="collapse" href="#collapseSearch" role="button" aria-expanded="false" aria-controls="collapseSearch">
+      <span class='icon-bar'>
+        <span class='fa fa-search'></span>
+      </span>
+    </a>
+  </div>
+  <div class='pos-l-b' style='position: relative; bottom: 0px; left: 0px;'>
+    <%= form_with url: users_backoffice_transactions_path, method: :get, local: true, class:"collapse form-inline my-2 my-lg-0", id:"collapseSearch" do |form| %>
+      <%= form.search_field :title, class:"form-control-sm mr-sm-2", style:"width:230px;", placeholder:"Pesquisar Movimentação" %>
+      <%= form.submit 'Pesquisar', class:"btn btn-outline-info btn-sm my-2 my-sm-0" %>
+    <% end %>
+    <%= form_with url: users_backoffice_transactions_path, method: :get, local: true, class:"collapse form-inline my-2 my-lg-0", id:"collapseSearch" do |form| %>
+      <%= form.select :recurrence_id, Recurrence.order(:title).collect {|recurrence| [recurrence.title, recurrence.id]}, {}, {class:"form-control-sm mr-sm-2", style:"width:230px;", placeholder:"Pesquisar por conta"} %>
+      <%= form.submit 'Pesquisar', class:"btn btn-outline-info btn-sm my-2 my-sm-0" %>
+    <% end %>
+  </div>
 </nav><br>
 
-<%= render partial: "/users_backoffice/transactions/search/my_transactions" %>
+<div class="row">
+  <% @transactions.each do |transaction| %>
+    <div class="col-md-4 col-xl-4 col-sm-4">
+      <div class="card text-white bg-dark mb-12" style="margin-bottom:10px;">
+        <p class="card-header" style="<%= color_recurrence(transaction.recurrence) %>"><%= transaction.title.truncate(40) %></p>
+        <div class="card-body">
+          <p class="card-text" ><strong>Conta: </strong><%= transaction.recurrence.title.truncate(30) %></p>
+          <p class="card-text"><%= humanized_money_with_symbol(transaction.price_cents) %> | <%= I18n.l(transaction.date.to_date) %></p>
+          <%= link_to "", edit_users_backoffice_transaction_path(transaction), class:"btn btn-primary fa fa-edit" %>
+          <%= link_to "", users_backoffice_transaction_path(transaction), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @transactions, outer_window: 2 %>
+
+<%#= render partial: "/users_backoffice/transactions/search/my_transactions" %>
 
 <%= render partial: 'users_backoffice/transactions/modals/new_transaction', locals: { transaction: @transaction = Transaction.new} %>

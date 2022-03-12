@@ -3,10 +3,12 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # GET /transactions or /transactions.json
   def index
-    unless params[:title] || params[:order_per_attribute] || params[:up_down]
-      @transactions = Transaction.order(date: :asc).where(user_profile: current_user.user_profile).includes(:recurrence => :category).page(params[:page])
+    if params[:title]
+      @transactions = Transaction._search_transactions(params[:title], current_user.user_profile.id, params[:page])
+    elsif params[:recurrence_id]
+      @transactions = Transaction._search_transactions_per_recurrence(params[:recurrence_id], current_user.user_profile.id, params[:page])
     else
-      @transactions = Transaction._search_(params[:title], params[:page], current_user.user_profile.id, params[:order_per_attribute], params[:up_down])
+      @transactions = Transaction.order(date: :asc).where(user_profile: current_user.user_profile).includes(:recurrence => :category).page(params[:page])
     end
   end
 
