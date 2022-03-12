@@ -13,7 +13,7 @@
           <a class="nav-link active" id="pills-not_read-tab" data-toggle="pill" href="#pills-not_read" role="tab" aria-controls="pills-not_read" aria-selected="true">Não Lidas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Lidas</a>
+          <a class="nav-link" id="pills-read-tab" data-toggle="pill" href="#pills-read" role="tab" aria-controls="pills-read" aria-selected="false">Lidas</a>
         </li>
       </ul>
     </div>
@@ -35,7 +35,7 @@
         <% end %>
       </div>
 
-      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <div class="tab-pane fade" id="pills-read" role="tabpanel" aria-labelledby="pills-read-tab">
         <% if @notifications_read.empty? %>
           <div class='card-body' style="text-align:center">
             <p style="font-size:15px;">Sem notificações por aqui...</p>

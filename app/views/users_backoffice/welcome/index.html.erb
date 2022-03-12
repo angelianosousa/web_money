@@ -31,47 +31,72 @@
   </div>
 </div>
 
-<div class='row'>
-  <div class='col-md-12'>
-    <div class='card'>
-      <div class='card-body'>
-        <%= line_chart @transactions_recipes_per_date, title:"Movimentações na conta", colors: ["#008080"], curve: true  %>
+<div class="container">
+  <div class='card border-info' style='border-color:DarkSlateGray;'>
+    <div class="card-header bg-light text-center" >
+
+      <ul class="nav nav-pills" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-transactions-graphics-tab" data-toggle="pill" href="#pills-transactions-graphics" role="tab" aria-controls="pills-transactions-graphics" aria-selected="true">Transações</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-recurrence-graphics-tab" data-toggle="pill" href="#pills-recurrence-graphics" role="tab" aria-controls="pills-recurrence-graphics" aria-selected="false">Contas</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-transactions-graphics" role="tabpanel" aria-labelledby="pills-transactions-graphics-tab">
+        <div class='container' style='padding: 10px;'>
+          <div class='row'>
+            <div class='col-md-12'>
+              <div class='card'>
+                <div class='card-body'>
+                  <%= line_chart @transactions_recipes_per_date, title:"Movimentações na conta", colors: ["#008080"], curve: true  %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="pills-recurrence-graphics" role="tabpanel" aria-labelledby="pills-recurrence-graphics-tab">
+        <div class='container' style='padding: 10px;'>
+          <div class='row'>
+            <div class='col-md-6'>
+              <div class='card'>
+                <div class='card-body'>
+                  <%= column_chart @recipes_per_account, title:"Receitas", colors: ["#008080"] %>
+                </div>
+              </div>
+            </div>
+            <div class='col-md-6'>
+              <div class='card'>
+                <div class='card-body'>
+                  <%= column_chart @expenses_per_account, title:"Despesas", colors: ["#b00"] %>
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class='row'>
+            <div class='col-md-6'>
+              <div class='card'>
+                <div class='card-body'>
+                  <%= column_chart @min_and_max_recipes, title:"Min e Max - Receitas Recorrentes", colors: ["#008080"] %>
+                </div>
+              </div>
+            </div>
+            <div class='col-md-6'>
+              <div class='card'>
+                <div class='card-body'>
+                  <%= column_chart @min_and_max_expenses, title:"Min e Max - Despesas Recorrentes", colors: ["#b00"] %>
+                </div>
+              </div>
+            </div>
+          </div><br>
+        </div>
       </div>
     </div>
   </div>
 </div><br>
-
-<div class='row'>
-  <div class='col-md-6'>
-    <div class='card'>
-      <div class='card-body'>
-        <%= column_chart @recipes_per_account, title:"Receitas", colors: ["#008080"] %>
-      </div>
-    </div>
-  </div>
-  <div class='col-md-6'>
-    <div class='card'>
-      <div class='card-body'>
-        <%= column_chart @expenses_per_account, title:"Despesas", colors: ["#b00"] %>
-      </div>
-    </div>
-  </div>
-</div><br>
-
-<div class='row'>
-  <div class='col-md-6'>
-    <div class='card'>
-      <div class='card-body'>
-        <%= column_chart @min_and_max_recipes, title:"Min e Max - Receitas Recorrentes", colors: ["#008080"] %>
-      </div>
-    </div>
-  </div>
-  <div class='col-md-6'>
-    <div class='card'>
-      <div class='card-body'>
-        <%= column_chart @min_and_max_expenses, title:"Min e Max - Despesas Recorrentes", colors: ["#b00"] %>
-      </div>
-    </div>
-  </div>
-</div><br>
-
