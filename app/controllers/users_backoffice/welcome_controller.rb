@@ -2,17 +2,14 @@ class UsersBackoffice::WelcomeController < UsersBackofficeController
   def index
     @user_profile = current_user.user_profile
     
-    # Sums of moviments filter by recipes expenses
-    @all_recipes = Transaction.transactions_recipes(@user_profile)
-    @all_expenses = Transaction.transactions_expenses(@user_profile)
-    
-    # Balance of moviments
-    @balance = Transaction.balance(@all_recipes, @all_expenses)
-
     # Reccurrents objects filter by type of recurrence
+    # I'm use this for sum all recipes and expenses to make a balance and absolutes comparatives too
     @recipes_per_account = Transaction.transactions_recipes(@user_profile)
     @expenses_per_account = Transaction.transactions_expenses(@user_profile)
     
+    # Balance of moviments
+    @balance = Transaction.balance(@recipes_per_account, @expenses_per_account)
+
     # Movements objects filter by type of category
     @transactions_recipes_per_date = Transaction.transactions_recipes_per_date(@user_profile)
     @transactions_expenses_per_date = Transaction.transactions_expenses_per_date(@user_profile)

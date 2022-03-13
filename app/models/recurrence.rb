@@ -23,8 +23,9 @@ class Recurrence < ApplicationRecord
   }
 
   scope :min_and_max_recurrences, ->(user_profile, category){ 
-    account = where("category_id = #{category} and user_profile_id = #{user_profile.id}")    
-    { "#{account.minimum(:title)}": account.minimum(:price_cents), "#{account.maximum(:title)}": account.maximum(:price_cents) }
+    accounts_hash = where("category_id = #{category} and user_profile_id = #{user_profile.id}").group(:title).group_by_month(:date_expire, format:"%b %Y").minimum(:price_cents)
+    {accounts_hash.keys.min => accounts_hash.values.min, 
+      accounts_hash.keys.max => accounts_hash.values.max}
   }
 
 end
