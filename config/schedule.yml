@@ -1,0 +1,4 @@
+create_reminder_account:
+  cron: "* * * * * America/Fortaleza"
+  class: "CreateReminderJob"
+  queue: default

@@ -32,8 +32,8 @@ gem 'faker'
 gem 'tty-spinner'
 gem 'kaminari'
 gem "chartkick"
-gem 'apexcharts'
 gem 'groupdate'
+gem 'money-rails', '~>1.12'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -68,3 +68,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "sidekiq", "~> 6.4"
+gem "sidekiq-cron", "~> 1.1"

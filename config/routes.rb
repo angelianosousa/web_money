@@ -1,15 +1,21 @@
 Rails.application.routes.draw do
-
+  require 'sidekiq/web'
+  require 'sidekiq/cron/web'
+  
+  # Sidekiq routes
+  mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
+  
   devise_for :users
   
   namespace :users_backoffice do
     get 'welcome/index'
-    get 'welcome/index2'
     resources :recurrences, except: [:show, :new] do
       post 'payment'
     end
 
     resources :transactions, except: [:show, :new]
+    resources :notifications, only: [:index]
+    patch '/notifications/mark_as_read/:id', to: "notifications#mark_as_read" 
   end
 
   root to: "users_backoffice/welcome#index"
