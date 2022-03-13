@@ -1,38 +1,59 @@
-<h4>Contas</h4> 
-
-<div class="row">
-
-  <div class="col-xl-6 col-md-6 col-sm-6">
-    <div class="row">
-
-      <div class="col-xl-2 col-md-2 col-sm-2">
-        <%= link_to "#", class:"btn btn-success btn-sm my-2 my-sm-3", "data-toggle":"modal", "data-target":"#newRecurrenceModal", style:"width:80px" do %>
-          <i class="fa fa-plus-square"></i>
-        <% end %>
-      </div>
-
-      <div class="col-xl-9 col-md-9 col-sm-9">
-        <%= form_with url: users_backoffice_recurrences_path, method: :get, local: true, class:"form-inline my-2 my-sm-2" do |form| %>
-          <%= form.select :recurrence_category, options_for_select([["Receita", 1], ["Despesa", 2]]), {}, {class:"form-control-sm",  style:"width:100px;"} %>&nbsp;
-          <%= form.submit "Filtrar", class:"btn btn-info btn-sm my-2 my-sm-2" %>
-        <% end %>
-      </div>
+<div class="container">
+  <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;">
+    <div class=''>
+      <a class="navbar-brand" href="/users_backoffice/recurrences">Contas</a>
     </div>
-  </div>
+  </nav>
+</div><br>
 
-  <div class="col-xl-6 col-md-6 col-sm-6">
-    <%= form_with url: users_backoffice_recurrences_path, method: :get, local: true, class:" form-inline my-2 my-sm-3" do |form| %>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <%= form.search_field :title, class:"form-control-sm", style:"width:210px;" %>
-        </div>
-        <%= form.submit 'Pesquisar', class:"btn btn-success btn-sm" %>
-      </div>
+<nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;">
+
+  <div class='' style='align-right'>
+    <%= link_to "#", class:"btn btn-outline-info btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newRecurrenceModal", style:"width:270px" do %>
+      <i class="fa fa-plus-square"></i> Nova Conta
+    <% end %>
+
+    <a class="btn btn-outline-info btn-sm my-2 my-sm-0" data-toggle="collapse" href="#collapseSearch" role="button" aria-expanded="false" aria-controls="collapseSearch">
+      <span class='icon-bar'>
+        <span class='fa fa-search'></span>
+      </span>
+    </a>
+  </div>
+  <div class='pos-l-b' style='position: relative; bottom: 0px; left: 0px;'>
+    <%= form_with url: users_backoffice_recurrences_path, method: :get, local: true, class:"collapse form-inline my-2 my-lg-0", id:"collapseSearch" do |form| %>
+      <%= form.search_field :title, class:"form-control-sm mr-sm-2", style:"width:230px;", placeholder:"Pesquisar Conta" %>
+      <%= form.submit 'Pesquisar', class:"btn btn-outline-info btn-sm my-2 my-sm-0" %>
+    <% end %>
+    <%= form_with url: users_backoffice_recurrences_path, method: :get, local: true, class:"collapse form-inline my-2 my-lg-0", id:"collapseSearch" do |form| %>
+      <%= form.select :category_id, Category.order(:title).collect {|category| [category.title, category.id]}, {}, {class:"form-control-sm mr-sm-2", style:"width:230px;", placeholder:"Pesquisar por conta"} %>
+      <%= form.submit 'Pesquisar', class:"btn btn-outline-info btn-sm my-2 my-sm-0" %>
     <% end %>
   </div>
+</nav><br>
+
+<div class="row">
+  <% @recurrences.each do |recurrence| %>
+    <div class="col-md-4 col-xl-4 col-sm-4">
+      <div class="card text-white bg-dark mb-12" style="margin-bottom:10px;">
+        <p class="card-header" style="<%= color_recurrence(recurrence) %>"><label class="badge badge-primary"><%= count_transactions(recurrence) %></label>&nbsp;&nbsp;<%= recurrence.title.truncate(30) %></p>
+        <div class="card-body">
+          <strong>Informações da Conta: </strong>
+          <p class="card-text"><%= humanized_money_with_symbol(recurrence.price_cents)  %> | <%= recurrence.date_expire.to_date.strftime('%d de %b') %></p>
+          <div class='card-footer text-center'>
+            <%= link_to "", class:"btn btn-info", "data-toggle":"modal", "data-target":"#paymentModal_#{recurrence.id}", style:"color:white;font-size:9px;" do %>
+              <i class="fa fa-money"></i>
+            <% end %>
+            <%= link_to "", edit_users_backoffice_recurrence_path(recurrence), class:"btn btn-primary fa fa-edit" %>
+            <%= link_to "", users_backoffice_recurrence_path(recurrence), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render partial: 'users_backoffice/recurrences/modals/payment', locals: { recurrence: recurrence } %>
+  <% end %>
 </div>
 
-
-<%= render partial: "/users_backoffice/recurrences/search/my_recurrences" %>
+<%= paginate @recurrences, outer_window: 3 %>
 
 <%= render partial: 'users_backoffice/recurrences/modals/new_recurrence', locals: { recurrence: @recurrence = Recurrence.new} %>

@@ -3,10 +3,10 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
   # GET /recurrences or /recurrences.json
   def index
-    unless params[:title] || params[:recurrence_category]
+    unless params[:title] || params[:category_id]
       @recurrences = Recurrence.where(user_profile_id: current_user.user_profile.id).order(id: :desc).page(params[:page])
     else
-      @recurrences = Recurrence._search_(params[:title], params[:page], current_user.user_profile, params[:recurrence_category])
+      @recurrences = Recurrence._search_(params[:title], params[:page], current_user.user_profile.id, params[:category_id])
     end
   end
 
@@ -15,14 +15,16 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
     @transaction = Transaction.new(
       recurrence_id: @recurrence.id,
-      title: "Pagamento #{@recurrence.title}", 
-      value: "#{@recurrence.value}", 
+      user_profile_id: @recurrence.user_profile_id,
+      category_id: @recurrence.category_id,
+      title: "Pagamento - #{@recurrence.title}",
+      price_cents: "#{@recurrence.price_cents}",
       date: Date.today.to_datetime
     )
     
-    if @transaction.save
+    if @transaction.save!
       @recurrence.update(pay: true)
-      redirect_to users_backoffice_recurrences_url, notice: "Transação criada com sucesso!"
+      redirect_to users_backoffice_recurrences_url, notice: "Pagamento registrado com sucesso!"
     else
       redirect_to users_backoffice_recurrences_url, alert: @recurrence.errors.full_messages
     end
@@ -35,13 +37,14 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
   # POST /recurrences or /recurrences.json
   def create
     @recurrence = Recurrence.new(recurrence_params)
+    @recurrence.user_profile = current_user.user_profile
 
     respond_to do |format|
       if @recurrence.save
-        format.html { redirect_to users_backoffice_recurrences_url, notice: "Recurrence was successfully created." }
+        format.html { redirect_to users_backoffice_recurrences_url, notice: "Conta criada com sucesso!" }
         format.json { render :index, status: :created, location: @recurrence }
       else
-        format.html { redirect_to users_backoffice_recurrences_url, alert: @recurrence.errors.full_messages }
+        format.html { redirect_to users_backoffice_recurrences_url, alert: @recurrence.errors }
         format.json { render json: @recurrence.errors, status: :unprocessable_entity }
       end
     end
@@ -51,7 +54,7 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
   def update
     respond_to do |format|
       if @recurrence.update(recurrence_params)
-        format.html { redirect_to users_backoffice_recurrences_url, notice: "Recurrence was successfully updated." }
+        format.html { redirect_to users_backoffice_recurrences_url, notice: "Conta atualizada com sucesso!" }
         format.json { redirect_to users_backoffice_recurrences_url, status: :ok, location: @recurrence }
       else
         format.html { render :edit, alert: @recurrence.errors.full_messages }
@@ -65,7 +68,7 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
     @recurrence.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_backoffice_recurrences_url, notice: "Recurrence was successfully destroyed." }
+      format.html { redirect_to users_backoffice_recurrences_url, notice: "Conta apagada com sucesso!" }
       format.json { head :no_content }
     end
   end
@@ -78,6 +81,6 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def recurrence_params
-      params.require(:recurrence).permit(:user_profile_id, :category_id, :title, :value, :date_expire)
+      params.require(:recurrence).permit(:user_profile_id, :category_id, :title, :price_cents, :date_expire)
     end
 end

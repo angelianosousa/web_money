@@ -3,10 +3,12 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # GET /transactions or /transactions.json
   def index
-    unless params[:title] || params[:order_per_attribute] || params[:up_down]
-      @transactions = Transaction.order(date: :asc).where(user_profile: current_user.user_profile).includes(:recurrence => :category).page(params[:page])
+    if params[:title]
+      @transactions = Transaction._search_transactions(params[:title], current_user.user_profile.id, params[:page])
+    elsif params[:recurrence_id]
+      @transactions = Transaction._search_transactions_per_recurrence(params[:recurrence_id], current_user.user_profile.id, params[:page])
     else
-      @transactions = Transaction._search_(params[:title], params[:page], current_user.user_profile, params[:order_per_attribute], params[:up_down])
+      @transactions = Transaction.order(date: :asc).where(user_profile: current_user.user_profile).includes(:recurrence => :category).page(params[:page])
     end
   end
 
@@ -17,9 +19,11 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
   # POST /transactions or /transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
+    @transaction.user_profile = current_user.user_profile
+    @transaction.category = Recurrence.find(@transaction.recurrence_id).category
 
     respond_to do |format|
-      if @transaction.save
+      if @transaction.save!
         format.html { redirect_to users_backoffice_transactions_url, notice: "Transação criada com sucesso!" }
         format.json { render :index, status: :created, location: @transaction }
       else
@@ -60,6 +64,6 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:recurrence_id, :title, :value, :date)
+      params.require(:transaction).permit(:recurrence_id, :category_id, :title, :price_cents, :date)
     end
 end

@@ -4,9 +4,9 @@ class CreateRecurrences < ActiveRecord::Migration[5.2]
       t.references :user_profile, foreign_key: true
       t.references :category, foreign_key: true
       t.string :title
-      t.decimal :value
+      t.monetize :price, default: 1.00
       t.boolean :pay, default: false
-      t.datetime :date_expire
+      t.datetime :date_expire, default: Date.today
 
       t.timestamps
     end

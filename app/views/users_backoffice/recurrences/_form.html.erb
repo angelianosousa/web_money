@@ -3,21 +3,21 @@
   <div class="row">
     <div class="col">
       <div class="form-group">
-        <%= form.label :title %>
+        <%= form.label :'Titulo da conta' %>
         <%= form.text_field :title, class:"form-control" %>
       </div>
       <div class="form-group">
-        <%= form.label :value %>
-        <%= form.number_field :value, class:"form-control" %>
+        <%= form.label :Valor %>
+        <%= form.number_field :price_cents, class:"form-control" %>
       </div>
     </div>
     <div class="col">
       <div class="form-group">
-        <%= form.label :date_expire %>
+        <%= form.label :'Data de vencimento' %>
         <%= form.datetime_field :date_expire, class:"form-control" %>
       </div>
       <div class="form-group">
-        <%= form.label :category %>
+        <%= form.label :'Categoria' %>
         <%= select "recurrence", "category_id", categories_select, {}, {class:"form-control"} %>
       </div>
     </div>
@@ -42,7 +42,7 @@
             <p class="card-header" style="background-color:DarkSlateGray;color:#F0F8FF;"><label class="badge badge-primary"><%= count_transactions(recurrence) %></label>&nbsp;&nbsp;<%= recurrence.title.truncate(30) %></p>
             <div class="card-body">
               <strong>Categoria: </strong><p class="card-title badge badge-<%= recurrence.category.badge %>" ><%= recurrence.category.title %></p>
-              <p class="card-text">R$ <%= recurrence.value %> | <%= I18n.l(recurrence.date_expire.to_date) %></p>
+              <p class="card-text"> <%= humanized_money_with_symbol(recurrence.price_cents) %> | <%= I18n.l(recurrence.date_expire.to_date) %></p>
               <%= link_to "", edit_users_backoffice_recurrence_path(recurrence), class:"btn btn-primary fa fa-edit" %>
               <%= link_to "", users_backoffice_recurrence_path(recurrence), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
             </div>
