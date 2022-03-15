@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 2022_03_11_181511) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
-    t.string "badge"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,7 +40,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_181511) do
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "BRL", null: false
     t.boolean "pay", default: false
-    t.datetime "date_expire", default: "2022-03-12 00:00:00"
+    t.datetime "date_expire", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_recurrences_on_category_id"

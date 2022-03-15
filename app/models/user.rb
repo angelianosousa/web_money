@@ -13,8 +13,8 @@ class User < ApplicationRecord
     UserProfile.create(user_id: User.last.id)
 
     # Category default
-    Category.create(title: "Receitas", badge:"success")
-    Category.create(title: "Despesas", badge:"danger")
+    Category.create(title: "Receitas")
+    Category.create(title: "Despesas")
 
     # Receitas
     Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Recebimento 1", price_cents: 1, date_expire: Date.today)

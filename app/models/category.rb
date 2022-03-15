@@ -2,5 +2,5 @@ class Category < ApplicationRecord
   has_many :recurrences
   has_many :transactions
 
-  validates :title, :badge, uniqueness: true
+  validates :title, uniqueness: true
 end

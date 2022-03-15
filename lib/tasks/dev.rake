@@ -1,12 +1,12 @@
 namespace :dev do
-  desc "Prepar environment for personal tests"
+  desc "Prepare environment for personal tests"
 
   task setup: :environment do
     spinner_show("Apagando banco de dados...") { %x(rails db:drop) }
     spinner_show("Criando novo banco de dados...") { %x(rails db:create) }
     spinner_show("Construindo tabelas do banco...") { %x(rails db:migrate) }
     spinner_show("Criando usuário padrão...") { %x(rails dev:add_default_user) }
-    # spinner_show("Criando recorrências exemplo...") { %x(rails dev:add_recurrences) }
+    spinner_show("Criando recorrências exemplo...") { %x(rails dev:add_recurrences) }
     spinner_show("Criando transações exemplo...") { %x(rails dev:add_transactions) }
   end
 

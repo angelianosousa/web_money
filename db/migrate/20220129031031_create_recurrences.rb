@@ -6,7 +6,7 @@ class CreateRecurrences < ActiveRecord::Migration[5.2]
       t.string :title
       t.monetize :price, default: 1.00
       t.boolean :pay, default: false
-      t.datetime :date_expire, default: Date.today
+      t.datetime :date_expire, null: false
 
       t.timestamps
     end
