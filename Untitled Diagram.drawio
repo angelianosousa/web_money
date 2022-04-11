@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-04-11T23:47:55.647Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36" etag="JZuUb-IZL-1G1cjdlP4i" version="16.6.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2022-04-11T23:52:12.053Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36" etag="as9K_T_cdHJYQ72ePB6w" version="16.6.1" type="github" pages="4">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Finantial System">
     <mxGraphModel dx="868" dy="419" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -968,7 +968,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="tRbe1-i1sXlF3FVpKPHm" name="Page-4">
-    <mxGraphModel dx="868" dy="1588" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1695" dy="1588" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="g8qrG6c9t8UkVs4uU2Zl-0" />
         <mxCell id="g8qrG6c9t8UkVs4uU2Zl-1" parent="g8qrG6c9t8UkVs4uU2Zl-0" />
@@ -1006,6 +1006,12 @@
         </mxCell>
         <mxCell id="g8qrG6c9t8UkVs4uU2Zl-41" value="Nossos Cursos" style="fillColor=none;strokeColor=none;fontSize=14;fontColor=#1A1A1A;align=center;spacingRight=0;fontStyle=1" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-29">
           <mxGeometry x="382" y="10" width="103.8" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="g8qrG6c9t8UkVs4uU2Zl-42" value="&lt;b style=&quot;font-size: 30px;&quot;&gt;Nome do Curso&lt;/b&gt;" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;fontSize=30;fontColor=#1A1A1A;" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-1">
+          <mxGeometry x="290" y="-990" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="g8qrG6c9t8UkVs4uU2Zl-43" value="&lt;font style=&quot;font-size: 13px&quot;&gt;&lt;strong style=&quot;margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: &amp;quot;open sans&amp;quot;, arial, sans-serif; text-align: justify;&quot;&gt;Lorem Ipsum&lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;open sans&amp;quot;, arial, sans-serif; text-align: justify;&quot;&gt;&amp;nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.&lt;/span&gt;&lt;/font&gt;" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];rounded=0;fontSize=30;horizontal=1;labelBackgroundColor=none;shadow=0;" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-1">
+          <mxGeometry x="-710" y="-955" width="2140" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
