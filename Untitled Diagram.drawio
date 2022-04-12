@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-04-12T01:26:18.730Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36" etag="m9gPvQtJWnDqB4A2m3Wl" version="16.6.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2022-04-12T01:28:15.107Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36" etag="GDXYfZZ0ulbEt0SQWwao" version="16.6.1" type="github" pages="4">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Finantial System">
     <mxGraphModel dx="868" dy="419" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -1070,7 +1070,7 @@
           <mxGeometry x="308" y="-430" width="212" height="30" as="geometry" />
         </mxCell>
         <mxCell id="g8qrG6c9t8UkVs4uU2Zl-91" value="&lt;b&gt;Formação&lt;/b&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Graduando em Odontologia - USP&lt;/li&gt;&lt;li&gt;Mestrado em Cirurgia e Traumatologia Bucomaxilofacial - USP&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;b&gt;Área de Estudo&lt;/b&gt;&lt;br&gt;Diagnóstico, prevenção e correção de dentes e maxilares malposicionados.&lt;br&gt;&lt;br&gt;&lt;b&gt;Certificações&lt;/b&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Certificação x&lt;/li&gt;&lt;li&gt;Certificação y&lt;/li&gt;&lt;li&gt;Certificação z&lt;/li&gt;&lt;/ul&gt;" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#999999;strokeWidth=1;fillColor=#FFFFFF;fontColor=#6C767D;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=10;fontSize=14;spacing=10;rounded=0;labelBackgroundColor=none;labelBorderColor=none;" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-1">
-          <mxGeometry x="354" y="-260" width="356" height="360" as="geometry" />
+          <mxGeometry x="354" y="-260" width="356" height="370" as="geometry" />
         </mxCell>
         <mxCell id="g8qrG6c9t8UkVs4uU2Zl-90" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.containers.userMale;strokeColor=#666666;strokeColor2=#008cff;rounded=0;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=#3399FF;" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-1">
           <mxGeometry x="118" y="-260" width="212" height="220" as="geometry" />
@@ -1079,13 +1079,16 @@
           <mxGeometry x="118" y="-40" width="212" height="150" as="geometry" />
         </mxCell>
         <mxCell id="g8qrG6c9t8UkVs4uU2Zl-94" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.facebook;fillColor=#6294E4;gradientColor=#1A2665;rounded=0;shadow=0;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=#3399FF;strokeColor=default;" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-1">
-          <mxGeometry x="177" y="70" width="20" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="g8qrG6c9t8UkVs4uU2Zl-95" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.google_plus;fillColor=#F24B46;gradientColor=#AD3832;rounded=0;shadow=0;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=#3399FF;strokeColor=default;" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-1">
-          <mxGeometry x="214" y="70" width="20" height="20" as="geometry" />
+          <mxGeometry x="177" y="74" width="20" height="20" as="geometry" />
         </mxCell>
         <mxCell id="g8qrG6c9t8UkVs4uU2Zl-96" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.linkedin;fillColor=#0095DB;gradientColor=#006391;rounded=0;shadow=0;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=#6C767D;strokeColor=default;" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-1">
-          <mxGeometry x="252" y="70" width="18" height="20" as="geometry" />
+          <mxGeometry x="252" y="74" width="18" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g8qrG6c9t8UkVs4uU2Zl-97" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.whatsapp;fillColor=#4FE238;gradientColor=#138709;rounded=0;shadow=0;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=#6C767D;strokeColor=default;" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-1">
+          <mxGeometry x="261" y="-810" width="33" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="g8qrG6c9t8UkVs4uU2Zl-98" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.twitter;fillColor=#49EAF7;gradientColor=#137BD0;rounded=0;shadow=0;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=#6C767D;strokeColor=default;" vertex="1" parent="g8qrG6c9t8UkVs4uU2Zl-1">
+          <mxGeometry x="213" y="73" width="22" height="22" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
