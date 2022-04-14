@@ -11,7 +11,7 @@ namespace :dev do
   end
 
   task add_default_user: :environment do
-    User.find_or_create_by!(email:"user@user.com", password:"user123", password_confirmation:"user123")
+    User.create(email:"user@user.com", password:"user123", password_confirmation:"user123")
   end
 
   desc "Adicionar contas ficticias"

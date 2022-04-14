@@ -11,11 +11,12 @@ class UsersBackoffice::WelcomeController < UsersBackofficeController
     @balance = Transaction.balance(@recipes_per_account, @expenses_per_account)
 
     # Movements objects filter by type of category
-    @transactions_recipes_per_date = Transaction.transactions_recipes_per_date(@user_profile)
-    @transactions_expenses_per_date = Transaction.transactions_expenses_per_date(@user_profile)
+    @recurrences_recipes_per_month = Recurrence.recurrences_per_period(@user_profile, "month", 1)
+    @recurrences_recipes_per_week = Recurrence.recurrences_per_period(@user_profile, "week", 1)
+    @recurrences_recipes_per_year = Recurrence.recurrences_per_period(@user_profile, "year", 1)
 
-    # Min and Max by recipes and expenses
-    @min_and_max_recipes = Recurrence.min_and_max_recurrences(@user_profile, 1)
-    @min_and_max_expenses = Recurrence.min_and_max_recurrences(@user_profile, 2)
+    @recurrences_expenses_per_month = Recurrence.recurrences_per_period(@user_profile, "month", 2)
+    @recurrences_expenses_per_week = Recurrence.recurrences_per_period(@user_profile, "week", 2)
+    @recurrences_expenses_per_year = Recurrence.recurrences_per_period(@user_profile, "year", 2)
   end
 end

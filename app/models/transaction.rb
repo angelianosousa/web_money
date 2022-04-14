@@ -30,13 +30,25 @@ class Transaction < ApplicationRecord
   }
 
   # Filter transactions recipes classified per date
-  scope :transactions_recipes_per_date, -> (user_profile){
-    where(user_profile: user_profile, category_id: RECIPES).group(:title).group_by_month(:date, format: "%b %Y").sum(:price_cents)
+  scope :transactions_recipes_per, -> (user_profile, period){
+    if period == "month"
+      where(user_profile: user_profile, category_id: RECIPES).group_by_month(:date, format: "%b %Y").group(:title).sum(:price_cents)
+    elsif period == "year"
+      where(user_profile: user_profile, category_id: RECIPES).group_by_year(:date, format: "%b %Y").group(:title).sum(:price_cents)
+    else
+      where(user_profile: user_profile, category_id: RECIPES).group_by_week(:date, format: "%b %Y", week_start: :monday).group(:title).sum(:price_cents)
+    end
   }
 
   # Filter transactions expenses classified per date
-  scope :transactions_expenses_per_date, -> (user_profile){
-    where(user_profile: user_profile, category_id: EXPENSES).group(:title).group_by_month(:date, format: "%b %Y").sum(:price_cents)
+  scope :transactions_expenses_per, -> (user_profile, period){
+    if period == "month"
+      where(user_profile: user_profile, category_id: EXPENSES).group(:title).group_by_month(:date, format: "%b %Y").sum(:price_cents)
+    elsif period == "year"
+      where(user_profile: user_profile, category_id: EXPENSES).group(:title).group_by_year(:date, format: "%b %Y").sum(:price_cents)
+    else
+      where(user_profile: user_profile, category_id: EXPENSES).group(:title).group_by_week(:date, format: "%b %Y", week_start: :monday).sum(:price_cents)
+    end
   }
 
   # Filter per transactions recipes
