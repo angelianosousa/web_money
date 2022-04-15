@@ -29,6 +29,8 @@
   </div>
 <% end %>
 
+<br>
+
 <div class="col-md-12 col-sm-12  ">
   <div class="x_panel">
     <div class="x_title">
@@ -39,12 +41,12 @@
       <% @recurrence.transactions.each do |transaction| %>
         <div class="col-md-4 col-xl-4 col-sm-4">
           <div class="card text-white bg-dark mb-12" style="margin-bottom:10px;">
-            <p class="card-header" style="background-color:DarkSlateGray;color:#F0F8FF;"><label class="badge badge-primary"><%= count_transactions(recurrence) %></label>&nbsp;&nbsp;<%= recurrence.title.truncate(30) %></p>
+            <p class="card-header" style="<%= color_recurrence(transaction.recurrence) %>"><%= transaction.title.truncate(40) %></p>
             <div class="card-body">
-              <strong>Categoria: </strong><p class="card-title badge badge-<%= recurrence.category.badge %>" ><%= recurrence.category.title %></p>
-              <p class="card-text"> <%= humanized_money_with_symbol(recurrence.price_cents) %> | <%= I18n.l(recurrence.date_expire.to_date) %></p>
-              <%= link_to "", edit_users_backoffice_recurrence_path(recurrence), class:"btn btn-primary fa fa-edit" %>
-              <%= link_to "", users_backoffice_recurrence_path(recurrence), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
+              <p class="card-text" ><strong>Conta: </strong><%= transaction.recurrence.title.truncate(30) %></p>
+              <p class="card-text"><%= humanized_money_with_symbol(transaction.price_cents) %> | <%= transaction.date.strftime("%b %Y") %></p>
+              <%= link_to "", edit_users_backoffice_transaction_path(transaction), class:"btn btn-primary fa fa-edit" %>
+              <%= link_to "", users_backoffice_transaction_path(transaction), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
             </div>
           </div>
         </div>
