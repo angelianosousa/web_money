@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :recurrences, except: [:show, :new] do
       post 'payment'
     end
-
+    resources :user_profile, only: %i[edit update destroy]
     resources :transactions, except: [:show, :new]
     resources :notifications, only: [:index]
     patch '/notifications/mark_as_read/:id', to: "notifications#mark_as_read" 

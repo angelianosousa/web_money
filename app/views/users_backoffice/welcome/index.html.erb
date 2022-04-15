@@ -53,7 +53,7 @@
               <div class='card'>
                 <div class='card-body'>
                   <!-- Scope transactions_recipes_per_date -->
-                  <%= line_chart @transactions_recipes_per_date, title:"Receita", colors: ["#008080"], curve: true  %>
+                  <%= line_chart @recurrences_recipes_per_week, title:"Receita", colors: ["#008080"], curve: true  %>
                 </div>
               </div>
             </div>
@@ -65,7 +65,7 @@
               <div class='card'>
                 <div class='card-body'>
                   <!-- Scope transactions_expenses_per_date -->
-                  <%= line_chart @transactions_expenses_per_date, title:"Despesas", colors: ["#b00"], curve: true  %>
+                  <%= line_chart @recurrences_expenses_per_month, title:"Despesas", colors: ["#b00"], curve: true  %>
                 </div>
               </div>
             </div>
@@ -96,14 +96,14 @@
             <div class='col-md-6'>
               <div class='card'>
                 <div class='card-body'>
-                  <%= column_chart @min_and_max_recipes, title:"Min e Max - Receitas Recorrentes", colors: ["#2E8B57", "#20B2AA"] %>
+                  <%#= column_chart @min_and_max_recipes, title:"Min e Max - Receitas Recorrentes", colors: ["#2E8B57", "#20B2AA"] %>
                 </div>
               </div>
             </div>
             <div class='col-md-6'>
               <div class='card'>
                 <div class='card-body'>
-                  <%= column_chart @min_and_max_expenses, title:"Min e Max - Despesas Recorrentes", colors: ["#b00", "#DC143C"] %>
+                  <%#= column_chart @min_and_max_expenses, title:"Min e Max - Despesas Recorrentes", colors: ["#b00", "#DC143C"] %>
                 </div>
               </div>
             </div>

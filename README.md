@@ -7,20 +7,35 @@ The objective from this project is to implement a financial system where the use
 
 ### Dependencies
 
->* ruby 2.7.5
->* rails .5.2.0
->* Postgre SQL
+* ruby 2.7.5
+* rails .5.2.0
+* Postgre SQL
+* Bootstrap 4.3.1
 
 ### Build Project
 
 ~~~ruby
   - bundle install
-  - rails db:create db:migrate db:seeds
+  - rails db:create db:migrate
+~~~
+
+Commands for populate database
+~~~ruby
+  - rails dev:add_default_user
+  - rails dev:add_recurrences # For create default accounts
+  - rails dev:add_transactions # For create some transactions
+~~~
+
+Default user for heroku
+~~~
+  email: user@user.com
+  senha: user123
 ~~~
 
 ## Importants Links
 
-* Projeto em produção: <https://finantial-system.herokuapp.com/>
+* In production: https://www.herokuapp.com/finantial-system.com.br
+* In Staging: https://staging-finantial-system.herokuapp.com/
 
 ## Author
 
