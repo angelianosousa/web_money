@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :bigint           not null, primary key
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
 class User < ApplicationRecord
   after_create :building_profile
 
@@ -7,23 +20,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :user_profile
-  has_many :categories, dependent: :destroy
   
   def building_profile
-    UserProfile.create(user_id: User.last.id)
+    user_profile = UserProfile.create(user_id: User.last.id)
 
-    # Category default
-    Category.create(title: "Receitas")
-    Category.create(title: "Despesas")
-
-    # Receitas
-    Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Recebimento 1", price_cents: 1, date_expire: Date.today)
-    Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Recebimento 2", price_cents: 1, date_expire: Date.today)
-    Recurrence.create(user_profile_id: User.last.id, category_id: 1, title:"Recebimento 3", price_cents: 1, date_expire: Date.today)
-    # Despesas
-    Recurrence.create(user_profile_id: User.last.id, category_id: 2, title:"Internet", price_cents: 1, date_expire: Date.today)
-    Recurrence.create(user_profile_id: User.last.id, category_id: 2, title:"Água", price_cents: 1, date_expire: Date.today)
-    Recurrence.create(user_profile_id: User.last.id, category_id: 2, title:"Luz", price_cents: 1, date_expire: Date.today)
+    Recurrence.create(user_profile_id: user_profile, title:"Banco X", price_cents: 1000)
+    Recurrence.create(user_profile_id: user_profile, title:"Banco Y", price_cents: 1000)
   end
 
 end

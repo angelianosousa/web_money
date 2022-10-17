@@ -17,26 +17,13 @@ namespace :dev do
   desc "Adicionar contas ficticias"
   task add_recurrences: :environment do
 
-    12.times do |product|
+    2.times do |product|
       Recurrence.create!(
         user_profile: User.last.user_profile,
-        category: Category.first,
-        title: "Receita #{product + 1}",
-        price_cents: [1000, 1000, 2000, 3000, 4000].sample,
-        date_expire: "2022-#{product+1}-#{product+1}"
+        title: "Banco Y #{product + 1}",
+        price_cents: 10000
       )
     end
-
-    12.times do |expense|
-      Recurrence.create!(
-        user_profile: User.last.user_profile,
-        category: Category.second,
-        title: "Despesa #{expense + 1}",
-        price_cents: [1000, 1200, 700, 500, 320].sample,
-        date_expire: "2022-#{expense+1}-#{expense+1}"
-      )
-    end
-
   end
 
   desc "Adicionar transações ficticias conforme as contas cadastradas"
@@ -46,12 +33,12 @@ namespace :dev do
       rand(2..5).times do
         Transaction.create!(
           user_profile: User.last.user_profile,
-          category: recurrence.category,
+          type: %i[recipe expense].sample,
           recurrence: recurrence,
-          title: "Pagamento: #{recurrence.title}",
-          price_cents: recurrence.price_cents,
-          date: Faker::Date.in_date_period
-          # date: recurrence.date_expire
+          category: Category.all.sample,
+          title: "Transação - #{recurrence.title}",
+          price_cents: rand(100..5000),
+          date: Faker::Date.in_date_period(year: 2020, month: 1)
         )
       end
     end

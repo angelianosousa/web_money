@@ -1,4 +1,13 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: user_profiles
+#
+#  id         :bigint           not null, primary key
+#  user_id    :bigint
+#  name       :string           default("")
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 
 one:
   user: one

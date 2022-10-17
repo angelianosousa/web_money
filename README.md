@@ -14,9 +14,10 @@ The objective from this project is to implement a financial system where the use
 
 ### Build Project
 
-~~~ruby
+~~~
   - bundle install
   - rails db:create db:migrate
+  - yarn install
 ~~~
 
 Commands for populate database

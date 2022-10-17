@@ -4,12 +4,14 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
   # GET /transactions or /transactions.json
   def index
     if params[:title]
-      @transactions = Transaction._search_transactions(params[:title], current_user.user_profile.id, params[:page])
+      @transactions = Transaction.order(date: :desc)._search_transactions(params[:title], current_user.user_profile.id, params[:page])
     elsif params[:recurrence_id]
-      @transactions = Transaction._search_transactions_per_recurrence(params[:recurrence_id], current_user.user_profile.id, params[:page])
+      @transactions = Transaction.order(date: :desc)._search_transactions_per_recurrence(params[:recurrence_id], current_user.user_profile.id, params[:page])
     else
-      @transactions = Transaction.order(date: :asc).where(user_profile: current_user.user_profile).includes(:recurrence => :category).page(params[:page])
+      @transactions = Transaction.order(date: :desc).where(user_profile: current_user.user_profile).includes(:recurrence)
     end
+
+    @transactions = Transaction.default(params[:page], 15, @transactions)
   end
 
   # GET /transactions/1/edit
@@ -20,7 +22,6 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
   def create
     @transaction = Transaction.new(transaction_params)
     @transaction.user_profile = current_user.user_profile
-    @transaction.category = Recurrence.find(@transaction.recurrence_id).category
 
     respond_to do |format|
       if @transaction.save!
@@ -38,7 +39,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
     respond_to do |format|
       if @transaction.update(transaction_params)
         format.html { redirect_to users_backoffice_transactions_url, notice: "Transação atualizada com sucesso!" }
-        format.json { render :index, status: :ok, location: @transaction }
+        format.json { render json: @transaction, status: :ok, location: @transaction }
       else
         format.html { render :edit, alert: @transaction.errors.full_messages }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
@@ -64,6 +65,6 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:recurrence_id, :category_id, :title, :price_cents, :date)
+      params.require(:transaction).permit(:recurrence_id, :move_type, :category_id, :title, :price_cents, :date)
     end
 end

@@ -18,36 +18,33 @@ User.create(email:"user@user.com", password:"user123", password_confirmation:"us
 #   )
 # end
 
-12.times do |product|
+2.times do |product|
   Recurrence.create!(
     user_profile: User.last.user_profile,
-    category: Category.first,
-    title: "Receita #{product + 1}",
-    price_cents: [1000, 1000, 2000, 3000, 4000].sample,
-    date_expire: "2022-#{product+1}-#{product+1}"
+    title: "Conta X #{product + 1}",
+    price_cents: 10000
   )
 end
 
-12.times do |expense|
-  Recurrence.create!(
-    user_profile: User.last.user_profile,
-    category: Category.second,
-    title: "Despesa #{expense + 1}",
-    price_cents: [1000, 1200, 700, 500, 320].sample,
-    date_expire: "2022-#{expense+1}-#{expense+1}"
-  )
+# Despesas
+['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
+  Category.create(title: category, user: User.last)
+end
+
+['Salário', 'Serviço', 'Investimentos'].each do |category|
+  Category.create(title: category, user: User.last)
 end
 
 Recurrence.all.each do |recurrence|
-  rand(2..5).times do
+  20.times do
     Transaction.create!(
       user_profile: User.last.user_profile,
-      category: recurrence.category,
+      move_type: %i[recipe expense].sample,
       recurrence: recurrence,
-      title: "Pagamento: #{recurrence.title}",
-      price_cents: recurrence.price_cents,
-      date: Faker::Date.in_date_period
-      # date: recurrence.date_expire
+      category: Category.all.sample,
+      title: "Transação - #{recurrence.title}",
+      price_cents: rand(100..5000),
+      date: Faker::Date.in_date_period(year: 2020, month: 1)
     )
   end
 end

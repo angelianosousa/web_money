@@ -16,7 +16,7 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
     @transaction = Transaction.new(
       recurrence_id: @recurrence.id,
       user_profile_id: @recurrence.user_profile_id,
-      category_id: @recurrence.category_id,
+      type: @recurrence.type,
       title: "Pagamento - #{@recurrence.title}",
       price_cents: "#{@recurrence.price_cents}",
       date: Date.today.to_datetime
@@ -81,6 +81,6 @@ class UsersBackoffice::RecurrencesController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def recurrence_params
-      params.require(:recurrence).permit(:user_profile_id, :category_id, :title, :price_cents, :date_expire)
+      params.require(:recurrence).permit(:user_profile_id, :category, :title, :price_cents)
     end
 end

@@ -9,37 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= form_with(model: [:users_backoffice, @transaction], local: true) do |form| %>
-
-          <div class="row">
-            <div class="col-md-6 col-xl-6 col-sm-6">
-              <div class="form-group">
-                <%= form.label :Titulo %>
-                <%= form.text_field :title, class:"form-control" %>
-              </div>
-              <div class="form-group">
-                <%= form.label :Valor %>
-                <%= form.number_field :price_cents, class:"form-control" %>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-6 col-sm-6">
-              <div class="form-group">
-                <%= form.label :Conta %>
-                <%= select "transaction", "recurrence_id", Recurrence.order(:title).collect { |r| [r.title, r.id] }, {}, {class:"form-control"} %>
-              </div>
-              <div class="form-group">
-                <%= form.label :'Data do pagamento' %>
-                <%= form.datetime_field :date, class:"form-control", value: Date.today %>
-              </div>
-            </div>
-          </div>
-
-          <div class="actions">
-            <%= form.submit "Salvar", class:"btn btn-primary" %>
-            <button type="button" class="btn btn-secondary fa fa-arrow-left" style="height:40px;" data-dismiss="modal"></button>
-          </div>
-        <% end %>
-
+        <%= render 'form', transaction: @transaction %>
       </div>
     </div>
   </div>

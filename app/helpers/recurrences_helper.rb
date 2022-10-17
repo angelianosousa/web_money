@@ -8,6 +8,6 @@ module RecurrencesHelper
   end
 
   def color_recurrence(recurrence)
-    recurrence.category.title == "Receitas" ? 'background-color:#2E8B57;color:#F0F8FF;' : 'background-color:#DC143C;color:#F0F8FF;'
+    recurrence.category == 1 ? 'background-color:#2E8B57;color:#F0F8FF;' : 'background-color:#DC143C;color:#F0F8FF;'
   end
 end

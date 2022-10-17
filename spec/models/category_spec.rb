@@ -8,13 +8,8 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+require 'rails_helper'
 
-one:
-  title: MyString
-  badge: MyString
-  belongs_to: 
-
-two:
-  title: MyString
-  badge: MyString
-  belongs_to: 
+RSpec.describe Category, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
+end
