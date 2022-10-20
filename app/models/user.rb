@@ -24,8 +24,8 @@ class User < ApplicationRecord
   def building_profile
     user_profile = UserProfile.create(user_id: User.last.id)
 
-    Recurrence.create(user_profile_id: user_profile, title:"Banco X", price_cents: 1000)
-    Recurrence.create(user_profile_id: user_profile, title:"Banco Y", price_cents: 1000)
+    Account.create(user_profile_id: user_profile.id, title:"Banco X", price_cents: 10000)
+    Account.create(user_profile_id: user_profile.id, title:"Banco Y", price_cents: 10000)
   end
 
 end

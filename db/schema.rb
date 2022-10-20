@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_16_213749) do
+ActiveRecord::Schema.define(version: 2022_10_17_160449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "title"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "BRL", null: false
+    t.bigint "user_profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_profile_id"], name: "index_accounts_on_user_profile_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -45,31 +55,16 @@ ActiveRecord::Schema.define(version: 2022_10_16_213749) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.bigint "recurrence_id"
     t.bigint "user_profile_id"
     t.string "title"
     t.string "description"
     t.boolean "read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["recurrence_id"], name: "index_notifications_on_recurrence_id"
     t.index ["user_profile_id"], name: "index_notifications_on_user_profile_id"
   end
 
-  create_table "recurrences", force: :cascade do |t|
-    t.bigint "user_profile_id"
-    t.string "title"
-    t.integer "price_cents", default: 0, null: false
-    t.string "price_currency", default: "BRL", null: false
-    t.boolean "pay", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_profile_id"], name: "index_recurrences_on_user_profile_id"
-  end
-
   create_table "transactions", force: :cascade do |t|
-    t.bigint "recurrence_id"
-    t.string "title"
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "BRL", null: false
     t.datetime "date"
@@ -78,8 +73,10 @@ ActiveRecord::Schema.define(version: 2022_10_16_213749) do
     t.bigint "user_profile_id"
     t.integer "move_type", null: false
     t.bigint "category_id", null: false
+    t.bigint "account_id", null: false
+    t.text "description"
+    t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
-    t.index ["recurrence_id"], name: "index_transactions_on_recurrence_id"
     t.index ["user_profile_id"], name: "index_transactions_on_user_profile_id"
   end
 
@@ -103,13 +100,12 @@ ActiveRecord::Schema.define(version: 2022_10_16_213749) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "user_profiles"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "users"
-  add_foreign_key "notifications", "recurrences"
   add_foreign_key "notifications", "user_profiles"
-  add_foreign_key "recurrences", "user_profiles"
+  add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
-  add_foreign_key "transactions", "recurrences"
   add_foreign_key "transactions", "user_profiles"
   add_foreign_key "user_profiles", "users"
 end

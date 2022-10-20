@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   
   namespace :users_backoffice do
     get 'welcome/index'
-    resources :recurrences, except: [:show, :new] do
-      post 'payment'
+    resources :accounts, except: [:show, :new] do 
+      post 'new_transaction'
     end
     resources :user_profile, only: %i[edit update destroy]
     resources :transactions, except: [:show, :new]

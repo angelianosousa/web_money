@@ -1,0 +1,38 @@
+<!-- Modal -->
+<div class="modal fade" id="paymentModal_<%= account.id %>" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="paymentModalLabel">New Transaction for <%= account.title %></h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_with url: users_backoffice_account_new_transaction_path(account), local: true do |form| %>
+
+          <div class='form-group'>
+            <%= form.label :price_cents %>
+            <%= form.text_field :price_cents, class:'form-control' %>
+          </div>
+          <div class='form-group'>
+            <%= form.label :move_type %>
+            <%= form.select :move_type, options_for_select([['Recipes', :recipe], ['Expenses', :expense]]), {}, {class:'form-control'} %>
+          </div>
+          <div class='form-group'>
+            <%= form.label :category %>
+            <%= form.select :category_id, options_for_select(categories_for_select), {}, {class:'form-control'} %>
+          </div>
+          <div class="form-group">
+            <%= form.label :description %>
+            <%= form.text_area :description, class:'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= form.submit "Confirmar", class:"btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

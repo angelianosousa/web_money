@@ -8,41 +8,24 @@
 
 User.create(email:"user@user.com", password:"user123", password_confirmation:"user123")
 
-# Recurrence.all.each do |recurrence|
-#   Notification.create!(
-#     recurrence: recurrence,
-#     user_profile: recurrence.user_profile,
-#     title: "#{recurrence.title} - Vence hoje!",
-#     description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
-#     read: [true, false].sample
-#   )
-# end
-
-2.times do |product|
-  Recurrence.create!(
-    user_profile: User.last.user_profile,
-    title: "Conta X #{product + 1}",
-    price_cents: 10000
-  )
-end
-
 # Despesas
 ['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
   Category.create(title: category, user: User.last)
 end
 
+# Receitas
 ['Salário', 'Serviço', 'Investimentos'].each do |category|
   Category.create(title: category, user: User.last)
 end
 
-Recurrence.all.each do |recurrence|
+Account.all.each do |account|
   20.times do
     Transaction.create!(
+      description: Faker::Lorem.question(word_count: rand(2..5)),
       user_profile: User.last.user_profile,
       move_type: %i[recipe expense].sample,
-      recurrence: recurrence,
+      account: account,
       category: Category.all.sample,
-      title: "Transação - #{recurrence.title}",
       price_cents: rand(100..5000),
       date: Faker::Date.in_date_period(year: 2020, month: 1)
     )
