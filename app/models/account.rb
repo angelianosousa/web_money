@@ -11,4 +11,8 @@ class Account < ApplicationRecord
 
   # Kaminari
   paginates_per 12
+
+  scope :per_period, ->(user_profile, move_type){
+    where(user_profile: user_profile, transactions: { move_type: move_type }).includes(transactions: [:category])
+  }
 end

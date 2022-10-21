@@ -1,6 +1,6 @@
 <div class="container">
   <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
-    <a class="navbar-brand" href="/users_backoffice/transactions">Account | Current Balance: <%= humanized_money_with_symbol Account.sum(:price_cents) %></a>
+    <a class="navbar-brand" href="/users_backoffice/transactions">Account | Current Balance: <%= humanized_money_with_symbol balance_for_that_day(Time.current) %></a>
   </nav>
 </div><br>
 

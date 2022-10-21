@@ -50,7 +50,6 @@ class Transaction < ApplicationRecord
 
   def operate_account
     @account = Account.find(account_id)
-    binding.pry
     @account.price_cents -= price_cents.to_i if move_type == 'expense'
     @account.price_cents += price_cents.to_i if move_type == 'recipe'
     @account.save!
@@ -58,11 +57,6 @@ class Transaction < ApplicationRecord
 
   # Scope Methods
   # Search any transactions
-  # scope :_search_transactions, -> (title, user_profile_id, page){
-  #   where("lower(title) LIKE ? and user_profile_id = ?", "%#{title.downcase}%", "#{user_profile_id}").includes(:account => :category).page(page)
-  # }
-  scope :recipes, ->{ where(move_type: :recipe) }
-  scope :expenses, ->{ where(move_type: :expense) }
 
   # Search transactions separete by account
   scope :_search_transactions_per_account, -> (account, user_profile_id, page){
@@ -96,11 +90,28 @@ class Transaction < ApplicationRecord
   #   where(user_profile: user_profile, move_type: :RECIPE).group(:title).sum(:price_cents)
   # }
 
+  scope :recipes, -> (user_profile){
+    where(user_profile: user_profile, move_type: :recipe).includes(:account, :category)
+  }
+
   # Filter per transactions expenses
-  # scope :transactions_expenses, -> (user_profile){
-  #   where(user_profile: user_profile, move_type: :EXPENSE).group(:title).sum(:price_cents)
-  # }
+  scope :expenses, -> (user_profile){
+    where(user_profile: user_profile, move_type: :expense).includes(:account, :category)
+  }
 
   # Balance for all moviments
-  # scope :balance, ->(recipes, expenses){ recipes.values.sum - expenses.values.sum }
+  scope :balance, ->(recipes, expenses){ 
+    accounts = Account.sum(:price_cents)
+    accounts + (recipes - expenses)
+  }
+
+  scope :per_period, -> (user_profile, period = 'month', move_type){
+    if period == 'week'
+      where(user_profile: user_profile, move_type: move_type).includes(:account, :category).group_by_week(:date, format:"%b %Y").group(:price_cents).sum(:price_cents)
+    elsif period == 'year'
+      where(user_profile: user_profile, move_type: move_type).includes(:account, :category).group_by_year(:date, format:"%b %Y").group(:price_cents).sum(:price_cents)
+    else
+      where(user_profile: user_profile, move_type: move_type).includes(:account, :category).group_by_month(:date, format:"%b %Y").group(:price_cents).sum(:price_cents)
+    end
+  }
 end

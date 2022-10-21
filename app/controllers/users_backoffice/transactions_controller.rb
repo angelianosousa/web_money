@@ -44,6 +44,10 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # DELETE /transactions/1 or /transactions/1.json
   def destroy
+    binding.pry
+    @transaction.account.price_cents -= @transaction.price_cents if @transaction.move_type == 'recipe'
+    @transaction.account.price_cents += @transaction.price_cents if @transaction.move_type == 'expense'
+    @transaction.account.save
     @transaction.destroy
 
     respond_to do |format|
