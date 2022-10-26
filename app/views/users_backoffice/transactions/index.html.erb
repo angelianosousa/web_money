@@ -1,12 +1,14 @@
 <div class="container">
   <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
     <a class="navbar-brand" href="/users_backoffice/transactions">Movimentações | <%= humanized_money_with_symbol balance_for_that_day(Time.current) %></a>
+
+    <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:270px" do %>
+      <i class="fa fa-plus-square"></i> New Movement
+    <% end %>
   </nav>
 </div><br>
 
-<nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
-  <%= render 'search_form' %>
-</nav><br>
+<%= render 'search_form' %>
 
 <div class="row">
   <% @transactions.each do |day, transactions| %>
