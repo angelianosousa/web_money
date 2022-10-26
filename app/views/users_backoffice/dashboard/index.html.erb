@@ -4,27 +4,22 @@
   </nav>
 </div><br>
 
-<nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
-  <%= form_with url: users_backoffice_dashboard_index_path, local: true, method: :get, class:"form-inline my-2 my-lg-0" do |form| %>
-    <%= form.select :period, options_for_select(['week', 'month', 'year']), {}, { class:"form-control-sm", style:"width:120px" } %>&nbsp;
-    &nbsp;<%= form.submit "Filtrar", class:"btn btn-outline-light btn-sm my-2 my-sm-0"%>
-  <% end %>
-</nav>
+<%= render 'search_filter' %>
 
 <div class='container' style="padding-bottom: 70px;">
   <div class="row-md">
     <div class="tile_count">
       <div class="col-md-4 col-sm-4  tile_stats_count">
         <span class="count_top" style="color: blue"><i class="fa fa-bank"></i> Balanço Total</span>
-        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@balance) %></div>
+        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.balance) %></div>
       </div>
       <div class="col-md-4 col-sm-4  tile_stats_count">
         <span class="count_top" style="color: green"><i class="fa fa-arrow-down"></i> Receitas Totais</span>
-        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@total_recipes) %></div>
+        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.recipes.sum(:price_cents)) %></div>
       </div>
       <div class="col-md-4 col-sm-4  tile_stats_count">
         <span class="count_top" style="color: red"><i class="fa fa-arrow-up"></i> Despesas Totais</span>
-        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@total_expenses) %></div>
+        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.expenses.sum(:price_cents)) %></div>
       </div>
     </div>
   </div>
@@ -52,7 +47,7 @@
               <div class='card'>
                 <div class='card-body'>
                   <!-- Scope transactions_recipes_per_date -->
-                  <%= line_chart @recipes_period, title:"Receita", colors: ["#008080"], curve: true  %>
+                  <%= line_chart @transactions.recipes.group(:date).sum(:price_cents), title:"Receita", colors: ["#008080"], curve: true  %>
                 </div>
               </div>
             </div>
@@ -64,7 +59,7 @@
               <div class='card'>
                 <div class='card-body'>
                   <!-- Scope transactions_expenses_per_date -->
-                  <%= line_chart @expenses_period, title:"Despesas", colors: ["#b00"], curve: true  %>
+                  <%= line_chart @transactions.expenses.group(:date).sum(:price_cents), title:"Despesas", colors: ["#b00"], curve: true  %>
                 </div>
               </div>
             </div>
@@ -78,14 +73,14 @@
             <div class='col-md-6'>
               <div class='card'>
                 <div class='card-body'>
-                  <%= column_chart @recipes_period, title:"Receitas", colors: ["#2E8B57"] %>
+                  <%= column_chart @transactions.recipes.group_by_month(:date, format: '%b %Y').sum(:price_cents), title:"Receitas", colors: ["#2E8B57"] %>
                 </div>
               </div>
             </div>
             <div class='col-md-6'>
               <div class='card'>
                 <div class='card-body'>
-                  <%= column_chart @expenses_period, title:"Despesas", colors: ["#b00"] %>
+                  <%= column_chart @transactions.expenses.group_by_month(:date, format: '%b %Y').sum(:price_cents), title:"Despesas", colors: ["#b00"] %>
                 </div>
               </div>
             </div>
@@ -95,14 +90,14 @@
             <div class='col-md-6'>
               <div class='card'>
                 <div class='card-body'>
-                  <%#= column_chart @min_and_max_recipes, title:"Min e Max - Receitas Recorrentes", colors: ["#2E8B57", "#20B2AA"] %>
+                  <%= column_chart @transactions.min_and_max_recipes, title:"Min e Max - Receitas Recorrentes", colors: ["#2E8B57", "#20B2AA"] %>
                 </div>
               </div>
             </div>
             <div class='col-md-6'>
               <div class='card'>
                 <div class='card-body'>
-                  <%#= column_chart @min_and_max_expenses, title:"Min e Max - Despesas Recorrentes", colors: ["#b00", "#DC143C"] %>
+                  <%= column_chart @transactions.min_and_max_expenses, title:"Min e Max - Despesas Recorrentes", colors: ["#b00", "#DC143C"] %>
                 </div>
               </div>
             </div>

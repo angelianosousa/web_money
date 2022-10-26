@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
   <div class='row'>
     <div class='col'>
-      <%= search_form_for @q, url: users_backoffice_transactions_path, html: { class: 'form-row my-2 my-lg-0' } do |f| %>
+      <%= search_form_for @q, url: users_backoffice_dashboard_index_path, html: { class: 'form-row my-2 my-lg-0' } do |f| %>
         <div class='form-row align-items-center'>
           <div class='form-group col-md-2'>
             <%= f.label :category_id_in, 'Category', class: 'label-control', style:'margin-top: 14px;' %>
@@ -35,16 +35,16 @@
 
           <div class='form-group col-md-1'>
             <%= f.label :date, 'Date', class:'label-control', style:'margin-top: 14px;' %>
-            <%= f.date_field :date_gteq, class:'form-control', value: Date.today %>
+            <%= f.date_field :date_gteq, class:'form-control', default: Date.today %>
           </div>
 
           <div class='form-group col-md-1'>
-            <%= f.date_field :date_lteq, class:'form-control', value: Date.today, style:'margin-top: 40px;' %>
+            <%= f.date_field :date_lteq, class:'form-control', default: Date.today, style:'margin-top: 40px;' %>
           </div>
           
           <div class='form-group col-md-2 text-right mt-5'>
             <%= f.submit 'Search', class:'btn btn-outline-light btn-round btn-sm px-5' %>
-            <%= link_to 'Clear', users_backoffice_transactions_path, class:'btn btn-outline-info btn-round btn-sm px-5 mr-2' %>
+            <%= link_to 'Clear', users_backoffice_dashboard_index_path, class:'btn btn-secondary btn-round btn-sm px-5 mr-2' %>
           </div>
         </div>
       <% end %>

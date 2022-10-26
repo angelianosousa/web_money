@@ -63,46 +63,31 @@ class Transaction < ApplicationRecord
     where("account_id = #{account} and user_profile_id = #{user_profile_id}").includes(:category).page(page)
   }
 
-  # Filter transactions recipes classified per date
-  # scope :transactions_recipes_per, -> (user_profile, period){
-  #   if period == "month"
-  #     where(user_profile: user_profile, move_type: :RECIPE).group_by_month(:date, format: "%b %Y").group(:title).sum(:price_cents)
-  #   elsif period == "year"
-  #     where(user_profile: user_profile, move_type: :RECIPE).group_by_year(:date, format: "%b %Y").group(:title).sum(:price_cents)
-  #   else
-  #     where(user_profile: user_profile, move_type: :RECIPE).group_by_week(:date, format: "%b %Y", week_start: :monday).group(:title).sum(:price_cents)
-  #   end
-  # }
+  scope :min_and_max_recipes, ->(){
+    max_recipes = recipes.maximum(:price_cents)
+    min_recipes = recipes.minimum(:price_cents)
 
-  # Filter transactions expenses classified per date
-  # scope :transactions_expenses_per, -> (user_profile, period){
-  #   if period == "month"
-  #     where(user_profile: user_profile, move_type: :EXPENSE).group(:title).group_by_month(:date, format: "%b %Y").sum(:price_cents)
-  #   elsif period == "year"
-  #     where(user_profile: user_profile, move_type: :EXPENSE).group(:title).group_by_year(:date, format: "%b %Y").sum(:price_cents)
-  #   else
-  #     where(user_profile: user_profile, move_type: :EXPENSE).group(:title).group_by_week(:date, format: "%b %Y", week_start: :monday).sum(:price_cents)
-  #   end
-  # }
+    { max: max_recipes, min: min_recipes }
+  }
 
-  # Filter per transactions recipes
-  # scope :transactions_recipes, -> (user_profile){
-  #   where(user_profile: user_profile, move_type: :RECIPE).group(:title).sum(:price_cents)
-  # }
+  scope :min_and_max_expenses,->(){
+    max_expenses = expenses.maximum(:price_cents)
+    min_expenses = expenses.minimum(:price_cents)
 
-  scope :recipes, -> (user_profile){
-    where(user_profile: user_profile, move_type: :recipe).includes(:account, :category)
+    { max: max_expenses, min: min_expenses }
+  }
+
+  scope :balance,->(){
+    { balance: recipes.sum(:price_cents) - expenses.sum(:price_cents) }
+  }
+
+  scope :recipes,-> (){
+    where(move_type: :recipe).includes(:account, :category)
   }
 
   # Filter per transactions expenses
-  scope :expenses, -> (user_profile){
-    where(user_profile: user_profile, move_type: :expense).includes(:account, :category)
-  }
-
-  # Balance for all moviments
-  scope :balance, ->(recipes, expenses){ 
-    accounts = Account.sum(:price_cents)
-    accounts + (recipes - expenses)
+  scope :expenses,-> (){
+    where(move_type: :expense).includes(:account, :category)
   }
 
   scope :per_period, -> (user_profile, period = 'month', move_type){

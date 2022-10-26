@@ -26,8 +26,8 @@ Account.all.each do |account|
       move_type: %i[recipe expense].sample,
       account: account,
       category: Category.all.sample,
-      price_cents: 100,#rand(100..5000),
-      date: Faker::Date.in_date_period(year: 2021, month: 1)
+      price_cents: rand(100..5000),
+      date: Faker::Date.in_date_period(year: 2021, month: 12)
     )
   end
 end

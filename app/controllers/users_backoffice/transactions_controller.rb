@@ -3,7 +3,8 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # GET /transactions or /transactions.json
   def index
-    # @transactions = Transaction.order(date: :desc).where(user_profile: current_user.user_profile).includes(:account)
+    params[:q] ||= { user_profile_id_eq: current_user.user_profile.id }
+
     @q = Transaction.ransack(params[:q])
     @transactions = @q.result.page(params[:page])
 
