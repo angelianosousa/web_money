@@ -1,4 +1,6 @@
-<%= form_with(model: [:users_backoffice, transaction], local: true) do |form| %>
+<%= form_with(model: [:users_backoffice, @transaction], local: true) do |form| %>
+
+<%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
 
 <div class="row">
   <div class="col-md-6 col-xl-6 col-sm-6">
@@ -8,7 +10,7 @@
     </div>
     <div class="form-group">
       <%= form.label :'Data do pagamento' %>
-      <%= form.datetime_field :date, class:"form-control", value: DateTime.current %>
+      <%= form.datetime_field :date, class:"form-control", value: @transaction.date %>
     </div>
   </div>
   <div class="col-md-6 col-xl-6 col-sm-6">
@@ -34,7 +36,7 @@
 </div>
 
 <div class="actions">
-  <%= form.submit "Salvar", class:"btn btn-primary" %>
-  <button type="button" class="btn btn-secondary fa fa-arrow-left" style="height:40px;" data-dismiss="modal"></button>
+  <%= form.submit "Save", class:"btn btn-primary" %>
+  <%= link_to 'Back', users_backoffice_transactions_path, class:'btn btn-secondary' %>
 </div>
 <% end %>

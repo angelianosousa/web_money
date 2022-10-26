@@ -25,7 +25,7 @@
           </div>
 
           <div class='form-group col-md-1'>
-            <%= f.label :price, 'Price (R$)', class:'label-control', style:'margin-top: 14px;' %>
+            <%= f.label :price, 'Price', class:'label-control', style:'margin-top: 14px;' %>
             <%= f.number_field :price_cents_gteq, class:'form-control', in:0..999999 %>
           </div>
 
@@ -35,11 +35,11 @@
 
           <div class='form-group col-md-1'>
             <%= f.label :date, 'Date', class:'label-control', style:'margin-top: 14px;' %>
-            <%= f.date_field :date_gteq, class:'form-control', value: Date.today %>
+            <%= f.date_field :date_gteq, class:'form-control' %>
           </div>
 
           <div class='form-group col-md-1'>
-            <%= f.date_field :date_lteq, class:'form-control', value: Date.today, style:'margin-top: 40px;' %>
+            <%= f.date_field :date_lteq, class:'form-control', style:'margin-top: 40px;' %>
           </div>
           
           <div class='form-group col-md-2 text-right mt-5'>

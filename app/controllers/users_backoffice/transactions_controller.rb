@@ -67,6 +67,6 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:account_id, :category_id, :move_type, :description, :price_cents, :date)
+      params.require(:transaction).permit(:account_id, :category_id, :user_profile_id, :move_type, :description, :price_cents, :date)
     end
 end

@@ -24,7 +24,7 @@ class Transaction < ApplicationRecord
 
   # Money Rails 
   monetize :price_cents
-  register_currency :brl
+  register_currency :usd
 
   # Validations
   validates :date, presence: true
@@ -41,7 +41,7 @@ class Transaction < ApplicationRecord
 
     transactions_days_for_current_user = transactions.pluck(:date)
     
-    transactions_days_for_current_user.each do |day|      
+    transactions_days_for_current_user.each do |day|
       @transaction_per_days["#{day.strftime('%d/%m/%Y')}"] = transactions.select { |transaction| transaction.date.beginning_of_day == day.beginning_of_day }
     end
 
@@ -56,7 +56,6 @@ class Transaction < ApplicationRecord
   end
 
   # Scope Methods
-  # Search any transactions
 
   # Search transactions separete by account
   scope :_search_transactions_per_account, -> (account, user_profile_id, page){
@@ -78,14 +77,16 @@ class Transaction < ApplicationRecord
   }
 
   scope :balance,->(){
-    { balance: recipes.sum(:price_cents) - expenses.sum(:price_cents) }
+    recipes = where(move_type: :recipe).includes(:account, :category)
+    expenses = where(move_type: :expense).includes(:account, :category)
+
+    recipes.sum(:price_cents) - expenses.sum(:price_cents)
   }
 
   scope :recipes,-> (){
     where(move_type: :recipe).includes(:account, :category)
   }
 
-  # Filter per transactions expenses
   scope :expenses,-> (){
     where(move_type: :expense).includes(:account, :category)
   }
