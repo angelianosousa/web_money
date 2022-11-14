@@ -11,7 +11,7 @@
     <div class="tile_count">
       <div class="col-md-4 col-sm-4  tile_stats_count">
         <span class="count_top" style="color: blue"><i class="fa fa-bank"></i> Balanço Total</span>
-        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.balance) %></div>
+        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(Account.sum(:price_cents)) %></div>
       </div>
       <div class="col-md-4 col-sm-4  tile_stats_count">
         <span class="count_top" style="color: green"><i class="fa fa-arrow-down"></i> Receitas Totais</span>

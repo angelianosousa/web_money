@@ -8,6 +8,8 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
     @q = Transaction.ransack(params[:q])
     @transactions = @q.result.page(params[:page])
 
+    @balance = Account.sum(:price_cents)
+
     @transactions = Transaction.default(params[:page], 15, @transactions)
   end
 
@@ -47,7 +49,6 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # DELETE /transactions/1 or /transactions/1.json
   def destroy
-    binding.pry
     @transaction.account.price_cents -= @transaction.price_cents if @transaction.move_type == 'recipe'
     @transaction.account.price_cents += @transaction.price_cents if @transaction.move_type == 'expense'
     @transaction.account.save
