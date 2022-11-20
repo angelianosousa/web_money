@@ -34,6 +34,7 @@ gem 'kaminari'
 gem "chartkick"
 gem 'groupdate'
 gem 'money-rails', '~>1.12'
+gem 'ransack'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

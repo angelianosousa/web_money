@@ -1,42 +1,42 @@
 <%= form_with(model: [:users_backoffice, @transaction], local: true) do |form| %>
 
+<%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
+
 <div class="row">
   <div class="col-md-6 col-xl-6 col-sm-6">
-    <div class="form-group">
-      <%= form.label :Titulo %>
-      <%= form.text_field :title, class:"form-control" %>
-    </div>
     <div class="form-group">
       <%= form.label :Valor %>
       <%= form.number_field :price_cents, class:"form-control" %>
     </div>
-  </div>
-  <div class="col-md-6 col-xl-6 col-sm-6">
-    <div class="form-group">
-      <%= form.label :Conta %>
-      <%= select "transaction", "recurrence_id", Recurrence.order(:title).collect { |r| [r.title, r.id] }, {}, {class:"form-control"} %>
-    </div>
     <div class="form-group">
       <%= form.label :'Data do pagamento' %>
-      <%= form.datetime_field :date, class:"form-control", value: Time.now %>
+      <%= form.datetime_field :date, class:"form-control", value: @transaction.date %>
     </div>
   </div>
-  <div class='col-md-12'>
+  <div class="col-md-6 col-xl-6 col-sm-6">
     <div class="form-group">
       <%= form.label :category %>
       <%= select "transaction", "category_id", Category.all.collect { |r| [r.title, r.id] }, {}, {class:"form-control"} %>
     </div>
-  </div>
-  <div class='col-md-12'>
     <div class="form-group">
       <%= form.label :move_type %>
       <%= form.select :move_type, options_for_select([['Recipes', 'recipe'], ['Expenses', 'expense']]), {}, {class:"form-control"} %>
     </div>
   </div>
+  <div class='col-md-12'>
+    <div class='form-group'>
+      <%= form.label :account %>
+      <%= form.select :account_id, options_for_select(Account.order(:title).map { |account| [account.title, account.id] } ), {}, { class:'form-control' } %>
+    </div>
+    <div class="form-group">
+      <%= form.label :description %>
+      <%= form.text_area :description, class:"form-control" %>
+    </div>
+  </div>
 </div>
 
 <div class="actions">
-  <%= form.submit "Salvar", class:"btn btn-primary" %>
-  <button type="button" class="btn btn-secondary fa fa-arrow-left" style="height:40px;" data-dismiss="modal"></button>
+  <%= form.submit "Save", class:"btn btn-primary" %>
+  <%= link_to 'Back', users_backoffice_transactions_path, class:'btn btn-secondary' %>
 </div>
 <% end %>

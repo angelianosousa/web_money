@@ -1,0 +1,37 @@
+<div class="container">
+  <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
+    <a class="navbar-brand" href="/users_backoffice/transactions">Current Balance | <%= humanized_money_with_symbol Account.sum(:price_cents) %></a>
+  </nav>
+</div><br>
+
+<nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
+  <%= render 'search_form' %>
+</nav><br>
+
+<div class="row">
+  <% @accounts.each do |account| %>
+    <div class="col-md-6 col-xl-6 col-sm-6">
+      <div class="card border-dark mb-12" style="margin-bottom:10px;border-radius:10px;">
+        <div class="card-body">
+          <div class='mb-5'>
+            <p class='float-left' style='font-size:30px;'><strong><%= account.title %></strong></p>
+            <p class='float-right' style='font-size:30px;'><strong><%= humanized_money_with_symbol(account.price_cents) %></strong></p>
+          </div>
+          <div class='card-footer text-center'>
+            <%= link_to "", class:"btn btn-info", "data-toggle":"modal", "data-target":"#paymentModal_#{account.id}", style:"color:white;font-size:9px;" do %>
+              <i class="fa fa-money"></i>
+            <% end %>
+            <%= link_to "", edit_users_backoffice_account_path(account), class:"btn btn-primary fa fa-edit" %>
+            <%= link_to "", users_backoffice_account_path(account), method: :delete, data: { confirm: 'Tem certeza ?' }, class:"btn btn-danger fa fa-trash" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render partial: 'users_backoffice/accounts/modals/new_transaction', locals: { account: account } %>
+  <% end %>
+</div>
+
+<%= paginate @accounts, outer_window: 3 %>
+
+<%= render partial: 'users_backoffice/accounts/modals/new_account', locals: { account: @account = Account.new} %>
