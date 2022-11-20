@@ -34,7 +34,7 @@ namespace :dev do
   end
 
   desc "Criar as categorias bases"
-  tast add_categories: :environment do
+  task add_categories: :environment do
     # Despesas
     ['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
       Category.create(title: category, user: User.last)
