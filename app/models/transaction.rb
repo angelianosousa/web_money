@@ -28,9 +28,6 @@ class Transaction < ApplicationRecord
   # Validations
   validates :date, presence: true
 
-  # Kaminari
-  paginates_per 12
-
   # Callbacks
   after_save :operate_account
 
@@ -49,8 +46,8 @@ class Transaction < ApplicationRecord
 
   def operate_account
     @account = Account.find(account_id)
-    @account.price_cents -= price_cents.to_i if category.transaction_type == 'expense'
-    @account.price_cents += price_cents.to_i if category.transaction_type == 'recipe'
+    @account.price_cents -= price_cents.to_i if category.category_type == 'expense'
+    @account.price_cents += price_cents.to_i if category.category_type == 'recipe'
     @account.save!
   end
 
@@ -71,10 +68,10 @@ class Transaction < ApplicationRecord
   }
 
   scope :recipes,-> (){
-    where(category_id: Category.where(transaction_type: :recipe)).includes(:account, :category)
+    where(category_id: Category.where(category_type: :recipe)).includes(:account, :category)
   }
 
   scope :expenses,-> (){
-    where(category_id: Category.where(transaction_type: :expense)).includes(:account, :category)
+    where(category_id: Category.where(category_type: :expense)).includes(:account, :category)
   }
 end

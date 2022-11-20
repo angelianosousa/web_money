@@ -33,12 +33,7 @@ namespace :dev do
       rand(2..5).times do
         Transaction.create!(
           user_profile: User.last.user_profile,
-<<<<<<< Updated upstream
-          type: %i[recipe expense].sample,
-          recurrence: recurrence,
-=======
           account: account,
->>>>>>> Stashed changes
           category: Category.all.sample,
           title: "Transação - #{recurrence.title}",
           price_cents: rand(100..5000),

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :user_profile, only: %i[edit update destroy]
     resources :transactions, except: [:show, :new]
     resources :notifications, only: [:index]
+    resources :categories, except: [:show]
     patch '/notifications/mark_as_read/:id', to: "notifications#mark_as_read" 
   end
 

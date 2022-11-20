@@ -9,8 +9,8 @@
 #  updated_at :datetime         not null
 #
 class Category < ApplicationRecord
-  enum transaction_type: %i[recipe expense]
+  enum category_type: %i(recipe expense)
 
   has_many :transactions, dependent: :destroy
-  belongs_to :user
+  belongs_to :user_profile
 end

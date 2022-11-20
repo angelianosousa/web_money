@@ -10,12 +10,12 @@ User.create(email:"user@user.com", password:"user123", password_confirmation:"us
 
 # Despesas
 ['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
-  Category.create(title: category, user: User.last, transaction_type: :expense)
+  Category.create(title: category, user_profile_id: UserProfile.last.id, category_type: :expense)
 end
 
 # Receitas
 ['Salário', 'Serviço', 'Investimentos'].each do |category|
-  Category.create(title: category, user: User.last, transaction_type: :recipe)
+  Category.create(title: category, user_profile_id: UserProfile.last.id, category_type: :recipe)
 end
 
 Account.all.each do |account|

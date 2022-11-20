@@ -48,11 +48,11 @@ ActiveRecord::Schema.define(version: 2022_11_20_144501) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title", null: false
-    t.bigint "user_id"
+    t.bigint "user_profile_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "transaction_type"
-    t.index ["user_id"], name: "index_categories_on_user_id"
+    t.integer "category_type", default: 0
+    t.index ["user_profile_id"], name: "index_categories_on_user_profile_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2022_11_20_144501) do
 
   add_foreign_key "accounts", "user_profiles"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "categories", "users"
+  add_foreign_key "categories", "user_profiles"
   add_foreign_key "notifications", "user_profiles"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
