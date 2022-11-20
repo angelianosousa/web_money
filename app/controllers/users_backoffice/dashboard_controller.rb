@@ -6,6 +6,6 @@ class UsersBackoffice::DashboardController < UsersBackofficeController
 
     @q = Transaction.ransack(params[:q])
 
-    @transactions = @q.result(distinct: true).includes(:account, :category)    
+    @transactions = @q.result(distinct: true).includes(:account, :category)
   end
 end
