@@ -34,6 +34,7 @@ gem 'kaminari'
 gem "chartkick"
 gem 'groupdate'
 gem 'money-rails', '~>1.12'
+gem 'ransack'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -49,6 +50,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
+  gem 'pry-rails'
+  gem 'annotate'
 end
 
 group :development do

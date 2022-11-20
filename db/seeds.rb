@@ -8,46 +8,26 @@
 
 User.create(email:"user@user.com", password:"user123", password_confirmation:"user123")
 
-# Recurrence.all.each do |recurrence|
-#   Notification.create!(
-#     recurrence: recurrence,
-#     user_profile: recurrence.user_profile,
-#     title: "#{recurrence.title} - Vence hoje!",
-#     description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
-#     read: [true, false].sample
-#   )
-# end
-
-12.times do |product|
-  Recurrence.create!(
-    user_profile: User.last.user_profile,
-    category: Category.first,
-    title: "Receita #{product + 1}",
-    price_cents: [1000, 1000, 2000, 3000, 4000].sample,
-    date_expire: "2022-#{product+1}-#{product+1}"
-  )
+# Despesas
+['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
+  Category.create(title: category, user: User.last)
 end
 
-12.times do |expense|
-  Recurrence.create!(
-    user_profile: User.last.user_profile,
-    category: Category.second,
-    title: "Despesa #{expense + 1}",
-    price_cents: [1000, 1200, 700, 500, 320].sample,
-    date_expire: "2022-#{expense+1}-#{expense+1}"
-  )
+# Receitas
+['Salário', 'Serviço', 'Investimentos'].each do |category|
+  Category.create(title: category, user: User.last)
 end
 
-Recurrence.all.each do |recurrence|
-  rand(2..5).times do
+Account.all.each do |account|
+  20.times do
     Transaction.create!(
+      description: Faker::Lorem.question(word_count: rand(2..5)),
       user_profile: User.last.user_profile,
-      category: recurrence.category,
-      recurrence: recurrence,
-      title: "Pagamento: #{recurrence.title}",
-      price_cents: recurrence.price_cents,
-      date: Faker::Date.in_date_period
-      # date: recurrence.date_expire
+      move_type: %i[recipe expense].sample,
+      account: account,
+      category: Category.all.sample,
+      price_cents: rand(100..5000),
+      date: Faker::Date.in_date_period(year: 2021, month: 12)
     )
   end
 end

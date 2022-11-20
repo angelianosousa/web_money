@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @account.title %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @account.value %>
+</p>
+
+<p>
+  <strong>User profile:</strong>
+  <%= @account.user_profile_id %>
+</p>
+
+<%= link_to 'Edit', edit_users_backoffice_account_path(@account) %> |
+<%= link_to 'Back', users_backoffice_accounts_path %>
