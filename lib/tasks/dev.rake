@@ -20,7 +20,6 @@ namespace :dev do
         Transaction.create!(
           description: Faker::Lorem.question(word_count: rand(2..5)),
           user_profile: User.last.user_profile,
-          move_type: %i[recipe expense].sample,
           account: account,
           category: Category.all.sample,
           price_cents: rand(100..5000),
