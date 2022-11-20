@@ -2,10 +2,10 @@ namespace :dev do
   desc "Prepare environment for personal tests"
 
   task setup: :environment do
-    spinner_show("Construindo tabelas do banco...") { %x(bundle exec db:migrate) }
-    spinner_show("Criando usuário padrão...") { %x(bundle exec dev:add_default_user) }
-    spinner_show("Criando adicionar categorias de exemplo...") { %x(bundle exec dev:add_categories) }
-    spinner_show("Criando contas e transações de exemplo...") { %x(bundle exec dev:add_accounts_and_transactions) }
+    spinner_show("Construindo tabelas do banco...") { %x(bundle exec rake db:migrate) }
+    spinner_show("Criando usuário padrão...") { %x(bundle exec rake dev:add_default_user) }
+    spinner_show("Criando adicionar categorias de exemplo...") { %x(bundle exec rake dev:add_categories) }
+    spinner_show("Criando contas e transações de exemplo...") { %x(bundle exec rake dev:add_accounts_and_transactions) }
   end
 
   task add_default_user: :environment do
