@@ -58,7 +58,6 @@ class UsersBackoffice::AccountsController < UsersBackofficeController
       user_profile: @user_profile,
       description: params[:description],
       price_cents: params[:price_cents].to_i,
-      move_type: params[:move_type],
       category: @category,
       date: Date.today.to_datetime
     )

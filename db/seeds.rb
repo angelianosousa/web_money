@@ -10,12 +10,12 @@ User.create(email:"user@user.com", password:"user123", password_confirmation:"us
 
 # Despesas
 ['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
-  Category.create(title: category, user: User.last)
+  Category.create(title: category, user: User.last, transaction_type: :expense)
 end
 
 # Receitas
 ['Salário', 'Serviço', 'Investimentos'].each do |category|
-  Category.create(title: category, user: User.last)
+  Category.create(title: category, user: User.last, transaction_type: :recipe)
 end
 
 Account.all.each do |account|
@@ -23,7 +23,6 @@ Account.all.each do |account|
     Transaction.create!(
       description: Faker::Lorem.question(word_count: rand(2..5)),
       user_profile: User.last.user_profile,
-      move_type: %i[recipe expense].sample,
       account: account,
       category: Category.all.sample,
       price_cents: rand(100..5000),

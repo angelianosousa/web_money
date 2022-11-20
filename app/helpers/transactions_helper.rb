@@ -1,12 +1,12 @@
 module TransactionsHelper
-  def transaction_status(transaction_move_type)
-    text, badge_class = (transaction_move_type == 'recipe') ? ['RECIPE', 'badge badge-success'] : ['EXPENSE', 'badge badge-danger']
+  def transaction_status(transaction_type)
+    text, badge_class = (transaction_type == 'recipe') ? ['RECIPE', 'badge badge-success'] : ['EXPENSE', 'badge badge-danger']
 
     badge_pill(text, class:"#{badge_class}")
   end
 
   def value_style(transaction)
-    style = (transaction.move_type == 'recipe') ? 'color: green' : 'color: red'
+    style = (transaction.category.transaction_type == 'recipe') ? 'color: green' : 'color: red'
 
     content_tag(:p, humanized_money_with_symbol(transaction.price_cents), style: style)
   end

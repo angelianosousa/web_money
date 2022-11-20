@@ -49,8 +49,8 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # DELETE /transactions/1 or /transactions/1.json
   def destroy
-    @transaction.account.price_cents -= @transaction.price_cents if @transaction.move_type == 'recipe'
-    @transaction.account.price_cents += @transaction.price_cents if @transaction.move_type == 'expense'
+    @transaction.account.price_cents -= @transaction.price_cents if @transaction.category.transaction_type == 'recipe'
+    @transaction.account.price_cents += @transaction.price_cents if @transaction.category.transaction_type == 'expense'
     @transaction.account.save
     @transaction.destroy
 
@@ -68,6 +68,6 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:account_id, :category_id, :user_profile_id, :move_type, :description, :price_cents, :date)
+      params.require(:transaction).permit(:account_id, :category_id, :user_profile_id, :description, :price_cents, :date)
     end
 end
