@@ -2,46 +2,49 @@ namespace :dev do
   desc "Prepare environment for personal tests"
 
   task setup: :environment do
-    spinner_show("Apagando banco de dados...") { %x(rails db:drop) }
-    spinner_show("Criando novo banco de dados...") { %x(rails db:create) }
-    spinner_show("Construindo tabelas do banco...") { %x(rails db:migrate) }
-    spinner_show("Criando usuário padrão...") { %x(rails dev:add_default_user) }
-    spinner_show("Criando recorrências exemplo...") { %x(rails dev:add_recurrences) }
-    spinner_show("Criando transações exemplo...") { %x(rails dev:add_transactions) }
+    spinner_show("Construindo tabelas do banco...") { %x(bundle exec rake db:migrate) }
+    spinner_show("Criando usuário padrão...") { %x(bundle exec rake dev:add_default_user) }
+    spinner_show("Criando adicionar categorias de exemplo...") { %x(bundle exec rake dev:add_categories) }
+    spinner_show("Criando contas e transações de exemplo...") { %x(bundle exec rake dev:add_accounts_and_transactions) }
   end
 
   task add_default_user: :environment do
     User.create(email:"user@user.com", password:"user123", password_confirmation:"user123")
   end
 
-  desc "Adicionar contas ficticias"
-  task add_recurrences: :environment do
-
-    2.times do |product|
-      Recurrence.create!(
-        user_profile: User.last.user_profile,
-        title: "Banco Y #{product + 1}",
-        price_cents: 10000
-      )
-    end
-  end
-
   desc "Adicionar transações ficticias conforme as contas cadastradas"
-  task add_transactions: :environment do
+  task add_accounts_and_transactions: :environment do
 
-    Recurrence.all.each do |recurrence|
-      rand(2..5).times do
+    Account.all.each do |account|
+      20.times do
         Transaction.create!(
+          description: Faker::Lorem.question(word_count: rand(2..5)),
           user_profile: User.last.user_profile,
+<<<<<<< HEAD
+=======
+          move_type: %i[recipe expense].sample,
+>>>>>>> c76f10abff4f55b846630f8e43c9caaf55839754
           account: account,
           category: Category.all.sample,
-          title: "Transação - #{recurrence.title}",
           price_cents: rand(100..5000),
-          date: Faker::Date.in_date_period(year: 2020, month: 1)
+          date: Faker::Date.in_date_period(year: 2021, month: 12)
         )
       end
     end
 
+  end
+
+  desc "Criar as categorias bases"
+  task add_categories: :environment do
+    # Despesas
+    ['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
+      Category.create(title: category, user: User.last)
+    end
+
+    # Receitas
+    ['Salário', 'Serviço', 'Investimentos'].each do |category|
+      Category.create(title: category, user: User.last)
+    end
   end
 
   private
