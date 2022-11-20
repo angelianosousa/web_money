@@ -14,4 +14,5 @@ services:
         fromDatabase:
           name: finances_system
           property: connectionString
+      - key: RAILS_MASTER_KEY
         sync: false
