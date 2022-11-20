@@ -15,4 +15,3 @@
 //= require turbolinks
 //= require chartkick
 //= require Chart.bundle
-window.ApexCharts = require("apexcharts") // expose to window
