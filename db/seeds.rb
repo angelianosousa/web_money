@@ -19,7 +19,7 @@ end
 end
 
 Account.all.each do |account|
-  20.times do
+  250.times do
     Transaction.create!(
       description: Faker::Lorem.question(word_count: rand(2..5)),
       user_profile: User.last.user_profile,

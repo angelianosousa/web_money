@@ -6,7 +6,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
     params[:q] ||= { user_profile_id_eq: current_user.user_profile.id }
 
     @q = Transaction.ransack(params[:q])
-    @transactions = @q.result.page(params[:page])
+    @transactions = @q.result.page(params[:page]).order(:date)
 
     @balance = Account.sum(:price_cents)
 
