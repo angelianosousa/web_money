@@ -8,8 +8,5 @@ class UsersBackoffice::DashboardController < UsersBackofficeController
     @transactions = @q.result(distinct: true).includes(:account, :category)
 
     @accounts = Account.group(:title).sum(:price_cents)
-
-    @category_per_recipes = Category.recipes.group(:title).sum(:price_cents)
-    @category_per_expenses = Category.expenses.group(:title).sum(:price_cents)
   end
 end

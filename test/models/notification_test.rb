@@ -3,7 +3,6 @@
 # Table name: notifications
 #
 #  id              :bigint           not null, primary key
-#  recurrence_id   :bigint
 #  user_profile_id :bigint
 #  title           :string
 #  description     :string
