@@ -26,7 +26,7 @@ Account.all.each do |account|
       account: account,
       category: Category.all.sample,
       price_cents: rand(100..5000),
-      date: Faker::Date.in_date_period(year: 2021, month: 12)
+      date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
   end
 end
