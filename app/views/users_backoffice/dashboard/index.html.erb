@@ -1,109 +1,90 @@
 <div class="container">
   <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
-    <a class="navbar-brand" href="/users_backoffice/welcome/index">Painel de Gráficos</a>
+    <a class="navbar-brand" href="/users_backoffice/welcome/index">Graphic Panel</a>
   </nav>
-</div><br>
+</div>
 
-<%= render 'search_filter' %>
+<%#= render 'search_filter' %>
 
-<div class='container' style="padding-bottom: 70px;">
+<div class='container mb-4' style="padding-bottom: 70px;">
   <div class="row-md">
     <div class="tile_count">
-      <div class="col-md-4 col-sm-4  tile_stats_count">
-        <span class="count_top" style="color: blue"><i class="fa fa-bank"></i> Balanço Total</span>
-        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(Account.sum(:price_cents)) %></div>
+      <div class="col-md-4 col-sm-4">
+        <div class='card border-primary'>
+          <div class='card-body'>
+            <span class="count_top" style="color: blue"><i class="fa fa-bank"></i> Balanço Total</span>
+            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(Account.sum(:price_cents)) %></div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4 col-sm-4  tile_stats_count">
-        <span class="count_top" style="color: green"><i class="fa fa-arrow-down"></i> Receitas Totais</span>
-        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.recipes.sum(:price_cents)) %></div>
+      <div class="col-md-4 col-sm-4">
+        <div class='card border-success'>
+          <div class='card-body'>
+            <span class="count_top" style="color: green"><i class="fa fa-arrow-up"></i> Receitas Totais</span>
+            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(Transaction.recipes.sum(:price_cents)) %></div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4 col-sm-4  tile_stats_count">
-        <span class="count_top" style="color: red"><i class="fa fa-arrow-up"></i> Despesas Totais</span>
-        <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.expenses.sum(:price_cents)) %></div>
+      <div class="col-md-4 col-sm-4">
+        <div class='card border-danger'>
+          <div class='card-body'>
+            <span class="count_top" style="color: red"><i class="fa fa-arrow-down"></i> Despesas Totais</span>
+            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(Transaction.expenses.sum(:price_cents)) %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <br>
+
+<div class='row mb-2'>
+  <div class='col-md-6'>
+    <div class='card border border-success'>
+      <div class='card-body'>
+        <!-- Scope transactions_recipes_per_date -->
+        <%= line_chart Category.recipes.map { |category|
+          { name: category.title, data: category.transactions.group_by_month(:date, format:'%b %y').sum(:price_cents) }
+          }, title:"Recipes per date", curve: true, xtitle:'Days', ytitle:'Value ($)', curve: true, 
+             download: { filename: 'Recipes per date', background:'#ffffff' }, 
+             colors: ['#80ff00','#00bfff','#4000ff'] %>
+      </div>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class='card border border-danger'>
+      <div class='card-body'>
+        <!-- Scope transactions_expenses_per_date -->
+        <%= line_chart Category.expenses.map { |category|
+          { name: category.title, data: category.transactions.group_by_month(:date, format:'%b %y').sum(:price_cents) }
+          }, title:"Expenses per date", curve: true, xtitle:'Days', ytitle:'Value ($)', curve: true, 
+             download: { filename: 'Expenses per date', background:'#ffffff' },
+             colors: ['#bf00ff','#ff0080','#9a1b5b','#ff0000','#8000ff']
+        %>
+      </div>
+    </div>
+  </div>
+</div> <br>
+
+<div class='row mb-5'>
+  <div class='col-md-4'>
+    <div class='card border border-success'>
+      <div class='card-body'>
+        <%= pie_chart Category.recipes.group(:title).sum(:price_cents), title:"Recipes per category", donut: true, download: { filename: 'Recipes per Category', background:'#ffffff' } %>
+      </div>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class='card border border-danger'>
+      <div class='card-body'>
+        <%= pie_chart Category.expenses.group(:title).sum(:price_cents), title:"Expenses per Category", donut: true, download: { filename: 'Expenses per Category', background:'#ffffff' } %>
+      </div>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class='card border border-primary'>
+      <div class='card-body'>
+        <%= pie_chart @accounts, title:"Account Status", donut: true, colors:['#0040ff','#00ffff'], download: { filename: 'Account Status', background:'#ffffff' } %>
       </div>
     </div>
   </div>
 </div>
-
-<div class="container">
-  <div class='card border-info' style='border-color:DarkSlateGray;'>
-    <div class="card-header bg-light text-center" >
-
-      <ul class="nav nav-pills" id="pills-tab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="pills-transactions-graphics-tab" data-toggle="pill" href="#pills-transactions-graphics" role="tab" aria-controls="pills-transactions-graphics" aria-selected="true">Movimentações</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="pills-recurrence-graphics-tab" data-toggle="pill" href="#pills-recurrence-graphics" role="tab" aria-controls="pills-recurrence-graphics" aria-selected="false">Contas</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="tab-content" id="pills-tabContent">
-      <div class="tab-pane fade show active" id="pills-transactions-graphics" role="tabpanel" aria-labelledby="pills-transactions-graphics-tab">
-        <div class='container' style='padding: 10px;'>
-          <div class='row'>
-            <div class='col-md-12'>
-              <div class='card'>
-                <div class='card-body'>
-                  <!-- Scope transactions_recipes_per_date -->
-                  <%= line_chart @transactions.recipes.group(:date).sum(:price_cents), title:"Receita", colors: ["#008080"], curve: true  %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class='container' style='padding: 10px;'>
-          <div class='row'>
-            <div class='col-md-12'>
-              <div class='card'>
-                <div class='card-body'>
-                  <!-- Scope transactions_expenses_per_date -->
-                  <%= line_chart @transactions.expenses.group(:date).sum(:price_cents), title:"Despesas", colors: ["#b00"], curve: true  %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab-pane fade" id="pills-recurrence-graphics" role="tabpanel" aria-labelledby="pills-recurrence-graphics-tab">
-        <div class='container' style='padding: 10px;'>
-          <div class='row'>
-            <div class='col-md-6'>
-              <div class='card'>
-                <div class='card-body'>
-                  <%= column_chart @transactions.recipes.group_by_month(:date, format: '%b %Y').sum(:price_cents), title:"Receitas", colors: ["#2E8B57"] %>
-                </div>
-              </div>
-            </div>
-            <div class='col-md-6'>
-              <div class='card'>
-                <div class='card-body'>
-                  <%= column_chart @transactions.expenses.group_by_month(:date, format: '%b %Y').sum(:price_cents), title:"Despesas", colors: ["#b00"] %>
-                </div>
-              </div>
-            </div>
-          </div><br>
-
-          <div class='row'>
-            <div class='col-md-6'>
-              <div class='card'>
-                <div class='card-body'>
-                  <%= column_chart @transactions.min_and_max_recipes, title:"Min e Max - Receitas Recorrentes", colors: ["#2E8B57", "#20B2AA"] %>
-                </div>
-              </div>
-            </div>
-            <div class='col-md-6'>
-              <div class='card'>
-                <div class='card-body'>
-                  <%= column_chart @transactions.min_and_max_expenses, title:"Min e Max - Despesas Recorrentes", colors: ["#b00", "#DC143C"] %>
-                </div>
-              </div>
-            </div>
-          </div><br>
-        </div>
-      </div>
-    </div>
-  </div>
-</div><br>

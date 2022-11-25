@@ -8,9 +8,10 @@ The objective from this project is to implement a financial system where the use
 ### Dependencies
 
 * ruby 2.7.5
-* rails .5.2.0
+* rails 6.0.1
 * Postgre SQL
 * Bootstrap 4.3.1
+* Chartkick and groupdate for charts
 
 ### Build Project
 
@@ -22,12 +23,10 @@ The objective from this project is to implement a financial system where the use
 
 Commands for populate database
 ~~~ruby
-  - rails dev:add_default_user
-  - rails dev:add_recurrences # For create default accounts
-  - rails dev:add_transactions # For create some transactions
+  - rails db:seed
 ~~~
 
-Default user for heroku
+Default user for Render
 ~~~
   email: user@user.com
   senha: user123
@@ -35,8 +34,7 @@ Default user for heroku
 
 ## Importants Links
 
-* In production: https://www.herokuapp.com/finantial-system.com.br
-* In Staging: https://staging-finantial-system.herokuapp.com/
+* In Staging: https://finances-system.onrender.com/users/sign_in
 
 ## Author
 

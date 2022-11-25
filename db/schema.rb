@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_17_160449) do
+ActiveRecord::Schema.define(version: 2022_11_20_144501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2022_10_17_160449) do
   create_table "accounts", force: :cascade do |t|
     t.string "title"
     t.integer "price_cents", default: 0, null: false
-    t.string "price_currency", default: "BRL", null: false
+    t.string "price_currency", default: "USD", null: false
     t.bigint "user_profile_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -48,10 +48,11 @@ ActiveRecord::Schema.define(version: 2022_10_17_160449) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title", null: false
-    t.bigint "user_id"
+    t.bigint "user_profile_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_categories_on_user_id"
+    t.integer "category_type", default: 0
+    t.index ["user_profile_id"], name: "index_categories_on_user_profile_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -66,12 +67,11 @@ ActiveRecord::Schema.define(version: 2022_10_17_160449) do
 
   create_table "transactions", force: :cascade do |t|
     t.integer "price_cents", default: 0, null: false
-    t.string "price_currency", default: "BRL", null: false
+    t.string "price_currency", default: "USD", null: false
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_profile_id"
-    t.integer "move_type", null: false
     t.bigint "category_id", null: false
     t.bigint "account_id", null: false
     t.text "description"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2022_10_17_160449) do
 
   add_foreign_key "accounts", "user_profiles"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "categories", "users"
+  add_foreign_key "categories", "user_profiles"
   add_foreign_key "notifications", "user_profiles"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"

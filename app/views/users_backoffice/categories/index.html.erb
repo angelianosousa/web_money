@@ -1,0 +1,35 @@
+<div class="container">
+  <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
+    <a class="navbar-brand" href="/users_backoffice/categories"> Categories </a>
+  
+    <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newCategoryModal", style:"width:270px" do %>
+      <i class="fa fa-plus-square"></i> Nem Category
+    <% end %>
+  </nav>
+</div><br>
+
+<div class='card' style='border-radius: 20px;'>
+  <div class='card-body'>
+    <table class='table table-hover table-sm table-borderless'>
+      <thead class='bg-dark text-white'>
+        <tr>
+          <th>Title</th>
+          <th>Category type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <td><%= category.title %></td>
+            <td><%= transaction_status category.category_type %></td>
+            <td><%= render 'actions', category: category %></td>
+          </tr>
+
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= render partial: 'users_backoffice/categories/new', locals: { category: @category = Category.new} %>

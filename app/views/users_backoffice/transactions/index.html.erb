@@ -1,6 +1,6 @@
 <div class="container">
   <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
-    <a class="navbar-brand" href="/users_backoffice/transactions">Movimentações | <%= humanized_money_with_symbol Account.sum(:price_cents) %></a>
+    <a class="navbar-brand" href="/users_backoffice/transactions">Movimentações | <%= humanized_money_with_symbol @balance %></a>
 
     <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:270px" do %>
       <i class="fa fa-plus-square"></i> New Movement
@@ -18,13 +18,13 @@
           <table class='table table-sm table-borderless table-hover'>
             <thead>
               <tr>
-                <td><strong>Description</strong></td>
-                <td><strong>Value</strong></td>
-                <td><strong>Date</strong></td>
-                <td><strong>Type</strong></td>
-                <td><strong>Category</strong></td>
-                <td><strong>Account</strong></td>
-                <td><strong>Actions</strong></td>
+                <th>Description</th>
+                <th>Value</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Account</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <% transactions.each do |transaction| %>
@@ -32,8 +32,8 @@
                 <tr>
                   <td><div class='card-text'><small><%= transaction.description %></small></div></td>
                   <td><%= value_style(transaction) %></td>
-                  <td><%= transaction.date.strftime('%d/%m/%Y') %></td>
-                  <td><%= transaction_status(transaction.move_type) %></td>
+                  <td><%= transaction.date.strftime('%m/%d/%Y') %></td>
+                  <td><%= transaction_status(transaction.category.category_type) %></td>
                   <td><%= transaction.category.title %></td>
                   <td><%= transaction.account.title %></td>
                   <td><%= render 'actions', transaction: transaction %></td>
