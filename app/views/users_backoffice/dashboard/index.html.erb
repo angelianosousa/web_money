@@ -1,10 +1,10 @@
-<div class="container">
+<div class="container mb-2">
   <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
     <a class="navbar-brand" href="/users_backoffice/welcome/index">Graphic Panel</a>
   </nav>
 </div>
 
-<%#= render 'search_filter' %>
+<%= render 'search_filter' %>
 
 <div class='container mb-4' style="padding-bottom: 70px;">
   <div class="row-md">
@@ -12,7 +12,7 @@
       <div class="col-md-4 col-sm-4">
         <div class='card border-primary'>
           <div class='card-body'>
-            <span class="count_top" style="color: blue"><i class="fa fa-bank"></i> Balanço Total</span>
+            <span class="count_top" style="color: blue"><i class="fa fa-bank"></i> Current Balance</span>
             <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(Account.sum(:price_cents)) %></div>
           </div>
         </div>
@@ -20,16 +20,16 @@
       <div class="col-md-4 col-sm-4">
         <div class='card border-success'>
           <div class='card-body'>
-            <span class="count_top" style="color: green"><i class="fa fa-arrow-up"></i> Receitas Totais</span>
-            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(Transaction.recipes.sum(:price_cents)) %></div>
+            <span class="count_top" style="color: green"><i class="fa fa-arrow-up"></i> Total Recipes</span>
+            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.recipes.sum(:price_cents)) %></div>
           </div>
         </div>
       </div>
       <div class="col-md-4 col-sm-4">
         <div class='card border-danger'>
           <div class='card-body'>
-            <span class="count_top" style="color: red"><i class="fa fa-arrow-down"></i> Despesas Totais</span>
-            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(Transaction.expenses.sum(:price_cents)) %></div>
+            <span class="count_top" style="color: red"><i class="fa fa-arrow-down"></i> Total Expenses</span>
+            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.expenses.sum(:price_cents)) %></div>
           </div>
         </div>
       </div>
@@ -38,52 +38,34 @@
 </div> <br>
 
 <div class='row mb-2'>
-  <div class='col-md-6'>
-    <div class='card border border-success'>
+  <div class='col-md-12 mb-3'>
+    <div class='card border border-secondary'>
       <div class='card-body'>
         <!-- Scope transactions_recipes_per_date -->
-        <%= line_chart Category.recipes.map { |category|
-          { name: category.title, data: category.transactions.group_by_month(:date, format:'%b %y').sum(:price_cents) }
-          }, title:"Recipes per date", curve: true, xtitle:'Days', ytitle:'Value ($)', curve: true, 
-             download: { filename: 'Recipes per date', background:'#ffffff' }, 
-             colors: ['#80ff00','#00bfff','#4000ff'] %>
+        <%= line_chart @transactions.group_by_day(:date, range: 1.month.ago..Time.now).sum(:price_cents), legend: false,
+          title: "My Moviments #{params[:q][:date_gteq]} #{params[:q][:date_lteq]}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
+          download: { filename: "Moviments #{Date.today}", background:'#ffffff' } %>
       </div>
     </div>
   </div>
-  <div class='col-md-6'>
-    <div class='card border border-danger'>
+</div>
+
+<div class='row'>
+  <div class='col-md-6 mb-3'>
+    <div class='card border border-secondary'>
       <div class='card-body'>
         <!-- Scope transactions_expenses_per_date -->
-        <%= line_chart Category.expenses.map { |category|
-          { name: category.title, data: category.transactions.group_by_month(:date, format:'%b %y').sum(:price_cents) }
-          }, title:"Expenses per date", curve: true, xtitle:'Days', ytitle:'Value ($)', curve: true, 
-             download: { filename: 'Expenses per date', background:'#ffffff' },
-             colors: ['#bf00ff','#ff0080','#9a1b5b','#ff0000','#8000ff']
-        %>
+        <%= column_chart Category.recipes.group(:title).sum(:price_cents), legend: false, colors: ['#3CB371'],
+        title: 'My Recipes', xtitle: 'Categories', ytitle: 'Value ($)', download: { filename: "My Recipes - #{Date.today}", background:'#ffffff'} %>
       </div>
     </div>
   </div>
-</div> <br>
-
-<div class='row mb-5'>
-  <div class='col-md-4'>
-    <div class='card border border-success'>
+  <div class='col-md-6 mb-3'>
+    <div class='card border border-secondary'>
       <div class='card-body'>
-        <%= pie_chart Category.recipes.group(:title).sum(:price_cents), title:"Recipes per category", donut: true, download: { filename: 'Recipes per Category', background:'#ffffff' } %>
-      </div>
-    </div>
-  </div>
-  <div class='col-md-4'>
-    <div class='card border border-danger'>
-      <div class='card-body'>
-        <%= pie_chart Category.expenses.group(:title).sum(:price_cents), title:"Expenses per Category", donut: true, download: { filename: 'Expenses per Category', background:'#ffffff' } %>
-      </div>
-    </div>
-  </div>
-  <div class='col-md-4'>
-    <div class='card border border-primary'>
-      <div class='card-body'>
-        <%= pie_chart @accounts, title:"Account Status", donut: true, colors:['#0040ff','#00ffff'], download: { filename: 'Account Status', background:'#ffffff' } %>
+        <!-- Scope transactions_expenses_per_date -->
+        <%= column_chart Category.expenses.group(:title).sum(:price_cents), legend: false, colors:['#FF6347'],
+        title: 'My Expenses', xtitle: 'Categories', ytitle: 'Value ($)', download: { filename: "My Expenses - #{Date.today}", background:'#ffffff'} %>
       </div>
     </div>
   </div>
