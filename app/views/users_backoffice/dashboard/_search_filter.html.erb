@@ -5,6 +5,11 @@
         <div class='form-row align-items-center'>
 
           <div class='form-group col-md-2'>
+            <%= f.label :category, 'Category', class:'label-control', style:'margin-top: 14px;' %>
+            <%= f.select :category_id_eq, options_for_select(Category.pluck(:title, :id)), { include_blank: 'All'}, {class:'form-control'} %>
+          </div>
+
+          <div class='form-group col-md-2'>
             <%= f.label :price, 'Price (R$)', class:'label-control', style:'margin-top: 14px;' %>
             <%= f.number_field :price_cents_gteq, class:'form-control', in:0..999999, step: :any %>
           </div>
@@ -13,12 +18,12 @@
             <%= f.number_field :price_cents_lteq, class:'form-control', in:0..999999, step: :any, style:'margin-top: 40px;' %>
           </div>
 
-          <div class='form-group col-md-3'>
+          <div class='form-group col-md-2'>
             <%= f.label :date, 'Date', class:'label-control', style:'margin-top: 14px;' %>
             <%= f.date_field :date_gteq, class:'form-control', default: Date.today %>
           </div>
 
-          <div class='form-group col-md-3'>
+          <div class='form-group col-md-2'>
             <%= f.date_field :date_lteq, class:'form-control', default: Date.today, style:'margin-top: 40px;' %>
           </div>
           
@@ -31,4 +36,3 @@
     </div>
   </div>
 </nav>
-<br>
