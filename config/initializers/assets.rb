@@ -10,8 +10,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # /app/assets
 Rails.application.config.assets.precompile += %w( 
-  users_backoffice.js users_backoffice.css
-  user_devise.js user_devise.css
+  user_devise.css
 )
 
 # lib/assets
