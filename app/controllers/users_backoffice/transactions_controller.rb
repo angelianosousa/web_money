@@ -26,6 +26,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
       if @transaction.save!
         format.html { redirect_to users_backoffice_transactions_path, notice: "Transação criada com sucesso!" }
         format.json { render :index, status: :created, location: @transaction }
+        format.js
       else
         format.html { redirect_to users_backoffice_transactions_url, alert: @transaction.errors.full_messages }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }

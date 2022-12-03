@@ -1,12 +1,12 @@
 <div class="container">
-  <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
+  <nav class="navbar navbar-light my-finances-navbar">
     <a class="navbar-brand" href="/users_backoffice/transactions">Current Balance | <%= humanized_money_with_symbol Account.sum(:price_cents) %></a>
+
+    <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newAccountModal", style:"width:270px" do %>
+      <i class="fa fa-plus-square"></i> Nova Conta
+    <% end %>
   </nav>
 </div><br>
-
-<nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
-  <%= render 'search_form' %>
-</nav><br>
 
 <div class="row">
   <% @accounts.each do |account| %>

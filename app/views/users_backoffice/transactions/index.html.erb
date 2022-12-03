@@ -1,14 +1,22 @@
-<div class="container">
-  <nav class="navbar navbar-light" style="background-color:DarkSlateGray;color:white;border-radius:10px;">
+<div class="container mb-3">
+  <nav class="navbar navbar-light my-finances-navbar">
     <a class="navbar-brand" href="/users_backoffice/transactions">Movimentações | <%= humanized_money_with_symbol @balance %></a>
 
-    <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:270px" do %>
-      <i class="fa fa-plus-square"></i> New Movement
-    <% end %>
-  </nav>
-</div><br>
+    <div class='float-right'>
+      <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:270px" do %>
+        <i class="fa fa-plus-square"></i> New Movement
+      <% end %>
 
-<%= render 'search_form' %>
+      <button class="btn btn-outline-light btn-sm my-sm-3" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+        <span class='icon'><i class='fa fa-search'></i></span>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="collapse" id="collapseSearch">
+  <%= render 'search_filter' %>
+</div>
 
 <div class="row">
   <% @transactions.each do |day, transactions| %>

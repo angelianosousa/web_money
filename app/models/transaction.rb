@@ -28,9 +28,17 @@ class Transaction < ApplicationRecord
   validates :date, presence: true
 
   # Callbacks
-  after_save :operate_account
+  after_save :operate_account  
 
-  # Scope for index transactions
+  def operate_account
+    @account = Account.find(account_id)
+    @account.price_cents -= price_cents.to_i if category.category_type == 'expense'
+    @account.price_cents += price_cents.to_i if category.category_type == 'recipe'
+    @account.save!
+  end
+
+  # Scope Methods
+
   scope :default, ->(page, count_objects, transactions){
     @transaction_per_days = {}
 
@@ -42,30 +50,7 @@ class Transaction < ApplicationRecord
 
     Kaminari.paginate_array(@transaction_per_days.to_a).page(page).per(count_objects)
   }
-
-  def operate_account
-    @account = Account.find(account_id)
-    @account.price_cents -= price_cents.to_i if category.category_type == 'expense'
-    @account.price_cents += price_cents.to_i if category.category_type == 'recipe'
-    @account.save!
-  end
-
-  # Scope Methods
-
-  scope :min_and_max_recipes, ->(){
-    max_recipes = recipes.maximum(:price_cents)
-    min_recipes = recipes.minimum(:price_cents)
-
-    { max: max_recipes, min: min_recipes }
-  }
-
-  scope :min_and_max_expenses,->(){
-    max_expenses = expenses.maximum(:price_cents)
-    min_expenses = expenses.minimum(:price_cents)
-
-    { max: max_expenses, min: min_expenses }
-  }
-
+  
   scope :recipes,-> (){
     where(category_id: Category.where(category_type: :recipe)).includes(:account, :category)
   }

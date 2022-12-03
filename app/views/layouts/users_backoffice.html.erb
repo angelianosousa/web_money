@@ -12,7 +12,6 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'users_backoffice' %>
   </head>
 
   <body class="nav-md">
@@ -64,7 +63,7 @@
                       </li>
                       <li>
                         <%= link_to users_backoffice_transactions_path do %>
-                          <i class='fa fa-exchange' style='text-align:left;'></i> Transactions
+                          <i class='fa fa-exchange' style='text-align:left;'></i> Movements
                         <% end %>
                       </li>
                       <li>
@@ -74,11 +73,10 @@
                       </li>
                     </ul>
                   </li>
+                </ul>
               </div>
-              
             </div>
             <!-- /sidebar menu -->
-
           </div>
         </div>
 
@@ -130,7 +128,7 @@
                       <li class="nav-item">
                         <div class="dropdown-item text-center">
                           <span class="message">
-                            Sem notificações por aqui...
+                            There's no messages here
                           </span>
                         </div>
                       </li>
@@ -175,7 +173,6 @@
     </div>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'users_backoffice' %>
     
     <% flash.each do |type, msg| %>
       <%= javascript_tag do %>
