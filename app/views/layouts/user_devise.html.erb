@@ -37,8 +37,7 @@
       </div>
     </div>
 
-    <%= javascript_include_tag 'application' %>
-    <%= javascript_include_tag 'user_devise' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <% if flash %>
       <% flash.each do |key, value| %>
