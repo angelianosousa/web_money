@@ -1,50 +1,38 @@
 <%= form_with(model: [:users_backoffice, @transaction], local: true) do |form| %>
-
-<% if @transaction.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
-
-    <ul>
-      <% @transaction.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
   
-<%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
+  <%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
 
-<div class="row">
-  <div class="col-md-6 col-xl-6 col-sm-6">
-    <div class="form-group">
-      <%= form.label :Valor %>
-      <%= form.number_field :price_cents, step: :any, min: 0, class:"form-control" %>
+  <div class="row">
+    <div class="col-md-6 col-xl-6 col-sm-6">
+      <div class="form-group">
+        <%= form.label :Valor %>
+        <%= form.number_field :price_cents, step: :any, min: 0, class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :'Data do pagamento' %>
+        <%= form.datetime_field :date, class:"form-control", value: @transaction.date %>
+      </div>
     </div>
-    <div class="form-group">
-      <%= form.label :'Data do pagamento' %>
-      <%= form.datetime_field :date, class:"form-control", value: @transaction.date %>
+    <div class="col-md-6 col-xl-6 col-sm-6">
+      <div class="form-group">
+        <%= form.label :category %>
+        <%= form.select :category_id, options_for_select(category_options_for_select), {}, {class:"form-control"} %>
+      </div>
+      <div class='form-group'>
+        <%= form.label :account %>
+        <%= form.select :account_id, options_for_select(accounts_options_for_select), {}, { class:'form-control' } %>
+      </div>
+    </div>
+    <div class='col-md-12'>
+      <div class="form-group">
+        <%= form.label :description %>
+        <%= form.text_area :description, class:"form-control" %>
+      </div>
     </div>
   </div>
-  <div class="col-md-6 col-xl-6 col-sm-6">
-    <div class="form-group">
-      <%= form.label :category %>
-      <%= form.select :category_id, options_for_select(category_options_for_select), {}, {class:"form-control"} %>
-    </div>
-    <div class='form-group'>
-      <%= form.label :account %>
-      <%= form.select :account_id, options_for_select(accounts_options_for_select), {}, { class:'form-control' } %>
-    </div>
-  </div>
-  <div class='col-md-12'>
-    <div class="form-group">
-      <%= form.label :description %>
-      <%= form.text_area :description, class:"form-control" %>
-    </div>
-  </div>
-</div>
 
-<div class="actions">
-  <%= form.submit "Save", class:"btn btn-primary" %>
-  <%= link_to 'Back', users_backoffice_transactions_path, class:'btn btn-secondary' %>
-</div>
+  <div class="actions">
+    <%= form.submit "Save", class:"btn btn-primary" %>
+    <%= link_to 'Back', users_backoffice_transactions_path, class:'btn btn-secondary' %>
+  </div>
 <% end %>

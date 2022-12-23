@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   devise_for :users
   
   namespace :users_backoffice do
+    post 'dashboard/create_transaction'
+    post 'dashboard/create_account'
     get 'dashboard/index'
 
     resources :accounts, except: [:show, :new] do 
