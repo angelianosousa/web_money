@@ -19,6 +19,7 @@ class Transaction < ApplicationRecord
   belongs_to :account
   belongs_to :user_profile
   belongs_to :category
+  belongs_to :bill, optional: true
 
   # Money Rails 
   monetize :price_cents

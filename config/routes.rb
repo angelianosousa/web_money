@@ -17,10 +17,12 @@ Rails.application.routes.draw do
     end
     resources :user_profile, only: %i[edit update destroy]
     resources :transactions, except: [:show, :new]
+    resources :bills
     resources :notifications, only: [:index]
     resources :categories, except: [:show]
     patch '/notifications/mark_as_read/:id', to: "notifications#mark_as_read" 
   end
+
 
   root to: "users_backoffice/dashboard#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

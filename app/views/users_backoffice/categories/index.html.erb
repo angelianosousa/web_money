@@ -3,7 +3,7 @@
     <a class="navbar-brand" href="/users_backoffice/categories"> Categories </a>
   
     <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newCategoryModal", style:"width:270px" do %>
-      <i class="fa fa-plus-square"></i> Nem Category
+      <i class="fa fa-plus-square"></i> New Category
     <% end %>
   </nav>
 </div><br>
@@ -59,4 +59,4 @@
   </div>
 </div>
 
-<%= render partial: 'users_backoffice/categories/new', locals: { category: @category = Category.new} %>
+<%= render partial: 'users_backoffice/categories/modals/new', locals: { category: @category = Category.new } %>

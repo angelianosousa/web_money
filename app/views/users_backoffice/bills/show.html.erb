@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @bill.title %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @bill.value %>
+</p>
+
+<p>
+  <strong>Due pay:</strong>
+  <%= @bill.due_pay %>
+</p>
+
+<p>
+  <strong>Bill type:</strong>
+  <%= @bill.bill_type %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @bill.status %>
+</p>
+
+<%= link_to 'Edit', edit_users_backoffice_bill_path(@bill) %> |
+<%= link_to 'Back', users_backoffice_bills_path %>

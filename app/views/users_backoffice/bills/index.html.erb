@@ -1,0 +1,41 @@
+<div class="container">
+  <nav class="navbar navbar-light my-finances-navbar">
+    <a class="navbar-brand" href="/users_backoffice/categories"> Bills </a>
+  
+    <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newBillModal", style:"width:270px" do %>
+      <i class="fa fa-plus-square"></i> New Bill
+    <% end %>
+  </nav>
+</div><br>
+
+<table class='table table-striped'>
+  <thead class='table-dark'>
+    <tr>
+      <th>Title</th>
+      <th>Value</th>
+      <th>Due pay</th>
+      <th>Bill type</th>
+      <th>Payment</th>
+      <th>Status</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bills.each do |bill| %>
+      <tr>
+        <td><%= bill.title %></td>
+        <td><%= bill.value %></td>
+        <td><%= bill.due_pay %></td>
+        <td><%= bill_type_status bill.bill_type %></td>
+        <td><%= bill_payment bill.status %></td>
+        <td><%= bill_due_status bill %></td>
+        <td><%= render 'actions', bill: bill %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= render partial: 'users_backoffice/bills/modals/new', locals: { bill: @bill = Bill.new } %>
