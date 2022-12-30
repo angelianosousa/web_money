@@ -11,7 +11,7 @@ class UsersBackoffice::BillsController < UsersBackofficeController
 
   # GET /bills/1 or /bills/1.json
   def show
-    @transactions = @bill.transactions.page(params[:page]).order(:date)
+    @transactions = @bill.transactions.page(params[:page]).order(id: :desc, date: :asc)
   end
 
   # GET /bills/1/edit
@@ -39,7 +39,7 @@ class UsersBackoffice::BillsController < UsersBackofficeController
     @category     = Category.find(params[:category_id])
     @user_profile = current_user.user_profile
 
-    @bill.transactions.create!(
+    @bill.transactions.build(
       account_id: @account.id,
       user_profile: @user_profile,
       description: params[:description],
@@ -48,7 +48,8 @@ class UsersBackoffice::BillsController < UsersBackofficeController
       date: Date.today.to_datetime
     )
 
-    @bill.status = :paid
+    @bill.status  = :paid
+    @bill.due_pay += 1.month
     
     if @bill.save!
       redirect_to users_backoffice_bills_url, notice: "Paymment was successfully added!"
