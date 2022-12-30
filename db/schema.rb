@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 2022_12_25_182735) do
 
   create_table "bills", force: :cascade do |t|
     t.string "title"
-    t.decimal "value"
-    t.date "due_pay", default: "2022-12-25"
+    t.decimal "price_cents"
+    t.date "due_pay", default: "2022-12-30"
     t.integer "bill_type"
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2022_12_25_182735) do
     t.datetime "updated_at", null: false
     t.bigint "user_profile_id"
     t.bigint "category_id", null: false
-    t.bigint "account_id", null: false
+    t.bigint "account_id"
     t.text "description"
     t.bigint "bill_id"
     t.index ["account_id"], name: "index_transactions_on_account_id"

@@ -2,7 +2,7 @@
 
   <div class='row'>
     <div class='col-md-4'>
-      <div class='card'>
+      <div class='card '>
         <div class='card-body' style='width: 20rem'>
           <% @user_profile = current_user.user_profile.avatar %> <!-- Variable for set the current user for images profile --->
           <%= @user_profile.attached? ? image_tag(@user_profile, size:"200x200", class:"img-circle profile_img") : image_tag("https://via.placeholder.com/150C/", size:"200x200", class:"img-circle profile_img") %>
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class='col-md-8'>
-      <div class='card'>
+      <div class='card border-dark'>
         <div class='card-body'>
           <div class='form-group'>
             <div class='field'>

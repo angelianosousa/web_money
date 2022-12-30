@@ -11,13 +11,14 @@ Rails.application.routes.draw do
     post 'dashboard/create_transaction'
     post 'dashboard/create_account'
     get 'dashboard/index'
-
-    resources :accounts, except: [:show, :new] do 
+    
+    resources :bills, except: [:new] do
       post 'new_transaction'
     end
+
+    resources :accounts, except: [:show, :new]
     resources :user_profile, only: %i[edit update destroy]
     resources :transactions, except: [:show, :new]
-    resources :bills
     resources :notifications, only: [:index]
     resources :categories, except: [:show]
     patch '/notifications/mark_as_read/:id', to: "notifications#mark_as_read" 

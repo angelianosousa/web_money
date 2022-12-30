@@ -1,24 +1,24 @@
 <nav class="navbar navbar-light my-finances-navbar">
   <div class='row'>
     <div class='col'>
-      <%= search_form_for @q, url: users_backoffice_transactions_path, html: { class: 'form-row my-2 my-lg-0' } do |f| %>
+      <%= search_form_for @q, url: users_backoffice_bills_path, html: { class: 'form-row my-2 my-lg-0' } do |f| %>
         <div class='form-row align-items-center'>
           <div class='form-group col-md-2'>
-            <%= f.label :category_id_eq, 'Category', class: 'label-control', style:'margin-top: 14px;' %>
-            <%= f.select :category_id_eq, options_for_select(Category.pluck(:title, :id)), 
+            <%= f.label :bill_type, 'Bill Type', class: 'label-control', style:'margin-top: 14px;' %>
+            <%= f.select :bill_type, options_for_select(Bill.bill_types.keys.map { |bt| bt.capitalize }), 
                                                              { include_blank: 'All' },
                                                              { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
           </div>
 
           <div class='form-group col-md-2'>
-            <%= f.label :account_id_in, 'Account', class:'label-control', style:'margin-top: 14px;' %>
-            <%= f.select :account_id_in, options_for_select(Account.pluck(:title, :id)),
+            <%= f.label :status_eq, 'Status', class:'label-control', style:'margin-top: 14px;' %>
+            <%= f.select :status_eq, options_for_select(Bill.statuses.keys.map { |s| s.capitalize }),
                                                             { include_blank: 'All' },
                                                             { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
           </div>
 
           <div class='form-group col-md-1'>
-            <%= f.label :price, 'Price', class:'label-control', style:'margin-top: 14px;' %>
+            <%= f.label :price_cents, 'Price', class:'label-control', style:'margin-top: 14px;' %>
             <%= f.number_field :price_cents_gteq, class:'form-control', in:0..999999 %>
           </div>
 
@@ -27,17 +27,17 @@
           </div>
 
           <div class='form-group col-md-2'>
-            <%= f.label :date, 'Date', class:'label-control', style:'margin-top: 14px;' %>
-            <%= f.date_field :date_gteq, class:'form-control' %>
+            <%= f.label :due_pay, 'Due Pay', class:'label-control', style:'margin-top: 14px;' %>
+            <%= f.date_field :due_pay_gteq, class:'form-control' %>
           </div>
 
           <div class='form-group col-md-2'>
-            <%= f.date_field :date_lteq, class:'form-control', style:'margin-top: 40px;' %>
+            <%= f.date_field :due_pay_lteq, class:'form-control', style:'margin-top: 40px;' %>
           </div>
           
           <div class='form-group col-md-2 text-right mt-5'>
             <%= f.submit 'Search', class:'btn btn-outline-light btn-round btn-sm px-5' %>
-            <%= link_to 'Clear', users_backoffice_transactions_path, class:'btn btn-outline-info btn-round btn-sm px-5 mr-2' %>
+            <%= link_to 'Clear', users_backoffice_bills_path, class:'btn btn-outline-info btn-round btn-sm px-5 mr-2' %>
           </div>
         </div>
       <% end %>

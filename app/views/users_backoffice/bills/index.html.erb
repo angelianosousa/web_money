@@ -1,40 +1,59 @@
 <div class="container">
   <nav class="navbar navbar-light my-finances-navbar">
     <a class="navbar-brand" href="/users_backoffice/categories"> Bills </a>
-  
-    <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newBillModal", style:"width:270px" do %>
-      <i class="fa fa-plus-square"></i> New Bill
-    <% end %>
+
+    <div class='float-right'>
+      <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newBillModal", style:"width:270px" do %>
+        <i class="fa fa-plus-square"></i> New Bill
+      <% end %>
+
+      <button class="btn btn-outline-light btn-sm my-sm-3" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+        <span class='icon'><i class='fa fa-search'></i></span>
+      </button>
+    </div>
   </nav>
 </div><br>
 
-<table class='table table-striped'>
-  <thead class='table-dark'>
-    <tr>
-      <th>Title</th>
-      <th>Value</th>
-      <th>Due pay</th>
-      <th>Bill type</th>
-      <th>Payment</th>
-      <th>Status</th>
-      <th colspan="1"></th>
-    </tr>
-  </thead>
+<div class="collapse" id="collapseSearch">
+  <%= render 'search_filter' %>
+</div>
 
-  <tbody>
-    <% @bills.each do |bill| %>
-      <tr>
-        <td><%= bill.title %></td>
-        <td><%= bill.value %></td>
-        <td><%= bill.due_pay %></td>
-        <td><%= bill_type_status bill.bill_type %></td>
-        <td><%= bill_payment bill.status %></td>
-        <td><%= bill_due_status bill %></td>
-        <td><%= render 'actions', bill: bill %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class='card border-dark' style='border-radius:10px;'>
+  <div class='card-body'>
+    <table class='table table-striped'>
+      <thead class='background-finances-green'>
+        <tr>
+          <th>Title</th>
+          <th>Value</th>
+          <th>Due pay</th>
+          <th>Bill type</th>
+          <th>Payment</th>
+          <th>Status</th>
+          <th colspan="1"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @bills.each do |bill| %>
+          <tr>
+            <td><%= bill.title %></td>
+            <td><%= bill.price_cents %></td>
+            <td><%= bill.due_pay %></td>
+            <td><%= bill_type_status bill.bill_type %></td>
+            <td><%= bill_payment bill.status %></td>
+            <td><%= bill_due_status bill %></td>
+            <td><%= render 'actions', bill: bill %></td>
+          </tr>
+
+          <%= render partial: 'users_backoffice/bills/modals/new_payment', locals: { bill: bill } %>
+        <% end %>
+      </tbody>
+    </table>
+    <div class='container-fluid'>
+      <%= paginate @bills %>
+    </div>
+  </div>
+</div>
 
 <br>
 
