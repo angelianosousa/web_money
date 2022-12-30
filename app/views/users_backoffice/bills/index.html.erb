@@ -37,8 +37,8 @@
         <% @bills.each do |bill| %>
           <tr>
             <td><%= bill.title %></td>
-            <td><%= bill.price_cents %></td>
-            <td><%= bill.due_pay %></td>
+            <td><%= humanized_money_with_symbol bill.price_cents %></td>
+            <td><%= bill.due_pay.strftime('%d') %></td>
             <td><%= bill_type_status bill.bill_type %></td>
             <td><%= bill_payment bill.status %></td>
             <td><%= bill_due_status bill %></td>

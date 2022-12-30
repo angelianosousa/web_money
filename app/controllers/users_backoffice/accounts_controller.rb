@@ -6,15 +6,6 @@ class UsersBackoffice::AccountsController < UsersBackofficeController
     @accounts = Account.all.page(params[:page])
   end
 
-  # GET /accounts/1 or /accounts/1.json
-  def show
-  end
-
-  # GET /accounts/new
-  def new
-    @account = Account.new
-  end
-
   # GET /accounts/1/edit
   def edit
   end

@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <% @accounts.each do |account| %>
-        <tbody>
+        <tbody class='border-bottom'>
           <tr>
             <td><%= account.title %></td>
             <td><%= humanized_money_with_symbol(account.price_cents) %></td>

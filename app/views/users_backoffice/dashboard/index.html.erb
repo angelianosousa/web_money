@@ -1,7 +1,7 @@
 <div class='container mb-4' style="padding-bottom: 70px;">
 
   <nav class="navbar navbar-light mb-2 my-finances-navbar">
-    <a class="navbar-brand" href="/users_backoffice/dashboard/index">Graphic Panel</a>
+    <a class="navbar-brand" href="/users_backoffice/dashboard/index">Graphic Panel | <%= "#{Date.today.strftime('%B')}" %></a>
 
     <div class='float-right'>
       <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:140px" do %>
@@ -82,21 +82,23 @@
 </div>
 
 <div class='row'>
-  <div class='col-md-6 mb-3'>
+  <div class='col-md mb-3'>
     <div class='card border border-secondary'>
       <div class='card-body'>
-        <!-- Scope transactions_expenses_per_date -->
-        <%= column_chart Category.recipes.group(:title).sum(:price_cents), legend: false, colors: ['#3CB371'],
-        title: 'My Recipes', xtitle: 'Categories', ytitle: 'Value ($)', download: { filename: "My Recipes - #{Date.today}", background:'#ffffff'} %>
+        <!-- Scope -->
+        <%= column_chart @categories, legend: false, colors: ['#2F4F4F'],
+        title: 'My Categories', xtitle: 'Categories', ytitle: 'Value ($)', download: { filename: "My Recipes - #{Date.today}", background:'#ffffff'} %>
       </div>
     </div>
   </div>
-  <div class='col-md-6 mb-3'>
-    <div class='card border border-secondary'>
+</div>
+
+<div class='row'>
+  <div class='col-md mb-3'>
+    <div class='card border-secondary'>
       <div class='card-body'>
-        <!-- Scope transactions_expenses_per_date -->
-        <%= column_chart Category.expenses.group(:title).sum(:price_cents), legend: false, colors:['#FF6347'],
-        title: 'My Expenses', xtitle: 'Categories', ytitle: 'Value ($)', download: { filename: "My Expenses - #{Date.today}", background:'#ffffff'} %>
+        <%= column_chart @bills, legend: false, colors:['#00008B'], title: 'My Bills', xtitle: 'Bills', 
+        ytitle: 'Value ($)', download: { filename: "My Bills", background:'#ffffff'} %>
       </div>
     </div>
   </div>

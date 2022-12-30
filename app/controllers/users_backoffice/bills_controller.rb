@@ -14,11 +14,6 @@ class UsersBackoffice::BillsController < UsersBackofficeController
     @transactions = @bill.transactions.page(params[:page]).order(:date)
   end
 
-  # GET /bills/new
-  def new
-    @bill = Bill.new
-  end
-
   # GET /bills/1/edit
   def edit
   end

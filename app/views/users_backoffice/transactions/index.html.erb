@@ -36,7 +36,7 @@
               </tr>
             </thead>
             <% transactions.each do |transaction| %>
-              <tbody>
+              <tbody class='border-bottom'>
                 <tr>
                   <td><div class='card-text'><small><%= transaction.description %></small></div></td>
                   <td><%= value_style(transaction) %></td>
