@@ -9,6 +9,15 @@ class UsersBackoffice::DashboardController < UsersBackofficeController
 
     @categories = @transactions.includes(:category).group(:title).sum(:price_cents)
     @bills      = @transactions.where.not(bill_id: nil).includes(:bill).group(:title).sum(:price_cents)
+
+    respond_to do |format|
+      format.json { render json: {
+        transactions: @transactions,
+        categories:   @categories,
+        bills:        @bills
+      }}
+      format.html
+    end
   end
 
   def create_transaction
