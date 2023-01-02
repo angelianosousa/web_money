@@ -5,9 +5,19 @@ class UsersBackoffice::DashboardController < UsersBackofficeController
 
     @q = Transaction.ransack(params[:q])
 
-    @transactions = @q.result(distinct: true).includes(:account, :category)
+    @transactions = @q.result(distinct: true)
 
-    @accounts = Account.group(:title).sum(:price_cents)
+    @categories = @transactions.includes(:category).group(:title).sum(:price_cents)
+    @bills      = @transactions.where.not(bill_id: nil).includes(:bill).group(:title).sum(:price_cents)
+
+    respond_to do |format|
+      format.json { render json: {
+        transactions: @transactions,
+        categories:   @categories,
+        bills:        @bills
+      }}
+      format.html
+    end
   end
 
   def create_transaction
@@ -16,7 +26,7 @@ class UsersBackoffice::DashboardController < UsersBackofficeController
 
     respond_to do |format|
       if @transaction.save!
-        format.html { redirect_to root_path, notice: "Transação criada com sucesso!" }
+        format.html { redirect_to root_path, notice: "Movement was successfully created." }
         format.json { render :index, status: :created, location: @transaction }
         format.js
       else

@@ -8,7 +8,7 @@
       <% end %>
 
       <button class="btn btn-outline-light btn-sm my-sm-3" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
-        <span class='icon'><i class='fa fa-search'></i></span>
+        <span class='icon'><i class='fa fa-filter'></i></span>
       </button>
     </div>
   </nav>
@@ -36,7 +36,7 @@
               </tr>
             </thead>
             <% transactions.each do |transaction| %>
-              <tbody>
+              <tbody class='border-bottom'>
                 <tr>
                   <td><div class='card-text'><small><%= transaction.description %></small></div></td>
                   <td><%= value_style(transaction) %></td>
@@ -49,7 +49,7 @@
               </tbody>
             <% end %>
           </table>
-          <div class="card-footer bg-dark text-white text-right" style='border-radius:20px;'>current balance <%= humanized_money_with_symbol balance_for_that_day(day) %> - <%= day %></div>
+          <div class="card-footer background-finances-green text-right" style='border-radius:20px;'>current balance <%= humanized_money_with_symbol balance_for_that_day(day) %> - <%= day %></div>
         </div>
       </div>
     </div>

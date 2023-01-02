@@ -3,12 +3,20 @@
 # Table name: accounts
 #
 #  id              :bigint           not null, primary key
-#  title           :string
 #  price_cents     :integer          default(0), not null
 #  price_currency  :string           default("USD"), not null
-#  user_profile_id :bigint           not null
+#  title           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  user_profile_id :bigint           not null
+#
+# Indexes
+#
+#  index_accounts_on_user_profile_id  (user_profile_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_profile_id => user_profiles.id)
 #
 require 'rails_helper'
 

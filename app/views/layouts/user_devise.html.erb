@@ -16,19 +16,27 @@
 
   </head>
 
-  <body class="login">
+  <body class="login" style='background:#2F4F4F'>
     <div>
       <a class="hiddenanchor" id="signin"></a>
       
-      <div class="login_wrapper">
+      <div class="">
         <div class="animate form login_form">
-          <section class="login_content">
+          <section class="login_content" style='max-width: 75%; margin:auto;'>
 
-            <div class='card' sytle='border-radius: 20px;'>
+            <div class='card border-dark mt-5 mb-5' sytle='border-radius: 20px;'>
               <div class='card-body'>
-                <h3><i class="fa fa-bank"></i> Finances System</h3><br>
-                  
-                <%= yield %>
+                <div class='row'>
+                  <div class='col-md-7'>
+                    <figure class="figure">
+                      <%= image_tag 'finances.jpg', class:'figure-img img-fluid rounded' %>
+                    </figure>
+                  </div>
+                  <div class='col-md-5'>
+                    <h3><i class="fa fa-bank"></i> Finances System</h3><br>
+                    <%= yield %>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
