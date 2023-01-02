@@ -1,11 +1,11 @@
 class CreateReminderJob
-  include Sidekiq::Job
+
   def perform
     number_of_notifications = 0
 
-    Recurrence.all.each do |recurrence|
-      if recurrence.date_expire == Date.today
-        Notification.create(recurrence: recurrence, title: "#{recurrence.title} - Vence hoje!")
+    Bill.all.each do |bill|
+      if bill.date <= Date.today
+        Notification.create(title: "#{bill.title} - Vence hoje!")
         number_of_notifications += 1
       end
     end

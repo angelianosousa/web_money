@@ -9,44 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= form_with(url: users_backoffice_dashboard_create_transaction_path, model: @transaction, local: true) do |form| %>
-  
-          <%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
-
-          <div class="row">
-            <div class="col-md-6 col-xl-6 col-sm-6">
-              <div class="form-group">
-                <%= form.label :Valor %>
-                <%= form.number_field :price_cents, step: :any, min: 0, class:"form-control" %>
-              </div>
-              <div class="form-group">
-                <%= form.label :'Data do pagamento' %>
-                <%= form.datetime_field :date, class:"form-control", value: @transaction.date %>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-6 col-sm-6">
-              <div class="form-group">
-                <%= form.label :category %>
-                <%= form.select :category_id, options_for_select(category_options_for_select), {}, {class:"form-control"} %>
-              </div>
-              <div class='form-group'>
-                <%= form.label :account %>
-                <%= form.select :account_id, options_for_select(accounts_options_for_select), {}, { class:'form-control' } %>
-              </div>
-            </div>
-            <div class='col-md-12'>
-              <div class="form-group">
-                <%= form.label :description %>
-                <%= form.text_area :description, class:"form-control" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="actions">
-            <%= form.submit "Save", class:"btn btn-primary" %>
-            <%= link_to 'Back', users_backoffice_transactions_path, class:'btn btn-secondary' %>
-          </div>
-        <% end %>
+        <%= render 'users_backoffice/transactions/form', transaction: @transaction, url: '/users_backoffice/dashboard/create_transaction' %>
       </div>
     </div>
   </div>
