@@ -14,26 +14,26 @@
     <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag 'user_devise' %>
 
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
-  <body class="login" style='background:#2F4F4F'>
+  <body>
     <div>
       <a class="hiddenanchor" id="signin"></a>
       
       <div class="">
         <div class="animate form login_form">
-          <section class="login_content" style='max-width: 75%; margin:auto;'>
+          <section class="login_content">
 
-            <div class='card border-dark mt-5 mb-5' sytle='border-radius: 20px;'>
+            <div class='card card-style mt-5 mb-5'>
               <div class='card-body'>
                 <div class='row'>
                   <div class='col-md-7'>
-                    <figure class="figure">
-                      <%= image_tag 'finances.jpg', class:'figure-img img-fluid rounded' %>
-                    </figure>
+                    <%= image_tag 'finances.jpg', class:'figure-img img-fluid rounded' %>
                   </div>
                   <div class='col-md-5'>
-                    <h3><i class="fa fa-bank"></i> Finances System</h3><br>
+                    <h3><i class="fa fa-bank mb-2"></i> Finances System</h3>
                     <%= yield %>
                   </div>
                 </div>
@@ -44,8 +44,6 @@
 
       </div>
     </div>
-
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <% if flash %>
       <% flash.each do |key, value| %>

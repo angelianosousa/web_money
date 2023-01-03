@@ -20,7 +20,7 @@
 
 <div class='card border-dark' style='border-radius:10px;'>
   <div class='card-body'>
-    <table class='table table-striped'>
+    <table class='table table-sm table-striped'>
       <thead class='background-finances-green'>
         <tr>
           <th>Title</th>
@@ -38,7 +38,7 @@
           <tr>
             <td><%= bill.title %></td>
             <td><%= humanized_money_with_symbol bill.price_cents %></td>
-            <td><%= bill.due_pay.strftime('%d') %></td>
+            <td><%= bill.due_pay.strftime('%d %b') %></td>
             <td><%= bill_type_status bill.bill_type %></td>
             <td><%= bill_payment bill.status %></td>
             <td><%= bill_due_status bill %></td>

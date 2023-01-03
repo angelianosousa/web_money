@@ -9,37 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= form_with url: users_backoffice_bill_new_transaction_path(bill), local: true do |form| %>
-
-          <div class='form-group'>
-            <%= form.label :price_cents %>
-            <%= form.number_field :price_cents, class:'form-control', min: 1, any: :step %>
-          </div>
-
-          <div class='row'>
-            <div class='col-md'>
-              <div class='form-group'>
-                <%= form.label :category %>
-                <%= form.select :category_id, options_for_select(category_options_for_select(bill.bill_type)), {}, {class:'form-control'} %>
-              </div>
-            </div>
-            <div class='col-md'>
-              <div class='form-group'>
-                <%= form.label :account %>
-                <%= form.select :account_id, options_for_select(accounts_options_for_select), {}, {class:'form-control'} %>
-              </div>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <%= form.label :description %>
-            <%= form.text_area :description, class:'form-control' %>
-          </div>
-
-          <div class="form-group">
-            <%= form.submit class:"btn btn-primary" %>
-          </div>
-        <% end %>
+        <%= render 'users_backoffice/transactions/form', transaction: @transaction, url: "/users_backoffice/bills/#{bill.id}/new_transaction" %>
       </div>
     </div>
   </div>

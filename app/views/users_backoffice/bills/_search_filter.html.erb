@@ -5,16 +5,16 @@
         <div class='form-row align-items-center'>
           <div class='form-group col-md-2'>
             <%= f.label :bill_type_eq, 'Bill Type', class: 'label-control', style:'margin-top: 14px;' %>
-            <%= f.select :bill_type_eq, options_for_select(Bill.bill_types.keys), 
-                                                             { include_blank: 'All' },
-                                                             { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
+            <%= f.select :bill_type_eq, Bill.bill_types.keys, 
+                                        { include_blank: 'All' },
+                                        { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
           </div>
 
           <div class='form-group col-md-2'>
             <%= f.label :status_eq, 'Status', class:'label-control', style:'margin-top: 14px;' %>
-            <%= f.select :status_eq, options_for_select(Bill.statuses.keys),
-                                                            { include_blank: 'All' },
-                                                            { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
+            <%= f.select :status_eq, Bill.statuses.keys,
+                                    { include_blank: 'All' },
+                                    { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
           </div>
 
           <div class='form-group col-md-1'>

@@ -1,6 +1,6 @@
 module TransactionsHelper
   def transaction_status(transaction_type)
-    text, badge_class = (transaction_type == 'recipe') ? ['RECIPE', 'badge badge-success'] : ['EXPENSE', 'badge badge-danger']
+    text, badge_class = (transaction_type == 'recipe') ? ['recipe', 'badge badge-success'] : ['expense', 'badge badge-danger']
 
     badge_pill(text, class:"#{badge_class}")
   end
