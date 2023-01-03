@@ -31,6 +31,7 @@
                 <th>Date</th>
                 <th>Type</th>
                 <th>Category</th>
+                <th>Bill</th>
                 <th>Account</th>
                 <th>Actions</th>
               </tr>
@@ -43,6 +44,7 @@
                   <td><%= transaction.date.strftime('%m/%d/%Y') %></td>
                   <td><%= transaction_status(transaction.category.category_type) %></td>
                   <td><%= transaction.category.title %></td>
+                  <td><%= transaction.bill.title rescue '-'%></td>
                   <td><%= transaction.account.title %></td>
                   <td><%= render 'actions', transaction: transaction %></td>
                 </tr>
