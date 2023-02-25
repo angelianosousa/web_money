@@ -28,4 +28,4 @@ RUN yarn install
 EXPOSE 8080
 
 # Configure the main process to run when running the image
-CMD ["rails", "server", "-b", "0.0.0.0", "8080"]
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080"]
