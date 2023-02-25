@@ -3,7 +3,7 @@
 # Table name: transactions
 #
 #  id              :bigint           not null, primary key
-#  date            :date             default(Mon, 02 Jan 2023)
+#  date            :date             default(Sat, 25 Feb 2023)
 #  description     :text
 #  price_cents     :integer          default(0), not null
 #  price_currency  :string           default("USD"), not null
