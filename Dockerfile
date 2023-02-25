@@ -25,7 +25,7 @@ RUN bundle check || bundle install
 RUN npm install --global yarn
 RUN yarn install
 
-EXPOSE 8080
+EXPOSE 3000
 
 # Configure the main process to run when running the image
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080"]
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3000"]
