@@ -93,5 +93,4 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
-  config.hosts << "financessystem-angelianosousa.b4a.run"
 end
