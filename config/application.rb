@@ -18,5 +18,11 @@ module FinancesSystem
     config.i18n.available_locales = [:en, :'pt-BR']
     config.i18n.default_locale = :'pt-BR'
     # config.active_job.queue_adapter = :good_job
+    config.hosts = [
+      IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
+      IPAddr.new("::/0"),      # All IPv6 addresses.
+      "localhost",             # The localhost reserved domain.
+      "financessystem-angelianosousa.b4a.run"   # Allow this to be addressed when running in containers via docker-compose.yml.
+    ]
   end
 end
