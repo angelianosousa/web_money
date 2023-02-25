@@ -1,23 +1,31 @@
+# Ruby version
 FROM ruby:2.7.5
-RUN apt-get update -qq && apt-get install -y postgresql-client
 
-# for a JS runtime
-RUN apt-get install -y nodejs npm
-# RUN apt-get update
+# Building depedencies
+RUN apt-get update && apt-get install -y \
+    libicu-dev \
+    postgresql-client \
+    nodejs \
+    npm \
+    yarn
 
 RUN mkdir /finantial_system
 
 WORKDIR /finantial_system
 
-COPY Gemfile /finantial_system/Gemfile
-COPY Gemfile.lock /finantial_system/Gemfile.lock
+# Finish building
 RUN gem install bundler
 RUN bundle check || bundle install
 RUN npm install --global yarn
 RUN yarn install
+
+COPY Gemfile /finantial_system/Gemfile
+
+COPY Gemfile.lock /finantial_system/Gemfile.lock
+
 COPY . /finantial_system
 
-EXPOSE 8080
+EXPOSE 80
 
 # Configure the main process to run when running the image
-CMD ["rails", "server", "-b", "https://financessystem-angelianosousa.b4a.run/"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
