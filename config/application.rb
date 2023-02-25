@@ -18,6 +18,5 @@ module FinancesSystem
     config.i18n.available_locales = [:en, :'pt-BR']
     config.i18n.default_locale = :'pt-BR'
     # config.active_job.queue_adapter = :good_job
-    config.hosts << "financessystem-angelianosousa.b4a.run"
   end
 end
