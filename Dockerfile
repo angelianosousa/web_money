@@ -20,4 +20,4 @@ COPY . /finantial_system
 EXPOSE 8080
 
 # Configure the main process to run when running the image
-CMD ["rails", "server"]
+CMD ["rails", "server", "-b", "https://financessystem-angelianosousa.b4a.run/"]
