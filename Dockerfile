@@ -1,29 +1,23 @@
-# Ruby version
 FROM ruby:2.7.5
 
-# Building depedencies
-RUN apt-get update && apt-get install -y \
-    libicu-dev \
+RUN apt-get update -qq && apt-get install -y \
     postgresql-client \
     nodejs \
-    npm \
-    yarn
+    npm
 
 RUN mkdir /finantial_system
 
 WORKDIR /finantial_system
 
+COPY Gemfile /finantial_system/Gemfile
+COPY Gemfile.lock /finantial_system/Gemfile.lock
+COPY . /finantial_system
+
 # Finish building
-RUN gem install bundler
+RUN gem install bundler -v 2.1.4
 RUN bundle check || bundle install
 RUN npm install --global yarn
 RUN yarn install
-
-COPY Gemfile /finantial_system/Gemfile
-
-COPY Gemfile.lock /finantial_system/Gemfile.lock
-
-COPY . /finantial_system
 
 EXPOSE 80
 
