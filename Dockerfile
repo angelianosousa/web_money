@@ -1,4 +1,4 @@
-FROM ruby:2.7.5
+FROM ruby:2.7.5-alpine
 
 RUN mkdir /finantial_system
 WORKDIR /finantial_system
@@ -9,8 +9,7 @@ RUN apt-get update -qq && apt-get install -y \
     npm
 
 # Environment variables
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_ENV ${RAILS_ENV}
 ENV RAILS_LOG_TO_STDOUT true
 ENV SITE_DOMAIN ${SITE_DOMAIN}
 
@@ -26,4 +25,4 @@ RUN bundle check || bundle install
 RUN npm install --global yarn
 RUN yarn install
 
-EXPOSE 3000
+EXPOSE 8080
