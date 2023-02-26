@@ -28,4 +28,4 @@ RUN yarn install
 EXPOSE 3000
 
 # Configure the main process to run when running the image
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+CMD ["rails", "server", "-b", "financessystem-angelianosousa.b4a.run", "-p", "3000"]
