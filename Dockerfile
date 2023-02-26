@@ -27,6 +27,3 @@ RUN npm install --global yarn
 RUN yarn install
 
 EXPOSE 3000
-
-# Configure the main process to run when running the image
-CMD ["rails", "server", "-b", ${SITE_DOMAIN}, "-p", "3000"]

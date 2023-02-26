@@ -9,7 +9,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bash -c "rm -f tmp/pids/server.pid && rails db:create db:migrate db:seed && rails s -p 3000"
+    command: bash -c "rm -f tmp/pids/server.pid && rails db:create db:migrate && rails s -b ${SITE_DOMAIN} -P 3000"
     depends_on:
       - db
     volumes:
