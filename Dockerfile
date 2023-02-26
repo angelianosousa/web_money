@@ -1,4 +1,4 @@
-FROM ruby:2.7.5-alpine
+FROM ruby:2.7.5
 
 RUN mkdir /finantial_system
 WORKDIR /finantial_system
