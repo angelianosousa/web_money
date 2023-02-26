@@ -12,6 +12,7 @@ RUN apt-get update -qq && apt-get install -y \
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
+ENV SITE_DOMAIN ${SITE_DOMAIN}
 
 COPY Gemfile /finantial_system/Gemfile
 COPY Gemfile.lock /finantial_system/Gemfile.lock
@@ -28,4 +29,4 @@ RUN yarn install
 EXPOSE 3000
 
 # Configure the main process to run when running the image
-CMD ["rails", "server", "-b", "financessystem-angelianosousa.b4a.run", "-p", "3000"]
+CMD ["rails", "server", "-b", ${SITE_DOMAIN}, "-p", "3000"]
