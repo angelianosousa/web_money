@@ -24,7 +24,6 @@ RUN gem install bundler -v 2.1.4
 RUN bundle check || bundle install
 RUN npm install --global yarn
 RUN yarn install
-RUN rails assets:precompile
 
 EXPOSE 3000
 
