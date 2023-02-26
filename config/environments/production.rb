@@ -94,4 +94,9 @@ Rails.application.configure do
 
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
   config.secret_key_base = Rails.application.credentials.production.secret_key_base
+  config.hosts = [
+    IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
+    IPAddr.new("::/0"),      # All IPv6 addresses.
+    "financessystem-angelianosousa.b4a.run"   # Allow this to be addressed when running in containers via docker-compose.yml.
+  ]
 end
