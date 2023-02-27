@@ -24,4 +24,4 @@ RUN bundle check || bundle install
 RUN npm install --global yarn
 RUN yarn install
 
-ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
+EXPOSE 3000
