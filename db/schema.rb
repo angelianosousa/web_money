@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2023_01_02_185120) do
   create_table "bills", force: :cascade do |t|
     t.string "title"
     t.decimal "price_cents"
-    t.date "due_pay", default: "2023-02-25"
+    t.date "due_pay", default: "2023-02-26"
     t.integer "bill_type"
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2023_01_02_185120) do
   create_table "transactions", force: :cascade do |t|
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
-    t.date "date", default: "2023-02-25"
+    t.date "date", default: "2023-02-26"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_profile_id"
