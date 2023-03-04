@@ -18,16 +18,12 @@ COPY package.json yarn.lock ./
 
 # Building JS
 RUN npm install --global yarn
-RUN yarn install
+RUN yarn install --check-files
 
 # Building Rails
 RUN bundle check || bundle install
 RUN rails db:create db:migrate
-RUN chown -R $USER:$USER .
-RUN bundle exec rails assets:precompile
 
 COPY . ./
-
-EXPOSE 3000
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
