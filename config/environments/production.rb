@@ -97,6 +97,6 @@ Rails.application.configure do
   config.hosts = [
     IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
     IPAddr.new("::/0"),      # All IPv6 addresses.
-    "https://financesystem-angeliano12.b4a.run/"   # Allow this to be addressed when running in containers via docker-compose.yml.
+    "financesystem-angeliano12.b4a.run/"   # Allow this to be addressed when running in containers via docker-compose.yml.
   ]
 end
