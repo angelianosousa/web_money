@@ -23,6 +23,7 @@ RUN yarn install
 # Building Rails
 RUN bundle check || bundle install
 RUN rails db:create db:migrate
+RUN chown -R $USER:$USER .
 RUN bundle exec rails assets:precompile
 
 COPY . ./
