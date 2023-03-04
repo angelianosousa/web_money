@@ -2,54 +2,11 @@
 # yarn lockfile v1
 
 
-"@compone/class@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@compone/class/-/class-1.1.1.tgz"
-  integrity sha512-pbODcJi0TdyKQ/PTHSHLwO4h/r5EgMdkPQLdBSaZBUiBuWdGil+0PEhpfhAWDuFrwVPKiCHYQOfs8WyGe9ABWA==
-
-"@compone/define@^1.2.4":
-  version "1.2.4"
-  resolved "https://registry.npmjs.org/@compone/define/-/define-1.2.4.tgz"
-  integrity sha512-w0ZDiYMIppvb1epoNY64pkEACwn9693cc7qM1ZSKWUVZczx5vlR4iZM7by129IYUdCq0SsbxQbbPZjnzj/0Qew==
-  dependencies:
-    "@compone/class" "^1.1.1"
-    "@compone/event" "^1.1.2"
-
-"@compone/event@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/@compone/event/-/event-1.1.2.tgz"
-  integrity sha512-baJDnAr8pWefqfltNS33HieD+s23YO+w2/RD6lPxIEzlOuM1R5RT5vpUUTcrzn0Er3oj62PlfMUyS0SwnVw67Q==
-  dependencies:
-    utilise "^2.3.5"
-
-"@compone/style@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/@compone/style/-/style-1.0.1.tgz"
-  integrity sha512-OzEbf5O88x+hyJyqW+Ya7H6pFV0em0HnfA+uC2ORS00I0FS6Zq3xUEiBX7uKZHaEbV8GywBchYKkPM4GW6IT6w==
-  dependencies:
-    cssscope "^0.1.0"
-    djbx "^1.0.3"
-
 animate.css@3.5.0:
   version "3.5.0"
   resolved "https://registry.npmjs.org/animate.css/-/animate.css-3.5.0.tgz"
   integrity sha1-IbhUnxP+wDXNOP0QN8WM1JrUWuU=
 
-<<<<<<< Updated upstream
-=======
-apexcharts@^3.33.0:
-  version "3.37.1"
-  resolved "https://registry.npmjs.org/apexcharts/-/apexcharts-3.37.1.tgz"
-  integrity sha512-fmQ5Updeb/LASl+S1+mIxXUFxzY0Fa7gexfCs4o+OPP9f2NEBNjvybOtPrah44N4roK7U5o5Jis906QeEQu0cA==
-  dependencies:
-    svg.draggable.js "^2.2.2"
-    svg.easing.js "^2.0.0"
-    svg.filter.js "^2.0.2"
-    svg.pathmorphing.js "^0.1.3"
-    svg.resize.js "^1.4.3"
-    svg.select.js "^3.0.1"
-
->>>>>>> Stashed changes
 bootstrap-growl-ifightcrime@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/bootstrap-growl-ifightcrime/-/bootstrap-growl-ifightcrime-1.1.0.tgz"
@@ -65,7 +22,7 @@ bootstrap@4.3.1:
   resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-4.3.1.tgz"
   integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
 
-chart.js@^3.0.0, chart.js@^3.7.1, chart.js@>=3.0.2:
+chart.js@>=3.0.2, chart.js@^3.7.1:
   version "3.7.1"
   resolved "https://registry.npmjs.org/chart.js/-/chart.js-3.7.1.tgz"
   integrity sha512-8knRegQLFnPQAheZV8MjxIXc5gQEfDFD897BJgv/klO/vtIyFFmgMXrNfgrXpbTr/XbTturxRgxIXx/Y+ASJBA==
@@ -84,122 +41,17 @@ chartkick@^4.1.1:
     chartjs-adapter-date-fns ">=2.0.0"
     date-fns ">=2.0.0"
 
-<<<<<<< Updated upstream
-=======
-colors@^1.2.3:
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/colors/-/colors-1.4.0.tgz"
-  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
-
-cssscope@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/cssscope/-/cssscope-0.1.0.tgz"
-  integrity sha512-JW7YFPiZJpT2+z+odH23QKezNKQLykP5WNWFzDnyl5h+0lUCf4JTGoSxynpVKQnqXdZf1Jxb9TNBmfzprzhYAg==
-
->>>>>>> Stashed changes
 date-fns@>=2.0.0:
   version "2.28.0"
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz"
   integrity sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==
 
-<<<<<<< Updated upstream
-=======
-djbx@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/djbx/-/djbx-1.0.3.tgz"
-  integrity sha512-Y8ph/85fEChtSgSgw1asP4cGLNLxlbnDBnQMpX8+MOpaiYyOn8assnSpIrwHuoGZV/sE1DUbKh9aeKlWZdHKEg==
-
->>>>>>> Stashed changes
 font-awesome@4.6.3:
   version "4.6.3"
   resolved "https://registry.npmjs.org/font-awesome/-/font-awesome-4.6.3.tgz"
   integrity sha1-hpM2UVQO4Ah0xmQBf1DyFy9lMaI=
 
-"jquery@1.9.1 - 3", jquery@2.2.4:
+jquery@2.2.4:
   version "2.2.4"
   resolved "https://registry.npmjs.org/jquery/-/jquery-2.2.4.tgz"
   integrity sha1-LInWiJterFIqfuoywUUhVZxsvwI=
-<<<<<<< Updated upstream
-=======
-
-popper.js@^1.14.7:
-  version "1.16.1"
-  resolved "https://registry.npmjs.org/popper.js/-/popper.js-1.16.1.tgz"
-  integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
-
-svg.draggable.js@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.npmjs.org/svg.draggable.js/-/svg.draggable.js-2.2.2.tgz"
-  integrity sha512-JzNHBc2fLQMzYCZ90KZHN2ohXL0BQJGQimK1kGk6AvSeibuKcIdDX9Kr0dT9+UJ5O8nYA0RB839Lhvk4CY4MZw==
-  dependencies:
-    svg.js "^2.0.1"
-
-svg.easing.js@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/svg.easing.js/-/svg.easing.js-2.0.0.tgz"
-  integrity sha512-//ctPdJMGy22YoYGV+3HEfHbm6/69LJUTAqI2/5qBvaNHZ9uUFVC82B0Pl299HzgH13rKrBgi4+XyXXyVWWthA==
-  dependencies:
-    svg.js ">=2.3.x"
-
-svg.filter.js@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/svg.filter.js/-/svg.filter.js-2.0.2.tgz"
-  integrity sha512-xkGBwU+dKBzqg5PtilaTb0EYPqPfJ9Q6saVldX+5vCRy31P6TlRCP3U9NxH3HEufkKkpNgdTLBJnmhDHeTqAkw==
-  dependencies:
-    svg.js "^2.2.5"
-
-svg.js@^2.0.1, svg.js@^2.2.5, svg.js@^2.4.0, svg.js@^2.6.5, svg.js@>=2.3.x:
-  version "2.7.1"
-  resolved "https://registry.npmjs.org/svg.js/-/svg.js-2.7.1.tgz"
-  integrity sha512-ycbxpizEQktk3FYvn/8BH+6/EuWXg7ZpQREJvgacqn46gIddG24tNNe4Son6omdXCnSOaApnpZw6MPCBA1dODA==
-
-svg.pathmorphing.js@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.npmjs.org/svg.pathmorphing.js/-/svg.pathmorphing.js-0.1.3.tgz"
-  integrity sha512-49HWI9X4XQR/JG1qXkSDV8xViuTLIWm/B/7YuQELV5KMOPtXjiwH4XPJvr/ghEDibmLQ9Oc22dpWpG0vUDDNww==
-  dependencies:
-    svg.js "^2.4.0"
-
-svg.resize.js@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.npmjs.org/svg.resize.js/-/svg.resize.js-1.4.3.tgz"
-  integrity sha512-9k5sXJuPKp+mVzXNvxz7U0uC9oVMQrrf7cFsETznzUDDm0x8+77dtZkWdMfRlmbkEEYvUn9btKuZ3n41oNA+uw==
-  dependencies:
-    svg.js "^2.6.5"
-    svg.select.js "^2.1.2"
-
-svg.select.js@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/svg.select.js/-/svg.select.js-2.1.2.tgz"
-  integrity sha512-tH6ABEyJsAOVAhwcCjF8mw4crjXSI1aa7j2VQR8ZuJ37H2MBUbyeqYr5nEO7sSN3cy9AR9DUwNg0t/962HlDbQ==
-  dependencies:
-    svg.js "^2.2.5"
-
-svg.select.js@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.npmjs.org/svg.select.js/-/svg.select.js-3.0.1.tgz"
-  integrity sha512-h5IS/hKkuVCbKSieR9uQCj9w+zLHoPh+ce19bBYyqF53g6mnPB8sAtIbe1s9dh2S2fCmYX2xel1Ln3PJBbK4kw==
-  dependencies:
-    svg.js "^2.6.5"
-
-sweet-alert@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.npmjs.org/sweet-alert/-/sweet-alert-2.0.5.tgz"
-  integrity sha512-UrzrZDCDrVWyrS0pmXQs9eaxb0s++4EuDyS+sESqI9IEj9l8AKVTv7/KHVaIE2uERwcgncnZW5fO4o+xUy0JFA==
-  dependencies:
-    "@compone/define" "^1.2.4"
-    "@compone/style" "^1.0.0"
-
-through@^2.3.8:
-  version "2.3.8"
-  resolved "https://registry.npmjs.org/through/-/through-2.3.8.tgz"
-  integrity sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==
-
-utilise@^2.3.5:
-  version "2.3.8"
-  resolved "https://registry.npmjs.org/utilise/-/utilise-2.3.8.tgz"
-  integrity sha512-scuRvOkBODMEvS87Uz0Pe3f737JSszUAgB9pHHOHaHroA0MfFC+STXBIDT3x/uMQx/9sbREJnHUhs9xfRPT+gg==
-  dependencies:
-    colors "^1.2.3"
-    through "^2.3.8"
->>>>>>> Stashed changes
