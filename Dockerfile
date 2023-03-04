@@ -11,7 +11,6 @@ RUN apt-get update -qq && apt-get install -y \
 # Environment variables
 ENV RAILS_ENV ${RAILS_ENV}
 ENV RAILS_LOG_TO_STDOUT true
-ENV SITE_DOMAIN ${SITE_DOMAIN}
 
 COPY Gemfile /finantial_system/Gemfile
 COPY Gemfile.lock /finantial_system/Gemfile.lock
