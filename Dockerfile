@@ -1,27 +1,31 @@
 FROM ruby:2.7.5
 
-RUN mkdir /finantial_system
-WORKDIR /finantial_system
+# Environment variables
+ENV RAILS_ENV ${RAILS_ENV}
+ENV RAILS_LOG_TO_STDOUT true
 
 RUN apt-get update -qq && apt-get install -y \
     postgresql-client \
     nodejs \
     npm
 
-# Environment variables
-ENV RAILS_ENV ${RAILS_ENV}
-ENV RAILS_LOG_TO_STDOUT true
+RUN gem install bundler -v 2.1.4
 
-COPY Gemfile /finantial_system/Gemfile
-COPY Gemfile.lock /finantial_system/Gemfile.lock
-COPY . /finantial_system
+WORKDIR /app
+
+COPY Gemfile Gemfile.lock ./
 COPY package.json yarn.lock ./
 
-# Finish building
-RUN gem install bundler -v 2.1.4
+# Building Rails
 RUN bundle check || bundle install
+RUN rails db:create db:migrate
+
+# Building JS
 RUN npm install --global yarn
 RUN yarn install
+RUN rails assets:precompile
+
+COPY . ./
 
 EXPOSE 3000
 
