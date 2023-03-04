@@ -23,6 +23,7 @@ RUN yarn install --check-files
 # Building Rails
 RUN bundle check || bundle install
 RUN rails db:create db:migrate
+RUN RAILS_ENV=${RAILS_ENV} rails assets:precompile
 
 COPY . ./
 
