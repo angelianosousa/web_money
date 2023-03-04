@@ -93,5 +93,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
-  config.hosts << "financesystem-angeliano12.b4a.run"
+  config.hosts << "finance-system-tve0.onrender.com"
 end
