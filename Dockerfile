@@ -16,14 +16,14 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 COPY package.json yarn.lock ./
 
-# Building Rails
-RUN bundle check || bundle install
-RUN rails db:create db:migrate
-
 # Building JS
 RUN npm install --global yarn
 RUN yarn install
-RUN rails assets:precompile
+
+# Building Rails
+RUN bundle check || bundle install
+RUN rails db:create db:migrate
+RUN bundle exec rails assets:precompile
 
 COPY . ./
 
