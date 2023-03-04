@@ -93,10 +93,10 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
-  config.secret_key_base = Rails.application.credentials.production.secret_key_base
+  config.secret_key_base = ENV['SECRET_KEY_BASE']
   config.hosts = [
     IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
     IPAddr.new("::/0"),      # All IPv6 addresses.
-    "financessystem-angelianosousa.b4a.run"   # Allow this to be addressed when running in containers via docker-compose.yml.
+    "https://financesystem-angeliano12.b4a.run/"   # Allow this to be addressed when running in containers via docker-compose.yml.
   ]
 end
