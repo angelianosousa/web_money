@@ -19,7 +19,7 @@ class UsersBackoffice::UserProfileController < UsersBackofficeController
   end
 
   def user_profile_params
-    params.require(:user_profile).permit(:fullname, :avatar)
+    params.require(:user_profile).permit(:name, :avatar)
   end
   
 end

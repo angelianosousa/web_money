@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_profile
-    
+    current_user.try(:user_profile)
   end
 end

@@ -3,14 +3,14 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # GET /transactions or /transactions.json
   def index
-    params[:q] ||= { user_profile_id_eq: current_user.user_profile.id }
+    params[:q] ||= { user_profile_id_eq: current_user_profile.id }
 
-    @q = Transaction.ransack(params[:q])
+    @q = current_user_profile.transactions.ransack(params[:q])
     @transactions = @q.result.page(params[:page]).order(date: :desc)
 
-    @balance = Account.sum(:price_cents)
+    @balance = current_user_profile.accounts.sum(:price_cents)
 
-    @transactions = Transaction.default(params[:page], 10, @transactions)
+    @transactions = current_user_profile.transactions.default(params[:page], 10, @transactions)
   end
 
   # GET /transactions/1/edit
@@ -19,8 +19,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
 
   # POST /transactions or /transactions.json
   def create
-    @transaction = Transaction.new(transaction_params)
-    @transaction.user_profile = current_user.user_profile
+    @transaction = current_user_profile.transactions.new(transaction_params)
 
     respond_to do |format|
       if @transaction.save!
@@ -64,7 +63,7 @@ class UsersBackoffice::TransactionsController < UsersBackofficeController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction
-      @transaction = Transaction.find(params[:id])
+      @transaction = current_user_profile.transactions.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

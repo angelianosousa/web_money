@@ -2,14 +2,14 @@ class UsersBackoffice::CategoriesController < UsersBackofficeController
   before_action :set_category, only: %i[edit update destroy]
 
   def index
-    @categories = Category.where(user_profile: current_user.user_profile).order(:category_type)
+    @categories = current_user_profile.categories.where(user_profile: current_user.user_profile).order(:category_type)
   end
 
   def edit
   end
 
   def create
-    @category = Category.new(category_params)
+    @category = current_user_profile.categories.new(category_params)
 
     if @category.save
       redirect_to users_backoffice_categories_path, notice: 'Category was successfully created'
@@ -35,7 +35,7 @@ class UsersBackoffice::CategoriesController < UsersBackofficeController
   private
 
   def set_category
-    @category = Category.find params[:id]
+    @category = current_user_profile.categories.find params[:id]
   end
 
   def category_params

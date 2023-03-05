@@ -8,21 +8,23 @@
 
 User.create(email:"user@user.com", password:"user123", password_confirmation:"user123")
 
+user_profile = User.last.user_profile
+
 # Despesas
 ['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
-  Category.create(title: category, user_profile_id: UserProfile.last.id, category_type: :expense)
+  Category.create(title: category, user_profile: user_profile, category_type: :expense)
 end
 
 # Receitas
 ['Salário', 'Serviço', 'Investimentos'].each do |category|
-  Category.create(title: category, user_profile_id: UserProfile.last.id, category_type: :recipe)
+  Category.create(title: category, user_profile: user_profile, category_type: :recipe)
 end
 
 Account.all.each do |account|
   250.times do
     Transaction.create!(
       description: Faker::Lorem.question(word_count: rand(2..5)),
-      user_profile: User.last.user_profile,
+      user_profile: user_profile,
       account: account,
       category: Category.all.sample,
       price_cents: rand(100..5000),
@@ -40,7 +42,8 @@ despesas.each do |bill|
     price_cents: rand(100..5000),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
     bill_type: :pay,
-    status: :pending
+    status: :pending,
+    user_profile: user_profile
   )
 end
 
@@ -50,7 +53,8 @@ receitas.each do |bill|
     price_cents: rand(100..5000),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
     bill_type: :receive,
-    status: :pending
+    status: :pending,
+    user_profile: user_profile
   )
 end
 
@@ -58,7 +62,7 @@ Bill.all.each do |bill|
   100.times do
     Transaction.create!(
       description: Faker::Lorem.question(word_count: rand(2..5)),
-      user_profile: User.last.user_profile,
+      user_profile: user_profile,
       bill: bill,
       account: Account.all.sample,
       category: Category.all.sample,

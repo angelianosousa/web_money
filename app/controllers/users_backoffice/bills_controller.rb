@@ -4,7 +4,7 @@ class UsersBackoffice::BillsController < UsersBackofficeController
   # GET /bills or /bills.json
   # FIXME | Filtro não está funcionando como deveria
   def index
-    @q = Bill.ransack(params[:q])
+    @q = current_user_profile.bills.ransack(params[:q])
 
     @bills = @q.result.includes(:transactions).page(params[:page]).order(:due_pay)
   end
@@ -34,14 +34,13 @@ class UsersBackoffice::BillsController < UsersBackofficeController
   end
 
   def new_transaction
-    @bill         = Bill.find(params[:bill_id])
-    @account      = Account.find(params[:account_id])
-    @category     = Category.find(params[:category_id])
-    @user_profile = current_user.user_profile
+    @bill         = current_user_profile.bills.find(params[:bill_id])
+    @account      = current_user_profile.accounts.find(params[:account_id])
+    @category     = current_user_profile.categories.find(params[:category_id])
 
     @bill.transactions.build(
       account_id: @account.id,
-      user_profile: @user_profile,
+      user_profile: current_user_profile,
       description: params[:description],
       price_cents: params[:price_cents].to_i,
       category: @category,
@@ -84,7 +83,7 @@ class UsersBackoffice::BillsController < UsersBackofficeController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bill
-      @bill = Bill.find(params[:id])
+      @bill = current_user_profile.bills.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

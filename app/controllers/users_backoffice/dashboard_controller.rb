@@ -3,7 +3,7 @@ class UsersBackoffice::DashboardController < UsersBackofficeController
   def index
     params[:q] ||= { user_profile_id_eq: current_user.user_profile.id, date_gteq: Date.today.beginning_of_month, date_lteq: Date.today.end_of_month }
 
-    @q = Transaction.ransack(params[:q])
+    @q = current_user_profile.transactions.ransack(params[:q])
 
     @transactions = @q.result(distinct: true)
 
@@ -21,8 +21,7 @@ class UsersBackoffice::DashboardController < UsersBackofficeController
   end
 
   def create_transaction
-    @transaction = Transaction.new(transaction_params)
-    @transaction.user_profile = current_user.user_profile
+    @transaction = current_user_profile.transactions.new(transaction_params)
 
     respond_to do |format|
       if @transaction.save!
@@ -37,7 +36,7 @@ class UsersBackoffice::DashboardController < UsersBackofficeController
   end
 
   def create_account
-    @account = Account.new(account_params)
+    @account = current_user_profile.accounts.new(account_params)
 
     respond_to do |format|
       if @account.save

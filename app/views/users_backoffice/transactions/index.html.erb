@@ -59,5 +59,4 @@
 </div>
 
 <%= paginate @transactions, outer_window: 2 %>
-
-<%= render partial: 'users_backoffice/transactions/modals/new_transaction', locals: { transaction: @transaction = Transaction.new} %>
+<%= render partial: 'users_backoffice/transactions/modals/new_transaction', locals: { transaction: @transaction = current_user_profile.transactions.new} %>
