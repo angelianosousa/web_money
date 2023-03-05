@@ -22,4 +22,5 @@ class UserProfile < ApplicationRecord
   has_many :recurrences, dependent: :destroy
   has_many :transactions, dependent: :destroy
   has_many :categories, dependent: :destroy
+  has_many :accounts, dependent: :destroy
 end
