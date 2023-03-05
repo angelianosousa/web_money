@@ -94,4 +94,5 @@ Rails.application.configure do
 
   config.public_file_server.enabled = true
   config.hosts << "finance-system-tve0.onrender.com"
+  config.asset_host = 'finance-system-tve0.onrender.com'
 end
