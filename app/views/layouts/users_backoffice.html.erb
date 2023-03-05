@@ -30,12 +30,12 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <% @user_profile = current_user.user_profile.avatar %> <!-- Variable for set the current user for images profile --->
-                <%= @user_profile.attached? ? image_tag(@user_profile, size:"100x60", class:"img-circle profile_img") : image_tag("https://via.placeholder.com/150C/", size:"100x60", class:"img-circle profile_img") %>
+                <%= current_user_profile.avatar.attached? ? image_tag(current_user_profile.avatar, size: '50x50', class:"img-circle profile_img") : image_tag("https://bulma.io/images/placeholders/1280x960.png", size:"50x50", class:"img-circle profile_img") %>
+                <span class='icon'><i class='fa fa-person'></i></span>
               </div>
               <div class="profile_info">
                 <span>Welcome!!,</span>
-                <h2><%= current_user&.name rescue nil %></h2>
+                <h2><%= current_user_profile.name rescue nil %></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->

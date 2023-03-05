@@ -18,9 +18,14 @@
 #
 class UserProfile < ApplicationRecord
   belongs_to :user
-  has_one_attached :avatar
-  has_many :recurrences, dependent: :destroy
+
+  has_one_attached :avatar do |attachable|
+    attachable.variant :menu_icon_profile, resize_to_limit: [50, 50]
+  end
+
+  has_many :recurrences,  dependent: :destroy
   has_many :transactions, dependent: :destroy
-  has_many :categories, dependent: :destroy
-  has_many :accounts, dependent: :destroy
+  has_many :categories,   dependent: :destroy
+  has_many :accounts,     dependent: :destroy
+  has_many :bills,        dependent: :destroy
 end

@@ -3,7 +3,7 @@
 # Table name: transactions
 #
 #  id              :bigint           not null, primary key
-#  date            :date             default(Sun, 26 Feb 2023)
+#  date            :date
 #  description     :text
 #  price_cents     :integer          default(0), not null
 #  price_currency  :string           default("USD"), not null
@@ -47,7 +47,7 @@ class Transaction < ApplicationRecord
   after_save :operate_account
 
   def operate_account
-    @account = Account.find(account_id)
+    @account = current_user_profile.accounts.find(account_id)
     @account.price_cents -= price_cents.to_i if category.category_type == 'expense'
     @account.price_cents += price_cents.to_i if category.category_type == 'recipe'
     @account.save!

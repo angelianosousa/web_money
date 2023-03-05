@@ -3,7 +3,7 @@ class UsersBackoffice::AccountsController < UsersBackofficeController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = Account.all.page(params[:page])
+    @accounts = current_user_profile.accounts.page(params[:page])
   end
 
   # GET /accounts/1/edit
@@ -12,7 +12,7 @@ class UsersBackoffice::AccountsController < UsersBackofficeController
 
   # POST /accounts or /accounts.json
   def create
-    @account = Account.new(account_params)
+    @account = current_user_profile.accounts.new(account_params)
 
     respond_to do |format|
       if @account.save
@@ -27,7 +27,6 @@ class UsersBackoffice::AccountsController < UsersBackofficeController
 
   # PATCH/PUT /accounts/1 or /accounts/1.json
   def update
-    @account.user_profile_id = current_user.user_profile.id
     respond_to do |format|
       if @account.update(account_params)
         format.html { redirect_to users_backoffice_accounts_url, notice: "Account was successfully updated." }
@@ -40,13 +39,12 @@ class UsersBackoffice::AccountsController < UsersBackofficeController
   end
 
   def new_transaction
-    @account      = Account.find(params[:account_id])
-    @category     = Category.find(params[:category_id])
-    @user_profile = current_user.user_profile
+    @account      = current_user_profile.accounts.find(params[:account_id])
+    @category     = current_user_profile.categories.find(params[:category_id])
 
     @account.transactions.create!(
       account_id: @account.id,
-      user_profile: @user_profile,
+      user_profile: current_user_profile,
       description: params[:description],
       price_cents: params[:price_cents].to_i,
       category: @category,
@@ -73,7 +71,7 @@ class UsersBackoffice::AccountsController < UsersBackofficeController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
-      @account = Account.find(params[:id])
+      @account = current_user_profile.accounts.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

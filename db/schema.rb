@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_02_185120) do
+ActiveRecord::Schema.define(version: 2023_03_05_024812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,11 +49,13 @@ ActiveRecord::Schema.define(version: 2023_01_02_185120) do
   create_table "bills", force: :cascade do |t|
     t.string "title"
     t.decimal "price_cents"
-    t.date "due_pay", default: "2023-02-26"
+    t.date "due_pay", default: "2023-03-05"
     t.integer "bill_type"
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_profile_id", null: false
+    t.index ["user_profile_id"], name: "index_bills_on_user_profile_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -78,7 +80,7 @@ ActiveRecord::Schema.define(version: 2023_01_02_185120) do
   create_table "transactions", force: :cascade do |t|
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
-    t.date "date", default: "2023-02-26"
+    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_profile_id"
@@ -114,6 +116,7 @@ ActiveRecord::Schema.define(version: 2023_01_02_185120) do
 
   add_foreign_key "accounts", "user_profiles"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bills", "user_profiles"
   add_foreign_key "categories", "user_profiles"
   add_foreign_key "notifications", "user_profiles"
   add_foreign_key "transactions", "accounts"

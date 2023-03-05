@@ -1,10 +1,10 @@
 <div class="container">
   <nav class="navbar navbar-light my-finances-navbar">
-    <a class="navbar-brand" href="/users_backoffice/categories"> Categories </a>
-  
-    <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newCategoryModal", style:"width:270px" do %>
-      <i class="fa fa-plus-square"></i> New Category
-    <% end %>
+    <a class="navbar-brand" href="<%= users_backoffice_categories_path %>"> Categories </a>
+
+    <div class='float-right'>
+      <%= modal_to_new_resource(' New Category', target: '#newCategoryModal') %>
+    </div>
   </nav>
 </div><br>
 
@@ -12,13 +12,15 @@
 
   <div class='card card-success'>
     <div class='card-header'>
-      <span class='icon'><i class='fa fa-arrow-up'> RECIPES</i></span>
+      <% amount_recipes = current_user_profile.transactions.recipes.sum(:price_cents) %>
+      <span class='icon'><i class='fa fa-arrow-up'> RECIPES </i></span> <%= humanized_money_with_symbol(amount_recipes) %>
     </div>
     <div class='card-body'>
       <table class='table table-hover table-sm table-borderless'>
         <thead>
           <tr>
             <th>Title</th>
+            <th>Amount</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -26,6 +28,8 @@
           <% @categories.recipes.each do |category| %>
             <tr>
               <td><%= category.title %></td>
+              <% amount = current_user_profile.transactions.where(category: category).sum(:price_cents) %>
+              <td><%= humanized_money_with_symbol(amount) %></td>
               <td><%= render 'actions', category: category %></td>
             </tr>
           <% end %>
@@ -36,13 +40,15 @@
 
   <div class='card card-danger'>
     <div class='card-header'>
-      <span class='icon'><i class='fa fa-arrow-down'> EXPENSES</i></span>
+      <% amount_expenses = current_user_profile.transactions.expenses.sum(:price_cents) %>
+      <span class='icon'><i class='fa fa-arrow-down'> EXPENSES </i></span> <%= humanized_money_with_symbol(amount_expenses) %>
     </div>
     <div class='card-body'>
       <table class='table table-hover table-sm table-borderless'>
         <thead>
           <tr>
             <th>Title</th>
+            <th>Amount</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -50,6 +56,8 @@
           <% @categories.expenses.each do |category| %>
             <tr>
               <td><%= category.title %></td>
+              <% amount = current_user_profile.transactions.where(category: category).sum(:price_cents) %>
+              <td><%= humanized_money_with_symbol(amount) %></td>
               <td><%= render 'actions', category: category %></td>
             </tr>
           <% end %>
@@ -59,4 +67,4 @@
   </div>
 </div>
 
-<%= render partial: 'users_backoffice/categories/modals/new', locals: { category: @category = Category.new } %>
+<%= render partial: "#{params[:controller]}/modals/new", locals: { category: @category = current_user_profile.categories.new } %>

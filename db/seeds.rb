@@ -8,23 +8,25 @@
 
 User.create(email:"user@user.com", password:"user123", password_confirmation:"user123")
 
+user_profile = User.last.user_profile
+
 # Despesas
 ['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
-  Category.create(title: category, user_profile_id: UserProfile.last.id, category_type: :expense)
+  user_profile.categories.create(title: category, user_profile: user_profile, category_type: :expense)
 end
 
 # Receitas
 ['Salário', 'Serviço', 'Investimentos'].each do |category|
-  Category.create(title: category, user_profile_id: UserProfile.last.id, category_type: :recipe)
+  user_profile.categories.create(title: category, user_profile: user_profile, category_type: :recipe)
 end
 
-Account.all.each do |account|
+user_profile.accounts.each do |account|
   250.times do
-    Transaction.create!(
+    user_profile.transactions.create(
       description: Faker::Lorem.question(word_count: rand(2..5)),
-      user_profile: User.last.user_profile,
+      user_profile: user_profile,
       account: account,
-      category: Category.all.sample,
+      category: user_profile.categories.sample,
       price_cents: rand(100..5000),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
@@ -35,33 +37,35 @@ despesas = ['Água', 'Energia', 'Internet']
 receitas = ['Salário', 'Investimentos', 'Renda Extra']
 
 despesas.each do |bill|
-  Bill.create(
+  user_profile.bills.create(
     title: bill,
     price_cents: rand(100..5000),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
     bill_type: :pay,
-    status: :pending
+    status: :pending,
+    user_profile: user_profile
   )
 end
 
 receitas.each do |bill|
-  Bill.create(
+  user_profile.bills.create(
     title: bill,
     price_cents: rand(100..5000),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
     bill_type: :receive,
-    status: :pending
+    status: :pending,
+    user_profile: user_profile
   )
 end
 
-Bill.all.each do |bill|
+user_profile.bills.each do |bill|
   100.times do
     Transaction.create!(
       description: Faker::Lorem.question(word_count: rand(2..5)),
-      user_profile: User.last.user_profile,
+      user_profile: user_profile,
       bill: bill,
-      account: Account.all.sample,
-      category: Category.all.sample,
+      account: user_profile.accounts.sample,
+      category: user_profile.categories.sample,
       price_cents: rand(100..5000),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )

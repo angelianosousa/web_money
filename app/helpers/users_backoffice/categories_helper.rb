@@ -1,5 +1,5 @@
 module UsersBackoffice::CategoriesHelper
   def category_options_for_select
-    Category.all.collect { |c| [ c.title, c.id ] }
+    current_user_profile.categories.collect { |c| [ c.title.upcase, c.id ] }
   end
 end

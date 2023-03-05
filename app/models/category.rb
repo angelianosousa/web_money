@@ -20,8 +20,8 @@
 class Category < ApplicationRecord
   enum category_type: %i(recipe expense)
 
-  has_many :transactions, dependent: :destroy
   belongs_to :user_profile
+  has_many :transactions, dependent: :destroy
 
   validates :title, presence: true, uniqueness: { case_sensitive: true }
 
