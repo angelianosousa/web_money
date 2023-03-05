@@ -1,7 +1,6 @@
 FROM ruby:2.7.5
 
 # Environment variables
-ENV RAILS_ENV ${RAILS_ENV}
 ENV RAILS_LOG_TO_STDOUT true
 
 RUN apt-get update -qq && apt-get install -y \
