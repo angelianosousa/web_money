@@ -1,11 +1,10 @@
+<%- model_class = Transaction -%>
 <div class="container mb-3">
   <nav class="navbar navbar-light my-finances-navbar">
-    <a class="navbar-brand" href="/users_backoffice/transactions">Movimentações | <%= humanized_money_with_symbol @balance %></a>
+    <a class="navbar-brand" href="<%= users_backoffice_transactions_path %>"><%= model_class.model_name.human.pluralize.titleize %> | <%= humanized_money_with_symbol @balance %></a>
 
     <div class='float-right'>
-      <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newTransactionModal", style:"width:270px" do %>
-        <i class="fa fa-plus-square"></i> New Movement
-      <% end %>
+      <%= modal_to_new_resource(' New Movement', target: '#newTransactionModal') %>
 
       <button class="btn btn-outline-light btn-sm my-sm-3" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
         <span class='icon'><i class='fa fa-filter'></i></span>
@@ -23,17 +22,17 @@
     <div class="col-md-12">
       <div class="card border-dark mb-3" style='border-radius:10px;'>
         <div class="card-body">
-          <table class='table table-sm table-borderless table-hover'>
+          <table class='table table-borderless table-hover'>
             <thead>
               <tr>
-                <th>Description</th>
-                <th>Value</th>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Category</th>
-                <th>Bill</th>
-                <th>Account</th>
-                <th>Actions</th>
+                <th><%= model_class.human_attribute_name :description %></th>
+                <th><%= model_class.human_attribute_name :value %></th>
+                <th><%= model_class.human_attribute_name :date %></th>
+                <th><%= model_class.human_attribute_name :type %></th>
+                <th><%= model_class.human_attribute_name :category_id %></th>
+                <th><%= model_class.human_attribute_name :bill_id %></th>
+                <th><%= model_class.human_attribute_name :account_id %></th>
+                <th colspan="1"></th>
               </tr>
             </thead>
             <% transactions.each do |transaction| %>
@@ -59,4 +58,4 @@
 </div>
 
 <%= paginate @transactions, outer_window: 2 %>
-<%= render partial: 'users_backoffice/transactions/modals/new_transaction', locals: { transaction: @transaction = current_user_profile.transactions.new} %>
+<%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_user_profile.transactions.new } %>

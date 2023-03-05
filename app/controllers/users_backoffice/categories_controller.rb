@@ -10,6 +10,7 @@ class UsersBackoffice::CategoriesController < UsersBackofficeController
 
   def create
     @category = current_user_profile.categories.new(category_params)
+    # @category.category_type = Category.category_types[params[:category_type].to_i]
 
     if @category.save
       redirect_to users_backoffice_categories_path, notice: 'Category was successfully created'

@@ -6,7 +6,7 @@ class UsersBackoffice::UserProfileController < UsersBackofficeController
 
   def update
     if @user_profile.update(user_profile_params)
-      redirect_to @user_profile, notice: "Perfil atualizado com sucesso."
+      redirect_to edit_users_backoffice_user_profile_path(@user_profile), notice: "Perfil atualizado com sucesso."
     else
       render :edit, alert: @user_profile.errors
     end

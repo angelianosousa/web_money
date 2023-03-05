@@ -6,7 +6,7 @@ class UsersBackoffice::BillsController < UsersBackofficeController
   def index
     @q = current_user_profile.bills.ransack(params[:q])
 
-    @bills = @q.result.includes(:transactions).page(params[:page]).order(:due_pay)
+    @bills = @q.result(distinct: true).includes(:transactions).page(params[:page]).order(:due_pay)
   end
 
   # GET /bills/1 or /bills/1.json
@@ -20,7 +20,7 @@ class UsersBackoffice::BillsController < UsersBackofficeController
 
   # POST /bills or /bills.json
   def create
-    @bill = Bill.new(bill_params)
+    @bill = current_user_profile.bills.new(bill_params)
 
     respond_to do |format|
       if @bill.save

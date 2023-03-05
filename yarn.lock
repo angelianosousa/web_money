@@ -55,3 +55,8 @@ jquery@2.2.4:
   version "2.2.4"
   resolved "https://registry.npmjs.org/jquery/-/jquery-2.2.4.tgz"
   integrity sha1-LInWiJterFIqfuoywUUhVZxsvwI=
+
+js-datepicker@^5.18.2:
+  version "5.18.2"
+  resolved "https://registry.yarnpkg.com/js-datepicker/-/js-datepicker-5.18.2.tgz#2f25c7a4d25207dd5a3053efe95173ddf840527f"
+  integrity sha512-lBh5tIwb1ewDVlNHuwczoLiMhTFWnGYuHSA7ONAPKyMeofIFZDFGeOZ71UTY/Mk2evJJt+L66ec/RiXUy8XzEg==

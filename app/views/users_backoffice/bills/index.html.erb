@@ -1,11 +1,9 @@
 <div class="container">
   <nav class="navbar navbar-light my-finances-navbar">
-    <a class="navbar-brand" href="/users_backoffice/categories"> Bills </a>
+    <a class="navbar-brand" href="<%= users_backoffice_bills_path %>"> Bills </a>
 
     <div class='float-right'>
-      <%= link_to "#", class:"btn btn-outline-light btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#newBillModal", style:"width:270px" do %>
-        <i class="fa fa-plus-square"></i> New Bill
-      <% end %>
+      <%= modal_to_new_resource(' New Bill', target: '#newBillModal') %>
 
       <button class="btn btn-outline-light btn-sm my-sm-3" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
         <span class='icon'><i class='fa fa-filter'></i></span>
@@ -20,8 +18,8 @@
 
 <div class='card border-dark' style='border-radius:10px;'>
   <div class='card-body'>
-    <table class='table table-sm table-striped'>
-      <thead class='background-finances-green'>
+    <table class='table table-borderless'>
+      <thead>
         <tr>
           <th>Title</th>
           <th>Value</th>
@@ -38,7 +36,7 @@
           <tr>
             <td><%= bill.title %></td>
             <td><%= humanized_money_with_symbol bill.price_cents %></td>
-            <td><%= bill.due_pay.strftime('%d %b') %></td>
+            <td><%= bill.due_pay.strftime('%d %b %y') %></td>
             <td><%= bill_type_status bill.bill_type %></td>
             <td><%= bill_payment bill.status %></td>
             <td><%= bill_due_status bill %></td>

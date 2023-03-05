@@ -1,0 +1,19 @@
+---
+'pt-BR':
+  hello: 'Olá Mundo'
+
+  activerecord:
+    attributes:
+      transaction:
+        description: Descrição
+        value: Valor
+        type: Tipo
+        date: Data
+        category_id: Categoria
+        bill_id: Conta
+        account: Banco / Carteira
+      errors:
+        models:
+          transaction:
+            one: Transação
+            other: Transações

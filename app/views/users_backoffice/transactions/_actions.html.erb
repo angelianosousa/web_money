@@ -1,2 +1,2 @@
-<%= link_to "", edit_users_backoffice_transaction_path(transaction), class:" btn-sm fa fa-pencil", style:'border-radius: 10px;' %>
-<%= link_to "", users_backoffice_transaction_path(transaction), method: :delete, data: { confirm: 'Tem certeza ?' }, class:" btn-sm fa fa-trash", style:'border-radius: 10px;' %>
+<%= link_to_edit_resource('', edit_users_backoffice_transaction_path(transaction)) %>
+<%= link_to_delete_resource('', users_backoffice_transaction_path(transaction)) %>
