@@ -21,8 +21,8 @@ RUN yarn install --check-files
 
 # Building Rails
 RUN bundle check || bundle install
-RUN RAILS_ENV=${RAILS_ENV} rails assets:precompile
 
 COPY . ./
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]
+ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
