@@ -3,8 +3,9 @@ default: &default
   encoding: unicode
   username: postgres
   password: postgres
-  host: <%= ENV['DATABASE_URL'] || 'db' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>
   port: <%= ENV['DATABASE_PORT'] || '5432' %>
+  url: <%= ENV['DATABASE_URL'] %>
   pool: 5
   timeout: 5000
 
