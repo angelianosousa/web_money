@@ -47,7 +47,7 @@ class Transaction < ApplicationRecord
   after_save :operate_account
 
   def operate_account
-    @account = current_user_profile.accounts.find(account_id)
+    @account = Account.find(account_id)
     @account.price_cents -= price_cents.to_i if category.category_type == 'expense'
     @account.price_cents += price_cents.to_i if category.category_type == 'recipe'
     @account.save!
