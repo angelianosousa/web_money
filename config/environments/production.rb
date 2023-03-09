@@ -24,7 +24,7 @@ Rails.application.configure do
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
-  config.assets.css_compressor = :sass
+  # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
@@ -93,6 +93,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.public_file_server.enabled = true
-  config.hosts << ENV.fetch('SITE_DOMAIN') { 'localhost' }
-  config.asset_host = 'finance-system-tve0.onrender.com'
+  config.asset_host = ENV.fetch('SITE_DOMAIN') { 'localhost' }
 end
