@@ -1,8 +1,9 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: postgres
-  password: postgres
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV['DATABASE_HOST'] || 'db' %>
   port: <%= ENV['DATABASE_PORT'] || '5432' %>
   pool: 5
@@ -10,12 +11,9 @@ default: &default
 
 development:
   <<: *default
-  database: finantial_system_development
 
 test:
   <<: *default
-  database: finantial_system_test
 
 production:
   <<: *default
-  database: finantial_system_production
