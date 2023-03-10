@@ -7,5 +7,5 @@ if [ -f tmp/pids/server.pid ]; then
 fi
 
 rails db:create db:migrate
-RAILS_ENV=production rails assets:precompile
+rails assets:precompile
 rails s -b 0.0.0.0
