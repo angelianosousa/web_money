@@ -2,6 +2,7 @@ version: '3.3'
 
 services:
   db:
+    restart: always
     image: postgres:12
     volumes:
       - db_data:/var/lib/postgresql/data
@@ -12,6 +13,8 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
+      - db
+    links:
       - db
     volumes:
       - .:/finantial_system
