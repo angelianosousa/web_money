@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>My Finances</title>
+    <title>My Web Finances</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; IE=edge">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   </head>
 
   <body class="nav-md">
@@ -20,8 +20,8 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <%= link_to dashboard_index_path, class:"site_title", style:"font-size:20px;" do %>
-                <i class="fa fa-bank"></i>  My Finances
+              <%= link_to dashboard_index_path, class:"site_title", style:"font-size:18px;" do %>
+                <i class="fa fa-bank"></i>  My Web Finances
               <% end %>
             </div>
 
@@ -29,9 +29,8 @@
 
             <!-- menu profile quick info -->
             <div class="profile clearfix">
-              <div class="profile_pic">
-                <%= current_user_profile.avatar.attached? ? image_tag(current_user_profile.avatar, size: '50x50', class:"img-circle profile_img") : image_tag("https://bulma.io/images/placeholders/1280x960.png", size:"50x50", class:"img-circle profile_img") %>
-                <span class='icon'><i class='fa fa-person'></i></span>
+              <div class="profile_pic mt-2">
+                <%= current_user_profile.avatar.attached? ? image_tag(current_user_profile.avatar, size: '50x50', class:"img-circle profile_img") : image_tag("user-profile-icon.png", size: '50x50', class:"img-circle profile_img") %>
               </div>
               <div class="profile_info">
                 <span>Welcome!!,</span>
@@ -95,7 +94,8 @@
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="https://bulma.io/images/placeholders/1280x960.png" alt=""><%= current_user.email %>
+                    <%= image_tag("user-profile-icon.png", size: '10x10') %>
+                    <%= current_user.email %>
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                     <%= link_to edit_user_profile_path(current_user), class:"dropdown-item" do %>
