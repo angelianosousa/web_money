@@ -1,0 +1,54 @@
+<div class="container">
+  <nav class="navbar navbar-light my-finances-navbar">
+    <a class="navbar-brand" href="/notifications">Notificações</a>
+  </nav>
+</div><br>
+
+<div class="container">
+  <div class='card border-info'>
+    <div class="card-header bg-light">
+
+      <ul class="nav nav-pills" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-not_read-tab" data-toggle="pill" href="#pills-not_read" role="tab" aria-controls="pills-not_read" aria-selected="true">Não Lidas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-read-tab" data-toggle="pill" href="#pills-read" role="tab" aria-controls="pills-read" aria-selected="false">Lidas</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-not_read" role="tabpanel" aria-labelledby="pills-not_read-tab">
+        <% if @notifications_unread.empty? %>
+          <div class='card-body' style="text-align:center">
+            <p style="font-size:15px;">Sem notificações por aqui...</p>
+          </div>
+        <% else %>
+          <% @notifications_unread.each do |notification| %>
+            <div class='card-body'>
+              <p class="card-title"><span class='icon'><i class='fa fa-warning text-danger'></i></span> <strong><%= I18n.l notification.created_at.to_date %> | <%= notification.title %></strong></p>
+              <p class='card-text'><%= notification.description %></p>
+              <%= link_to "Marcar como lido", path(notification), method: :patch %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="tab-pane fade" id="pills-read" role="tabpanel" aria-labelledby="pills-read-tab">
+        <% if @notifications_read.empty? %>
+          <div class='card-body' style="text-align:center">
+            <p style="font-size:15px;">Sem notificações por aqui...</p>
+          </div>
+        <% else %>
+          <% @notifications_read.each do |notification| %>
+            <div class='card-body'>
+              <p class="card-title"><span class='icon'><i class='fa fa-warning text-danger'></i></span> <strong><%= I18n.l notification.created_at.to_date %> | <%= notification.title %></strong></p>
+              <p class='card-text'><%= notification.description %></p>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

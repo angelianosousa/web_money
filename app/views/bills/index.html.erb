@@ -1,0 +1,58 @@
+<div class="container">
+  <nav class="navbar navbar-light my-finances-navbar">
+    <a class="navbar-brand" href="<%= bills_path %>"> Bills </a>
+
+    <div class='float-right'>
+      <%= modal_to_new_resource(' New Bill', target: '#newBillModal') %>
+
+      <button class="btn btn-outline-light btn-sm my-sm-3" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+        <span class='icon'><i class='fa fa-filter'></i></span>
+      </button>
+    </div>
+  </nav>
+</div><br>
+
+<div class="collapse" id="collapseSearch">
+  <%= render 'search_filter' %>
+</div>
+
+<div class='card border-dark' style='border-radius:10px;'>
+  <div class='card-body'>
+    <table class='table table-borderless'>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Value</th>
+          <th>Due pay</th>
+          <th>Bill type</th>
+          <th>Payment</th>
+          <th>Status</th>
+          <th colspan="1"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @bills.each do |bill| %>
+          <tr>
+            <td><%= bill.title %></td>
+            <td><%= humanized_money_with_symbol bill.price_cents %></td>
+            <td><%= bill.due_pay.strftime('%d %b %y') %></td>
+            <td><%= bill_type_status bill.bill_type %></td>
+            <td><%= bill_payment bill.status %></td>
+            <td><%= bill_due_status bill %></td>
+            <td><%= render 'actions', bill: bill %></td>
+          </tr>
+
+          <%= render partial: 'bills/modals/new_payment', locals: { bill: bill } %>
+        <% end %>
+      </tbody>
+    </table>
+    <div class='container-fluid'>
+      <%= paginate @bills %>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<%= render partial: 'bills/modals/new', locals: { bill: @bill = Bill.new } %>

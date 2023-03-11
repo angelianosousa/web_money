@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe "Transactions", type: :request do
   let(:user) { create(:user) }
 
-  describe "GET /users_backoffice/transactions" do
+  describe "GET /transactions" do
     it "returns status code 200 ok" do
       sign_in user
-      get users_backoffice_transactions_path
+      get transactions_path
       expect(response).to have_http_status(200)
     end
   end
 
-  describe "POST /users_backoffice/transactions/:id" do
+  describe "POST /transactions/:id" do
     context 'when has valid parameters' do
       it 'then create a new recurrence'
       it 'returns status code 201 created'
@@ -22,7 +22,7 @@ RSpec.describe "Transactions", type: :request do
     end
   end
 
-  describe "PUT/PATCH /users_backoffice/transactions/:id" do
+  describe "PUT/PATCH /transactions/:id" do
     context 'when transaction exists' do
       it "returns status 200 ok"
       it "update success"
@@ -34,7 +34,7 @@ RSpec.describe "Transactions", type: :request do
     end
   end
 
-  describe 'DELETE /users_backoffice/transactions/:id' do
+  describe 'DELETE /transactions/:id' do
     context 'when transaction exists' do
       it 'returns status 204 not content'
     end

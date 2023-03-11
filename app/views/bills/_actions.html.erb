@@ -1,0 +1,4 @@
+<%= link_to_show_resource('', bill_path(bill)) %>
+<%= link_to_edit_resource('', edit_bill_path(bill)) %>
+<%= link_to_delete_resource('', bill_path(bill)) %>
+<%= modal_to_pay_resource('', target: "#paymentModal_#{bill.id}", width: nil) %>

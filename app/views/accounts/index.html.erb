@@ -1,0 +1,38 @@
+<div class="container">
+  <nav class="navbar navbar-light my-finances-navbar">
+    <a class="navbar-brand" href="<%= accounts_path %>"> Current Balance | <%= humanized_money_with_symbol current_user_profile.accounts.sum(:price_cents) %></a>
+
+    <div class='nav-item'>
+      <%= modal_to_new_resource(' New Account', target: '#newAccountModal') %>
+    </div>
+  </nav>
+</div><br>
+
+<div class='card border-dark' style='border-radius:10px;'>
+  <div class='card-body'>
+    <table class='table table-hover table-borderless'>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Amount</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <% @accounts.each do |account| %>
+        <tbody class='border-bottom'>
+          <tr>
+            <td><%= account.title %></td>
+            <td><%= humanized_money_with_symbol(account.price_cents) %></td>
+            <td><%= render 'actions', account: account %></td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+  <div class='container-fluid'>
+    <%= paginate @accounts, outer_window: 3 %>
+  </div>
+</div>
+
+
+<%= render partial: "#{params[:controller]}/modals/new_account", locals: { account: @account = current_user_profile.accounts.new } %>

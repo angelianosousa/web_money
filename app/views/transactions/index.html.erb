@@ -1,0 +1,61 @@
+<%- model_class = Transaction -%>
+<div class="container mb-3">
+  <nav class="navbar navbar-light my-finances-navbar">
+    <a class="navbar-brand" href="<%= transactions_path %>"><%= model_class.model_name.human.pluralize.titleize %> | <%= humanized_money_with_symbol @balance %></a>
+
+    <div class='float-right'>
+      <%= modal_to_new_resource(' New Movement', target: '#newTransactionModal') %>
+
+      <button class="btn btn-outline-light btn-sm my-sm-3" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+        <span class='icon'><i class='fa fa-filter'></i></span>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="collapse" id="collapseSearch">
+  <%= render 'search_filter' %>
+</div>
+
+<div class="row">
+  <% @transactions.each do |day, transactions| %>
+    <div class="col-md-12">
+      <div class="card border-dark mb-3" style='border-radius:10px;'>
+        <div class="card-body">
+          <table class='table table-borderless table-hover'>
+            <thead>
+              <tr>
+                <th><%= model_class.human_attribute_name :description %></th>
+                <th><%= model_class.human_attribute_name :value %></th>
+                <th><%= model_class.human_attribute_name :date %></th>
+                <th><%= model_class.human_attribute_name :type %></th>
+                <th><%= model_class.human_attribute_name :category_id %></th>
+                <th><%= model_class.human_attribute_name :bill_id %></th>
+                <th><%= model_class.human_attribute_name :account_id %></th>
+                <th colspan="1"></th>
+              </tr>
+            </thead>
+            <% transactions.each do |transaction| %>
+              <tbody class='border-bottom'>
+                <tr>
+                  <td><div class='card-text'><small><%= transaction.description %></small></div></td>
+                  <td><%= value_style(transaction) %></td>
+                  <td><%= transaction.date.strftime('%m/%d/%Y') %></td>
+                  <td><%= transaction_status(transaction.category.category_type) %></td>
+                  <td><%= transaction.category.title %></td>
+                  <td><%= transaction.bill.title rescue '-'%></td>
+                  <td><%= transaction.account.title %></td>
+                  <td><%= render 'actions', transaction: transaction %></td>
+                </tr>
+              </tbody>
+            <% end %>
+          </table>
+          <div class="card-footer background-finances-green text-right" style='border-radius:20px;'>current balance <%= humanized_money_with_symbol balance_for_that_day(day) %> - <%= day %></div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @transactions, outer_window: 2 %>
+<%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_user_profile.transactions.new } %>

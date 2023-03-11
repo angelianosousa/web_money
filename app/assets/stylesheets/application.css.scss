@@ -13,6 +13,7 @@
  *= require bootstrap/dist/css/bootstrap.min
  *= require font-awesome/css/font-awesome.min
  *= require animate.css/animate.min
+ *= require custom
  *= require_tree .
  *= require_self
  */
@@ -28,3 +29,36 @@
   background-color: var(--my-finances-green);
   color: white;
  }
+
+ .my-finances-navbar{
+  background-color: var(--my-finances-green);
+  color: white!important;
+  border-radius: 10px;
+}
+
+.card-primary{
+  border: 1px solid var(--my-finances-blue);
+  
+  & > .card-header {
+    background-color: var(--my-finances-blue);
+    color: white!important;
+  }
+}
+
+.card-success{
+  border: 1px solid var(--my-finances-green);
+
+  & > .card-header {
+    background-color: var(--my-finances-green);
+    color: white!important;
+  }
+}
+
+.card-danger{
+  border: 1px solid var(--my-finances-red);
+  
+  & > .card-header {
+    background-color: var(--my-finances-red);
+    color: white!important;
+  }
+}
