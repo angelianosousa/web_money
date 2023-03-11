@@ -1,9 +1,9 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: angeliano
+  username: postgres
   password: postgres
-  host: <%= ENV['DATABASE_HOST'] %>
+  host: <%= ENV['DATABASE_HOST'] || localhost %>
   port: <%= ENV['DATABASE_PORT'] || '5432' %>
   pool: 5
   timeout: 5000
