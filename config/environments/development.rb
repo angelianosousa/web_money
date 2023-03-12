@@ -63,4 +63,5 @@ Rails.application.configure do
     IPAddr.new("::/0"),      # All IPv6 addresses.
     "localhost",             # The localhost reserved domain.
   ]
+  config.asset_host = ENV.fetch('SITE_DOMAIN') { 'localhost' }
 end

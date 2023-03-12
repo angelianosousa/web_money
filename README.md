@@ -1,4 +1,4 @@
-# Finantial Systema
+# Web Money
 
 ## Project Description
 The objective from this project is to implement a financial system where the users may create your expenses or recipes e register transactions by month whenever they want e see on the graphics how much money they using e what accounts are more expensive.
@@ -13,28 +13,22 @@ The objective from this project is to implement a financial system where the use
 * Bootstrap 4.3.1
 * Chartkick and groupdate for charts
 
-### Build Project
+### Build Project - Rails Way
 
-~~~
-  - bundle install
-  - rails db:create db:migrate
-  - yarn install
+~~~bash
+  docker-compose up --build
 ~~~
 
-Commands for populate database
-~~~ruby
-  - rails db:seed
-~~~
+This command will create run migrations
 
-Default user for Render
-~~~
-  email: user@user.com
-  senha: user123
+### To populate the database
+~~~bash
+  docker-compose run app rails db:seed
 ~~~
 
 ## Importants Links
 
-* In Staging: https://finances-system.onrender.com/users/sign_in
+* In Staging: I'm working on it
 
 ## Author
 

@@ -18,47 +18,47 @@
  *= require_self
  */
 
- :root{
-  --my-finances-green: #2F4F4F;
-  --my-finances-red: #8B0000;
-  --my-finances-blue: #00008B;
-  --my-finances-yellow: #B8860B;
- }
+@import 'colors';
+@import 'custom-styles';
+
+* {
+  font-family: "Oswald", sans-serif;
+}
 
 .background-finances-green {
-  background-color: var(--my-finances-green);
+  background-color: $web-finances-dark-green;
   color: white;
  }
 
- .my-finances-navbar{
-  background-color: var(--my-finances-green);
+.my-finances-navbar{
+  background-color: $web-finances-dark-green;
   color: white!important;
   border-radius: 10px;
 }
 
 .card-primary{
-  border: 1px solid var(--my-finances-blue);
+  border: 1px solid $web-finances-blue;
   
   & > .card-header {
-    background-color: var(--my-finances-blue);
+    background-color: $web-finances-blue;
     color: white!important;
   }
 }
 
 .card-success{
-  border: 1px solid var(--my-finances-green);
+  border: 1px solid $web-finances-dark-green;
 
   & > .card-header {
-    background-color: var(--my-finances-green);
+    background-color: $web-finances-dark-green;
     color: white!important;
   }
 }
 
 .card-danger{
-  border: 1px solid var(--my-finances-red);
+  border: 1px solid $web-finances-red;
   
   & > .card-header {
-    background-color: var(--my-finances-red);
+    background-color: $web-finances-red;
     color: white!important;
   }
 }

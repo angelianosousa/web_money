@@ -6,10 +6,8 @@ services:
     image: postgres:12
     volumes:
       - db_data:/var/lib/postgresql/data
-    env_file: .env.production
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
-      - POSTGRES_HOST=db
   app:
     build:
       context: .
@@ -19,7 +17,6 @@ services:
     links:
       - db
     volumes:
-      - .:/finantial_system
       - .:/app
       - node_modules:/app/node_modules
     ports:

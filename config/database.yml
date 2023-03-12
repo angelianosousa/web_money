@@ -3,18 +3,18 @@ default: &default
   encoding: unicode
   username: postgres
   password: postgres
-  host: db
+  host: <%= ENV['DATABASE_HOST'] || db %>
   pool: 5
   timeout: 5000
 
 development:
   <<: *default
-  database: finantial_system_development
+  database: web_money_development
 
 test:
   <<: *default
-  database: finantial_system_test
+  database: web_money_test
 
 production:
   <<: *default
-  database: finantial_system_production
+  database: web_money_production
