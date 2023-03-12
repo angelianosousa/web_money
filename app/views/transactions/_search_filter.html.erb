@@ -1,7 +1,8 @@
-<nav class="navbar navbar-light my-finances-navbar">
+<nav class="navbar navbar-light navbar-filter">
   <div class='row'>
     <div class='col'>
       <%= search_form_for @q, url: transactions_path, html: { class: 'form-row my-2 my-lg-0' } do |f| %>
+
         <div class='form-row align-items-center'>
           <div class='form-group col-md-2'>
             <%= f.label :category_id_eq, 'Category', class: 'label-control', style:'margin-top: 14px;' %>
@@ -35,9 +36,9 @@
             <%= f.date_field :date_lteq, class:'form-control', style:'margin-top: 40px;' %>
           </div>
           
-          <div class='form-group col-md-2 text-right mt-5'>
-            <%= f.submit 'Search', class:'btn btn-outline-light btn-round btn-sm px-5' %>
-            <%= link_to 'Clear', transactions_path, class:'btn btn-outline-info btn-round btn-sm px-5 mr-2' %>
+          <div class='form-group col-md-1 ml-4'>
+            <%= f.submit 'Search', class:'btn btn-outline-light btn-round btn-sm px-5 mt-5' %>
+            <%= link_to 'Clear', transactions_path, class:'btn btn-outline-info btn-round btn-sm px-5 ml-1' %>
           </div>
         </div>
       <% end %>

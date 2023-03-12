@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   username: postgres
   password: postgres
-  host: db
+  host: <%= ENV['DATABASE_HOST'] || db %>
   pool: 5
   timeout: 5000
 

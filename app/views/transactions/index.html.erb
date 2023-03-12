@@ -1,14 +1,12 @@
 <%- model_class = Transaction -%>
 <div class="container mb-3">
-  <nav class="navbar navbar-light my-finances-navbar">
-    <a class="navbar-brand" href="<%= transactions_path %>"><%= model_class.model_name.human.pluralize.titleize %> | <%= humanized_money_with_symbol @balance %></a>
+  <nav class="navbar navbar-light ">
+    <a class="navbar-brand navbar-link" href="<%= transactions_path %>"><%= model_class.model_name.human.pluralize.titleize %> | <%= humanized_money_with_symbol @balance %></a>
 
     <div class='float-right'>
       <%= modal_to_new_resource(' New Movement', target: '#newTransactionModal') %>
 
-      <button class="btn btn-outline-light btn-sm my-sm-3" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
-        <span class='icon'><i class='fa fa-filter'></i></span>
-      </button>
+      <%= filter %>
     </div>
   </nav>
 </div>

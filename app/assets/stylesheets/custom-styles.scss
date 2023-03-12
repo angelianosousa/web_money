@@ -1,0 +1,30 @@
+@import 'colors';
+
+h1, h2, h3, h4, h5, h6 {
+  color: $web-finances-orange !important;
+}
+
+p {
+  color: #fff;
+}
+
+.navbar-link {
+  color: $web-finances-orange !important;
+  text-decoration-line: underline;
+  text-decoration-thickness: 5px;
+  text-transform: uppercase;
+}
+
+.logo-style-dashboard {
+  background-image: image-url('logo-fundo-verde.png');
+  background-size: 192px 75px;
+  background-repeat: no-repeat;
+  margin: auto;
+}
+
+.navbar-filter {
+  border: 1px solid $web-finances-dark-green;
+  color: $web-finances-dark-green;
+  border-radius: 10px;
+  margin: 0px;
+}

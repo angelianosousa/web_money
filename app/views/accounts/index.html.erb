@@ -1,6 +1,6 @@
 <div class="container">
-  <nav class="navbar navbar-light my-finances-navbar">
-    <a class="navbar-brand" href="<%= accounts_path %>"> Current Balance | <%= humanized_money_with_symbol current_user_profile.accounts.sum(:price_cents) %></a>
+  <nav class="navbar navbar-light">
+    <a class="navbar-brand navbar-link" href="<%= accounts_path %>"> Current Balance | <%= humanized_money_with_symbol current_user_profile.accounts.sum(:price_cents) %></a>
 
     <div class='nav-item'>
       <%= modal_to_new_resource(' New Account', target: '#newAccountModal') %>
