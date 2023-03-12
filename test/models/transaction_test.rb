@@ -6,7 +6,7 @@
 #  date            :date
 #  description     :text
 #  price_cents     :integer          default(0), not null
-#  price_currency  :string           default("USD"), not null
+#  price_currency  :string           default("BRL"), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  account_id      :bigint

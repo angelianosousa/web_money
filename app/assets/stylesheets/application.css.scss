@@ -26,39 +26,39 @@
 }
 
 .background-finances-green {
-  background-color: $web-finances-dark-green;
+  background-color: $web-money-dark-green;
   color: white;
  }
 
 .my-finances-navbar{
-  background-color: $web-finances-dark-green;
+  background-color: $web-money-dark-green;
   color: white!important;
   border-radius: 10px;
 }
 
 .card-primary{
-  border: 1px solid $web-finances-blue;
+  border: 1px solid $web-money-blue;
   
   & > .card-header {
-    background-color: $web-finances-blue;
+    background-color: $web-money-blue;
     color: white!important;
   }
 }
 
 .card-success{
-  border: 1px solid $web-finances-dark-green;
+  border: 1px solid $web-money-dark-green;
 
   & > .card-header {
-    background-color: $web-finances-dark-green;
+    background-color: $web-money-dark-green;
     color: white!important;
   }
 }
 
 .card-danger{
-  border: 1px solid $web-finances-red;
+  border: 1px solid $web-money-red;
   
   & > .card-header {
-    background-color: $web-finances-red;
+    background-color: $web-money-red;
     color: white!important;
   }
 }

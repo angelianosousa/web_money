@@ -1,0 +1,23 @@
+---
+'pt-BR':
+  application:      
+    side_bar:
+      menu_title: Seções
+      greetings: Bem Vindo
+      my_money: Meu dinheiro
+      accounts: Contas
+      bills: Recorrências
+      transactions: Movimentações
+      user_profile: Perfil
+      categories: Categorias
+      dashboard: Painel
+      users: User
+    navbar:
+      notifications:
+        title: Notificações
+        profile: Perfil
+        sign_out: Sair
+        confirm: Quer mesmo sair ?
+        check: Marcar como lido
+        theres_no_message: Não há mensagens 
+        see_all: Todas as notificações    

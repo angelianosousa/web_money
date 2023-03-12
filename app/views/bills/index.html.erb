@@ -1,9 +1,9 @@
 <div class="container">
   <nav class="navbar navbar-light">
-    <a class="navbar-brand navbar-link" href="<%= bills_path %>"> Bills </a>
+    <%= navlink_bill %>
 
     <div class='float-right'>
-      <%= modal_to_new_resource(' New Bill', target: '#newBillModal') %>
+      <%= modal_to_new_resource(t('.new_resource'), target: '#newBillModal') %>
 
       <%= filter %>
     </div>
@@ -19,12 +19,11 @@
     <table class='table table-borderless'>
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Value</th>
-          <th>Due pay</th>
-          <th>Bill type</th>
-          <th>Payment</th>
-          <th>Status</th>
+          <th><%= Bill.human_attribute_name :title %></th>
+          <th><%= Bill.human_attribute_name :price_cents %></th>
+          <th><%= Bill.human_attribute_name :due_pay %></th>
+          <th><%= Bill.human_attribute_name :bill_type %></th>
+          <th><%= Bill.human_attribute_name :status %></th>
           <th colspan="1"></th>
         </tr>
       </thead>
@@ -37,11 +36,10 @@
             <td><%= bill.due_pay.strftime('%d %b %y') %></td>
             <td><%= bill_type_status bill.bill_type %></td>
             <td><%= bill_payment bill.status %></td>
-            <td><%= bill_due_status bill %></td>
             <td><%= render 'actions', bill: bill %></td>
           </tr>
 
-          <%= render partial: 'bills/modals/new_payment', locals: { bill: bill } %>
+          <%= render partial: "#{params[:controller]}/modals/new_payment", locals: { bill: bill } %>
         <% end %>
       </tbody>
     </table>

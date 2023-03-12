@@ -9,11 +9,12 @@ The objective from this project is to implement a financial system where the use
 
 * ruby 2.7.5
 * rails 6.0.1
-* Postgre SQL
+* Postgre SQL 12.1
 * Bootstrap 4.3.1
 * Chartkick and groupdate for charts
+* Fontawesome 4.6.3
 
-### Build Project - Rails Way
+### Build Project
 
 ~~~bash
   docker-compose up --build
@@ -22,6 +23,7 @@ The objective from this project is to implement a financial system where the use
 This command will create run migrations
 
 ### To populate the database
+
 ~~~bash
   docker-compose run app rails db:seed
 ~~~

@@ -1,0 +1,14 @@
+---
+'pt-BR':
+  activerecord:
+    attributes:
+      account:
+        title: Titulo
+        price_cents: Montante
+        price_currency: Moeda
+        created_at: Criado em...
+        updated_at: Atualizado em...
+    models:
+      account:
+        one: Conta
+        other: Contas

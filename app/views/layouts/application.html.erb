@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <title>My Web Finances</title>
+    <title>Web Money</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -19,144 +19,9 @@
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col menu_fixed">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title">
-              <%= link_to dashboard_index_path, class:"logo-style-dashboard site_title" do %>
-                
-              <% end %>
-            </div>
+        <%= render 'application/side_bar' %>
 
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic mt-2">
-                <%= current_user_profile.avatar.attached? ? image_tag(current_user_profile.avatar, size: '50x50', class:"img-circle profile_img") : image_tag("user-profile-icon.png", size: '50x50', class:"img-circle profile_img") %>
-              </div>
-              <div class="profile_info">
-                <span>Welcome!!,</span>
-                <p><%= current_user_profile.name rescue nil %></p>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>Painel</h3>
-                <ul class="nav side-menu">
-                  <li>
-                    <%= link_to dashboard_index_path do %>
-                      <i class="fa fa-bar-chart"></i> Graphic Panel
-                    <% end %>
-                  </li>
-                </ul>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bank"></i> My Money <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li>
-                        <%= link_to accounts_path do %>
-                          <i class='fa fa-calculator' style='text-align:left;'></i> Checking accounts
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to transactions_path do %>
-                          <i class='fa fa-exchange' style='text-align:left;'></i> Movements
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to categories_path do %>
-                          <i class='fa fa-list' style='text-align:left;'></i> Categories
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to bills_path do %>
-                          <i class='fa fa-balance-scale' style='text-align:left;'></i> My Bills
-                        <% end %>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- /sidebar menu -->
-          </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-            <div class="nav toggle">
-              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-            </div>
-            <nav class="nav navbar-nav">
-              <ul class=" navbar-right">
-                <li class="nav-item dropdown open" style="padding-left: 15px;">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <%= image_tag("user-profile-icon.png", size: '10x10') %>
-                    <%= current_user.email %>
-                  </a>
-                  <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <%= link_to edit_user_profile_path(current_user), class:"dropdown-item" do %>
-                      <i class="fa fa-user pull-right"></i>Profile
-                    <% end %>
-
-                    <%= link_to destroy_user_session_path, method: :delete, data: {confirm: "Quer mesmo sair ?"}, class:"dropdown-item" do %>
-                      <i class="fa fa-sign-out pull-right"></i>Sair
-                    <% end %>
-                  </div>
-                </li>
-                <li role="presentation" class="nav-item dropdown open">
-                  <% @notifications_unread = Notification.unread(current_user.user_profile) %>
-                  <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green"><%= @notifications_unread.count %></span>
-                  </a>
-                  <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                    <% unless @notifications_unread.nil? %>
-                      <% @notifications_unread.each do |notification| %>
-                        <li class="nav-item">
-                          <div class="dropdown-item">
-                            <span class="icon"><i class='fa fa-warning text-danger'></i></span>
-                            <span>
-                              <span><strong><%= notification.title %></strong></span>
-                            </span><br>
-                            <span class="message">
-                              <%= notification.description %><br>
-                            </span>
-                            <%= link_to "Marcar como lido", path(notification), method: :patch %>
-                          </div>
-                        </li>
-                      <% end %>
-                    <% else %>
-                      <li class="nav-item">
-                        <div class="dropdown-item text-center">
-                          <span class="message">
-                            There's no messages here
-                          </span>
-                        </div>
-                      </li>
-                    <% end %>
-                    
-                    <li class="nav-item">
-                      <div class="text-center">
-                        <a class="dropdown-item">
-                          <strong><%= link_to "Todas as notificações", notifications_path %></strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <!-- /top navigation -->
+        <%= render 'application/navbar' %>
 
         <!-- page content -->
         <div class="right_col" role="main">

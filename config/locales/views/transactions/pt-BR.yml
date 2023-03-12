@@ -1,0 +1,19 @@
+---
+'pt-BR':
+  transactions:
+    index:
+      title: Movimentações %{balance}
+      new_resource: ' Add Movimentação'
+      balance_diary: Balanço do dia %{amount} - %{day}
+    edit:
+      title: ' Editar movimentação'
+    modals:
+      new_transaction:
+        title: Add movimentação
+    search_filter:
+      category: Categoria
+      account: Conta
+      price_cents: Valor
+      date: Data
+      search: Pesquisar
+      clear: Limpar

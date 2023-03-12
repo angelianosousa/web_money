@@ -9,8 +9,8 @@
         value: Valor
         type: Tipo
         date: Data
-        category_id: Categoria
-        bill_id: Conta
+        category: Categoria
+        bill: Recorrência
         account: Banco / Carteira
       errors:
         models:

@@ -1,9 +1,9 @@
 <div class="container">
   <nav class="navbar navbar-light">
-    <a class="navbar-brand navbar-link" href="<%= categories_path %>"> Categories </a>
+    <%= navlink_category %>
 
     <div class='float-right'>
-      <%= modal_to_new_resource(' New Category', target: '#newCategoryModal') %>
+      <%= modal_to_new_resource(t('.new_resource'), target: '#newCategoryModal') %>
     </div>
   </nav>
 </div><br>
@@ -13,15 +13,15 @@
   <div class='card card-success'>
     <div class='card-header'>
       <% amount_recipes = current_user_profile.transactions.recipes.sum(:price_cents) %>
-      <span class='icon'><i class='fa fa-arrow-up'> RECIPES </i></span> <%= humanized_money_with_symbol(amount_recipes) %>
+      <span class='icon'><i class='fa fa-arrow-up' style='text-transform: uppercase'> <%= t '.recipes', amount: humanized_money_with_symbol(amount_recipes) %> </i></span>
     </div>
     <div class='card-body'>
       <table class='table table-hover table-sm table-borderless'>
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Amount</th>
-            <th>Actions</th>
+            <th><%= Category.human_attribute_name :title %></th>
+            <th><%= Category.human_attribute_name :amount %></th>
+            <th colspan="1"></th>
           </tr>
         </thead>
         <tbody>
@@ -41,15 +41,15 @@
   <div class='card card-danger'>
     <div class='card-header'>
       <% amount_expenses = current_user_profile.transactions.expenses.sum(:price_cents) %>
-      <span class='icon'><i class='fa fa-arrow-down'> EXPENSES </i></span> <%= humanized_money_with_symbol(amount_expenses) %>
+      <span class='icon'><i class='fa fa-arrow-down' style='text-transform: uppercase'> <%= t '.recipes', amount: humanized_money_with_symbol(amount_expenses) %> </i></span>
     </div>
     <div class='card-body'>
       <table class='table table-hover table-sm table-borderless'>
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Amount</th>
-            <th>Actions</th>
+            <th><%= Category.human_attribute_name :title %></th>
+            <th><%= Category.human_attribute_name :amount %></th>
+            <th colspan="1"></th>
           </tr>
         </thead>
         <tbody>

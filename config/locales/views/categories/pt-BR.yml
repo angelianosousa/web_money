@@ -1,0 +1,13 @@
+---
+'pt-BR':
+  categories:
+    index:
+      title: Categorias
+      new_resource: ' Add Categoria'
+      recipes: Receitas - %{amount}
+      expenses: Despesas - %{amount}
+    edit:
+      title: Editar categoria
+    modals:
+      new:
+        title: Nova categoria

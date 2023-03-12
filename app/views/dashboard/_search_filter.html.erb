@@ -5,12 +5,12 @@
 
         <div class='form-row align-items-center'>
           <div class='form-group col-md-2'>
-            <%= f.label :category, 'Category', class:'label-control' %>
-            <%= f.select :category_id_eq, options_for_select(Category.pluck(:title, :id)), { include_blank: 'All'}, {class:'form-control'} %>
+            <%= f.label :category, t('.category'), class:'label-control' %>
+            <%= f.select :category_id_eq, options_for_select(Category.pluck(:title, :id)), { include_blank: t('.all')}, {class:'form-control'} %>
           </div>
 
           <div class='form-group col-md-2'>
-            <%= f.label :price, 'Price (R$)', class:'label-control' %>
+            <%= f.label :price, t('.price'), class:'label-control' %>
             <%= f.number_field :price_cents_gteq, class:'form-control', in:0..999999, step: :any, placeholder: 'Min' %>
           </div>
 
@@ -19,7 +19,7 @@
           </div>
 
           <div class='form-group col-md-2'>
-            <%= f.label :date, 'Date', class:'label-control' %>
+            <%= f.label :date, t('.date'), class:'label-control' %>
             <%= f.date_field :date_gteq, class:'form-control', default: Date.today %>
           </div>
 
@@ -28,8 +28,8 @@
           </div>
           
           <div class='form-group col-md-1 ml-4'>
-            <%= f.submit 'Search', class:'btn btn-outline-success btn-round btn-sm px-5 mt-4' %>
-            <%= link_to 'Clear', dashboard_index_path, class:'btn btn-outline-info btn-round btn-sm px-5 ml-1' %>
+            <%= f.submit t('.search'), class:'btn btn-outline-success btn-round btn-sm px-5 mt-4' %>
+            <%= link_to t('.clear'), dashboard_index_path, class:'btn btn-outline-info btn-round btn-sm px-5 ml-1' %>
           </div>
         </div>
       <% end %>

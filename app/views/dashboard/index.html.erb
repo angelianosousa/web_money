@@ -1,12 +1,12 @@
 <div class='container mb-4' style="padding-bottom: 70px;">
 
   <nav class="navbar navbar-light mb-2">
-    <a class="navbar-brand navbar-link" href="<%= dashboard_index_path %>"> Graphic Panel - <%= "#{Date.today.strftime('%B')}" %></a>
+    <%= navlink_dashboard %>
 
     <div class='float-right'>
-      <%= modal_to_new_resource(' New Movement', target: '#newTransactionModal', width:'140px') %>
+      <%= modal_to_new_resource(t('.new_transaction'), target: '#newTransactionModal') %>
 
-      <%= modal_to_new_resource(' New Account', target: '#newAccountModal', width:'140px') %>
+      <%= modal_to_new_resource(t('.new_account'), target: '#newAccountModal') %>
 
       <%= filter %>
     </div>
@@ -21,7 +21,7 @@
       <div class="col-md-4 col-sm-4 mb-3">
         <div class='card card-primary'>
           <div class='card-header'>
-            <span class="count_top" style=";font-size:15px;"><i class="fa fa-bank"></i> Current Balance</span>
+            <span class="count_top" style=";font-size:15px;"><i class="fa fa-bank"></i> <%= t '.current_balance' %></span>
           </div>
           <div class='card-body'>
             <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.recipes.sum(:price_cents) - @transactions.expenses.sum(:price_cents)) %></div>
@@ -31,7 +31,7 @@
       <div class="col-md-4 col-sm-4 mb-3">
         <div class='card card-success'>
           <div class='card-header'>
-            <span class="count_top" style="font-size:15px;"><i class="fa fa-arrow-up"></i> Total Recipes</span>
+            <span class="count_top" style="font-size:15px;"><i class="fa fa-arrow-up"></i> <%= t '.total_recipes' %></span>
           </div>
           <div class='card-body'>
             <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.recipes.sum(:price_cents)) %></div>
@@ -41,7 +41,7 @@
       <div class="col-md-4 col-sm-4 mb-3">
         <div class='card card-danger'>
           <div class='card-header'>
-            <span class="count_top" style="font-size:15px;"><i class="fa fa-arrow-down"></i> Total Expenses</span>
+            <span class="count_top" style="font-size:15px;"><i class="fa fa-arrow-down"></i> <%= t '.total_expenses' %></span>
           </div>
           <div class='card-body'>
             <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.expenses.sum(:price_cents)) %></div>
@@ -58,7 +58,7 @@
       <div class='card-body'>
         <!-- Scope transactions_recipes_per_date -->
         <%= line_chart @transactions.recipes.group(:date).sum(:price_cents), legend: false,
-          title: "My Recipes #{params[:q][:date_gteq]} #{params[:q][:date_lteq]}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
+          title: "#{t '.title_charts.recipes'} #{params[:q][:date_gteq]} #{params[:q][:date_lteq]}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
           download: { filename: "Moviments #{Date.today}", background:'#ffffff' }, colors:['#2F4F4F'] %>
       </div>
     </div>
@@ -68,7 +68,7 @@
       <div class='card-body'>
         <!-- Scope transactions_recipes_per_date -->
         <%= line_chart @transactions.expenses.group(:date).sum(:price_cents), legend: false,
-          title: "My Expenses #{params[:q][:date_gteq]} #{params[:q][:date_lteq]}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
+          title: "#{t '.title_charts.expenses'} #{params[:q][:date_gteq]} #{params[:q][:date_lteq]}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
           download: { filename: "Moviments #{Date.today}", background:'#ffffff' }, colors:['#8B0000'] %>
       </div>
     </div>
@@ -81,7 +81,7 @@
       <div class='card-body'>
         <!-- Scope -->
         <%= column_chart @categories, legend: false, colors: ['#2F4F4F'],
-        title: 'My Categories', xtitle: 'Categories', ytitle: 'Value ($)', download: { filename: "My Recipes - #{Date.today}", background:'#ffffff'} %>
+        title: "#{t '.title_charts.categories'}", xtitle: 'Categories', ytitle: 'Value ($)', download: { filename: "My Recipes - #{Date.today}", background:'#ffffff'} %>
       </div>
     </div>
   </div>
@@ -91,8 +91,8 @@
   <div class='col-md mb-3'>
     <div class='card border-secondary'>
       <div class='card-body'>
-        <%= column_chart @bills, legend: false, colors:['#00008B'], title: 'My Bills', xtitle: 'Bills', 
-        ytitle: 'Value ($)', download: { filename: "My Bills", background:'#ffffff'} %>
+        <%= column_chart @bills, legend: false, colors:['#00008B'], 
+        title: "#{t '.title_charts.bills'}", xtitle: 'Bills', ytitle: 'Value ($)', download: { filename: "My Bills", background:'#ffffff'} %>
       </div>
     </div>
   </div>

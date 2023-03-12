@@ -17,8 +17,8 @@ module ApplicationHelper
     end
   end
 
-  def modal_to_new_resource(text, target: '', width: '140px')
-    link_to '#', class: "btn btn-outline-dark btn-sm btn-round my-sm-3", "data-toggle":"modal", "data-target":"#{target}", style:"width:#{width}" do
+  def modal_to_new_resource(text, target: '')
+    link_to '#', class: "btn btn-outline-dark btn-sm btn-round my-sm-3", "data-toggle":"modal", "data-target":"#{target}", style:"width:140px" do
       "#{fontawesome_icon(text, 'fa fa-plus-square')}".html_safe
     end
   end
