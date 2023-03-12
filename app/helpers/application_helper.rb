@@ -10,20 +10,20 @@ module ApplicationHelper
   end
 
   def filter
-    link_to '#', class:'btn btn-outline-dark btn-sm my-sm-3', type:"button", "data-toggle":"collapse", "data-target":"#collapseSearch", "aria-expanded":"false", "aria-controls":"collapseSearch" do
+    link_to '#', class:'btn btn-outline-dark btn-sm btn-round my-sm-3', type:"button", "data-toggle":"collapse", "data-target":"#collapseSearch", "aria-expanded":"false", "aria-controls":"collapseSearch" do
       content_tag :span, class:'icon' do
         fontawesome_icon('', 'fa fa-filter')
       end
     end
   end
 
-  def modal_to_new_resource(text, target: '', width: '270px')
-    link_to '#', class: "btn btn-outline-dark btn-sm my-sm-3", "data-toggle":"modal", "data-target":"#{target}", style:"width:#{width}" do
+  def modal_to_new_resource(text, target: '', width: '140px')
+    link_to '#', class: "btn btn-outline-dark btn-sm btn-round my-sm-3", "data-toggle":"modal", "data-target":"#{target}", style:"width:#{width}" do
       "#{fontawesome_icon(text, 'fa fa-plus-square')}".html_safe
     end
   end
 
-  def modal_to_pay_resource(text, target: '', width: '270px')
+  def modal_to_pay_resource(text, target: '', width: '140px')
     link_to '#', class: "btn-sm", "data-toggle":"modal", "data-target":"#{target}", style:"width:#{width}" do
       "#{fontawesome_icon(text, 'fa fa-money')}".html_safe
     end
