@@ -4,7 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  price_cents     :integer          default(0), not null
-#  price_currency  :string           default("USD"), not null
+#  price_currency  :string           default("BRL"), not null
 #  title           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

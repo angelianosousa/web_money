@@ -1,5 +1,5 @@
 {
-  "name": "finances_system",
+  "name": "web_money",
   "private": true,
   "dependencies": {
     "animate.css": "3.5.0",

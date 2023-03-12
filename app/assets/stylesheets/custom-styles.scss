@@ -1,15 +1,15 @@
 @import 'colors';
 
 h1, h2, h3, h4, h5, h6 {
-  color: $web-finances-orange !important;
+  color: $web-money-orange !important;
 }
 
 p {
-  color: #fff;
+  color:$web-money-dark-green;
 }
 
 .navbar-link {
-  color: $web-finances-orange !important;
+  color: $web-money-orange !important;
   text-decoration-line: underline;
   text-decoration-thickness: 5px;
   text-transform: uppercase;
@@ -23,8 +23,8 @@ p {
 }
 
 .navbar-filter {
-  border: 1px solid $web-finances-dark-green;
-  color: $web-finances-dark-green;
+  border: 1px solid $web-money-dark-green;
+  color: $web-money-dark-green;
   border-radius: 10px;
   margin: 0px;
 }

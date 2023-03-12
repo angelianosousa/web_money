@@ -1,10 +1,10 @@
 <%- model_class = Transaction -%>
 <div class="container mb-3">
   <nav class="navbar navbar-light ">
-    <a class="navbar-brand navbar-link" href="<%= transactions_path %>"><%= model_class.model_name.human.pluralize.titleize %> | <%= humanized_money_with_symbol @balance %></a>
+    <%= navlink_transaction %>
 
     <div class='float-right'>
-      <%= modal_to_new_resource(' New Movement', target: '#newTransactionModal') %>
+      <%= modal_to_new_resource(t('.new_resource'), target: '#newTransactionModal') %>
 
       <%= filter %>
     </div>
@@ -27,9 +27,9 @@
                 <th><%= model_class.human_attribute_name :value %></th>
                 <th><%= model_class.human_attribute_name :date %></th>
                 <th><%= model_class.human_attribute_name :type %></th>
-                <th><%= model_class.human_attribute_name :category_id %></th>
-                <th><%= model_class.human_attribute_name :bill_id %></th>
-                <th><%= model_class.human_attribute_name :account_id %></th>
+                <th><%= model_class.human_attribute_name :category %></th>
+                <th><%= model_class.human_attribute_name :bill %></th>
+                <th><%= model_class.human_attribute_name :account %></th>
                 <th colspan="1"></th>
               </tr>
             </thead>
@@ -48,7 +48,7 @@
               </tbody>
             <% end %>
           </table>
-          <div class="card-footer background-finances-green text-right" style='border-radius:20px;'>current balance <%= humanized_money_with_symbol balance_for_that_day(day) %> - <%= day %></div>
+          <div class="card-footer background-finances-green text-right" style='border-radius:20px;'><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>
         </div>
       </div>
     </div>

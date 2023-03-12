@@ -1,4 +1,4 @@
-<%= form_with(model: account, local: true) do |form| %>
+<%= form_with(model: @account, local: true) do |form| %>
 
   <%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
 
@@ -17,7 +17,7 @@
   </div>
 
   <div class="actions">
-    <%= form.submit 'Save', class:'btn btn-primary' %>
-    <%= link_to 'Back', accounts_path, class:'btn btn-secondary' %>
+    <%= form.submit t('.save'), class:'btn btn-primary' %>
+    <%= link_to t('back'), accounts_path, class:'btn btn-secondary' %>
   </div>
 <% end %>

@@ -1,0 +1,22 @@
+---
+'pt-BR':
+  dashboard:
+    index:
+      title: Painel Gráfico
+      current_balance: Balanço Atual
+      total_recipes: Total de Receitas
+      total_expenses: Total de Despesas
+      title_charts:
+        recipes: Receitas
+        expenses: Despesas
+        categories: Categorias
+        accounts: Minhas contas
+        bills: Recorrências
+      new_account: ' Add Conta'
+      new_transaction: ' Add movimentação'
+    search_filter:
+      category: Por categoria
+      price: Preço (R$)
+      date: Data
+      search: Pesquisar
+      clear: Limpar

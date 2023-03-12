@@ -1,0 +1,26 @@
+---
+'pt-BR':
+  bills:
+    index:
+      title: Recorrências
+      new_resource: ' Add Recorrência'
+    edit:
+      title: ' Editar recorrência'
+    show:
+      title: Recorrência - %{bill}
+      balance: Movimentações - %{balance}
+    modals:
+      new_payment:
+        title: Add movimentação - %{bill}
+      new:
+        title: Nova Recorrência
+    form:
+      save: Salvar
+      back: Voltar
+    search_filter:
+      bill_type: Tipo de Recorrência
+      status: Status
+      price_cents: Valor
+      due_pay: Vencimento
+      search: Pesquisar
+      clear: Limpar

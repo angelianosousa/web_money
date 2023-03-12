@@ -17,4 +17,11 @@ module TransactionsHelper
     accounts = current_user_profile.accounts.sum(:price_cents)
     balance  = recipes - expenses
   end
+
+  def navlink_transaction
+    link_to transactions_path, class:'navbar-brand navbar-link' do
+      "#{t '.title', balance: humanized_money_with_symbol(@balance)}".html_safe
+    end
+  end
+  # <a class="navbar-brand navbar-link" href="<%= transactions_path %>"><%= model_class.model_name.human.pluralize.titleize %> | <%= humanized_money_with_symbol @balance %></a>
 end

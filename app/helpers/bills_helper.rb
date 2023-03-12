@@ -16,4 +16,11 @@ module BillsHelper
 
     badge_pill(text.upcase, class:"#{badge_class}")
   end
+
+  def navlink_bill
+    link_to bills_path, class:'navbar-brand navbar-link' do
+      "#{t '.title'}"
+    end
+  end
+  # <a class="navbar-brand navbar-link" href="<%= bills_path %>"> <%= t '.title' %> </a>
 end

@@ -4,7 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  bill_type       :integer
-#  due_pay         :date             default(Thu, 09 Mar 2023)
+#  due_pay         :date             default(Sun, 12 Mar 2023)
 #  price_cents     :decimal(, )
 #  status          :integer          default("pending")
 #  title           :string
@@ -31,7 +31,7 @@ class Bill < ApplicationRecord
   has_many :transactions, dependent: :destroy
 
   monetize :price_cents
-  register_currency :usd
+  register_currency :brl
 
   paginates_per 10
 end
