@@ -9,12 +9,12 @@ default: &default
 
 development:
   <<: *default
-  database: finantial_system_development
+  database: web_money_development
 
 test:
   <<: *default
-  database: finantial_system_test
+  database: web_money_test
 
 production:
   <<: *default
-  database: finantial_system_production
+  database: web_money_production
