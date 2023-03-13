@@ -58,7 +58,7 @@
       <div class='card-body'>
         <!-- Scope transactions_recipes_per_date -->
         <%= line_chart @transactions.recipes.group(:date).sum(:price_cents), legend: false,
-          title: "#{t '.title_charts.recipes'} #{params[:q][:date_gteq]} #{params[:q][:date_lteq]}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
+          title: "#{t '.title_charts.recipes'}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
           download: { filename: "Moviments #{Date.today}", background:'#ffffff' }, colors:['#2F4F4F'] %>
       </div>
     </div>
@@ -68,7 +68,7 @@
       <div class='card-body'>
         <!-- Scope transactions_recipes_per_date -->
         <%= line_chart @transactions.expenses.group(:date).sum(:price_cents), legend: false,
-          title: "#{t '.title_charts.expenses'} #{params[:q][:date_gteq]} #{params[:q][:date_lteq]}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
+          title: "#{t '.title_charts.expenses'}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
           download: { filename: "Moviments #{Date.today}", background:'#ffffff' }, colors:['#8B0000'] %>
       </div>
     </div>
