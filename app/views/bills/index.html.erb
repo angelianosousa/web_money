@@ -19,7 +19,6 @@
     <table class='table table-borderless table-hover table-sm'>
       <thead>
         <tr>
-          <th><%= Bill.human_attribute_name :status %></th>
           <th><%= Bill.human_attribute_name :title %></th>
           <th><%= Bill.human_attribute_name :due_pay %></th>
           <th><%= Bill.human_attribute_name :bill_type %></th>
@@ -30,11 +29,17 @@
       <tbody>
         <% @bills.each do |bill| %>
           <tr>
-            <td><%= bill_type_status(bill.bill_type) %></td>
             <td>
               <div class='custom-card-text'>
-                <%= bill.title %><br>
-                <p><%= humanized_money_with_symbol(bill.price_cents) rescue nil %></p>
+                <div class='row'>
+                  <div class='col-sm-1'>
+                    <%= bill_type_status(bill.bill_type) %>
+                  </div>
+                  <div class='col-sm-11'>
+                    <h6><%= bill.title %></h6>
+                    <p><%= humanized_money_with_symbol(bill.price_cents) rescue nil %></p>
+                  </div>
+                </div>
               </div>
             </td>
             <td><%= bill.due_pay.strftime('%d %b %y') %></td>

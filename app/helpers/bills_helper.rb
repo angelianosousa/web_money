@@ -14,7 +14,7 @@ module BillsHelper
   def bill_type_status(status)
     text, fontawesome_class = (status == 'receive') ? ['', 'bill-status-recipe fa fa-arrow-up'] : ['', 'bill-status-expense fa fa-arrow-down']
 
-    content_tag :i, '', class:"#{fontawesome_class}"
+    content_tag :i, '', class:"#{fontawesome_class}", style:'font-size: 10px;'
   end
 
   def navlink_bill
@@ -22,5 +22,12 @@ module BillsHelper
       "#{t '.title'}"
     end
   end
-  # <a class="navbar-brand navbar-link" href="<%= bills_path %>"> <%= t '.title' %> </a>
+
+  def bill_type_options_for_select
+    translations_scope = %i[helpers bill_type_options_for_select]
+
+    Bill.bill_types.map do |status_key, value|
+      [t(status_key, scope: translations_scope), value]
+    end
+  end
 end

@@ -5,3 +5,7 @@
       category:
         title: Titulo
         amount: Montante
+        category_type: Tipo
+      category/category_type:
+        recipe: Receita
+        expense: Despesa

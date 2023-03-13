@@ -5,12 +5,12 @@
 <div class="row">
   <div class="col-md-12 col-xl-12 col-sm-12">
     <div class="form-group">
-      <%= form.label :Title %>
+      <%= form.label :title %>
       <%= form.text_field :title, class:"form-control" %>
     </div>
     <div class="form-group">
-      <%= form.label :'Category type' %>
-      <%= form.select :category_type, Category.category_types.keys, {}, {class:"form-control"} %>
+      <%= form.label :category_type %>
+      <%= form.select :category_type, options_for_select(category_type_options_for_select, Category.category_types[@category.category_type]), {}, {class:"form-control"} %>
     </div>
   </div>
 </div>
