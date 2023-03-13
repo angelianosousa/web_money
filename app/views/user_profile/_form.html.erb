@@ -2,10 +2,10 @@
 
   <div class='row'>
     <div class='col-md-4' style='margin:auto'>
-      <div class='card border-dark'>
+      <div class='card border-dark mb-3'>
         <div class='card-body'>
           <% @user_profile = current_user_profile.avatar %> <!-- Variable for set the current user for images profile --->
-          <%= @user_profile.attached? ? image_tag(@user_profile, size:"120x120", class:"img-circle profile_img") : image_tag("https://bulma.io/images/placeholders/1280x960.png", size:"120x120", class:"img-circle profile_img") %>
+          <%= @user_profile.attached? ? image_tag(@user_profile, size:"128x128", class:"img-circle profile_img") : image_tag("https://bulma.io/images/placeholders/1280x960.png", size:"128x128", class:"img-circle profile_img") %>
         </div>
       </div>
     </div>
@@ -36,6 +36,6 @@
 
   <div class='btn-group actions'>
     <%= form.submit 'Salvar', class:'btn btn-primary' %>&nbsp;
-    <%= link_to 'Voltar', dashboard_index_path, class:'btn btn-danger' %>
+    <%= link_to 'Voltar', dashboard_index_path, class:'btn btn-secondary' %>
   </div>
 <% end %>

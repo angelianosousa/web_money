@@ -19,22 +19,25 @@
     <table class='table table-borderless'>
       <thead>
         <tr>
+          <th><%= Bill.human_attribute_name :status %></th>
           <th><%= Bill.human_attribute_name :title %></th>
-          <th><%= Bill.human_attribute_name :price_cents %></th>
           <th><%= Bill.human_attribute_name :due_pay %></th>
           <th><%= Bill.human_attribute_name :bill_type %></th>
-          <th><%= Bill.human_attribute_name :status %></th>
-          <th colspan="1"></th>
+          <th colspan="1">Ações</th>
         </tr>
       </thead>
 
       <tbody>
         <% @bills.each do |bill| %>
           <tr>
-            <td><%= bill.title %></td>
-            <td><%= humanized_money_with_symbol bill.price_cents %></td>
+            <td><%= bill_type_status(bill.bill_type) %></td>
+            <td>
+              <div class='custom-card-text'>
+                <%= bill.title %><br>
+                <p><%= humanized_money_with_symbol(bill.price_cents) rescue nil %></p>
+              </div>
+            </td>
             <td><%= bill.due_pay.strftime('%d %b %y') %></td>
-            <td><%= bill_type_status bill.bill_type %></td>
             <td><%= bill_payment bill.status %></td>
             <td><%= render 'actions', bill: bill %></td>
           </tr>

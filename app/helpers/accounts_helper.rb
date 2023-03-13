@@ -4,9 +4,8 @@ module AccountsHelper
   end
 
   def navlink_account
-    link_to accounts_path, class:"navbar-brand navbar-link" do
+    link_to accounts_path, class:"navbar-brand navbar-link mb-3" do
       "#{t('.current_balance', balance: humanized_money_with_symbol(current_user_profile.accounts.sum(:price_cents)))}".html_safe
     end
   end
-  # <a class="navbar-brand navbar-link" href="<%= accounts_path %>"> Current Balance | <%= humanized_money_with_symbol current_user_profile.accounts.sum(:price_cents) %></a>
 end

@@ -20,35 +20,32 @@
     <div class="col-md-12">
       <div class="card border-dark mb-3" style='border-radius:10px;'>
         <div class="card-body">
-          <table class='table table-borderless table-hover'>
+          <table class='table table-borderless table-hover table-sm'>
             <thead>
               <tr>
-                <th><%= model_class.human_attribute_name :description %></th>
-                <th><%= model_class.human_attribute_name :value %></th>
-                <th><%= model_class.human_attribute_name :date %></th>
-                <th><%= model_class.human_attribute_name :type %></th>
                 <th><%= model_class.human_attribute_name :category %></th>
-                <th><%= model_class.human_attribute_name :bill %></th>
+                <th><%= model_class.human_attribute_name :value %></th>
                 <th><%= model_class.human_attribute_name :account %></th>
-                <th colspan="1"></th>
+                <th colspan="1">Ações</th>
               </tr>
             </thead>
             <% transactions.each do |transaction| %>
               <tbody class='border-bottom'>
                 <tr>
-                  <td><div class='card-text'><small><%= transaction.description %></small></div></td>
+                  <td>
+                    <div class='custom-card-text'>
+                      <%= transaction.category.title %> <%= transaction.bill.title rescue nil %><br>
+                      <small><%= transaction.description %></small>
+                    </div>
+                  </td>
                   <td><%= value_style(transaction) %></td>
-                  <td><%= transaction.date.strftime('%m/%d/%Y') %></td>
-                  <td><%= transaction_status(transaction.category.category_type) %></td>
-                  <td><%= transaction.category.title %></td>
-                  <td><%= transaction.bill.title rescue '-'%></td>
                   <td><%= transaction.account.title %></td>
                   <td><%= render 'actions', transaction: transaction %></td>
                 </tr>
               </tbody>
             <% end %>
           </table>
-          <div class="card-footer background-finances-green text-right" style='border-radius:20px;'><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>
+          <div class="card-footer balance-diary text-right"><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>
         </div>
       </div>
     </div>
