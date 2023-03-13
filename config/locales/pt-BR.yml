@@ -1,5 +1,13 @@
 ---
 'pt-BR':
+  helpers:
+    category_type_options_for_select:
+      recipe: Receita
+      expense: Despesa
+    bill_type_options_for_select:
+      pay: A pagar
+      receive: A receber
+
   number:
     format:
       delimiter: ","
