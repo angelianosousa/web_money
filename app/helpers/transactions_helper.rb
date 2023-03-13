@@ -6,7 +6,7 @@ module TransactionsHelper
   end
 
   def value_style(transaction)
-    style = (transaction.category.category_type == 'recipe') ? 'color: green' : 'color: red'
+    style = (transaction.category.category_type == 'recipe') ? 'color: #2F4F4F' : 'color: #DC143C'
 
     content_tag(:p, humanized_money_with_symbol(transaction.price_cents), style: style)
   end

@@ -54,4 +54,4 @@
 
 <br>
 
-<%= render partial: 'bills/modals/new', locals: { bill: @bill = Bill.new } %>
+<%= render partial: "#{params[:controller]}/modals/new", locals: { bill: @bill = current_user_profile.bills.new } %>
