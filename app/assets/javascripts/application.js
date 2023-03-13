@@ -15,6 +15,4 @@
 //= require bootstrap/dist/js/bootstrap.bundle.min
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.min
 //= require custom
-//= require chartkick
-//= require Chart.bundle
 //= require_tree .

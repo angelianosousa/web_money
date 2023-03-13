@@ -8,6 +8,34 @@ p {
   color:$web-money-dark-green;
 }
 
+.bill-status-recipe {
+  background-color: $web-money-dark-green;
+  color: #fff;
+  border-radius: 50%;
+  padding: 7px;
+}
+
+.bill-status-expense {
+  background-color: $web-money-red;
+  color: #fff;
+  border-radius: 50%;
+  padding: 7px;
+}
+
+.custom-card-text {
+  color: $web-money-orange;
+  line-height: 18px;
+
+  small {
+    color: $web-money-dark-green;
+  }
+}
+
+a .dropdown-item:visited, .dropdown-item:hover {
+  background-color: $web-money-dark-green;
+  color: #fff;
+}
+
 .navbar-link {
   color: $web-money-orange !important;
   text-decoration-line: underline;

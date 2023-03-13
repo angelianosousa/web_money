@@ -6,7 +6,7 @@ module TransactionsHelper
   end
 
   def value_style(transaction)
-    style = (transaction.category.category_type == 'recipe') ? 'color: green' : 'color: red'
+    style = (transaction.category.category_type == 'recipe') ? 'color: #2F4F4F' : 'color: #DC143C'
 
     content_tag(:p, humanized_money_with_symbol(transaction.price_cents), style: style)
   end
@@ -19,7 +19,7 @@ module TransactionsHelper
   end
 
   def navlink_transaction
-    link_to transactions_path, class:'navbar-brand navbar-link' do
+    link_to transactions_path, class:'navbar-brand navbar-link mb-3' do
       "#{t '.title', balance: humanized_money_with_symbol(@balance)}".html_safe
     end
   end

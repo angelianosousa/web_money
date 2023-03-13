@@ -11,7 +11,7 @@ Rails.application.config.assets.paths << Rails.root.join('app', 'images')
 
 # /app/assets
 Rails.application.config.assets.precompile += %w( 
-  user_devise.css
+  user_devise.css dashboard.js
 )
 
 # lib/assets

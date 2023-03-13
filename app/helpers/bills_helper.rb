@@ -12,13 +12,13 @@ module BillsHelper
   end
 
   def bill_type_status(status)
-    text, badge_class = (status == 'receive') ? ['to receive', 'badge badge-success'] : ['to pay', 'badge badge-danger']
+    text, fontawesome_class = (status == 'receive') ? ['', 'bill-status-recipe fa fa-arrow-up'] : ['', 'bill-status-expense fa fa-arrow-down']
 
-    badge_pill(text.upcase, class:"#{badge_class}")
+    content_tag :i, '', class:"#{fontawesome_class}"
   end
 
   def navlink_bill
-    link_to bills_path, class:'navbar-brand navbar-link' do
+    link_to bills_path, class:'navbar-brand navbar-link mb-3' do
       "#{t '.title'}"
     end
   end

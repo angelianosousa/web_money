@@ -4,7 +4,7 @@ module CategoriesHelper
   end
 
   def navlink_category
-    link_to categories_path, class:'navbar-brand navbar-link' do
+    link_to categories_path, class:'navbar-brand navbar-link mb-3' do
       "#{t '.title'}"
     end
   end
