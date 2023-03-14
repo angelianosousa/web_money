@@ -4,9 +4,9 @@
     <%= navlink_dashboard %>
 
     <div class='float-right'>
-      <%= modal_to_new_resource(t('.new_transaction'), target: '#newTransactionModal') %>
+      <%= modal_to_new_resource(t('.button_title.new_transaction'), target: '#newTransactionModal') %>
 
-      <%= modal_to_new_resource(t('.new_account'), target: '#newAccountModal') %>
+      <%= modal_to_new_resource(t('.button_title.new_account'), target: '#newAccountModal') %>
 
       <%= filter %>
     </div>
@@ -54,22 +54,24 @@
 
 <div class='row mb-2'>
   <div class='col-md mb-3'>
-    <div class='card border border-secondary'>
+    <div class='card border-dark'>
       <div class='card-body'>
         <!-- Scope transactions_recipes_per_date -->
-        <%= line_chart @transactions.recipes.group(:date).sum(:price_cents), legend: false,
-          title: "#{t '.title_charts.recipes'}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
-          download: { filename: "Moviments #{Date.today}", background:'#ffffff' }, colors:['#2F4F4F'] %>
+        <% title = t '.title_charts.recipes' %>
+        <%= area_chart @transactions.recipes.group(:date).sum(:price_cents), legend: false,
+          title: "#{title}", curve: true, xtitle: t('.days'), ytitle: t('.value'),
+          download: { filename: "#{title} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' }, colors:['#2F4F4F'] %>
       </div>
     </div>
   </div>
   <div class='col-md mb-3'>
-    <div class='card border border-secondary'>
+    <div class='card border-dark'>
       <div class='card-body'>
         <!-- Scope transactions_recipes_per_date -->
-        <%= line_chart @transactions.expenses.group(:date).sum(:price_cents), legend: false,
-          title: "#{t '.title_charts.expenses'}", curve: true, xtitle: 'Days', ytitle: 'Value ($)',
-          download: { filename: "Moviments #{Date.today}", background:'#ffffff' }, colors:['#8B0000'] %>
+        <% title = t '.title_charts.expenses' %>
+        <%= area_chart @transactions.expenses.group(:date).sum(:price_cents), legend: false,
+          title: "#{title}", curve: true, xtitle: t('.days'), ytitle: t('.value'),
+          download: { filename: "#{title} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' }, colors:['#DC143C'] %>
       </div>
     </div>
   </div>
@@ -80,8 +82,9 @@
     <div class='card border border-secondary'>
       <div class='card-body'>
         <!-- Scope -->
-        <%= column_chart @categories, legend: false, colors: ['#2F4F4F'],
-        title: "#{t '.title_charts.categories'}", xtitle: 'Categories', ytitle: 'Value ($)', download: { filename: "My Recipes - #{Date.today}", background:'#ffffff'} %>
+        <% title = t '.title_charts.categories' %>
+        <%= column_chart @categories, legend: false, colors: ['#FF8C00'],
+        title: "#{title}", ytitle: t('.value'), download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
       </div>
     </div>
   </div>
@@ -91,12 +94,13 @@
   <div class='col-md mb-3'>
     <div class='card border-secondary'>
       <div class='card-body'>
+        <% title = t '.title_charts.bills' %>
         <%= column_chart @bills, legend: false, colors:['#00008B'], 
-        title: "#{t '.title_charts.bills'}", xtitle: 'Bills', ytitle: 'Value ($)', download: { filename: "My Bills", background:'#ffffff'} %>
+        title: "#{title}", ytitle: t('.value'), download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
       </div>
     </div>
   </div>
-</div>
+</div> <br>
 
 <%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_user_profile.transactions.new } %>
 <%= render partial: "#{params[:controller]}/modals/new_account", locals: { account: @account = current_user_profile.accounts.new } %>

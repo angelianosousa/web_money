@@ -1,6 +1,10 @@
 module BillsHelper
+
   def bill_payment(status, font_size: '12px')
-    text, badge_class = (status == 'paid') ? ['paid', 'badge badge-success'] : ['pending', 'badge badge-danger']
+    paid    = Bill.human_attribute_name 'bill.status.paid'
+    pending = Bill.human_attribute_name 'bill.status.pending'
+
+    text, badge_class = (status == 'paid') ? [paid, 'badge badge-success'] : [pending, 'badge badge-danger']
 
     badge_pill(text.upcase, class:"#{badge_class}", style:"font-size: #{font_size}")
   end

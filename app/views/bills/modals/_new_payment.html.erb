@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= render 'transactions/form', transaction: @transaction, url: "/bills/#{bill.id}/new_transaction" %>
+        <%= render 'transactions/form', object: @bill, url: bill_new_transaction_path(bill) %>
       </div>
     </div>
   </div>

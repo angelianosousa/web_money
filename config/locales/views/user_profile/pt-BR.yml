@@ -3,3 +3,6 @@
   user_profile:
     edit:
       title: Editar perfil
+    form:
+      save: Salvar
+      back: Voltar

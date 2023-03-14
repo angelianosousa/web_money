@@ -11,6 +11,8 @@
     modals:
       new_transaction:
         title: Add movimentação
+      show:
+        title: Ver movimentação
     search_filter:
       category: Categoria
       account: Conta
@@ -18,3 +20,6 @@
       date: Data
       search: Pesquisar
       clear: Limpar
+    form:
+      save: Salvar
+      back: Voltar

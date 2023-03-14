@@ -1,2 +1,13 @@
-<%= link_to_edit_resource('', edit_account_path(account)) %>
-<%= link_to_delete_resource('', account_path(account)) %>
+<div class="dropdown dropleft">
+  <%= link_to '#', class:'btn btn-outline-dark btn-sm', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>
+    <span class='icon'><i class='fa fa-bars'></i></span>
+  <% end %>
+  <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
+    <%= link_to edit_account_path(account), class:'dropdown-item', style:'font-size:15px;' do %>
+      <span class='icon'><i class="fa fa-pencil pull-right" style='font-size:18px;'></i></span> Editar
+    <% end %>
+    <%= link_to account_path(account), class:'dropdown-item', style:'font-size:15px;', method: :delete, data: { confirm: 'Tem certeza disso ?' } do %>
+      <span class='icon'><i class="fa fa-trash pull-right" style='font-size:18px;'></i></span> Deletar
+    <% end %>
+  </div>
+</div>

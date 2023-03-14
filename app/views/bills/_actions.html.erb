@@ -1,11 +1,19 @@
-<div class="dropdown">
-  <%= link_to '#', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>
-    <span class='icon'><i class='fa fa-bars m-auto'></i></span>
+<div class="dropdown dropleft">
+  <%= link_to '#', class:'btn btn-outline-dark btn-sm btn-round', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>
+    <span class='icon'><i class='fa fa-sort-desc'></i></span>
   <% end %>
   <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
-    <%= link_to 'Ver recorrência', bill_path(bill), class:'dropdown-item' %>
-    <%= link_to 'Editar', edit_bill_path(bill), class:'dropdown-item' %>
-    <%= link_to 'Deletar', bill_path(bill), class:'dropdown-item', method: :delete, data: { confirm: 'Tem certeza disso ?' }%>
-    <%= link_to 'Pagar', '#', class: "dropdown-item", "data-toggle":"modal", "data-target":"#paymentModal_#{bill.id}" %>
+    <%= link_to bill_path(bill), class:'dropdown-item', style:'font-size:15px;' do %>
+      <span class='icon'><i class="fa fa-eye pull-right" style='font-size:18px;'></i></span> Editar
+    <% end %>
+    <%= link_to edit_bill_path(bill), class:'dropdown-item', style:'font-size:15px;' do %>
+      <span class='icon'><i class="fa fa-pencil pull-right" style='font-size:18px;'></i></span> Editar
+    <% end %>
+    <%= link_to bill_path(bill), class:'dropdown-item', style:'font-size:15px;', method: :delete, data: { confirm: 'Tem certeza disso ?' } do %>
+      <span class='icon'><i class="fa fa-trash pull-right" style='font-size:18px;'></i></span> Deletar
+    <% end %>
+    <%= link_to '#', class: "dropdown-item", style:'font-size:15px;', "data-toggle":"modal", "data-target":"#paymentModal_#{bill.id}" do %>
+      <span class='icon'><i class="fa fa-money pull-right" style='font-size:18px;'></i></span> Pagar
+    <% end %>
   </div>
 </div>

@@ -15,7 +15,7 @@
   <%= render 'search_filter' %>
 </div>
 
-<div class="row">
+<div class="row mb-3">
   <% @transactions.each do |day, transactions| %>
     <div class="col-md-12">
       <div class="card border-dark mb-3" style='border-radius:10px;'>
@@ -30,19 +30,21 @@
               </tr>
             </thead>
             <% transactions.each do |transaction| %>
-              <tbody class='border-bottom'>
+              <tbody>
                 <tr>
                   <td>
                     <div class='custom-card-text'>
-                      <%= transaction.category.title %> <%= transaction.bill.title rescue nil %><br>
-                      <small><%= transaction.description %></small>
+                      <h6><%= transaction.category.title %></h6><br>
+                      <p><%= transaction.bill.title rescue nil %></p>
                     </div>
                   </td>
-                  <td style='font-size:15px;'><%= value_style(transaction) %></td>
+                  <td style='font-size:15px;white-space: nowrap;'><%= value_style(transaction) %></td>
                   <td><%= transaction.account.title %></td>
                   <td><%= render 'actions', transaction: transaction %></td>
                 </tr>
               </tbody>
+
+              <%= render partial: "#{params[:controller]}/modals/show", locals: { transaction: transaction } %>
             <% end %>
           </table>
           <div class="card-footer balance-diary text-right"><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>

@@ -14,49 +14,34 @@
   <%= render 'search_filter' %>
 </div>
 
-<div class='card border-dark' style='border-radius:10px;'>
-  <div class='card-body'>
-    <table class='table table-borderless table-hover table-sm'>
-      <thead>
-        <tr>
-          <th><%= Bill.human_attribute_name :title %></th>
-          <th><%= Bill.human_attribute_name :due_pay %></th>
-          <th><%= Bill.human_attribute_name :bill_type %></th>
-          <th colspan="1">Ações</th>
-        </tr>
-      </thead>
+<div class='row mb-3'>
+  <% @bills.each do |bill| %>
+    <div class='col-sm-4 mb-2'>
+      <div class='card border-dark' style='border-radius 10px;'>
+        <div class='card-body'>
+          <div class='custom-card-text'>
+            <div class='float-right'>
+              <%= render 'actions', bill: bill %>
+            </div>
+            <h5><%= bill_type_status(bill.bill_type) %> <%= bill.title %></h5>
+            <p>
+              <%= humanized_money_with_symbol(bill.price_cents) rescue nil %>
+              - <%= bill.due_pay.strftime('%d %b %y') %>
+            </p>
+            <div class='float-right'>
+              <%= bill_payment(bill.status) %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <tbody>
-        <% @bills.each do |bill| %>
-          <tr>
-            <td>
-              <div class='custom-card-text'>
-                <div class='row'>
-                  <div class='col-sm-1'>
-                    <%= bill_type_status(bill.bill_type) %>
-                  </div>
-                  <div class='col-sm-11'>
-                    <h6><%= bill.title %></h6>
-                    <p><%= humanized_money_with_symbol(bill.price_cents) rescue nil %></p>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td><%= bill.due_pay.strftime('%d %b %y') %></td>
-            <td><%= bill_payment bill.status %></td>
-            <td><%= render 'actions', bill: bill %></td>
-          </tr>
-
-          <%= render partial: "#{params[:controller]}/modals/new_payment", locals: { bill: bill } %>
-        <% end %>
-      </tbody>
-    </table>
-    <div class='container-fluid'>
-      <%= paginate @bills %>
+      <%= render partial: "#{params[:controller]}/modals/new_payment", locals: { bill: bill } %>
     </div>
-  </div>
+  <% end %>
 </div>
 
-<br>
+<div class='container-fluid'>
+  <%= paginate @bills %>
+</div>
 
 <%= render partial: "#{params[:controller]}/modals/new", locals: { bill: @bill = current_user_profile.bills.new } %>
