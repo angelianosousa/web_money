@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="newAccountModalLabel">Nova Conta</h5>
+        <h5 class="modal-title" id="newAccountModalLabel"><%= t '.title' %></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -23,12 +23,12 @@
           <div class='form-group'>
             <div class="field">
               <%= form.label :price_cents %>
-              <%= form.text_field :price_cents, class:'form-control' %>
+              <%= form.number_field :price_cents, step: :any, min: 1, class:'form-control' %>
             </div>
           </div>
 
           <div class="actions">
-            <%= form.submit 'Save', class:'btn btn-primary' %>
+            <%= form.submit t('.save'), class:'btn btn-primary' %>
           </div>
         <% end %>
 

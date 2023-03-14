@@ -1,0 +1,42 @@
+<div class="modal fade" id="showTransactionModal_<%= transaction.id %>" tabindex="-1" role="dialog" aria-labelledby="showTransactionModal" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showTransactionModal"><%= t '.title' %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class='row'>
+          <div class='col-sm'>
+            <h5><%= Transaction.human_attribute_name :category %></h5> 
+            <p><%= transaction.category.title %></p>
+          </div>
+          <div class='col-sm'>
+            <h5><%= Transaction.human_attribute_name :account %></h5>
+            <p><%= transaction.account.title %></p>
+          </div>
+          <div class='col-sm'>
+            <h5><%= Transaction.human_attribute_name :bill %></h5>
+            <p><%= transaction.bill.title rescue '-' %></p>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm'>
+            <h5><%= Transaction.human_attribute_name :price_cents %></h5>
+            <%= value_style(transaction) %>
+          </div>
+          <div class='col-sm'>
+            <h5><%= Transaction.human_attribute_name :date %></h5>
+            <p><%= transaction.date.strftime('%d %b %y') %></p>
+          </div>
+          <div class='col-sm'>
+            <h5><%= Transaction.human_attribute_name :description %></h5>
+            <p><%= transaction.description %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,9 +14,6 @@
         title: Add movimentação - %{bill}
       new:
         title: Nova Recorrência
-    form:
-      save: Salvar
-      back: Voltar
     search_filter:
       bill_type: Tipo de Recorrência
       status: Status
@@ -24,3 +21,6 @@
       due_pay: Vencimento
       search: Pesquisar
       clear: Limpar
+    form:
+      save: Salvar
+      back: Voltar

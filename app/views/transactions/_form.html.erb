@@ -3,11 +3,11 @@
   <div class="row">
     <div class="col-md-6 col-xl-6 col-sm-6">
       <div class="form-group">
-        <%= form.label :Valor %>
-        <%= form.number_field :price_cents, step: :any, min: 0, class:"form-control" %>
+        <%= form.label :price_cents %>
+        <%= form.number_field :price_cents, step: :any, min: 1, class:"form-control" %>
       </div>
       <div class="form-group">
-        <%= form.label :'Data do pagamento' %>
+        <%= form.label :date %>
         <%= form.date_field :date, class:"form-control" %>
       </div>
     </div>
@@ -30,7 +30,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit "Save", class:"btn btn-primary" %>
-    <%= link_to 'Back', transactions_path, class:'btn btn-secondary' %>
+    <%= form.submit t('.save'), class:"btn btn-primary" %>
   </div>
 <% end %>

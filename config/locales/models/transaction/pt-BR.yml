@@ -6,12 +6,11 @@
     attributes:
       transaction:
         description: Descrição
-        value: Valor
-        type: Tipo
-        date: Data
+        price_cents: Valor
+        date: Dia do pagamento
         category: Categoria
         bill: Recorrência
-        account: Banco / Carteira
+        account: Fonte
       errors:
         models:
           transaction:
