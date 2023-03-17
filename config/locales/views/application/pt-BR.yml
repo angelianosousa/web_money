@@ -1,7 +1,7 @@
 ---
 'pt-BR':
   application:      
-    side_bar:
+    sidebar:
       menu_title: Seções
       greetings: Bem Vindo
       my_money: Meu dinheiro

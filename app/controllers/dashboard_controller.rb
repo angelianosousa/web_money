@@ -49,6 +49,20 @@ class DashboardController < ApplicationController
     end
   end
 
+  def create_account
+    @bill = current_user_profile.bills.new(bill_params)
+
+    respond_to do |format|
+      if @bill.save
+        format.html { redirect_to root_path, notice: t('.success') }
+        format.json { render :show, status: :created, location: @bill }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @bill.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   def transaction_params
@@ -57,5 +71,9 @@ class DashboardController < ApplicationController
 
   def account_params
     params.require(:account).permit(:title, :price_cents, :user_profile_id)
+  end
+
+  def bill_params
+    params.require(:bill).permit(:title, :price_cents, :due_pay, :bill_type, :status)
   end
 end

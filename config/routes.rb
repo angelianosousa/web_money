@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
   
   devise_for :users
-  
-  post 'dashboard/create_transaction'
-  post 'dashboard/create_account'
-  get 'dashboard/index'
+
+  resources :dashboard, only: :index do
+    collection do
+      post 'create_transaction'
+      post 'create_account'
+      post 'create_bill'
+    end
+  end
   
   resources :bills, except: [:new] do
-    post 'new_transaction'
+    post 'new_transaction', on: :collection
   end
 
   resources :accounts, except: [:show, :new]

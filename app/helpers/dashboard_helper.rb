@@ -4,4 +4,10 @@ module DashboardHelper
       "#{t '.title'} - #{l(Date.today, format: :short)}".html_safe
     end
   end
+
+  def dropdown_item_dashboard(text, target: '', icon:)
+    link_to '#', class: "btn btn-outline-dark dropdown-item", data: { toggle: "modal", target: "#{target}"} do
+      "#{fontawesome_icon(text, icon)}".html_safe
+    end
+  end
 end

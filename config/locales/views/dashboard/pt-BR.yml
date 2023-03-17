@@ -13,8 +13,9 @@
         accounts: Minhas contas
         bills: Recorrências
       button_title:
-        new_account: ' Add Conta'
+        new_account: ' Add conta'
         new_transaction: ' Add movimentação'
+        new_bill: ' Add recorrência'
       days: Dias
       value: Valor (R$)
     modals:
@@ -22,6 +23,8 @@
         title: Nova conta
       new_transaction:
         title: Nova movimentação
+      new_bill:
+        title: Nova recorrência
     search_filter:
       category: Por categoria
       price: Preço (R$)

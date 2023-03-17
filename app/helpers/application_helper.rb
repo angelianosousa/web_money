@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def filter
-    link_to '#', class:'btn btn-outline-dark btn-sm btn-round my-sm-3', type:"button", "data-toggle":"collapse", "data-target":"#collapseSearch", "aria-expanded":"false", "aria-controls":"collapseSearch" do
+    link_to '#', class:'btn btn-outline-dark btn-sm btn-round my-sm-3', type:"button", data: { toggle: 'collapse', target: '#collapseSearch'}, aria: { expanded: false, controls: 'collapseSearch' } do
       content_tag :span, class:'icon' do
         fontawesome_icon('', 'fa fa-filter')
       end
@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def modal_to_pay_resource(text, target: '', width: '140px')
-    link_to '#', class: "btn-sm", "data-toggle":"modal", "data-target":"#{target}", style:"width:#{width}" do
+    link_to '#', class: "btn-sm", data: { toggle: "modal", target: "#{target}"}, style:"width:#{width}" do
       "#{fontawesome_icon(text, 'fa fa-money')}".html_safe
     end
   end
@@ -51,7 +51,9 @@ module ApplicationHelper
   def dropdown_for_new_resource
     content_tag :div, class:'dropdown dropleft' do
       link_to '#', class:'btn btn-outline-dark btn-sm btn-round', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do
-        <span class='icon'><i class='fa fa-sort-desc'></i></span>
+        content_tag :span, class:'icon' do
+          content_tag :i, class:'fa fa-sort-desc'
+        end
       end
     end
   end
