@@ -6,7 +6,7 @@
     <%= link_to edit_category_path(category), class:'dropdown-item', style:'font-size:15px;' do %>
       <span class='icon'><i class="fa fa-pencil pull-right" style='font-size:18px;'></i></span> Editar
     <% end %>
-    <%= link_to category_path(category), class:'dropdown-item', style:'font-size:15px;', method: :delete, data: { confirm: 'Tem certeza disso ?' } do %>
+    <%= link_to category_path(category), class:'dropdown-item', style:'font-size:15px;', method: :delete, data: { confirm: t('are_you_sure?') } do %>
       <span class='icon'><i class="fa fa-trash pull-right" style='font-size:18px;'></i></span> Deletar
     <% end %>
   </div>

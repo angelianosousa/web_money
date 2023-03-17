@@ -9,6 +9,11 @@
     modals:
       new_account:
         title: Nova conta
-    form:
-      save: Salvar
-      back: Voltar
+    create:
+      success: Conta criada com successo!!
+    update:
+      success: Conta atualizada com successo!!
+    destroy:
+      success: Conta removida com sucesso!!
+    new_transaction:
+      success: Movimentação criada com sucesso!!

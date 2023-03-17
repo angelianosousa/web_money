@@ -23,7 +23,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save!
-        format.html { redirect_to transactions_path, notice: "Transação criada com sucesso!" }
+        format.html { redirect_to transactions_path, notice: t('.success') }
         format.json { render :index, status: :created, location: @transaction }
         format.js
       else
@@ -38,7 +38,7 @@ class TransactionsController < ApplicationController
     @transaction.user_profile_id = current_user.user_profile.id
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to transactions_path, notice: "Transação atualizada com sucesso!" }
+        format.html { redirect_to transactions_path, notice: t('.success') }
         format.json { render json: @transaction, status: :ok, location: @transaction }
       else
         format.html { render :edit, alert: @transaction.errors.full_messages }

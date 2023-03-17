@@ -8,9 +8,9 @@
         description: Descrição
         price_cents: Valor
         date: Dia do pagamento
-        category: Categoria
-        bill: Recorrência
-        account: Fonte
+        category_id: Categoria
+        bill_id: Recorrência
+        account_id: Fonte
       errors:
         models:
           transaction:

@@ -11,6 +11,7 @@
     modals:
       new:
         title: Nova categoria
-    form:
-      save: Salvar
-      back: Voltar
+    create:
+      success: Categoria criada com successo!!
+    update:
+      success: Categoria atualizada com successo!!

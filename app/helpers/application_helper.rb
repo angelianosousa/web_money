@@ -42,8 +42,37 @@ module ApplicationHelper
   end
 
   def link_to_delete_resource(text, link)
-    link_to link, class: 'btn-sm', style:'border-radius: 10px;', method: :delete, data: { confirm: 'Tem certeza disso ?'} do
+    link_to link, class: 'btn-sm', style:'border-radius: 10px;', method: :delete, data: { confirm: t('are_you_sure?') } do
       "#{fontawesome_icon(text, 'fa fa-trash')}".html_safe
     end
   end
+
+  # TODO | Criar um metodo para juntar a criação de recorrência, conta e movimentação no dropdown
+  def dropdown_for_new_resource
+    content_tag :div, class:'dropdown dropleft' do
+      link_to '#', class:'btn btn-outline-dark btn-sm btn-round', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do
+        <span class='icon'><i class='fa fa-sort-desc'></i></span>
+      end
+    end
+  end
 end
+
+# <div class="dropdown dropleft">
+#   <%= link_to '#', class:'btn btn-outline-dark btn-sm btn-round', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>
+#     <span class='icon'><i class='fa fa-sort-desc'></i></span>
+#   <% end %>
+#   <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
+#     <%= link_to bill_path(bill), class:'dropdown-item', style:'font-size:15px;' do %>
+#       <span class='icon'><i class="fa fa-eye pull-right" style='font-size:18px;'></i></span> Editar
+#     <% end %>
+#     <%= link_to edit_bill_path(bill), class:'dropdown-item', style:'font-size:15px;' do %>
+#       <span class='icon'><i class="fa fa-pencil pull-right" style='font-size:18px;'></i></span> Editar
+#     <% end %>
+#     <%= link_to bill_path(bill), class:'dropdown-item', style:'font-size:15px;', method: :delete, data: { confirm: t('are_you_sure?') } do %>
+#       <span class='icon'><i class="fa fa-trash pull-right" style='font-size:18px;'></i></span> Deletar
+#     <% end %>
+#     <%= link_to '#', class: "dropdown-item", style:'font-size:15px;', "data-toggle":"modal", "data-target":"#paymentModal_#{bill.id}" do %>
+#       <span class='icon'><i class="fa fa-money pull-right" style='font-size:18px;'></i></span> Pagar
+#     <% end %>
+#   </div>
+# </div>

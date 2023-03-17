@@ -3,6 +3,5 @@
   user_profile:
     edit:
       title: Editar perfil
-    form:
-      save: Salvar
-      back: Voltar
+    update:
+      success: Perfil atualizado com successo!!

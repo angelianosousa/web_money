@@ -25,7 +25,7 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       if @transaction.save!
-        format.html { redirect_to root_path, notice: "Movement was successfully created." }
+        format.html { redirect_to root_path, notice: t('.success') }
         format.json { render :index, status: :created, location: @transaction }
         format.js
       else
@@ -40,7 +40,7 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to root_path, notice: "Account was successfully created." }
+        format.html { redirect_to root_path, notice: t('.success') }
         format.json { render :show, status: :created, location: @account }
       else
         format.html { render :new, status: :unprocessable_entity }

@@ -10,15 +10,15 @@
       <div class="modal-body">
         <div class='row'>
           <div class='col-sm'>
-            <h5><%= Transaction.human_attribute_name :category %></h5> 
+            <h5><%= Transaction.human_attribute_name :category_id %></h5> 
             <p><%= transaction.category.title %></p>
           </div>
           <div class='col-sm'>
-            <h5><%= Transaction.human_attribute_name :account %></h5>
+            <h5><%= Transaction.human_attribute_name :account_id %></h5>
             <p><%= transaction.account.title %></p>
           </div>
           <div class='col-sm'>
-            <h5><%= Transaction.human_attribute_name :bill %></h5>
+            <h5><%= Transaction.human_attribute_name :bill_id %></h5>
             <p><%= transaction.bill.title rescue '-' %></p>
           </div>
         </div>
