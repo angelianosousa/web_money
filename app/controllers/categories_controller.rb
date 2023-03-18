@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
     # @category.category_type = Category.category_types[params[:category_type].to_i]
 
     if @category.save
-      redirect_to categories_path, notice: 'Category was successfully created'
+      redirect_to categories_path, notice: t('.success')
     else
       redirect_to categories_path, alert: @category.errors.full_messages
     end
@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to categories_path, notice: 'Category was successfully updated'
+      redirect_to categories_path, notice: t('.success')
     else
       redirect_to categories_path, alert: @category.errors.full_messages
     end

@@ -19,8 +19,11 @@
       status: Status
       price_cents: Valor
       due_pay: Vencimento
-      search: Pesquisar
-      clear: Limpar
-    form:
-      save: Salvar
-      back: Voltar
+    create:
+      success: Recorrência criada com successo!!
+    update:
+      success: Recorrência atualizada com successo!!
+    destroy:
+      success: Recorrência removida com sucesso!!
+    new_transaction:
+      success: Movimentação adicionada com sucesso!!

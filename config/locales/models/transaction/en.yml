@@ -4,12 +4,12 @@ en:
     attributes:
       transaction:
         description: Description
-        value: Value
+        price_cents: Value
         type: Type
         date: Date
         category_id: Category
         bill_id: Bill
-        account: Account
+        account_id: Account
     models:
       transaction:
         one: Transaction

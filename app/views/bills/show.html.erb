@@ -1,39 +1,30 @@
-<div class='container'>
-  <div class='card'>
-    <div class='card-header'>
-      <div class='float-left'>
-        <h3><%= t '.title', bill: @bill.title %></h3>
-      </div>
-
-      <div class='float-right'>
-        <h3><%= bill_payment @bill.status, font_size: '25px' %> <%= bill_due_status @bill, font_size: '25px' %></h3>
-      </div>
+<div class='container my-5'>
+  <div class='row mb-3'>
+    <div class='col-sm-10'>
+      <h4>
+        <%= bill_type_status(@bill.bill_type) %>
+        <%= t '.title', bill: @bill.title %>
+      </h4>
     </div>
-    <div class='card-body'>
-      <div class='row'>
-        <div class='col-sm'>
-          <p><strong><%= Bill.human_attribute_name :price_cents %></strong> <%= @bill.price_cents %></p>
-        </div>
 
-        <div class='col-sm'>
-          <p><strong><%= Bill.human_attribute_name :due_pay %></strong> <%= @bill.due_pay %></p>
-        </div>
-      </div>
-
-      <div class='row'>
-        <div class='col-sm'>
-          <p><strong><%= Bill.human_attribute_name :bill_type %></strong> <%= @bill.bill_type %><p>
-        </div>
-
-        <div class='col-sm'>
-          <p><strong><%= Bill.human_attribute_name :status %></strong> <%= @bill.status %></p>
-        </div>
-      </div>
+    <div class='col-sm-2 float-right'>
+      <h3><%= bill_payment @bill.status, font_size: '20px' %></h3>
     </div>
   </div>
-  <div class='card-footer'>
-    <%= link_to '', edit_bill_path(@bill), class:'btn btn-info fa fa-edit' %>
-    <%= link_to '', bills_path, class:'btn btn-secondary fa fa-arrow-left' %>
+
+  <div class='row'>
+    <div class='col-sm-5'>
+      <p style='font-size: 20px;'><strong><%= Bill.human_attribute_name :price_cents %></strong>: <%= humanized_money_with_symbol @bill.price_cents %></p>
+    </div>
+
+    <div class='col-sm-5'>
+      <p style='font-size: 20px;'><strong><%= Bill.human_attribute_name :due_pay %></strong>: <%= l @bill.due_pay, format: :short %></p>
+    </div>
+
+    <div class='col-sm-2 float-right'>
+      <%= link_to '', edit_bill_path(@bill), class:'btn btn-info fa fa-edit' %>
+      <%= link_to '', bills_path, class:'btn btn-secondary fa fa-arrow-left' %>
+    </div>
   </div>
 </div>
 <br>

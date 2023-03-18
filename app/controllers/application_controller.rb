@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  around_action :switch_locale
+  # around_action :switch_locale
 
   layout :layout_by_resource
 
