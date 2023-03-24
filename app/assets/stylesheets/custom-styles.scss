@@ -1,4 +1,5 @@
 @import 'colors';
+@import 'sidebar';
 
 h1, h2, h3, h4, h5, h6 {
   color: $web-money-orange !important;
@@ -63,8 +64,8 @@ a .dropdown-item:visited, .dropdown-item:hover {
 }
 
 .navbar-filter {
-  border: 1px solid $web-money-dark-green;
-  color: $web-money-dark-green;
-  border-radius: 10px;
+  border: 1px solid $web-money-dark-green !important;
+  color: $web-money-dark-green !important;
+  border-radius: 10px !important;
   margin: 0px;
 }

@@ -1,6 +1,6 @@
 <div class='container mb-4' style="padding-bottom: 70px;">
 
-  <nav class="navbar navbar-light mb-2">
+  <nav class="navbar navbar-light">
     <%= navlink_dashboard %>
 
     <div class='d-flex justify-content-center align-items-center'>
@@ -95,19 +95,18 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class='row'>
   <div class='col-md mb-3'>
-    <div class='card border-secondary'>
+    <div class='card border border-secondary'>
       <div class='card-body'>
+        <!-- Scope -->
         <% title = t '.title_charts.bills' %>
         <%= column_chart @bills, legend: false, colors:['#00008B'], 
         title: "#{title}", ytitle: t('.value'), download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
       </div>
     </div>
   </div>
-</div> <br>
+</div>
+
 
 <%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_user_profile.transactions.new } %>
 <%= render partial: "#{params[:controller]}/modals/new_account", locals: { account: @account = current_user_profile.accounts.new } %>
