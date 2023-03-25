@@ -26,7 +26,7 @@
             <h5><%= bill_type_status(bill.bill_type) %> <%= bill.title %></h5>
             <p>
               <%= humanized_money_with_symbol(bill.price_cents) rescue nil %>
-              - <%= bill.due_pay.strftime('%d %b %y') %>
+              - <%= bill.due_pay.strftime('%d/%m/%y') %>
             </p>
             <div class='float-right'>
               <%= bill_payment(bill.status) %>

@@ -15,36 +15,35 @@
   <%= render 'search_filter' %>
 </div>
 
-<div class="row mb-3">
+<div class="row">
   <% @transactions.each do |day, transactions| %>
     <div class="col-md-12">
       <div class="card border-dark mb-3" style='border-radius:10px;'>
-        <div class="card-body">
-          <table class='table table-borderless table-hover table-sm'>
+        <div class="card-body table-responsive">
+          <table class='table table-borderless table-hover'>
             <thead>
               <tr>
-                <th><%= t '.table_title' %></th>
+                <th style='width:200px;'><%= model_class.human_attribute_name :description %></th>
                 <th><%= model_class.human_attribute_name :value %></th>
+                <th><%= model_class.human_attribute_name :date %></th>
+                <th><%= model_class.human_attribute_name :category_id %></th>
+                <th><%= model_class.human_attribute_name :bill_id %></th>
                 <th><%= model_class.human_attribute_name :account_id %></th>
-                <th colspan="1">Ações</th>
+                <th colspan="1"></th>
               </tr>
             </thead>
             <% transactions.each do |transaction| %>
-              <tbody>
+              <tbody class='border-bottom'>
                 <tr>
-                  <td>
-                    <div class='custom-card-text'>
-                      <h6><%= transaction.category.title %></h6><br>
-                      <p><%= transaction.bill.title rescue nil %></p>
-                    </div>
-                  </td>
-                  <td style='font-size:15px;white-space: nowrap;'><%= value_style(transaction) %></td>
+                  <td><div class='card-text'><small><%= transaction.description %></small></div></td>
+                  <td><%= value_style(transaction) %></td>
+                  <td><%= transaction.date.strftime('%d/%m/%Y') %></td>
+                  <td><%= transaction.category.title %></td>
+                  <td><%= transaction.bill.title rescue '-'%></td>
                   <td><%= transaction.account.title %></td>
                   <td><%= render 'actions', transaction: transaction %></td>
                 </tr>
               </tbody>
-
-              <%= render partial: "#{params[:controller]}/modals/show", locals: { transaction: transaction } %>
             <% end %>
           </table>
           <div class="card-footer balance-diary text-right"><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>
