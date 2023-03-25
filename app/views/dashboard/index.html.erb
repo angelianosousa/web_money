@@ -24,89 +24,11 @@
   </div>
 
   <div class="row-md">
-    <div class="tile_count">
-      <div class="col-md-4 col-sm-4 mb-3">
-        <div class='card card-primary'>
-          <div class='card-header'>
-            <span class="count_top" style=";font-size:15px;"><i class="fa fa-bank"></i> <%= t '.current_balance' %></span>
-          </div>
-          <div class='card-body'>
-            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.recipes.sum(:price_cents) - @transactions.expenses.sum(:price_cents)) %></div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-4 mb-3">
-        <div class='card card-success'>
-          <div class='card-header'>
-            <span class="count_top" style="font-size:15px;"><i class="fa fa-arrow-up"></i> <%= t '.total_recipes' %></span>
-          </div>
-          <div class='card-body'>
-            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.recipes.sum(:price_cents)) %></div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-4 mb-3">
-        <div class='card card-danger'>
-          <div class='card-header'>
-            <span class="count_top" style="font-size:15px;"><i class="fa fa-arrow-down"></i> <%= t '.total_expenses' %></span>
-          </div>
-          <div class='card-body'>
-            <div class="count" style="font-size:25px;"><%= humanized_money_with_symbol(@transactions.expenses.sum(:price_cents)) %></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render 'tile_dashboard' %>
   </div>
 </div> <br>
 
-<div class='row mb-2'>
-  <div class='col-md mb-3'>
-    <div class='card border-dark'>
-      <div class='card-body'>
-        <!-- Scope transactions_recipes_per_date -->
-        <% title = t '.title_charts.recipes' %>
-        <%= area_chart @transactions.recipes.group(:date).sum(:price_cents), legend: false,
-          title: "#{title}", curve: true, xtitle: t('.days'), ytitle: t('.value'),
-          download: { filename: "#{title} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' }, colors:['#2F4F4F'] %>
-      </div>
-    </div>
-  </div>
-  <div class='col-md mb-3'>
-    <div class='card border-dark'>
-      <div class='card-body'>
-        <!-- Scope transactions_recipes_per_date -->
-        <% title = t '.title_charts.expenses' %>
-        <%= area_chart @transactions.expenses.group(:date).sum(:price_cents), legend: false,
-          title: "#{title}", curve: true, xtitle: t('.days'), ytitle: t('.value'),
-          download: { filename: "#{title} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' }, colors:['#DC143C'] %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class='row'>
-  <div class='col-md mb-3'>
-    <div class='card border border-secondary'>
-      <div class='card-body'>
-        <!-- Scope -->
-        <% title = t '.title_charts.categories' %>
-        <%= column_chart @categories, legend: false, colors: ['#FF8C00'],
-        title: "#{title}", ytitle: t('.value'), download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
-      </div>
-    </div>
-  </div>
-  <div class='col-md mb-3'>
-    <div class='card border border-secondary'>
-      <div class='card-body'>
-        <!-- Scope -->
-        <% title = t '.title_charts.bills' %>
-        <%= column_chart @bills, legend: false, colors:['#00008B'], 
-        title: "#{title}", ytitle: t('.value'), download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
-      </div>
-    </div>
-  </div>
-</div>
-
+<%= render 'chart_cards' %>
 
 <%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_user_profile.transactions.new } %>
 <%= render partial: "#{params[:controller]}/modals/new_account", locals: { account: @account = current_user_profile.accounts.new } %>

@@ -14,5 +14,6 @@
 //= require activestorage
 //= require bootstrap/dist/js/bootstrap.bundle.min
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.min
-//= require custom
+//= require Chart.bundle
+//= require chartkick
 //= require_tree .

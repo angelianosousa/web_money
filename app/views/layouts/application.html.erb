@@ -27,7 +27,7 @@
   <body>
     <div class="wrapper">
 
-      <%= render 'sidebar' %>
+      <%= render 'application/sidebar' %>
 
       <!-- Page Content -->
       <div id="content">
@@ -40,6 +40,8 @@
 
       <!-- Dark Overlay element -->
       <div class="overlay"></div>
+
+      <%= render 'application/footer' %>
     </div>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

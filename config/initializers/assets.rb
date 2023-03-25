@@ -11,12 +11,12 @@ Rails.application.config.assets.paths << Rails.root.join('app', 'images')
 
 # /app/assets
 Rails.application.config.assets.precompile += %w( 
-  user_devise.css dashboard.js
+  user_devise.css
 )
 
 # lib/assets
 Rails.application.config.assets.precompile += %w( 
-  custom.js custom.css
+  custom.css
 )
 
 # Precompile additional assets.

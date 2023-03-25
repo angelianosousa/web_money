@@ -5,19 +5,11 @@ class DashboardController < ApplicationController
 
     @q = current_user_profile.transactions.ransack(params[:q])
 
-    @transactions = @q.result(distinct: true)
+    @transactions    = @q.result(distinct: true)
 
-    @categories = @transactions.includes(:category).group(:title).sum(:price_cents)
-    @bills      = @transactions.where.not(bill_id: nil).includes(:bill).group(:title).sum(:price_cents)
-
-    respond_to do |format|
-      format.json { render json: {
-        transactions: @transactions,
-        categories:   @categories,
-        bills:        @bills
-      }}
-      format.html
-    end
+    @categories      = @transactions.includes(:category).group(:title).sum(:price_cents)
+    @bills           = @transactions.where.not(bill_id: nil).includes(:bill).group(:title).sum(:price_cents)
+    @current_balance = @transactions.recipes.sum(:price_cents) - @transactions.expenses.sum(:price_cents)
   end
 
   def create_transaction
