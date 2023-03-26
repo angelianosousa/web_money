@@ -20,9 +20,9 @@
       price_cents: Valor
       due_pay: Vencimento
     create:
-      success: Recorrência criada com successo!!
+      success: Recorrência criada com sucesso!!
     update:
-      success: Recorrência atualizada com successo!!
+      success: Recorrência atualizada com sucesso!!
     destroy:
       success: Recorrência removida com sucesso!!
     new_transaction:

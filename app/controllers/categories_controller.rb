@@ -10,27 +10,26 @@ class CategoriesController < ApplicationController
 
   def create
     @category = current_user_profile.categories.new(category_params)
-    # @category.category_type = Category.category_types[params[:category_type].to_i]
 
     if @category.save
-      redirect_to categories_path, notice: t('.success')
+      redirect_to categories_path, flash: { success: t('.success') }
     else
-      redirect_to categories_path, alert: @category.errors.full_messages
+      redirect_to categories_path, flash: { error: @category.errors.full_messages }
     end
   end
 
   def update
     if @category.update(category_params)
-      redirect_to categories_path, notice: t('.success')
+      redirect_to categories_path, flash: { success: t('.success') }
     else
-      redirect_to categories_path, alert: @category.errors.full_messages
+      redirect_to categories_path, flash: { error: @category.errors.full_messages }
     end
   end
 
   def destroy
     @category.destroy
 
-    redirect_to categories_path
+    redirect_to categories_path, flash: { success: t('.success') }
   end
 
   private

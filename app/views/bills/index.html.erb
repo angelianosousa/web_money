@@ -17,7 +17,7 @@
 <div class='row mb-3'>
   <% @bills.each do |bill| %>
     <div class='col-sm-4 mb-2'>
-      <div class='card border-dark' style='border-radius 10px;'>
+      <div class='card border-dark mb-3' style='border-radius 10px;'>
         <div class='card-body'>
           <div class='custom-card-text'>
             <div class='float-right'>
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <%= render partial: "#{params[:controller]}/modals/new_payment", locals: { bill: bill } %>
+      <%#= render partial: "#{params[:controller]}/modals/new_payment", locals: { bill: bill } %>
     </div>
   <% end %>
 </div>
@@ -44,4 +44,4 @@
   <%= paginate @bills %>
 </div>
 
-<%= render partial: "#{params[:controller]}/modals/new", locals: { bill: @bill = current_user_profile.bills.new } %>
+<%= render partial: "#{params[:controller]}/modals/new", locals: { bill: current_user_profile.bills.new } %>

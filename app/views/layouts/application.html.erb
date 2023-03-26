@@ -33,7 +33,7 @@
       <div id="content">
         <%= render 'navbar' %>
 
-        <div class="container-fluid mb-5">
+        <div class="container-fluid mb-5 px-5">
           <%= yield %>
         </div>
       </div>
@@ -46,16 +46,7 @@
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     
-    <% flash.each do |type, msg| %>
-      <%= javascript_tag do %>
-        $.bootstrapGrowl('<%= msg %>', {
-          type: '<%= flash_class(type) %>', // (null, 'info', 'danger', 'success')
-          align: 'right', // ('left', 'right', or 'center')
-          allow_dismiss: true, // If true then will display a cross to close the popup.
-          stackup_spacing: 10 // spacing between consecutively stacked growls.
-        });
-      <% end %>
-    <% end %>
+    <%= render 'shared/flash_messages' %>
      
     <script type="text/javascript">
       $(document).ready(function () {

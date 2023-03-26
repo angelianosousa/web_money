@@ -6,7 +6,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <meta name="description" content="A Web Money é um projeto que busca resolver problemas financeiros reais.">
+    <meta name="author" content="Desenvolvido por © Angeliano Sousa">
+    <meta name="image" content="../images/icon-title.png">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,8 +19,8 @@
     <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag 'user_devise' %>
 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -47,32 +51,15 @@
       </div>
     </div>
 
-    <% if flash %>
-      <% flash.each do |key, value| %>
-        <%= javascript_tag do %>
-            $.bootstrapGrowl('<%= value %>', {
-            type: 'danger', // (null, 'info', 'danger', 'success')
-            align: 'right', // ('left', 'right', or 'center')
-            allow_dismiss: true, // If true then will display a cross to close the popup.
-            stackup_spacing: 10 // spacing between consecutively stacked growls.
-            });
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     
     <% unless resource.errors.empty? %>
       <% resource.errors.full_messages.each do |msg|%>
         <%= javascript_tag do %>
-          $.bootstrapGrowl("<%= msg %>", {
-            ele: 'body', // which element to append to
-            type: 'danger', // (null, 'info', 'error', 'success')
-            offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
-            align: 'right', // ('left', 'right', or 'center')
-            width: 250, // (integer, or 'auto')
-            delay: 8000,
-            allow_dismiss: true,
-            stackup_spacing: 10 // spacing between consecutively stacked growls.
-          });
+          $.notify(
+            '<%= msg %>',
+            { type: 'danger', allow_dismiss: true }
+          );
         <% end %>
       <% end %>
     <% end %>

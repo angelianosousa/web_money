@@ -23,10 +23,10 @@ class BillsController < ApplicationController
 
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to bills_path, notice: t('.success') }
+        format.html { redirect_to bills_path, flash: { success: t('.success') } }
         format.json { render :show, status: :created, location: @bill }
       else
-        format.html { render :index, status: :unprocessable_entity }
+        format.html { render :index, status: :unprocessable_entity, flash: { error: @bill.errors.full_messages } }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end
@@ -50,9 +50,9 @@ class BillsController < ApplicationController
     @bill.due_pay += 1.month
     
     if @bill.save!
-      redirect_to bills_url, notice: t('.success')
+      redirect_to bills_url, flash: { success: t('.success') }
     else
-      redirect_to bills_url, alert: @bill.errors.full_messages
+      redirect_to bills_url, flash: { error: @bill.errors.full_messages }
     end
   end
 
@@ -60,10 +60,10 @@ class BillsController < ApplicationController
   def update
     respond_to do |format|
       if @bill.update(bill_params)
-        format.html { redirect_to bills_path, notice: t('.success') }
+        format.html { redirect_to bills_path, flash: { success: t('.success') } }
         format.json { render :show, status: :ok, location: @bill }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, flash: { error: @bill.errors.full_messages } }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end
@@ -74,7 +74,7 @@ class BillsController < ApplicationController
     @bill.destroy
 
     respond_to do |format|
-      format.html { redirect_to bills_path, notice: t('.success') }
+      format.html { redirect_to bills_path, flash: { success: t('.success') } }
       format.json { head :no_content }
     end
   end
