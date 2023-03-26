@@ -13,7 +13,7 @@
 //= require rails-ujs
 //= require activestorage
 //= require bootstrap/dist/js/bootstrap.bundle.min
-//= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.min
+//= require bootstrap-notify/bootstrap-notify.min
 //= require Chart.bundle
 //= require chartkick
 //= require_tree .

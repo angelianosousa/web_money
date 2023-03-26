@@ -16,12 +16,12 @@ class DashboardController < ApplicationController
     @transaction = current_user_profile.transactions.new(transaction_params)
 
     respond_to do |format|
-      if @transaction.save!
-        format.html { redirect_to root_path, notice: t('.success') }
+      if @transaction.save
+        format.html { redirect_to root_path, flash: { success: t('.success') } }
         format.json { render :index, status: :created, location: @transaction }
         format.js
       else
-        format.html { redirect_to dashboard_index_url, alert: @transaction.errors.full_messages }
+        format.html { redirect_to dashboard_index_url, flash: { error: @transaction.errors.full_messages } }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
@@ -32,10 +32,10 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to root_path, notice: t('.success') }
+        format.html { redirect_to root_path, flash: { success: t('.success') } }
         format.json { render :show, status: :created, location: @account }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity, flash: { error: @account.errors.full_messages } }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
@@ -46,10 +46,10 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to root_path, notice: t('.success') }
+        format.html { redirect_to root_path, flash: { success: t('.success') } }
         format.json { render :show, status: :created, location: @bill }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity, flash: { error: @bill.errors.full_messages } }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end

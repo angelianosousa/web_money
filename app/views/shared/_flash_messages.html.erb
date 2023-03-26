@@ -1,0 +1,8 @@
+<% flash.each do |type, msg| %>
+  <%= javascript_tag do %>
+    $.notify(
+      '<%= msg %>',
+      { type: '<%= type == notice ? 'success' : type %>', allow_dismiss: true }
+    );
+  <% end %>
+<% end %>

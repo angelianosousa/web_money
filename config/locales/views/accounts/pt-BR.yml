@@ -2,7 +2,7 @@
 'pt-BR':
   accounts:
     index:
-      current_balance: Balanço Atual | %{balance}
+      current_balance: Balanço | %{balance}
       new_resource: ' Add Conta'
     edit:
       title: Editar conta
@@ -10,9 +10,9 @@
       new_account:
         title: Nova conta
     create:
-      success: Conta criada com successo!!
+      success: Conta criada com sucesso!!
     update:
-      success: Conta atualizada com successo!!
+      success: Conta atualizada com sucesso!!
     destroy:
       success: Conta removida com sucesso!!
     new_transaction:

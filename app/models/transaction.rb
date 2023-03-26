@@ -50,7 +50,7 @@ class Transaction < ApplicationRecord
     @account = Account.find(account_id)
     @account.price_cents -= price_cents.to_i if category.category_type == 'expense'
     @account.price_cents += price_cents.to_i if category.category_type == 'recipe'
-    @account.save!
+    @account.save
   end
 
   # Scope Methods

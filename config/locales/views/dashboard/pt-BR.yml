@@ -29,10 +29,10 @@
       days: Dias
       value: Valor (R$)
     tile_dashboard:
-      current_balance: Balanço Atual
-      total_recipes: Total de Receitas
-      total_expenses: Total de Despesas
+      current_balance: Balanço
+      total_recipes: Receitas
+      total_expenses: Despesas
     create_transaction:
-      success: Movimentação criada com successo!!
+      success: Movimentação criada com sucesso!!
     create_account:
-      success: Conta criada com successo!!
+      success: Conta criada com sucesso!!

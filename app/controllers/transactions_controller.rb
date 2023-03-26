@@ -22,12 +22,12 @@ class TransactionsController < ApplicationController
     @transaction = current_user_profile.transactions.new(transaction_params)
 
     respond_to do |format|
-      if @transaction.save!
-        format.html { redirect_to transactions_path, notice: t('.success') }
+      if @transaction.save
+        format.html { redirect_to transactions_path, flash: { success: t('.success') } }
         format.json { render :index, status: :created, location: @transaction }
         format.js
       else
-        format.html { redirect_to transactions_url, alert: @transaction.errors.full_messages }
+        format.html { redirect_to transactions_url, flash: { error: @transaction.errors.full_messages } }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
@@ -38,10 +38,10 @@ class TransactionsController < ApplicationController
     @transaction.user_profile_id = current_user.user_profile.id
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to transactions_path, notice: t('.success') }
+        format.html { redirect_to transactions_path, flash: { success: t('.success') } }
         format.json { render json: @transaction, status: :ok, location: @transaction }
       else
-        format.html { render :edit, alert: @transaction.errors.full_messages }
+        format.html { render :edit, flash: { error: @transaction.errors.full_messages } }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
@@ -55,7 +55,7 @@ class TransactionsController < ApplicationController
     @transaction.destroy
 
     respond_to do |format|
-      format.html { redirect_to transactions_url, notice: "Transação apagada com sucesso!" }
+      format.html { redirect_to transactions_url, flash: { success: t('.success') } }
       format.json { head :no_content }
     end
   end
