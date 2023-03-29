@@ -21,8 +21,8 @@
       search: Pesquisar
       clear: Limpar
     create:
-      success: Movimentação criada com sucesso!!
+      notice: Movimentação criada com sucesso!!
     update:
-      success: Movimentação atualizada com sucesso!!
+      notice: Movimentação atualizada com sucesso!!
     destroy:
-      success: Movimentação removida com sucesso!!
+      notice: Movimentação removida com sucesso!!

@@ -10,10 +10,10 @@
       new_account:
         title: Nova conta
     create:
-      success: Conta criada com sucesso!!
+      notice: Conta criada com sucesso!!
     update:
-      success: Conta atualizada com sucesso!!
+      notice: Conta atualizada com sucesso!!
     destroy:
-      success: Conta removida com sucesso!!
+      notice: Conta removida com sucesso!!
     new_transaction:
-      success: Movimentação criada com sucesso!!
+      notice: Movimentação criada com sucesso!!
