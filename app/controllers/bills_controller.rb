@@ -26,7 +26,7 @@ class BillsController < ApplicationController
         format.html { redirect_to bills_path, flash: { success: t('.success') } }
         format.json { render :show, status: :created, location: @bill }
       else
-        format.html { render :index, status: :unprocessable_entity, flash: { error: @bill.errors.full_messages } }
+        format.html { render :index, status: :unprocessable_entity, flash: { alert: @bill.errors.full_messages } }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end
@@ -52,7 +52,7 @@ class BillsController < ApplicationController
     if @bill.save!
       redirect_to bills_url, flash: { success: t('.success') }
     else
-      redirect_to bills_url, flash: { error: @bill.errors.full_messages }
+      redirect_to bills_url, flash: { alert: @bill.errors.full_messages }
     end
   end
 
@@ -63,7 +63,7 @@ class BillsController < ApplicationController
         format.html { redirect_to bills_path, flash: { success: t('.success') } }
         format.json { render :show, status: :ok, location: @bill }
       else
-        format.html { render :edit, status: :unprocessable_entity, flash: { error: @bill.errors.full_messages } }
+        format.html { render :edit, status: :unprocessable_entity, flash: { alert: @bill.errors.full_messages } }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end

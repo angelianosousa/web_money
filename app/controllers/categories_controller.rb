@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
     if @category.save
       redirect_to categories_path, flash: { success: t('.success') }
     else
-      redirect_to categories_path, flash: { error: @category.errors.full_messages }
+      redirect_to categories_path, flash: { alert: @category.errors.full_messages }
     end
   end
 
@@ -22,7 +22,7 @@ class CategoriesController < ApplicationController
     if @category.update(category_params)
       redirect_to categories_path, flash: { success: t('.success') }
     else
-      redirect_to categories_path, flash: { error: @category.errors.full_messages }
+      redirect_to categories_path, flash: { alert: @category.errors.full_messages }
     end
   end
 
