@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
   
   resources :bills, except: [:new] do
-    post 'new_transaction', on: :collection
+    post 'new_transaction'
   end
 
   resources :accounts, except: [:show, :new]

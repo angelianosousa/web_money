@@ -1,8 +1,12 @@
-<% flash.each do |type, msg| %>
+<%
+  type_messages = { 'notice'=>'success', 'alert'=>'danger'}
+%>
+
+<% flash.each do |flash_type, msg| %>
   <%= javascript_tag do %>
     $.notify(
       '<%= msg %>',
-      { type: '<%= type == notice ? 'success' : type %>', allow_dismiss: true }
+      { type: '<%= type_messages[flash_type] %>', allow_dismiss: true }
     );
   <% end %>
 <% end %>

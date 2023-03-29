@@ -21,8 +21,8 @@
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
 class Bill < ApplicationRecord
-  enum status: %i(pending paid)
-  enum bill_type: %i(pay receive)
+  enum status: %i[pending paid]
+  enum bill_type: %i[pay receive]
 
   validates :due_pay, :title, presence: true
   validates :price_cents, presence: true, numericality: { greater_than: 0 }

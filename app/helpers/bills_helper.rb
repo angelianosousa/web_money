@@ -30,8 +30,8 @@ module BillsHelper
   def bill_type_options_for_select
     translations_scope = %i[helpers bill_type_options_for_select]
 
-    Bill.bill_types.map do |status_key, value|
-      [t(status_key, scope: translations_scope), value]
+    Bill.bill_types.map do |status_key, _value|
+      [t(status_key, scope: translations_scope), status_key]
     end
   end
 end

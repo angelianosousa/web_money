@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
 
   def index
-    params[:q] ||= { user_profile_id_eq: current_user.user_profile.id, date_gteq: Date.today.beginning_of_month, date_lteq: Date.today.end_of_month }
+    params[:q] ||= { user_profile_id_eq: current_user_profile.id, date_gteq: Date.today.beginning_of_month, date_lteq: Date.today.end_of_month }
 
     @q = current_user_profile.transactions.ransack(params[:q])
 
@@ -21,35 +21,35 @@ class DashboardController < ApplicationController
         format.json { render :index, status: :created, location: @transaction }
         format.js
       else
-        format.html { redirect_to dashboard_index_url, flash: { error: @transaction.errors.full_messages } }
+        format.html { redirect_to dashboard_index_url, flash: { alert: @transaction.errors.full_messages } }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def create_account
-    @account = current_user_profile.accounts.new(account_params)
+    @account = current_user_profile.accounts.build(account_params)
 
     respond_to do |format|
       if @account.save
         format.html { redirect_to root_path, flash: { success: t('.success') } }
         format.json { render :show, status: :created, location: @account }
       else
-        format.html { render :new, status: :unprocessable_entity, flash: { error: @account.errors.full_messages } }
+        format.html { render root_path, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def create_account
-    @bill = current_user_profile.bills.new(bill_params)
+    @bill = current_user_profile.bills.build(bill_params)
 
     respond_to do |format|
       if @bill.save
         format.html { redirect_to root_path, flash: { success: t('.success') } }
         format.json { render :show, status: :created, location: @bill }
       else
-        format.html { render :new, status: :unprocessable_entity, flash: { error: @bill.errors.full_messages } }
+        format.html { render root_path, status: :unprocessable_entity, flash: { alert: @bill.errors.full_messages } }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end

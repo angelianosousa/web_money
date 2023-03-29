@@ -73,4 +73,4 @@
   </div>
 </div>
 
-<%= render partial: "#{params[:controller]}/modals/new", locals: { category: current_user_profile.categories.new } %>
+<%= render partial: "#{params[:controller]}/modals/new", locals: { category: @category = current_user_profile.categories.build } %>

@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  add_flash_types :success, :error, :warning
+  add_flash_types :notice, :alert, :warning
   before_action :authenticate_user!
 
   layout :layout_by_resource
@@ -17,9 +17,5 @@ class ApplicationController < ActionController::Base
   def switch_locale(&action)
     locale = params[:locale] || I18n.default_locale
     I18n.with_locale(locale, &action)
-  end
-
-  def flash_message_css_class(type)
-    "alert alert-#{type}"
   end
 end

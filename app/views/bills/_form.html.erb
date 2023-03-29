@@ -1,6 +1,8 @@
 <%= form_with(url: url, model: @bill, local: true) do |form| %>
   <%#= render "shared/error_messages", resource: @bill %>
 
+  <%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
+
   <div class='row mb-2'>
     <div class='col-md'>
       <div class='form_group'>
@@ -26,7 +28,7 @@
     <div class='col-md-6'>
       <div class='form_group'>
         <%= form.label :bill_type %>
-        <%= form.select :bill_type, options_for_select(bill_type_options_for_select, Bill.bill_types), {}, { class:"form-control" } %>
+        <%= form.select :bill_type, options_for_select(bill_type_options_for_select, @bill.bill_type), {}, { class:"form-control" } %>
       </div>
     </div>
   </div>

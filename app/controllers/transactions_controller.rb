@@ -27,7 +27,7 @@ class TransactionsController < ApplicationController
         format.json { render :index, status: :created, location: @transaction }
         format.js
       else
-        format.html { redirect_to transactions_url, flash: { error: @transaction.errors.full_messages } }
+        format.html { redirect_to transactions_url, flash: { alert: @transaction.errors.full_messages } }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
@@ -41,7 +41,7 @@ class TransactionsController < ApplicationController
         format.html { redirect_to transactions_path, flash: { success: t('.success') } }
         format.json { render json: @transaction, status: :ok, location: @transaction }
       else
-        format.html { render :edit, flash: { error: @transaction.errors.full_messages } }
+        format.html { render :edit, flash: { alert: @transaction.errors.full_messages } }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
