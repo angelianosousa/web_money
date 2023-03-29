@@ -23,8 +23,6 @@ class Category < ApplicationRecord
   belongs_to :user_profile
   has_many :transactions, dependent: :destroy
 
-  validates :title, presence: true, uniqueness: { case_sensitive: true }
-
   scope :recipes, ->(){
     where(category_type: :recipe).includes(:transactions)
   }
