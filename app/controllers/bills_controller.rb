@@ -23,7 +23,7 @@ class BillsController < ApplicationController
 
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to bills_path, flash: { success: t('.success') } }
+        format.html { redirect_to bills_path, flash: { notice: t('.success') } }
         format.json { render :show, status: :created, location: @bill }
       else
         format.html { render :index, status: :unprocessable_entity, flash: { alert: @bill.errors.full_messages } }
@@ -50,7 +50,7 @@ class BillsController < ApplicationController
     @bill.due_pay += 1.month
     
     if @bill.save!
-      redirect_to bills_url, flash: { success: t('.success') }
+      redirect_to bills_url, flash: { notice: t('.success') }
     else
       redirect_to bills_url, flash: { alert: @bill.errors.full_messages }
     end
@@ -60,7 +60,7 @@ class BillsController < ApplicationController
   def update
     respond_to do |format|
       if @bill.update(bill_params)
-        format.html { redirect_to bills_path, flash: { success: t('.success') } }
+        format.html { redirect_to bills_path, flash: { notice: t('.success') } }
         format.json { render :show, status: :ok, location: @bill }
       else
         format.html { render :edit, status: :unprocessable_entity, flash: { alert: @bill.errors.full_messages } }
@@ -74,7 +74,7 @@ class BillsController < ApplicationController
     @bill.destroy
 
     respond_to do |format|
-      format.html { redirect_to bills_path, flash: { success: t('.success') } }
+      format.html { redirect_to bills_path, flash: { notice: t('.success') } }
       format.json { head :no_content }
     end
   end
