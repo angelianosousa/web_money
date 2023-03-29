@@ -13,7 +13,7 @@
     <div class='col-md'>
       <div class="form-group">
         <%= form.label :category_type %>
-        <%= form.select :category_type, options_for_select(category_type_options_for_select, Category.category_types), {}, {class:"form-control"} %>
+        <%= form.select :category_type, options_for_select(category_type_options_for_select, @category.category_type), {}, {class:"form-control"} %>
       </div>
     </div>
   </div>

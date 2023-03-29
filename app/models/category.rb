@@ -18,7 +18,7 @@
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
 class Category < ApplicationRecord
-  enum category_type: %i(recipe expense)
+  enum category_type: [:recipe, :expense]
 
   belongs_to :user_profile
   has_many :transactions, dependent: :destroy
