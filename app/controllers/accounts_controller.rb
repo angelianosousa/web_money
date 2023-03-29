@@ -16,7 +16,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to accounts_url, flash: { notice: t('.success') } }
+        format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
         format.json { render :show, status: :created, location: @account }
       else
         format.html { redirect_to accounts_url, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
@@ -29,7 +29,7 @@ class AccountsController < ApplicationController
   def update
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to accounts_url, flash: { notice: t('.success') } }
+        format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
         format.json { render :show, status: :ok, location: @account }
       else
         format.html { render :edit, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
@@ -52,7 +52,7 @@ class AccountsController < ApplicationController
     )
     
     if @account.save!
-      redirect_to accounts_url, flash: { notice: t('.success') }
+      redirect_to accounts_url, flash: { notice: t('.notice') }
     else
       redirect_to accounts_url, flash: { alert: @account.errors.full_messages }
     end
@@ -63,7 +63,7 @@ class AccountsController < ApplicationController
     @account.destroy
 
     respond_to do |format|
-      format.html { redirect_to accounts_url, flash: { notice: t('.success') } }
+      format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
       format.json { head :no_content }
     end
   end
