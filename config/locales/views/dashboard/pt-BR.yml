@@ -3,21 +3,10 @@
   dashboard:
     index:
       title: Painel Gráfico
-      current_balance: Balanço Atual
-      total_recipes: Total de Receitas
-      total_expenses: Total de Despesas
-      title_charts:
-        recipes: Receitas
-        expenses: Despesas
-        categories: Categorias
-        accounts: Minhas contas
-        bills: Recorrências
       button_title:
         new_account: ' Add conta'
         new_transaction: ' Add movimentação'
         new_bill: ' Add recorrência'
-      days: Dias
-      value: Valor (R$)
     modals:
       new_account:
         title: Nova conta
@@ -31,7 +20,19 @@
       date: Data
       search: Pesquisar
       clear: Limpar
+    chart_cards:
+      recipes: Receitas
+      expenses: Despesas
+      categories: Categorias
+      accounts: Minhas contas
+      bills: Recorrências
+      days: Dias
+      value: Valor (R$)
+    tile_dashboard:
+      current_balance: Balanço
+      total_recipes: Receitas
+      total_expenses: Despesas
     create_transaction:
-      success: Movimentação criada com successo!!
+      notice: Movimentação criada com sucesso!!
     create_account:
-      success: Conta criada com successo!!
+      notice: Conta criada com sucesso!!

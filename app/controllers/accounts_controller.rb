@@ -16,10 +16,10 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to accounts_url, notice: t('.success') }
+        format.html { redirect_to accounts_url, flash: { notice: t('.success') } }
         format.json { render :show, status: :created, location: @account }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to accounts_url, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
@@ -29,10 +29,10 @@ class AccountsController < ApplicationController
   def update
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to accounts_url, notice: t('.success') }
+        format.html { redirect_to accounts_url, flash: { notice: t('.success') } }
         format.json { render :show, status: :ok, location: @account }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
@@ -52,9 +52,9 @@ class AccountsController < ApplicationController
     )
     
     if @account.save!
-      redirect_to accounts_url, notice: t('.success')
+      redirect_to accounts_url, flash: { notice: t('.success') }
     else
-      redirect_to accounts_url, alert: @account.errors.full_messages
+      redirect_to accounts_url, flash: { alert: @account.errors.full_messages }
     end
   end
 
@@ -63,7 +63,7 @@ class AccountsController < ApplicationController
     @account.destroy
 
     respond_to do |format|
-      format.html { redirect_to accounts_url, notice: t('.success') }
+      format.html { redirect_to accounts_url, flash: { notice: t('.success') } }
       format.json { head :no_content }
     end
   end

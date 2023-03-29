@@ -28,6 +28,7 @@ class Account < ApplicationRecord
 
   # Validations
   validates :title, presence: true
+  validates :price_cents, numericality: { greater_than_or_equal_to: 0 }
 
   # Kaminari
   paginates_per 12

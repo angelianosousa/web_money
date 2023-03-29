@@ -4,7 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  bill_type       :integer
-#  due_pay         :date             default(Fri, 17 Mar 2023)
+#  due_pay         :date             default(Sun, 26 Mar 2023)
 #  price_cents     :decimal(, )
 #  status          :integer          default("pending")
 #  title           :string
@@ -21,8 +21,8 @@
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
 class Bill < ApplicationRecord
-  enum status: %i(pending paid)
-  enum bill_type: %i(pay receive)
+  enum status: %i[pending paid]
+  enum bill_type: %i[pay receive]
 
   validates :due_pay, :title, presence: true
   validates :price_cents, presence: true, numericality: { greater_than: 0 }

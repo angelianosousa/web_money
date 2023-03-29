@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
+  add_flash_types :notice, :alert, :warning
   before_action :authenticate_user!
-  # around_action :switch_locale
 
   layout :layout_by_resource
 
