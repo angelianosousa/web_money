@@ -3,6 +3,13 @@
 ## Project Description
 The objective from this project is to implement a financial system where the users may create your expenses or recipes e register transactions by month whenever they want e see on the graphics how much money they using e what accounts are more expensive.
 
+## Next steps
+* Adicionar configuração de notificação de recorrências
+* O sistema deve deixar uma notificação padrão de recorrência para 1 dia antes do vencimento
+* Importação e exportação de planilha excel para movimentações
+* O sistema deve dar um link com uma planilha modelo para importação de movimentações
+* Adicionar testes automatizados de integração
+
 ## Getting Started
 
 ### Dependencies
