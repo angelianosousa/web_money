@@ -25,15 +25,15 @@
   </head>
 
   <body>
-    <div class="wrapper">
+    <div class="">
 
       <%= render 'application/sidebar' %>
 
       <!-- Page Content -->
-      <div id="content">
+      <div id="content" class='px-3'>
         <%= render 'navbar' %>
 
-        <div class="container-fluid mb-5 px-3">
+        <div class="container-fluid mb-5">
           <%= yield %>
         </div>
       </div>

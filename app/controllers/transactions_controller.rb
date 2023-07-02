@@ -3,14 +3,14 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
-    params[:q] ||= { user_profile_id_eq: current_user_profile.id }
+    params[:q] ||= { user_profile_id_eq: current_profile.id }
 
-    @q = current_user_profile.transactions.ransack(params[:q])
+    @q = current_profile.transactions.ransack(params[:q])
     @transactions = @q.result.page(params[:page]).order(date: :desc)
 
-    @balance = current_user_profile.accounts.sum(:price_cents)
+    @balance = current_profile.accounts.sum(:price_cents)
 
-    @transactions = current_user_profile.transactions.default(params[:page], 10, @transactions)
+    @transactions = current_profile.transactions.default(params[:page], 10, @transactions)
   end
 
   # GET /transactions/1/edit
@@ -19,7 +19,7 @@ class TransactionsController < ApplicationController
 
   # POST /transactions or /transactions.json
   def create
-    @transaction = current_user_profile.transactions.new(transaction_params)
+    @transaction = current_profile.transactions.new(transaction_params)
 
     respond_to do |format|
       if @transaction.save
@@ -63,7 +63,7 @@ class TransactionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction
-      @transaction = current_user_profile.transactions.find(params[:id])
+      @transaction = current_profile.transactions.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

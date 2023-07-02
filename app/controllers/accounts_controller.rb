@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = current_user_profile.accounts.page(params[:page])
+    @accounts = current_profile.accounts.page(params[:page])
   end
 
   # GET /accounts/1/edit
@@ -12,7 +12,7 @@ class AccountsController < ApplicationController
 
   # POST /accounts or /accounts.json
   def create
-    @account = current_user_profile.accounts.new(account_params)
+    @account = current_profile.accounts.new(account_params)
 
     respond_to do |format|
       if @account.save
@@ -39,12 +39,12 @@ class AccountsController < ApplicationController
   end
 
   def new_transaction
-    @account      = current_user_profile.accounts.find(params[:account_id])
-    @category     = current_user_profile.categories.find(params[:category_id])
+    @account      = current_profile.accounts.find(params[:account_id])
+    @category     = current_profile.categories.find(params[:category_id])
 
     @account.transactions.create!(
       account_id: @account.id,
-      user_profile: current_user_profile,
+      user_profile: current_profile,
       description: params[:description],
       price_cents: params[:price_cents].to_i,
       category: @category,
@@ -71,7 +71,7 @@ class AccountsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
-      @account = current_user_profile.accounts.find(params[:id])
+      @account = current_profile.accounts.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

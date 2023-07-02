@@ -4,13 +4,13 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
-  helper_method :current_user_profile
+  helper_method :current_profile
 
   def layout_by_resource
     devise_controller? ? "#{resource_class.to_s.downcase}_devise" : "application"
   end
 
-  def current_user_profile
+  def current_profile
     current_user.try(:user_profile)
   end
 

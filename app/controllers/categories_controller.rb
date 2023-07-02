@@ -2,14 +2,14 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[edit update destroy]
 
   def index
-    @categories = current_user_profile.categories.order(:category_type)
+    @categories = current_profile.categories.order(:category_type)
   end
 
   def edit
   end
 
   def create
-    @category = current_user_profile.categories.build(category_params)
+    @category = current_profile.categories.build(category_params)
 
     if @category.save
       redirect_to categories_path, flash: { notice: t('.notice') }
@@ -35,7 +35,7 @@ class CategoriesController < ApplicationController
   private
 
   def set_category
-    @category = current_user_profile.categories.find params[:id]
+    @category = current_profile.categories.find params[:id]
   end
 
   def category_params

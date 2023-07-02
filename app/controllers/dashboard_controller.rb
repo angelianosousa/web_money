@@ -1,9 +1,9 @@
 class DashboardController < ApplicationController
 
   def index
-    params[:q] ||= { user_profile_id_eq: current_user_profile.id, date_gteq: Date.today.beginning_of_month, date_lteq: Date.today.end_of_month }
+    params[:q] ||= { user_profile_id_eq: current_profile.id, date_gteq: Date.today.beginning_of_month, date_lteq: Date.today.end_of_month }
 
-    @q = current_user_profile.transactions.ransack(params[:q])
+    @q = current_profile.transactions.ransack(params[:q])
 
     @transactions    = @q.result(distinct: true)
 
@@ -13,7 +13,7 @@ class DashboardController < ApplicationController
   end
 
   def create_transaction
-    @transaction = current_user_profile.transactions.new(transaction_params)
+    @transaction = current_profile.transactions.new(transaction_params)
 
     respond_to do |format|
       if @transaction.save
@@ -28,7 +28,7 @@ class DashboardController < ApplicationController
   end
 
   def create_account
-    @account = current_user_profile.accounts.build(account_params)
+    @account = current_profile.accounts.build(account_params)
 
     respond_to do |format|
       if @account.save
@@ -42,7 +42,7 @@ class DashboardController < ApplicationController
   end
 
   def create_account
-    @bill = current_user_profile.bills.build(bill_params)
+    @bill = current_profile.bills.build(bill_params)
 
     respond_to do |format|
       if @bill.save

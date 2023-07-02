@@ -12,9 +12,9 @@ module TransactionsHelper
   end
 
   def balance_for_that_day(day)
-    recipes  = current_user_profile.transactions.recipes.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
-    expenses = current_user_profile.transactions.expenses.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
-    accounts = current_user_profile.accounts.sum(:price_cents)
+    recipes  = current_profile.transactions.recipes.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
+    expenses = current_profile.transactions.expenses.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
+    accounts = current_profile.accounts.sum(:price_cents)
     balance  = recipes - expenses
   end
 
