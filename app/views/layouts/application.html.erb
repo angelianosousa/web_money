@@ -13,7 +13,7 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
 
-   <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
@@ -25,15 +25,15 @@
   </head>
 
   <body>
-    <div class="wrapper">
+    <div class="">
 
       <%= render 'application/sidebar' %>
 
       <!-- Page Content -->
-      <div id="content">
+      <div id="content" class='px-3'>
         <%= render 'navbar' %>
 
-        <div class="container-fluid mb-5 px-3">
+        <div class="container-fluid mb-5">
           <%= yield %>
         </div>
       </div>

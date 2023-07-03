@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.hosts = ENV.fetch('SITE_DOMAIN') { 'webmoney-production.up.railway.app' }
   # Code is not reloaded between requests.
   config.cache_classes = false
 
@@ -93,5 +93,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.public_file_server.enabled = true
-  config.asset_host = ENV.fetch('SITE_DOMAIN') { 'localhost' }
+  config.asset_host = ENV.fetch('SITE_DOMAIN') { 'localhost:3000' }
 end

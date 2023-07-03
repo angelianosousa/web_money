@@ -32,4 +32,4 @@
 </div>
 
 
-<%= render partial: "#{params[:controller]}/modals/new_account", locals: { account: @account = current_user_profile.accounts.new } %>
+<%= render partial: "#{params[:controller]}/modals/new_account", locals: { account: @account = current_profile.accounts.new } %>

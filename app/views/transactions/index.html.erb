@@ -54,4 +54,4 @@
 </div>
 
 <%= paginate @transactions, outer_window: 2 %>
-<%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_user_profile.transactions.new } %>
+<%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>

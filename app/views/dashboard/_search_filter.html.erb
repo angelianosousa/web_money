@@ -1,33 +1,34 @@
 <nav class="navbar navbar-light navbar-filter">
-  <%= search_form_for @q, url: dashboard_index_path, html: { class: 'form-row', style:'padding: 15px 10px;' } do |f| %>
+  <%= search_form_for @q, url: dashboard_index_path, html: { class: 'form-row' } do |f| %>
 
     <div class='mx-2'>
       <div class='form-group col-md-2'>
         <%= f.label :category, t('.category'), class:'label-control' %>
-        <%= f.select :category_id_eq, options_for_select(Category.pluck(:title, :id)), { include_blank: t('.all')}, {class:'form-control'} %>
+        <%= f.select :category_id_eq, options_for_select(Category.pluck(:title, :id), params[:q][:category_id_eq]), 
+                                      { include_blank: t('.all')}, {class:'form-control'} %>
       </div>
 
       <div class='form-group col-md-2'>
         <%= f.label :price, t('.price'), class:'label-control' %>
-        <%= f.number_field :price_cents_gteq, class:'form-control', in:0..999999, step: :any, placeholder: 'Min' %>
+        <%= f.number_field :price_cents_gteq, value: params[:q][:price_cents_gteq], class:'form-control', in:0..999999, step: :any, placeholder: 'Min' %>
       </div>
 
       <div class='form-group col-md-2'>
-        <%= f.number_field :price_cents_lteq, class:'form-control', in:0..999999, step: :any, placeholder: 'Max', style:'margin-top: 25px;' %>
+        <%= f.number_field :price_cents_lteq, value: params[:q][:price_cents_lteq], class:'form-control', in:0..999999, step: :any, placeholder: 'Max', style:'margin-top: 25px;' %>
       </div>
 
       <div class='form-group col-md-2'>
         <%= f.label :date, t('.date'), class:'label-control' %>
-        <%= f.date_field :date_gteq, class:'form-control', default: Date.today %>
+        <%= f.date_field :date_gteq, value: params[:q][:date_gteq], class:'form-control', default: Date.today %>
       </div>
 
       <div class='form-group col-md-2'>
-        <%= f.date_field :date_lteq, class:'form-control', default: Date.today, style:'margin-top: 25px;' %>
+        <%= f.date_field :date_lteq, value: params[:q][:date_lteq], class:'form-control', default: Date.today, style:'margin-top: 25px;' %>
       </div>
       
-      <div class='form-group col-md-2 d-flex'>
-        <%= f.submit t('search'), class:'btn btn-outline-dark btn-round btn-sm px-5 mt-4' %>
-        <%= link_to t('clear'), dashboard_index_path, class:'btn btn-outline-secondary btn-round btn-sm px-5 mt-4' %>
+      <div class='form-group col-md-2 d-flex flex-column'>
+        <%= f.submit t('search'), class:'btn btn-outline-dark btn-round btn-sm mt-2' %>
+        <%= link_to t('clear'), dashboard_index_path, class:'btn btn-outline-secondary btn-round btn-sm mt-2' %>
       </div>
     </div>
   <% end %>

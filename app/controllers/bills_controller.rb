@@ -3,7 +3,7 @@ class BillsController < ApplicationController
 
   # GET /bills or /bills.json
   def index
-    @q = current_user_profile.bills.ransack(params[:q])
+    @q = current_profile.bills.ransack(params[:q])
 
     @bills = @q.result(distinct: true).includes(:transactions).page(params[:page]).order(:due_pay)
   end
@@ -19,7 +19,7 @@ class BillsController < ApplicationController
 
   # POST /bills or /bills.json
   def create
-    @bill = current_user_profile.bills.build(bill_params)
+    @bill = current_profile.bills.build(bill_params)
 
     respond_to do |format|
       if @bill.save
@@ -33,13 +33,13 @@ class BillsController < ApplicationController
   end
 
   def new_transaction
-    @bill         = current_user_profile.bills.find(params[:bill_id])
-    @account      = current_user_profile.accounts.find(params[:account_id])
-    @category     = current_user_profile.categories.find(params[:category_id])
+    @bill         = current_profile.bills.find(params[:bill_id])
+    @account      = current_profile.accounts.find(params[:account_id])
+    @category     = current_profile.categories.find(params[:category_id])
 
     @bill.transactions.build(
       account_id: @account.id,
-      user_profile: current_user_profile,
+      user_profile: current_profile,
       description: params[:description],
       price_cents: params[:price_cents].to_i,
       category: @category,
@@ -82,7 +82,7 @@ class BillsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bill
-      @bill = current_user_profile.bills.find(params[:id])
+      @bill = current_profile.bills.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

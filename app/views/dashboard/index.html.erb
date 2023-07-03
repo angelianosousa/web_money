@@ -4,6 +4,8 @@
     <%= navlink_dashboard %>
 
     <div class='d-flex justify-content-center align-items-center'>
+      <% last_month = Date.today.last_month %>
+      <%= link_to 'Last month', dashboard_index_path(q: { date_gteq: last_month.beginning_of_month, date_lteq: last_month.end_of_month } ), class:'btn btn-outline-dark btn-sm btn-round' %>
       <div class="dropdown dropleft mt-1">
         <%= link_to '#', class:'btn btn-outline-dark btn-sm btn-round', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>
           <span class='icon'><i class='fa fa-plus-square'></i></span>
@@ -24,12 +26,15 @@
   </div>
 
   <div class="row-md">
-    <%= render 'tile_dashboard' %>
+    <% if current_profile.transactions.any? %>
+      <%= render 'tile_dashboard' %><br>
+      <%= render 'chart_cards' %>
+    <% else %>
+      <%= render 'information_for_new_users' %>
+    <% end %>
   </div>
-</div> <br>
+</div>
 
-<%= render 'chart_cards' %>
-
-<%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_user_profile.transactions.new } %>
-<%= render partial: "#{params[:controller]}/modals/new_account", locals: { account: @account = current_user_profile.accounts.new } %>
-<%= render partial: "#{params[:controller]}/modals/new_bill", locals: { bill: @bill = current_user_profile.bills.new } %>
+<%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>
+<%= render partial: "#{params[:controller]}/modals/new_account", locals: { account: @account = current_profile.accounts.new } %>
+<%= render partial: "#{params[:controller]}/modals/new_bill", locals: { bill: @bill = current_profile.bills.new } %>

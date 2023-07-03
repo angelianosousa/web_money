@@ -25,8 +25,7 @@
             </div>
             <h5><%= bill_type_status(bill.bill_type) %> <%= bill.title %></h5>
             <p>
-              <%= humanized_money_with_symbol(bill.price_cents) rescue nil %>
-              - <%= bill.due_pay.strftime('%d/%m/%y') %>
+              <%= humanized_money_with_symbol(bill.price_cents) rescue nil %> - <%= bill.due_pay.strftime('%d/%m/%y') %>
             </p>
             <div class='float-right'>
               <%= bill_payment(bill.status) %>
@@ -45,4 +44,4 @@
   <%= paginate @bills %>
 </div>
 
-<%= render partial: "#{params[:controller]}/modals/new", locals: { bill: @bill = current_user_profile.bills.build } %>
+<%= render partial: "#{params[:controller]}/modals/new", locals: { bill: @bill = current_profile.bills.build } %>
