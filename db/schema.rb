@@ -49,7 +49,11 @@ ActiveRecord::Schema.define(version: 2023_03_29_043653) do
   create_table "bills", force: :cascade do |t|
     t.string "title"
     t.decimal "price_cents"
+<<<<<<< HEAD
     t.date "due_pay", default: "2023-07-03"
+=======
+    t.date "due_pay", default: "2023-07-02"
+>>>>>>> c9876f03bb79936da91557c8848e90aed8ff910f
     t.integer "bill_type"
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
