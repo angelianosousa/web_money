@@ -4,11 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  bill_type       :integer
-<<<<<<< HEAD
-#  due_pay         :date             default(Mon, 03 Jul 2023)
-=======
 #  due_pay         :date             default(Sun, 02 Jul 2023)
->>>>>>> c9876f03bb79936da91557c8848e90aed8ff910f
 #  price_cents     :decimal(, )
 #  status          :integer          default("pending")
 #  title           :string
