@@ -12,16 +12,17 @@ user_profile = User.last.user_profile
 
 # Despesas
 ['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
-  user_profile.categories.create(title: category, user_profile: user_profile, category_type: :expense)
+  user_profile.categories.find_or_create_by!(title: category, user_profile: user_profile, category_type: :expense)
 end
 
 # Receitas
 ['Salário', 'Serviço', 'Investimentos'].each do |category|
-  user_profile.categories.create(title: category, user_profile: user_profile, category_type: :recipe)
+  user_profile.categories.find_or_create_by!(title: category, user_profile: user_profile, category_type: :recipe)
 end
 
+# byebug
 user_profile.accounts.each do |account|
-  250.times do
+  250.times do |_data|
     user_profile.transactions.create(
       description: Faker::Lorem.question(word_count: rand(2..5)),
       user_profile: user_profile,
@@ -59,7 +60,7 @@ receitas.each do |bill|
 end
 
 user_profile.bills.each do |bill|
-  100.times do
+  100.times do |_data|
     Transaction.create!(
       description: Faker::Lorem.question(word_count: rand(2..5)),
       user_profile: user_profile,
