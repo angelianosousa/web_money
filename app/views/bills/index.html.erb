@@ -15,28 +15,40 @@
 </div>
 
 <div class='row'>
-  <% @bills.each do |bill| %>
-    <div class='col-md-3'>
-      <div class='card border-dark mb-3'>
-        <div class='card-body'>
-          <div class='custom-card-text'>
-            <div class='float-right'>
-              <%= render 'actions', bill: bill %>
-            </div>
-            <h5><%= bill_type_status(bill.bill_type) %> <%= bill.title %></h5>
-            <p>
-              <%= humanized_money_with_symbol(bill.price_cents) rescue nil %> - <%= bill.due_pay.strftime('%d/%m/%y') %>
-            </p>
-            <div class='float-right'>
-              <%= bill_payment(bill.status) %>
+  <% if @bills.any? %>
+    <% @bills.each do |bill| %>
+      <div class='col-md-3'>
+        <div class='card border-dark mb-3'>
+          <div class='card-body'>
+            <div class='custom-card-text'>
+              <div class='float-right'>
+                <%= render 'actions', bill: bill %>
+              </div>
+              <h5><%= bill_type_status(bill.bill_type) %> <%= bill.title %></h5>
+              <p>
+                <%= humanized_money_with_symbol(bill.price_cents) rescue nil %> - <%= bill.due_pay.strftime('%d/%m/%y') %>
+              </p>
+              <div class='float-right'>
+                <%= bill_payment(bill.status) %>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <%= render partial: "#{params[:controller]}/modals/new_payment", locals: { bill: bill } %>
+
+    <% end %>
+  <% else %>
+    <div class='col-md-12 text-center'>
+      <div class="card">
+        <div class='card-body'>
+          <%= fontawesome_icon('', 'fa fa-refresh', 'font-size: 45px;') %>
+          <h3 class="display-5">Adicione sua primeira recorrência</h3>
+          <%= modal_to_new_resource(' Adicionar Recorrência', target: '#newBillModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
+        </div>
+      </div>
     </div>
-
-    <%= render partial: "#{params[:controller]}/modals/new_payment", locals: { bill: bill } %>
-
   <% end %>
 </div>
 

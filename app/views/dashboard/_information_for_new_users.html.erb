@@ -1,7 +1,8 @@
-<div class='card border-dark mx-5'>
+<div class='card border-dark mb-3'>
   <div class='card-body'>
-    <h4>O sistema se divide em 4 módulos:</h4>
-    <ol>
+    <h3>O sistema se divide em 4 módulos:</h3>
+    
+    <ol style='font-size: 15px;'>
       <li><strong><%= link_to 'Dashboard:', dashboard_index_path %></strong> Painel principal com gráficos para análise e acompanhamento (<%= link_to 'clique aqui', dashboard_index_path %>).</li>
       <li><strong><%= link_to 'Carteiras:', accounts_path %></strong> Módulo de gestão de contas (<%= link_to 'clique aqui', accounts_path %>).</li>
       <li><strong><%= link_to 'Movimentações:', transactions_path %></strong> Seção de gestão de transações financeiras, todas as suas movimentações estão aqui (<%= link_to 'clique aqui', transactions_path %>).</li>
@@ -10,3 +11,25 @@
     </ol>
   </div>
 </div>
+
+  <div class="card border-dark text-center">
+    <div class='card-body'>
+      <div class='col-md-4'>
+        <%= fontawesome_icon('', 'fa fa-money', 'font-size: 45px;') %>
+        <h3 class="display-5">Adicione sua primeira transação</h3>
+        <%= modal_to_new_resource(' Adicionar Movimentação', target: '#newTransactionModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
+      </div>
+
+      <div class='col-md-4'>
+        <%= fontawesome_icon('', 'fa fa-bank', 'font-size: 45px;') %>
+        <h3 class="display-5">Adicione sua primeira conta</h3>
+        <%= modal_to_new_resource(' Adicionar Conta', target: '#newAccountModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
+      </div>
+
+      <div class='col-md-4'>
+        <%= fontawesome_icon('', 'fa fa-refresh', 'font-size: 45px;') %>
+        <h3 class="display-5">Adicione sua primeira recorrência</h3>
+        <%= modal_to_new_resource(' Adicionar Recorrência', target: '#newBillModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
+      </div>
+    </div>
+  </div>

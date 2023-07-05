@@ -16,37 +16,50 @@
 </div>
 
 <div class="row">
-  <% @transactions.each do |day, transactions| %>
-    <div class="col-md-12">
-      <div class="card border-dark mb-3" style='border-radius:10px;'>
-        <div class="card-body table-responsive">
-          <table class='table table-borderless table-hover'>
-            <thead>
-              <tr>
-                <th style='width:200px;'><%= model_class.human_attribute_name :description %></th>
-                <th><%= model_class.human_attribute_name :value %></th>
-                <th><%= model_class.human_attribute_name :date %></th>
-                <th><%= model_class.human_attribute_name :category_id %></th>
-                <th><%= model_class.human_attribute_name :bill_id %></th>
-                <th><%= model_class.human_attribute_name :account_id %></th>
-                <th colspan="1"></th>
-              </tr>
-            </thead>
-            <% transactions.each do |transaction| %>
-              <tbody class='border-bottom'>
+  <% if @transactions.any? %>
+    <% @transactions.each do |day, transactions| %>
+      <div class="col-md-12">
+        <div class="card border-dark mb-3" style='border-radius:10px;'>
+          <div class="card-body table-responsive">
+            <table class='table table-borderless table-hover'>
+              <thead>
                 <tr>
-                  <td><div class='card-text'><small><%= transaction.description %></small></div></td>
-                  <td><%= value_style(transaction) %></td>
-                  <td><%= transaction.date.strftime('%d/%m/%Y') %></td>
-                  <td><%= transaction.category.title %></td>
-                  <td><%= transaction.bill.title rescue '-'%></td>
-                  <td><%= transaction.account.title %></td>
-                  <td><%= render 'actions', transaction: transaction %></td>
+                  <th style='width:200px;'><%= model_class.human_attribute_name :description %></th>
+                  <th><%= model_class.human_attribute_name :value %></th>
+                  <th><%= model_class.human_attribute_name :date %></th>
+                  <th><%= model_class.human_attribute_name :category_id %></th>
+                  <th><%= model_class.human_attribute_name :bill_id %></th>
+                  <th><%= model_class.human_attribute_name :account_id %></th>
+                  <th colspan="1"></th>
                 </tr>
-              </tbody>
-            <% end %>
-          </table>
-          <div class="card-footer balance-diary text-right"><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>
+              </thead>
+              <% transactions.each do |transaction| %>
+                <tbody class='border-bottom'>
+                  <tr>
+                    <td><div class='card-text'><small><%= transaction.description %></small></div></td>
+                    <td><%= value_style(transaction) %></td>
+                    <td><%= transaction.date.strftime('%d/%m/%Y') %></td>
+                    <td><%= transaction.category.title %></td>
+                    <td><%= transaction.bill.title rescue '-'%></td>
+                    <td><%= transaction.account.title %></td>
+                    <td><%= render 'actions', transaction: transaction %></td>
+                  </tr>
+                </tbody>
+              <% end %>
+            </table>
+            <div class="card-footer balance-diary text-right"><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class='col-md-12 text-center'>
+      <div class="card">
+        <div class='card-body'>
+          <%= fontawesome_icon('', 'fa fa-money', 'font-size: 45px;') %>
+          <h3 class="display-5">Sem movimentações por aqui</h3>
+          <p class="lead">Adicione sua primeira transação</p>
+          <%= modal_to_new_resource(' Adicionar Movimentação', target: '#newTransactionModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
         </div>
       </div>
     </div>

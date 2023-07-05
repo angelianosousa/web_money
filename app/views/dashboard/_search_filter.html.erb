@@ -4,26 +4,26 @@
     <div class='mx-2'>
       <div class='form-group col-md-2'>
         <%= f.label :category, t('.category'), class:'label-control' %>
-        <%= f.select :category_id_eq, options_for_select(Category.pluck(:title, :id), params[:q][:category_id_eq]), 
+        <%= f.select :category_id_eq, options_for_select(Category.pluck(:title, :id), (params[:q][:category_id_eq] rescue nil)), 
                                       { include_blank: t('.all')}, {class:'form-control'} %>
       </div>
 
       <div class='form-group col-md-2'>
         <%= f.label :price, t('.price'), class:'label-control' %>
-        <%= f.number_field :price_cents_gteq, value: params[:q][:price_cents_gteq], class:'form-control', in:0..999999, step: :any, placeholder: 'Min' %>
+        <%= f.number_field :price_cents_gteq, value: (params[:q][:price_cents_gteq] rescue nil), class:'form-control', in:0..999999, step: :any, placeholder: 'Min' %>
       </div>
 
       <div class='form-group col-md-2'>
-        <%= f.number_field :price_cents_lteq, value: params[:q][:price_cents_lteq], class:'form-control', in:0..999999, step: :any, placeholder: 'Max', style:'margin-top: 25px;' %>
+        <%= f.number_field :price_cents_lteq, value: (params[:q][:price_cents_lteq] rescue nil), class:'form-control', in:0..999999, step: :any, placeholder: 'Max', style:'margin-top: 25px;' %>
       </div>
 
       <div class='form-group col-md-2'>
         <%= f.label :date, t('.date'), class:'label-control' %>
-        <%= f.date_field :date_gteq, value: params[:q][:date_gteq], class:'form-control', default: Date.today %>
+        <%= f.date_field :date_gteq, value: (params[:q][:date_gteq] rescue nil), class:'form-control', default: Date.today %>
       </div>
 
       <div class='form-group col-md-2'>
-        <%= f.date_field :date_lteq, value: params[:q][:date_lteq], class:'form-control', default: Date.today, style:'margin-top: 25px;' %>
+        <%= f.date_field :date_lteq, value: (params[:q][:date_lteq] rescue nil), class:'form-control', default: Date.today, style:'margin-top: 25px;' %>
       </div>
       
       <div class='form-group col-md-2 d-flex flex-column'>

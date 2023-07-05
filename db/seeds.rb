@@ -20,9 +20,8 @@ end
   user_profile.categories.find_or_create_by!(title: category, user_profile: user_profile, category_type: :recipe)
 end
 
-# byebug
 user_profile.accounts.each do |account|
-  250.times do |_data|
+  250.times do
     user_profile.transactions.create(
       description: Faker::Lorem.question(word_count: rand(2..5)),
       user_profile: user_profile,
@@ -34,10 +33,8 @@ user_profile.accounts.each do |account|
   end
 end
 
-despesas = ['Água', 'Energia', 'Internet']
-receitas = ['Salário', 'Investimentos', 'Renda Extra']
-
-despesas.each do |bill|
+# Despesas
+['Água', 'Energia', 'Internet'].each do |bill|
   user_profile.bills.create(
     title: bill,
     price_cents: rand(100..5000),
@@ -48,7 +45,8 @@ despesas.each do |bill|
   )
 end
 
-receitas.each do |bill|
+# Receitas
+['Salário', 'Investimentos', 'Renda Extra'].each do |bill|
   user_profile.bills.create(
     title: bill,
     price_cents: rand(100..5000),
@@ -60,7 +58,7 @@ receitas.each do |bill|
 end
 
 user_profile.bills.each do |bill|
-  100.times do |_data|
+  100.times do
     Transaction.create!(
       description: Faker::Lorem.question(word_count: rand(2..5)),
       user_profile: user_profile,

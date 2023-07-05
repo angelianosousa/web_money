@@ -5,8 +5,8 @@ module ApplicationHelper
     end
   end
 
-  def fontawesome_icon(text, icon_class)
-    tag.i("#{text}", class: "#{icon_class}")
+  def fontawesome_icon(text, icon_class, style_css='')
+    tag.i("#{text}", class: "#{icon_class}", style: style_css)
   end
 
   def filter
@@ -17,8 +17,8 @@ module ApplicationHelper
     end
   end
 
-  def modal_to_new_resource(text, target: '')
-    link_to '#', class: "btn btn-outline-dark btn-sm btn-round my-sm-3", "data-toggle":"modal", "data-target":"#{target}", style:"width:140px" do
+  def modal_to_new_resource(text, target: '', class_name: 'btn btn-outline-dark btn-sm btn-round my-sm-3', style_css: 'width:140px')
+    link_to '#', class: "#{class_name}", "data-toggle":"modal", "data-target":"#{target}", style:"#{style_css}" do
       "#{fontawesome_icon(text, 'fa fa-plus-square')}".html_safe
     end
   end
