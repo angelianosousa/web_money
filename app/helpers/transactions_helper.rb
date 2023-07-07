@@ -6,9 +6,9 @@ module TransactionsHelper
   end
 
   def value_style(transaction)
-    symbol, style = (transaction.category.category_type == 'recipe') ? ['+', 'color: #2F4F4F'] : ['-', 'color: #DC143C']
+    symbol, style = (transaction.category.category_type == 'recipe') ? ['fa fa-caret-up text-success'] : ['fa fa-caret-down text-danger']
 
-    content_tag(:p, "#{symbol}#{humanized_money_with_symbol(transaction.price_cents)}", style: style)
+    content_tag(:p, "#{humanized_money_with_symbol(transaction.price_cents)}",class: "#{symbol}")
   end
 
   def balance_for_that_day(day)
@@ -23,5 +23,4 @@ module TransactionsHelper
       "#{t '.title', balance: humanized_money_with_symbol(@balance)}".html_safe
     end
   end
-  # <a class="navbar-brand navbar-link" href="<%= transactions_path %>"><%= model_class.model_name.human.pluralize.titleize %> | <%= humanized_money_with_symbol @balance %></a>
 end

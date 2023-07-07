@@ -1,0 +1,3 @@
+$('#newAccountModal').modal('hide');
+$("<%= escape_javascript(render @account) %>").appendTo("#accounts");
+showFlashNotification('success', 'Conta adicionada com sucesso!!')

@@ -46,6 +46,8 @@ class Transaction < ApplicationRecord
   # Callbacks
   after_save :operate_account
 
+  paginates_per 7
+
   def operate_account
     @account = Account.find(account_id)
     @account.price_cents -= price_cents.to_i if category.category_type == 'expense'

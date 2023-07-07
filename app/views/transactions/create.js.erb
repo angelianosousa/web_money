@@ -1,0 +1,3 @@
+$('#newTransactionModal').modal('hide');
+$("<%= escape_javascript(render @transaction) %>").appendTo("#transactions");
+showFlashNotification('success', 'Movimentação adicionada com sucesso!!');

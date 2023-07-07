@@ -1,5 +1,5 @@
-<%= form_with(url: url, model: @account, local: true) do |form| %>
-  <%= render "shared/error_messages", resource: @account %>
+<%= form_with(url: accounts_path, model: @account, local: false) do |form| %>
+  <%#= render "shared/error_messages", resource: @account %>
 
   <%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
 
@@ -19,6 +19,6 @@
 
   <div class="actions">
     <%= form.submit t('save'), class:'btn btn-primary' %>
-    <%= link_to t('back'), accounts_path, class:'btn btn-secondary' %>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
   </div>
 <% end %>

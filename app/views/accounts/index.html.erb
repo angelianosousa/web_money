@@ -2,29 +2,24 @@
 <div class="container">
   <nav class="navbar navbar-light">
     <%= navlink_account %>
-
-    <div class='nav-item'>
-      <%= modal_to_new_resource(t('.new_resource'), target: '#newAccountModal') %>
-    </div>
   </nav>
 </div><br>
 
 <div class='row'>
-  <% @accounts.each do |account| %>
-    <div class='col-md-4'>
-      <div class='card border-dark mb-3'>
-        <div class='card-body'>
-          <div class='custom-card-text'>
-            <div class='float-right'>
-              <%= render 'actions', account: account %>
-            </div>
-            <h4><%= account.title %></h4>
-            <p><%= humanized_money_with_symbol(account.price_cents) %></p>
-          </div>
-        </div>
+  <div class='col-md-4'>
+    <div class='card'>
+      <div class='card-body text-center'>
+        <%= fontawesome_icon('', 'fa fa-bank', 'font-size: 45px;') %>
+        <h3 class="display-5">Adicionar conta</h3>
+        <%= modal_to_new_resource('', target: '#newAccountModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
       </div>
     </div>
-  <% end %>
+  </div>
+  <div class='col-md-8'>
+    <div id='accounts'>
+      <%= render @accounts %>
+    </div>
+  </div>
 </div>
 
 <div class='container-fluid'>
@@ -32,4 +27,5 @@
 </div>
 
 
-<%= render partial: "#{params[:controller]}/modals/new_account", locals: { account: @account = current_profile.accounts.new } %>
+<%= render partial: "accounts/modals/new_account", locals: { account: @account = current_profile.accounts.new } %>
+<%= render partial: "transactions/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>

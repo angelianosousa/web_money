@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = current_profile.accounts.page(params[:page])
+    @accounts = current_profile.accounts.page(params[:page]).order(created_at: :desc)
   end
 
   # GET /accounts/1/edit
@@ -18,6 +18,7 @@ class AccountsController < ApplicationController
       if @account.save
         format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
         format.json { render :show, status: :created, location: @account }
+        format.js
       else
         format.html { redirect_to accounts_url, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
         format.json { render json: @account.errors, status: :unprocessable_entity }

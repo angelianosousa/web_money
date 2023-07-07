@@ -17,3 +17,17 @@
 //= require Chart.bundle
 //= require chartkick
 //= require_tree .
+
+function showFlashNotification(message_type, message) {
+  $.notify({
+    icon: 'fa fa-alert',
+    message: message
+  },{
+    type: message_type,
+    timer: 4000,
+    placement: {
+      from: 'top',
+      align: 'right'
+    }
+  });
+}

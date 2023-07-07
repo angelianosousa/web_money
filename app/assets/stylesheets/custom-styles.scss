@@ -21,14 +21,14 @@ table {
 
 .bill-status-recipe {
   background-color: $web-money-dark-green;
-  color: #fff;
+  color: $web-money-white;
   border-radius: 50%;
   padding: 7px;
 }
 
 .bill-status-expense {
   background-color: $web-money-red;
-  color: #fff;
+  color: $web-money-white;
   border-radius: 50%;
   padding: 7px;
 }
@@ -46,7 +46,7 @@ table {
 
 a .dropdown-item:visited, .dropdown-item:hover {
   background-color: $web-money-dark-green;
-  color: #fff;
+  color: $web-money-white;
 }
 
 .navbar-link {

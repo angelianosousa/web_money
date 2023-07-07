@@ -28,7 +28,7 @@ a:focus {
 }
 
 #dismiss:hover {
-    background: #fff;
+    background: $web-money-white;
     color: $web-money-dark-green;
 }
 
@@ -55,7 +55,7 @@ a:focus {
     height: 100vh;
     z-index: 999;
     background: $web-money-dark-green;
-    color: #fff;
+    color: $web-money-white;
     transition: all 0.3s;
     overflow-y: scroll;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
@@ -72,7 +72,7 @@ a:focus {
 
     ul {
         p {
-            color: #fff;
+            color: $web-money-white;
             padding: 10px;
         }
 
@@ -84,11 +84,11 @@ a:focus {
 
         li a:hover {
             color: $web-money-dark-green;
-            background: #fff;
+            background: $web-money-white;
         }
 
         li.active>a, a[aria-expanded="true"] {
-            color: #fff;
+            color: $web-money-white;
             background: $web-money-orange;
         }
     }
@@ -114,7 +114,7 @@ ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: $web-money-dark-green;
-    color: #fff;
+    color: $web-money-white;
 }
 
 ul.CTAs {
@@ -130,14 +130,14 @@ ul.CTAs a {
 }
 
 a.download {
-    background: #fff;
+    background: $web-money-white;
     color: #7386D5;
 }
 
 a.article,
 a.article:hover {
     background: $web-money-dark-green !important;
-    color: #fff !important;
+    color: $web-money-white !important;
 }
 
 /* ---------------------------------------------------
@@ -151,5 +151,5 @@ a.article:hover {
     position: absolute;
     top: 0;
     right: 0;
-    background: #fff;
+    background: $web-money-white;
 }

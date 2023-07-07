@@ -5,7 +5,7 @@ class BillsController < ApplicationController
   def index
     @q = current_profile.bills.ransack(params[:q])
 
-    @bills = @q.result(distinct: true).includes(:transactions).page(params[:page]).order(:due_pay)
+    @bills = @q.result(distinct: true).includes(:transactions).page(params[:page]).order(:due_pay, :created_at)
   end
 
   # GET /bills/1 or /bills/1.json
@@ -33,27 +33,37 @@ class BillsController < ApplicationController
   end
 
   def new_transaction
-    @bill         = current_profile.bills.find(params[:bill_id])
-    @account      = current_profile.accounts.find(params[:account_id])
-    @category     = current_profile.categories.find(params[:category_id])
+    # @bill     = current_profile.bills.find(params[:bill_id])
+    # @account  = current_profile.accounts.find(params[:account_id])
+    # @category = current_profile.categories.find(params[:category_id])
 
-    @bill.transactions.build(
-      account_id: @account.id,
+    # @bill.transactions.build(
+    #   account_id: @account.id,
+    #   user_profile: current_profile,
+    #   description: params[:description],
+    #   price_cents: params[:price_cents],
+    #   category: @category,
+    #   date: Date.today.to_datetime
+    # )
+    @bill = current_profile.bills.find(params[:bill_id])
+    @transaction = @bill.transactions.build(
+      account_id: params[:account_id],
+      category_id: params[:category_id],
       user_profile: current_profile,
       description: params[:description],
-      price_cents: params[:price_cents].to_i,
-      category: @category,
+      price_cents: params[:price_cents].to_f,
       date: Date.today.to_datetime
     )
 
     @bill.status  = :paid
-    @bill.due_pay += 1.month
+    @bill.due_pay += Date.today.next_month
     
-    if @bill.save!
-      redirect_to bills_url, flash: { notice: t('.notice') }
-    else
-      redirect_to bills_url, flash: { alert: @bill.errors.full_messages }
-    end
+    @bill.save!
+    # if @bill.save!
+    #   redirect_to bills_url, flash: { notice: t('.notice') }
+    # else
+    #   redirect_to bills_url, flash: { alert: @bill.errors.full_messages }
+    # end
   end
 
   # PATCH/PUT /bills/1 or /bills/1.json
@@ -80,13 +90,13 @@ class BillsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bill
-      @bill = current_profile.bills.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bill
+    @bill = current_profile.bills.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def bill_params
-      params.require(:bill).permit(:title, :price_cents, :due_pay, :bill_type, :status)
-    end
+  # Only allow a list of trusted parameters through.
+  def bill_params
+    params.require(:bill).permit(:title, :price_cents, :due_pay, :bill_type, :status)
+  end
 end

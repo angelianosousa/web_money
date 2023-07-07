@@ -1,4 +1,5 @@
 <%- model_class = Transaction -%>
+
 <div class="container mb-3">
   <nav class="navbar navbar-light ">
     <%= navlink_transaction %>
@@ -15,43 +16,26 @@
   <%= render 'search_filter' %>
 </div>
 
-<div class="row">
+<div class="container-fluid">
   <% if @transactions.any? %>
-    <% @transactions.each do |day, transactions| %>
-      <div class="col-md-12">
-        <div class="card border-dark mb-3" style='border-radius:10px;'>
-          <div class="card-body table-responsive">
-            <table class='table table-borderless table-hover'>
-              <thead>
-                <tr>
-                  <th style='width:200px;'><%= model_class.human_attribute_name :description %></th>
-                  <th><%= model_class.human_attribute_name :value %></th>
-                  <th><%= model_class.human_attribute_name :date %></th>
-                  <th><%= model_class.human_attribute_name :category_id %></th>
-                  <th><%= model_class.human_attribute_name :bill_id %></th>
-                  <th><%= model_class.human_attribute_name :account_id %></th>
-                  <th colspan="1"></th>
-                </tr>
-              </thead>
-              <% transactions.each do |transaction| %>
-                <tbody class='border-bottom'>
-                  <tr>
-                    <td><div class='card-text'><small><%= transaction.description %></small></div></td>
-                    <td><%= value_style(transaction) %></td>
-                    <td><%= transaction.date.strftime('%d/%m/%Y') %></td>
-                    <td><%= transaction.category.title %></td>
-                    <td><%= transaction.bill.title rescue '-'%></td>
-                    <td><%= transaction.account.title %></td>
-                    <td><%= render 'actions', transaction: transaction %></td>
-                  </tr>
-                </tbody>
-              <% end %>
-            </table>
-            <div class="card-footer balance-diary text-right"><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    <table class='table table-borderless table-hover table-striped table-sm'>
+      <caption><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(Date.today)) %></caption>
+
+      <thead class='thead-dark'>
+        <tr>
+          <th style='width:200px;'><%= model_class.human_attribute_name :description %></th>
+          <th><%= model_class.human_attribute_name :value %></th>
+          <th><%= model_class.human_attribute_name :date %></th>
+          <th><%= model_class.human_attribute_name :category_id %></th>
+          <th><%= model_class.human_attribute_name :bill_id %></th>
+          <th><%= model_class.human_attribute_name :account_id %></th>
+          <th colspan="1"></th>
+        </tr>
+      </thead>
+      <tbody id='transactions'>
+        <%= render @transactions %>
+      </tbody>
+    </table>
   <% else %>
     <div class='col-md-12 text-center'>
       <div class="card">
@@ -64,7 +48,8 @@
       </div>
     </div>
   <% end %>
+
+  <%= paginate @transactions, outer_window: 2 %>
 </div>
 
-<%= paginate @transactions, outer_window: 2 %>
-<%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>
+<%= render partial: "transactions/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>
