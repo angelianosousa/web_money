@@ -16,7 +16,7 @@ module BillsHelper
   end
 
   def bill_type_status(status)
-    text, fontawesome_class = (status == 'receive') ? ['', 'bill-status-recipe fa fa-arrow-up'] : ['', 'bill-status-expense fa fa-arrow-down']
+    text, fontawesome_class = (status == 'recipe') ? ['', 'bill-status-recipe fa fa-arrow-up'] : ['', 'bill-status-expense fa fa-arrow-down']
 
     content_tag :i, '', class:"#{fontawesome_class}", style:'font-size: 10px;'
   end

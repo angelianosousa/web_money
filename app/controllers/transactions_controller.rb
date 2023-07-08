@@ -20,6 +20,7 @@ class TransactionsController < ApplicationController
   # POST /transactions or /transactions.json
   def create
     @transaction = current_profile.transactions.new(transaction_params)
+    @transaction.bill_id = params[:bill_id] if params[:bill_id].present?
 
     respond_to do |format|
       if @transaction.save
@@ -68,6 +69,6 @@ class TransactionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:account_id, :category_id, :user_profile_id, :description, :price_cents, :date)
+      params.require(:transaction).permit(:account_id, :category_id, :bill_id, :user_profile_id, :description, :price_cents, :date)
     end
 end

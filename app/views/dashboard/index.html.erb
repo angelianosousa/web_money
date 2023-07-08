@@ -15,7 +15,7 @@
         <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
           <%= dropdown_item_dashboard(t('.button_title.new_transaction'), target: '#newTransactionModal', icon: 'fa fa-money') %>
           <%= dropdown_item_dashboard(t('.button_title.new_account'), target: '#newAccountModal', icon: 'fa fa-bank') %>
-          <%= dropdown_item_dashboard(t('.button_title.new_bill'), target: '#newBillModal', icon: 'fa fa-refresh') %>
+          <%= dropdown_item_dashboard(t('.button_title.new_bill'), target: '#newBillModal', icon: 'fa fa-recycle') %>
         </div>
       </div>
 
@@ -37,7 +37,6 @@
   </div>
 </div>
 
-<%#= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>
 <%= render partial: "accounts/modals/new_account", locals: { account: @account = current_profile.accounts.new } %>
-<%= render partial: "#{params[:controller]}/modals/new_bill", locals: { bill: @bill = current_profile.bills.new } %>
+<%= render partial: "bills/modals/new_bill", locals: { bill: @bill = current_profile.bills.new } %>
 <%= render partial: "transactions/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>

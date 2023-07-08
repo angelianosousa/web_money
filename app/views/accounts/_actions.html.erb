@@ -1,7 +1,6 @@
 <div class='d-flex flex-row'>
   
   <%= link_to '', transactions_path(account), class: 'fa fa-money btn btn-outline-dark', data: { toggle: 'modal', target: '#newTransactionModal' }, style: 'padding: 6px 8px;' %>
-  <%#= modal_to_new_resource('', target: '#newTransactionModal', class_name: 'btn btn-outline-dark btn-sm', style_css: 'padding: 4px 8px;') %>
 
   <div class="dropdown dropleft">
     <%= link_to '#', class:'btn btn-outline-dark btn-sm', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>

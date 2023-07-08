@@ -5,7 +5,7 @@ class BillsController < ApplicationController
   def index
     @q = current_profile.bills.ransack(params[:q])
 
-    @bills = @q.result(distinct: true).includes(:transactions).page(params[:page]).order(:due_pay, :created_at)
+    @bills = @q.result(distinct: true).includes(:transactions).page(params[:page]).order(status: :asc, due_pay: :desc)
   end
 
   # GET /bills/1 or /bills/1.json
@@ -21,49 +21,28 @@ class BillsController < ApplicationController
   def create
     @bill = current_profile.bills.build(bill_params)
 
-    respond_to do |format|
-      if @bill.save
-        format.html { redirect_to bills_path, flash: { notice: t('.notice') } }
-        format.json { render :show, status: :created, location: @bill }
-      else
-        format.html { render :index, status: :unprocessable_entity, flash: { alert: @bill.errors.full_messages } }
-        format.json { render json: @bill.errors, status: :unprocessable_entity }
-      end
+    if @bill.save
+      flash.now[:success] = t('.notice')
+    else
+      flash.now[:danger] = @bill.errors.full_messages
     end
   end
 
   def new_transaction
-    # @bill     = current_profile.bills.find(params[:bill_id])
-    # @account  = current_profile.accounts.find(params[:account_id])
-    # @category = current_profile.categories.find(params[:category_id])
+    @bill = current_profile.bills.find(params.delete(:bill_id))
 
-    # @bill.transactions.build(
-    #   account_id: @account.id,
-    #   user_profile: current_profile,
-    #   description: params[:description],
-    #   price_cents: params[:price_cents],
-    #   category: @category,
-    #   date: Date.today.to_datetime
-    # )
-    @bill = current_profile.bills.find(params[:bill_id])
-    @transaction = @bill.transactions.build(
-      account_id: params[:account_id],
-      category_id: params[:category_id],
-      user_profile: current_profile,
-      description: params[:description],
-      price_cents: params[:price_cents].to_f,
-      date: Date.today.to_datetime
-    )
-
-    @bill.status  = :paid
-    @bill.due_pay += Date.today.next_month
+    if @bill.paid?
+      flash.now[:warning] = t('.bill_paid')
+      return
+    end
     
-    @bill.save!
-    # if @bill.save!
-    #   redirect_to bills_url, flash: { notice: t('.notice') }
-    # else
-    #   redirect_to bills_url, flash: { alert: @bill.errors.full_messages }
-    # end
+    @bill = CreatePayment.call(current_profile, @bill, params)
+    
+    if @bill.persisted?
+      flash.now[:success] = t('transactions.create.success')
+    else
+      flash.now[:danger] = @bill.errors.full_messages
+    end
   end
 
   # PATCH/PUT /bills/1 or /bills/1.json
@@ -97,6 +76,10 @@ class BillsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def bill_params
-    params.require(:bill).permit(:title, :price_cents, :due_pay, :bill_type, :status)
+    params.require(:bill).permit(:user_profile_id, :title, :price_cents, :due_pay, :bill_type, :status)
+  end
+
+  def transaction_params
+    params.require(:transaction).permit(:account_id, :category_id, :user_profile_id, :description, :price_cents, :date)
   end
 end

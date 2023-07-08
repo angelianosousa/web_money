@@ -20,7 +20,7 @@
 
 function showFlashNotification(message_type, message) {
   $.notify({
-    icon: 'fa fa-alert',
+    icon: 'fa fa-bell',
     message: message
   },{
     type: message_type,

@@ -1,6 +1,12 @@
 module CategoriesHelper
-  def category_options_for_select
-    current_profile.categories.collect { |c| [ c.title.upcase, c.id ] }
+  def category_options_for_select(filter='')
+    if filter == 'recipe'
+      current_profile.categories.recipes.collect { |c| [ c.title.upcase, c.id ] }
+    elsif filter == 'expense'
+      current_profile.categories.expenses.collect { |c| [ c.title.upcase, c.id ] }
+    else
+      current_profile.categories.collect { |c| [ c.title.upcase, c.id ] }
+    end
   end
 
   def navlink_category

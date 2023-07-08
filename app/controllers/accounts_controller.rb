@@ -14,15 +14,10 @@ class AccountsController < ApplicationController
   def create
     @account = current_profile.accounts.new(account_params)
 
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
-        format.json { render :show, status: :created, location: @account }
-        format.js
-      else
-        format.html { redirect_to accounts_url, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
+    if @account.save
+      flash.now[:success] = t('.notice')
+    else
+      flash.now[:danger] = @account.errors.full_messages
     end
   end
 

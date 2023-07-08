@@ -39,7 +39,7 @@ end
     title: bill,
     price_cents: rand(100..5000),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
-    bill_type: :pay,
+    bill_type: :expense,
     status: :pending,
     user_profile: user_profile
   )
@@ -51,7 +51,7 @@ end
     title: bill,
     price_cents: rand(100..5000),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
-    bill_type: :receive,
+    bill_type: :recipe,
     status: :pending,
     user_profile: user_profile
   )

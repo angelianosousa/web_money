@@ -1,3 +1,6 @@
 $('#newAccountModal').modal('hide');
-$("<%= escape_javascript(render @account) %>").appendTo("#accounts");
+<% if params[:controller] == 'account' %>
+  $("<%= escape_javascript(render @account) %>").appendTo("#accounts");
+<% end %>
+
 showFlashNotification('success', 'Conta adicionada com sucesso!!')
