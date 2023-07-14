@@ -2,5 +2,4 @@ $('#newTransactionModal').modal('hide');
 <% if params[:controller] == 'transaction' %>
   $("<%= escape_javascript(render @transaction) %>").appendTo("#transactions");
 <% end %>
-
-showFlashNotification('success', 'Movimentação adicionada com sucesso!!');
+<%= render 'shared/flash_messages' %>

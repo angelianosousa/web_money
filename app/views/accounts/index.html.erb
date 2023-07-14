@@ -1,4 +1,3 @@
-<%- model_class = Account -%>
 <div class="container">
   <nav class="navbar navbar-light">
     <%= navlink_account %>
@@ -26,6 +25,6 @@
   <%= paginate @accounts, outer_window: 3 %>
 </div>
 
-
 <%= render partial: "accounts/modals/new_account", locals: { account: @account = current_profile.accounts.new } %>
+<%= render partial: "accounts/modals/transfer" %>
 <%= render partial: "transactions/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>

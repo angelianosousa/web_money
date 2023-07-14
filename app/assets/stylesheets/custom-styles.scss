@@ -1,8 +1,9 @@
 @import 'colors';
 @import 'sidebar';
 
-h1, h2, h3, h4, h5, h6 {
+a.navbar-brand, h1, h2, h3, h4, h5, h6 {
   color: $web-money-orange !important;
+  font-family: 'Oswald', sans-serif !important;
 }
 
 p {

@@ -2,4 +2,4 @@ $('#newBillModal').modal('hide');
 <% if params[:controller] == 'bill' %>
   $("<%= escape_javascript(render @bill) %>").appendTo("#bills");
 <% end %>
-<%= render 'shared/flash_now_messages' %>
+<%= render 'shared/flash_messages' %>

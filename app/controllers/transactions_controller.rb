@@ -10,7 +10,7 @@ class TransactionsController < ApplicationController
 
     @balance = current_profile.accounts.sum(:price_cents)
 
-    # @transactions = current_profile.transactions.default(params[:page], 10, @transactions)
+    @transactions = current_profile.transactions.default(params[:page], 10, @transactions)
   end
 
   # GET /transactions/1/edit
@@ -19,24 +19,23 @@ class TransactionsController < ApplicationController
 
   # POST /transactions or /transactions.json
   def create
-    @transaction = current_profile.transactions.new(transaction_params)
-    @transaction.bill_id = params[:bill_id] if params[:bill_id].present?
+    @transaction = CreateTransaction.call(current_profile, transaction_params)#current_profile.transactions.new(transaction_params)
 
     respond_to do |format|
-      if @transaction.save
+      if  @transaction.nil?
+        format.html { redirect_to transactions_path, flash: { alert: 'Saldo insuficiente' } }
+      elsif@transaction.save
         format.html { redirect_to transactions_path, flash: { notice: t('.notice') } }
-        format.json { render :index, status: :created, location: @transaction }
-        format.js
+        format.js { flash.now[:notice] = t('.notice') }
       else
         format.html { redirect_to transactions_url, flash: { alert: @transaction.errors.full_messages } }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        format.js { flash.now[:alert] = @transaction.errors.full_messages }
       end
     end
   end
 
   # PATCH/PUT /transactions/1 or /transactions/1.json
   def update
-    @transaction.user_profile_id = current_user.user_profile.id
     respond_to do |format|
       if @transaction.update(transaction_params)
         format.html { redirect_to transactions_path, flash: { notice: t('.notice') } }
@@ -56,7 +55,7 @@ class TransactionsController < ApplicationController
     @transaction.destroy
 
     respond_to do |format|
-      format.html { redirect_to transactions_url, flash: { notice: t('.notice') } }
+      format.html { redirect_to transactions_url, flash: { notice: [t('.notice')] } }
       format.json { head :no_content }
     end
   end

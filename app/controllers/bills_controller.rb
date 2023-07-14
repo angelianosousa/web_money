@@ -22,9 +22,9 @@ class BillsController < ApplicationController
     @bill = current_profile.bills.build(bill_params)
 
     if @bill.save
-      flash.now[:success] = t('.notice')
+      flash.now[:notice] = [t('.notice')]
     else
-      flash.now[:danger] = @bill.errors.full_messages
+      flash.now[:alert] = @bill.errors.full_messages
     end
   end
 
@@ -32,16 +32,16 @@ class BillsController < ApplicationController
     @bill = current_profile.bills.find(params.delete(:bill_id))
 
     if @bill.paid?
-      flash.now[:warning] = t('.bill_paid')
+      flash.now[:warning] = [t('.bill_paid')]
       return
     end
     
     @bill = CreatePayment.call(current_profile, @bill, params)
     
     if @bill.persisted?
-      flash.now[:success] = t('transactions.create.success')
+      flash.now[:notice] = [t('transactions.create.notice')]
     else
-      flash.now[:danger] = @bill.errors.full_messages
+      flash.now[:alert] = @bill.errors.full_messages
     end
   end
 
@@ -49,7 +49,7 @@ class BillsController < ApplicationController
   def update
     respond_to do |format|
       if @bill.update(bill_params)
-        format.html { redirect_to bills_path, flash: { notice: t('.notice') } }
+        format.html { redirect_to bills_path, flash: { notice: [t('.notice')] } }
         format.json { render :show, status: :ok, location: @bill }
       else
         format.html { render :edit, status: :unprocessable_entity, flash: { alert: @bill.errors.full_messages } }
@@ -63,7 +63,7 @@ class BillsController < ApplicationController
     @bill.destroy
 
     respond_to do |format|
-      format.html { redirect_to bills_path, flash: { notice: t('.notice') } }
+      format.html { redirect_to bills_path, flash: { notice: [t('.notice')] } }
       format.json { head :no_content }
     end
   end

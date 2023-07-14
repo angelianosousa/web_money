@@ -6,7 +6,7 @@ module TransactionsHelper
   end
 
   def value_style(transaction)
-    symbol, style = (transaction.category.category_type == 'recipe') ? ['fa fa-caret-up text-success'] : ['fa fa-caret-down text-danger']
+    symbol, style = (transaction.category.category_type == 'recipe') ? ['fa fa-arrow-up text-success'] : ['fa fa-arrow-down text-danger']
 
     content_tag(:p, "#{humanized_money_with_symbol(transaction.price_cents)}",class: "#{symbol}")
   end
