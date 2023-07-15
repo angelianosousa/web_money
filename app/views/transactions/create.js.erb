@@ -1,5 +1,2 @@
 $('#newTransactionModal').modal('hide');
-<% if params[:controller] == 'transaction' %>
-  $("<%= escape_javascript(render @transaction) %>").appendTo("#transactions");
-<% end %>
-<%= render 'shared/flash_messages' %>
+<%= render 'shared/flash_now_messages' %>

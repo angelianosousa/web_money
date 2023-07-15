@@ -6,32 +6,27 @@ class TransferBetweenAccounts < ApplicationService
   def initialize(profile, params)
     @profile         = profile
     @params          = params
-    @category_id_in  = @profile.categories.find_by(title: 'Transferência entrada').id
-    @category_id_out = @profile.categories.find_by(title: 'Transferência saída').id
-    @transaction_in  = nil
-    @transaction_out = nil
+    
+    
   end
 
   def call
+    return false if accounts_equals? or invalid_excharge
+
     ActiveRecord::Base.transaction do
       create_excharge
       create_deposit
-
-      return false if accounts_equals? or @transaction_out.nil? or invalid_excharge
-
-      @transaction_out.save
-      @transaction_in.save
     end
 
     true
   end
 
   def create_excharge
-    @transaction_out = CreateTransaction.call(@profile, transaction_params.merge!({ category_id: @category_id_out, account_id: @params[:account_id_out] }))
+    CreateTransaction.call(@profile, transaction_params.merge!({ category_id: category_expense(), account_id: @params[:account_id_out] }))
   end
 
   def create_deposit
-    @transaction_in = CreateTransaction.call(@profile, transaction_params.merge!({ category_id: @category_id_in, account_id: @params[:account_id_in] }))
+    CreateTransaction.call(@profile, transaction_params.merge!({ category_id: category_recipe(), account_id: @params[:account_id_in] }))
   end
 
   private
@@ -41,7 +36,19 @@ class TransferBetweenAccounts < ApplicationService
   end
 
   def invalid_excharge
-    @transaction_out.account.price_cents < @transaction_out.price_cents
+    account_out.price_cents < @params[:price_cents].to_f
+  end
+
+  def account_out
+    @profile.accounts.find(@params[:account_id_out])
+  end
+
+  def category_recipe
+    @profile.categories.find_by(title: 'Transferência entrada').id
+  end
+
+  def category_expense
+    @profile.categories.find_by(title: 'Transferência saída').id
   end
 
   def transaction_params

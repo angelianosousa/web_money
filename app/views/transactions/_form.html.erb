@@ -1,7 +1,7 @@
 <%= form_with(model: @transaction, local: local) do |form| %>
 
   <div class="row">
-    <div class="col-md-6 col-xl-6 col-sm-6">
+    <div class="col-md-6">
       <div class="form-group">
         <%= form.label :price_cents %>
         <%= form.number_field :price_cents, step: :any, class:"form-control" %>
@@ -11,7 +11,7 @@
         <%= form.date_field :date, class:"form-control", min: Date.today.beginning_of_month, value: Date.today %>
       </div>
     </div>
-    <div class="col-md-6 col-xl-6 col-sm-6">
+    <div class="col-md-6">
       <div class="form-group">
         <%= form.label :category_id %>
         <%= form.select :category_id, options_for_select(category_options_for_select, (@transaction.category_id rescue nil)), {}, {class:"form-control"} %>
