@@ -62,7 +62,6 @@ class Transaction < ApplicationRecord
   def check_excharge
     if category.category_type == 'expense'
       @account = Account.find(account_id)
-      errors.add :base, :invalid_operation, message: 'Saldo insuficiente.' if @account.price_cents < price_cents
       @account.price_cents -= price_cents.to_i
       @account.save
     end

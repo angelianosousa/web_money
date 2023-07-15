@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
     params[:q] ||= { user_profile_id_eq: current_profile.id }
 
     @q = current_profile.transactions.ransack(params[:q])
-    @transactions = @q.result.page(params[:page]).order(created_at: :desc)
+    @transactions = @q.result.page(params[:page]).order(date: :desc, created_at: :desc)
 
     @balance = current_profile.accounts.sum(:price_cents)
 
@@ -19,12 +19,10 @@ class TransactionsController < ApplicationController
 
   # POST /transactions or /transactions.json
   def create
-    @transaction = CreateTransaction.call(current_profile, transaction_params)#current_profile.transactions.new(transaction_params)
+    @transaction = CreateTransaction.call(current_profile, transaction_params)
 
     respond_to do |format|
-      if  @transaction.nil?
-        format.html { redirect_to transactions_path, flash: { alert: 'Saldo insuficiente' } }
-      elsif@transaction.save
+      if @transaction.errors.none?
         format.html { redirect_to transactions_path, flash: { notice: t('.notice') } }
         format.js { flash.now[:notice] = t('.notice') }
       else

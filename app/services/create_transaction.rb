@@ -8,7 +8,9 @@ class CreateTransaction < ApplicationService
   end
 
   def call
-    return nil if invalid_excharge
+    valid_transaction if @category.expense?
+
+    return @transaction unless @transaction.errors.none?
 
     Transaction.transaction do
       @transaction.user_profile = @profile
@@ -16,6 +18,7 @@ class CreateTransaction < ApplicationService
       @transaction.price_cents  = @transaction_params[:price_cents].to_f
       @transaction.category     = @category
       @transaction.date         = Date.today.to_datetime
+      @transaction.save
     end
 
     return @transaction
@@ -23,7 +26,11 @@ class CreateTransaction < ApplicationService
 
   private
 
-  def invalid_excharge
-    @account.price_cents < @transaction_params[:price_cents].to_f
+  def validate_excharge
+    @account.price_cents > @transaction_params[:price_cents].to_f
+  end
+
+  def valid_transaction
+    @transaction.errors.add :base, :invalid, message: "Conta #{@account.title} não possui saldo suficiente." unless validate_excharge
   end
 end
