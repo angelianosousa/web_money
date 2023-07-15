@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def fontawesome_icon(text, icon_class, style_css='')
-    tag.i("#{text}", class: "#{icon_class}", style: style_css)
+    tag.i("#{text}", class: icon_class, style: style_css)
   end
 
   def filter
@@ -18,13 +18,13 @@ module ApplicationHelper
   end
 
   def modal_to_new_resource(text, target: '', class_name: 'btn btn-outline-dark btn-sm btn-round my-sm-3', style_css: 'width:140px')
-    link_to '#', class: "#{class_name}", "data-toggle":"modal", "data-target":"#{target}", style:"#{style_css}" do
+    link_to '#', class: class_name, data: { toggle: 'modal', target: target}, style: style_css do
       "#{fontawesome_icon(text, 'fa fa-plus-square')}".html_safe
     end
   end
 
   def modal_to_pay_resource(text, target: '', width: '140px')
-    link_to '#', class: "btn-sm", data: { toggle: "modal", target: "#{target}"}, style:"width:#{width}" do
+    link_to '#', class: "btn-sm", data: { toggle: "modal", target: target}, style:"width:#{width}" do
       "#{fontawesome_icon(text, 'fa fa-money')}".html_safe
     end
   end
@@ -58,23 +58,3 @@ module ApplicationHelper
     end
   end
 end
-
-# <div class="dropdown dropleft">
-#   <%= link_to '#', class:'btn btn-outline-dark btn-sm btn-round', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>
-#     <span class='icon'><i class='fa fa-sort-desc'></i></span>
-#   <% end %>
-#   <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
-#     <%= link_to bill_path(bill), class:'dropdown-item', style:'font-size:15px;' do %>
-#       <span class='icon'><i class="fa fa-eye pull-right" style='font-size:18px;'></i></span> Editar
-#     <% end %>
-#     <%= link_to edit_bill_path(bill), class:'dropdown-item', style:'font-size:15px;' do %>
-#       <span class='icon'><i class="fa fa-pencil pull-right" style='font-size:18px;'></i></span> Editar
-#     <% end %>
-#     <%= link_to bill_path(bill), class:'dropdown-item', style:'font-size:15px;', method: :delete, data: { confirm: t('are_you_sure?') } do %>
-#       <span class='icon'><i class="fa fa-trash pull-right" style='font-size:18px;'></i></span> Deletar
-#     <% end %>
-#     <%= link_to '#', class: "dropdown-item", style:'font-size:15px;', "data-toggle":"modal", "data-target":"#paymentModal_#{bill.id}" do %>
-#       <span class='icon'><i class="fa fa-money pull-right" style='font-size:18px;'></i></span> Pagar
-#     <% end %>
-#   </div>
-# </div>

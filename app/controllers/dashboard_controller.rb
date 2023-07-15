@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to root_path, flash: { notice: t('.notice') } }
+        format.html { redirect_to root_path, flash: { notice: [t('.notice')] } }
         format.json { render :index, status: :created, location: @transaction }
         format.js
       else
@@ -32,7 +32,7 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to root_path, flash: { notice: t('.notice') } }
+        format.html { redirect_to root_path, flash: { notice: [t('.notice')] } }
         format.json { render :show, status: :created, location: @account }
       else
         format.html { render root_path, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
@@ -46,7 +46,7 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to root_path, flash: { notice: t('.notice') } }
+        format.html { redirect_to root_path, flash: { notice: [t('.notice')] } }
         format.json { render :show, status: :created, location: @bill }
       else
         format.html { render root_path, status: :unprocessable_entity, flash: { alert: @bill.errors.full_messages } }

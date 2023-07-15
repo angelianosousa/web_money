@@ -14,7 +14,7 @@
     <div class='card-header'>
       <% amount_recipes = current_profile.transactions.recipes.sum(:price_cents) %>
       <span class='icon'>
-        <i class='fa fa-arrow-up' style='font-size:20px;'></i>
+        <i class='fa fa-arrow-up mr-2' style='font-size:20px;'></i>
         <%= t '.recipes', amount: humanized_money_with_symbol(amount_recipes) %>
       </span>
     </div>
@@ -45,7 +45,7 @@
     <div class='card-header'>
       <% amount_expenses = current_profile.transactions.expenses.sum(:price_cents) %>
       <span class='icon'>
-        <i class='fa fa-arrow-down' style='font-size:20px;'></i>
+        <i class='fa fa-arrow-down mr-2' style='font-size:20px;'></i>
         <%= t '.expenses', amount: humanized_money_with_symbol(amount_expenses) %>
       </span>
     </div>
