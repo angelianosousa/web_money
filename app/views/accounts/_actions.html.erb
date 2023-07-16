@@ -1,13 +1,19 @@
-<div class="dropdown dropleft">
-  <%= link_to '#', class:'btn btn-outline-dark btn-sm', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>
-    <span class='icon'><i class='fa fa-bars'></i></span>
-  <% end %>
-  <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
-    <%= link_to edit_account_path(account), class:'dropdown-item', style:'font-size:12px;' do %>
-      <span class='icon'><i class="fa fa-pencil pull-right" style='font-size:12px;'></i></span> Editar
+<div class='d-flex flex-row'>
+  
+  <%= link_to '', '#', class: 'fa fa-money btn btn-outline-dark', data: { toggle: 'modal', target: '#newTransactionModal' }, style: 'padding: 6px 8px;' %>
+  <%= link_to '', '#', class: 'fa fa-exchange btn btn-outline-dark', data: { toggle: 'modal', target: '#newTransferAccountModal' }, style: 'padding: 6px 8px;' %>
+
+  <div class="dropdown dropleft">
+    <%= link_to '#', class:'btn btn-outline-dark btn-sm', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>
+      <span class='icon'><i class='fa fa-bars'></i></span>
     <% end %>
-    <%= link_to account_path(account), class:'dropdown-item', style:'font-size:12px;', method: :delete, data: { confirm: t('are_you_sure?') } do %>
-      <span class='icon'><i class="fa fa-trash pull-right" style='font-size:12px;'></i></span> Deletar
-    <% end %>
+    <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
+      <%= link_to edit_account_path(account), class:'dropdown-item', style:'font-size:12px;' do %>
+        <span class='icon'><i class="fa fa-pencil pull-right" style='font-size:12px;'></i></span> Editar
+      <% end %>
+      <%= link_to account_path(account), class:'dropdown-item', style:'font-size:12px;', method: :delete, data: { confirm: t('are_you_sure?') } do %>
+        <span class='icon'><i class="fa fa-trash pull-right" style='font-size:12px;'></i></span> Deletar
+      <% end %>
+    </div>
   </div>
 </div>

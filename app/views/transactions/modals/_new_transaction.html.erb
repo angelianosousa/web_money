@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= render 'form', transaction: @transaction, url: transactions_path %>
+        <%= render 'transactions/form', transaction: @transaction, local: true %>
       </div>
     </div>
   </div>

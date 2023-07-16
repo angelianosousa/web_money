@@ -10,7 +10,7 @@
         date: Dia do pagamento
         category_id: Categoria
         bill_id: Recorrência
-        account_id: Fonte
+        account_id: Conta
       errors:
         models:
           transaction:

@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = current_profile.accounts.page(params[:page])
+    @accounts = current_profile.accounts.page(params[:page]).order(created_at: :desc)
   end
 
   # GET /accounts/1/edit
@@ -16,11 +16,11 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
-        format.json { render :show, status: :created, location: @account }
+        format.html { redirect_to accounts_path, flash: { notice: t('.notice') }}
+        format.js { flash.now[:notice] = t('.notice') }
       else
-        format.html { redirect_to accounts_url, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+        format.html { redirect_to accounts_path, flash: { alert: @account.errors.full_messages } }
+        format.js { flash.now[:alert] = @account.errors.full_messages }
       end
     end
   end
@@ -39,22 +39,33 @@ class AccountsController < ApplicationController
   end
 
   def new_transaction
-    @account      = current_profile.accounts.find(params[:account_id])
-    @category     = current_profile.categories.find(params[:category_id])
+    @account = CreateTransaction.call(current_profile, params)
+    # @account      = current_profile.accounts.find(params[:account_id])
+    # @category     = current_profile.categories.find(params[:category_id])
 
-    @account.transactions.create!(
-      account_id: @account.id,
-      user_profile: current_profile,
-      description: params[:description],
-      price_cents: params[:price_cents].to_i,
-      category: @category,
-      date: Date.today.to_datetime
-    )
+    # @account.transactions.create!(
+    #   account: @account,
+    #   user_profile: current_profile,
+    #   description: params[:description],
+    #   price_cents: params[:price_cents].to_i,
+    #   category: @category,
+    #   date: Date.today.to_datetime
+    # )
     
-    if @account.save!
+    if @account.save
       redirect_to accounts_url, flash: { notice: t('.notice') }
     else
       redirect_to accounts_url, flash: { alert: @account.errors.full_messages }
+    end
+  end
+
+  def transfer_between_accounts
+    @result = TransferBetweenAccounts.call(current_profile, params)
+    
+    if @result
+      redirect_to accounts_path, flash: { notice: t('.notice') }
+    else
+      redirect_to accounts_path, flash: { alert: 'Saldo insuficiente para operação' }
     end
   end
 

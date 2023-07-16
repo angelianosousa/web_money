@@ -22,18 +22,18 @@
 @import 'custom-styles';
 
 * {
-  font-family: "Oswald", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .balance-diary {
   background-color: $web-money-dark-green;
-  color: white;
+  color: $web-money-white;
   border-radius: 20px !important;
  }
 
 .my-finances-navbar{
   background-color: $web-money-dark-green;
-  color: white!important;
+  color: $web-money-white!important;
   border-radius: 10px;
 }
 
@@ -42,7 +42,7 @@
   
   & > .card-header {
     background-color: $web-money-blue;
-    color: white!important;
+    color: $web-money-white!important;
   }
 }
 
@@ -51,7 +51,7 @@
 
   & > .card-header {
     background-color: $web-money-dark-green;
-    color: white!important;
+    color: $web-money-white!important;
   }
 }
 
@@ -60,6 +60,6 @@
   
   & > .card-header {
     background-color: $web-money-red;
-    color: white!important;
+    color: $web-money-white!important;
   }
 }

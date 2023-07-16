@@ -29,6 +29,7 @@
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
 class Transaction < ApplicationRecord
+  enum move_type: %i[recipe expense]
 
   # Record Relations
   belongs_to :account
@@ -44,13 +45,26 @@ class Transaction < ApplicationRecord
   validates :date, presence: true
 
   # Callbacks
-  after_save :operate_account
+  # before_save :operate_account
+  before_save :check_deposit
+  before_save :check_excharge
 
-  def operate_account
-    @account = Account.find(account_id)
-    @account.price_cents -= price_cents.to_i if category.category_type == 'expense'
-    @account.price_cents += price_cents.to_i if category.category_type == 'recipe'
-    @account.save
+  paginates_per 7
+
+  def check_deposit
+    if category.category_type == 'recipe'
+      @account = Account.find(account_id)
+      @account.price_cents += price_cents.to_i
+      @account.save
+    end
+  end
+
+  def check_excharge
+    if category.category_type == 'expense'
+      @account = Account.find(account_id)
+      @account.price_cents -= price_cents.to_i
+      @account.save
+    end
   end
 
   # Scope Methods

@@ -4,7 +4,11 @@
 #
 #  id              :bigint           not null, primary key
 #  bill_type       :integer
+<<<<<<< HEAD
 #  due_pay         :date             default(Sat, 15 Jul 2023)
+=======
+#  due_pay         :date             default(Fri, 14 Jul 2023)
+>>>>>>> c73be997f845931cf29db73f143d62a23af4f556
 #  price_cents     :decimal(, )
 #  status          :integer          default("pending")
 #  title           :string
@@ -22,7 +26,7 @@
 #
 class Bill < ApplicationRecord
   enum status: %i[pending paid]
-  enum bill_type: %i[pay receive]
+  enum bill_type: %i[recipe expense]
 
   validates :due_pay, :title, presence: true
   validates :price_cents, presence: true, numericality: { greater_than: 0 }
@@ -33,5 +37,5 @@ class Bill < ApplicationRecord
   monetize :price_cents
   register_currency :brl
 
-  paginates_per 10
+  paginates_per 9
 end
