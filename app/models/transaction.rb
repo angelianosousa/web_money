@@ -69,7 +69,7 @@ class Transaction < ApplicationRecord
 
   # Scope Methods
 
-  scope :default, ->(page, count_objects, transactions){
+  scope :default, ->(transactions){
     @transaction_per_days = {}
 
     transactions_days_for_current_user = transactions.pluck(:date)
@@ -78,7 +78,7 @@ class Transaction < ApplicationRecord
       @transaction_per_days["#{day.strftime('%d/%m/%Y')}"] = transactions.select { |transaction| transaction.date.beginning_of_day == day.beginning_of_day }
     end
 
-    Kaminari.paginate_array(@transaction_per_days.to_a).page(page).per(count_objects)
+    Kaminari.paginate_array(@transaction_per_days.to_a)
   }
   
   scope :recipes,-> (){

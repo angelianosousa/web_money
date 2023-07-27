@@ -6,11 +6,11 @@ class TransactionsController < ApplicationController
     params[:q] ||= { user_profile_id_eq: current_profile.id }
 
     @q = current_profile.transactions.ransack(params[:q])
-    @transactions = @q.result.page(params[:page]).order(date: :desc, created_at: :desc)
+    @transactions = @q.result.order(date: :desc)
 
     @balance = current_profile.accounts.sum(:price_cents)
 
-    @transactions = current_profile.transactions.default(params[:page], 10, @transactions)
+    @transactions = current_profile.transactions.default(@transactions).page(params[:page]).per(5)
   end
 
   # GET /transactions/1/edit
