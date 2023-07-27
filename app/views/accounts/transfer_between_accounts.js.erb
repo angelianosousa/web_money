@@ -1,6 +1,2 @@
 $('#newTransferAccountModal').modal('hide');
-<% if params[:controller] == 'account' %>
-  $("<%= escape_javascript(render @account_in) %>").appendTo("#accounts");
-<% end %>
-
 showFlashNotification('success', 'Transferência concluída com sucesso!!')
