@@ -2,7 +2,8 @@
 
 ## Descrição
 
-O objetivo desse projeto é implementar um sistema de finanças pessoal onde os desenvolvedores podem gerenciar suas finanças acompanhando suas movimentações, contas a pagar/receber e visualizar o desempenho de meses anteriores atráves dos gráficos.
+***
+Breve descrição do projeto.
 
 ## Próximos passos
 * Adicionar configuração de notificação de recorrências

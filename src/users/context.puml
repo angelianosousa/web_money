@@ -1,0 +1,7 @@
+!include <C4/C4_Container>
+
+@startjson C4_Elements
+
+  {"id":1,"email":"user1@user.com","created_at":"2023-07-29T22:02:44.760Z","updated_at":"2023-07-29T22:02:44.760Z"}
+
+@endjson
