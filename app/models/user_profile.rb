@@ -28,4 +28,5 @@ class UserProfile < ApplicationRecord
   has_many :categories,   dependent: :destroy
   has_many :accounts,     dependent: :destroy
   has_many :bills,        dependent: :destroy
+  has_many :plans,        dependent: :destroy
 end

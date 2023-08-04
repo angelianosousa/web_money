@@ -1,0 +1,17 @@
+---
+'pt-BR':
+  plans:
+    index:
+      new_resource: ' Add Plano'
+      title: Planos
+    edit:
+      title: Editar plano
+    modals:
+      new:
+        title: Novo plano
+    create:
+      notice: Plano criado com sucesso!!
+    update:
+      notice: Plano atualizado com sucesso!!
+    destroy:
+      notice: Plano removido com sucesso!!

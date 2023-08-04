@@ -1,0 +1,9 @@
+<%= link_to edit_plan_path(plan), class:'btn' do %>
+  <span class='icon'><i class="fa fa-pencil text-white"></i></span>
+<% end %>
+<%= link_to plan_path(plan), class:'btn', method: :delete, data: { confirm: t('are_you_sure?') } do %>
+  <span class='icon'><i class="fa fa-trash text-white"></i></span>
+<% end %>
+<%= link_to '#', class: 'btn', data: { toggle: 'collapse', target: "#plan-#{plan.id}" }, aria: { expanded: 'false', controls: "plan-#{plan.id}" } do %>
+  <span class='icon'><i class="fa fa-chevron-right text-white"></i></span>
+<% end %>

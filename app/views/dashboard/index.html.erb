@@ -1,7 +1,8 @@
 <div class='container mb-4' style="padding-bottom: 70px;">
 
   <nav class="navbar navbar-light">
-    <%= navlink_dashboard %>
+    <% text = "#{t '.title'} - #{l(Date.today, format: :short)}" %>
+    <%= navlink_header text %>
 
     <div class='d-flex justify-content-center align-items-center'>
       <% date_today = Date.today.last_month %>

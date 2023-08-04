@@ -17,7 +17,7 @@ Rails.application.config.assets.precompile += %w(
 
 # lib/assets
 Rails.application.config.assets.precompile += %w( 
-  custom.css
+  custom.css  
 )
 
 # Precompile additional assets.

@@ -1,0 +1,22 @@
+<div class="container">
+  <nav class="navbar navbar-light">
+    <% text = "#{t '.title', balance: humanized_money_with_symbol(@balance)}" %>
+    <%= navlink_header text %>
+
+    <div class='d-flex flex-row justify-content-right align-items-center'>
+      <%= modal_to_new_resource(t('.new_resource'), target: '#newPlanModal') %>
+    </div>
+  </nav>
+</div><br>
+
+<% @plans.each do |plan| %>
+  <div class="accordion" id="accordionPlan">
+    <div class="card mb-3" style='border-radius: 15px;'>
+      <%= render 'accordion_header', plan: plan %>
+      <%= render 'accordion_content', plan: plan %>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: "#{params[:controller]}/modals/new", locals: { plan: @plan = current_profile.plans.build } %>
+

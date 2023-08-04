@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_29_043653) do
+ActiveRecord::Schema.define(version: 2023_08_04_022736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,24 @@ ActiveRecord::Schema.define(version: 2023_03_29_043653) do
     t.index ["user_profile_id"], name: "index_notifications_on_user_profile_id"
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.datetime "date_limit"
+    t.bigint "user_profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_profile_id"], name: "index_plans_on_user_profile_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.boolean "done", default: false
+    t.bigint "plan_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id"], name: "index_tasks_on_plan_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.decimal "price_cents", default: "0.0", null: false
     t.string "price_currency", default: "BRL", null: false
@@ -119,6 +137,8 @@ ActiveRecord::Schema.define(version: 2023_03_29_043653) do
   add_foreign_key "bills", "user_profiles"
   add_foreign_key "categories", "user_profiles"
   add_foreign_key "notifications", "user_profiles"
+  add_foreign_key "plans", "user_profiles"
+  add_foreign_key "tasks", "plans"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "bills"
   add_foreign_key "transactions", "categories"
