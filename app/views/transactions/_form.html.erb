@@ -11,6 +11,7 @@
         <%= form.date_field :date, class:"form-control", min: Date.today.beginning_of_month, value: Date.today %>
       </div>
     </div>
+
     <div class="col-md-6">
       <div class="form-group">
         <%= form.label :category_id %>
@@ -21,6 +22,14 @@
         <%= form.select :account_id, accounts_options_for_select, {}, { class:'form-control' } %>
       </div>
     </div>
+
+    <div class='col-md-12'>
+      <div class="form-group">
+        <%= form.label :budget_id %>
+        <%= form.select :budget_id, budget_options_for_select, { include_blank: true }, { class:"form-control" } %>
+      </div>
+    </div>
+
     <div class='col-md-12'>
       <div class="form-group">
         <%= form.label :description %>

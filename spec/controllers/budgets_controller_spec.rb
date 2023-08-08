@@ -23,10 +23,10 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe PlansController, type: :controller do
+RSpec.describe BudgetsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Plan. As you add validations to Plan, be sure to
+  # Budget. As you add validations to Budget, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -38,12 +38,12 @@ RSpec.describe PlansController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # PlansController. Be sure to keep this updated too.
+  # BudgetsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
     it "returns a success response" do
-      Plan.create! valid_attributes
+      Budget.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -51,8 +51,8 @@ RSpec.describe PlansController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      plan = Plan.create! valid_attributes
-      get :show, params: {id: plan.to_param}, session: valid_session
+      budget = Budget.create! valid_attributes
+      get :show, params: {id: budget.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -66,29 +66,29 @@ RSpec.describe PlansController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
-      plan = Plan.create! valid_attributes
-      get :edit, params: {id: plan.to_param}, session: valid_session
+      budget = Budget.create! valid_attributes
+      get :edit, params: {id: budget.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Plan" do
+      it "creates a new Budget" do
         expect {
-          post :create, params: {plan: valid_attributes}, session: valid_session
-        }.to change(Plan, :count).by(1)
+          post :create, params: {budget: valid_attributes}, session: valid_session
+        }.to change(Budget, :count).by(1)
       end
 
-      it "redirects to the created plan" do
-        post :create, params: {plan: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Plan.last)
+      it "redirects to the created budget" do
+        post :create, params: {budget: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(Budget.last)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {plan: invalid_attributes}, session: valid_session
+        post :create, params: {budget: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
@@ -100,41 +100,41 @@ RSpec.describe PlansController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested plan" do
-        plan = Plan.create! valid_attributes
-        put :update, params: {id: plan.to_param, plan: new_attributes}, session: valid_session
-        plan.reload
+      it "updates the requested budget" do
+        budget = Budget.create! valid_attributes
+        put :update, params: {id: budget.to_param, budget: new_attributes}, session: valid_session
+        budget.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the plan" do
-        plan = Plan.create! valid_attributes
-        put :update, params: {id: plan.to_param, plan: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(plan)
+      it "redirects to the budget" do
+        budget = Budget.create! valid_attributes
+        put :update, params: {id: budget.to_param, budget: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(budget)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        plan = Plan.create! valid_attributes
-        put :update, params: {id: plan.to_param, plan: invalid_attributes}, session: valid_session
+        budget = Budget.create! valid_attributes
+        put :update, params: {id: budget.to_param, budget: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested plan" do
-      plan = Plan.create! valid_attributes
+    it "destroys the requested budget" do
+      budget = Budget.create! valid_attributes
       expect {
-        delete :destroy, params: {id: plan.to_param}, session: valid_session
-      }.to change(Plan, :count).by(-1)
+        delete :destroy, params: {id: budget.to_param}, session: valid_session
+      }.to change(Budget, :count).by(-1)
     end
 
-    it "redirects to the plans list" do
-      plan = Plan.create! valid_attributes
-      delete :destroy, params: {id: plan.to_param}, session: valid_session
-      expect(response).to redirect_to(plans_url)
+    it "redirects to the budgets list" do
+      budget = Budget.create! valid_attributes
+      delete :destroy, params: {id: budget.to_param}, session: valid_session
+      expect(response).to redirect_to(budgets_url)
     end
   end
 

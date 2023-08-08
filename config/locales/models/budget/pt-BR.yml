@@ -2,7 +2,8 @@
 'pt-BR':
   activerecord:
     attributes:
-      plan:
-        name: Nome
+      budget:
+        objective_name: Nome
         date_limit: Data limite
         user_profile_id: Perfil
+        goals_price: Valor

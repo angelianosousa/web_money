@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :plans
+  resources :budgets
   devise_for :users
 
   resources :dashboard, only: :index do

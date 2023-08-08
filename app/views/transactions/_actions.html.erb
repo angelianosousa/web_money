@@ -1,6 +1,6 @@
 <div class="dropdown dropleft">
   <%= link_to '#', class:'btn btn-sm', style:'padding: 0px 10px 2px 10px; border-radius: 50%;', data: { toggle: 'dropdown'}, aria: { haspopup: 'true', expanded: 'false' } do %>
-    <span class='icon'><i class='fa fa-bars'></i></span>
+    <span class='icon'><i class='fa fa-ellipsis-v'></i></span>
   <% end %>
   <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
     <%= link_to '#', class: "dropdown-item", style:'font-size:15px;', "data-toggle":"modal", "data-target":"#showTransactionModal_#{transaction.id}" do %>
@@ -14,3 +14,5 @@
     <% end %>
   </div>
 </div>
+
+<%= render partial: "transactions/modals/show", locals: { transaction: transaction } %>

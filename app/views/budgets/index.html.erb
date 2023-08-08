@@ -1,0 +1,21 @@
+<div class="container">
+  <nav class="navbar navbar-light">
+    <%= navlink_header %>
+
+    <div class='d-flex flex-row justify-content-right align-items-center'>
+      <%= modal_to_new_resource(t('.new_resource'), target: '#newBudgetModal') %>
+    </div>
+  </nav>
+
+<% @budgets.each do |budget| %>
+  <div class="accordion" id="accordionBudget">
+    <div class="card mb-3" style='border-radius: 15px;'>
+      <%= render 'accordion_header', budget: budget %>
+      <%= render 'accordion_content', budget: budget %>
+    </div>
+  </div>
+<% end %>
+
+</div>
+
+<%= render partial: "#{params[:controller]}/modals/new", locals: { budget: @budget = current_profile.budgets.build } %>

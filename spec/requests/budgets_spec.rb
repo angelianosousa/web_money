@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Plans", type: :request do
-  describe "GET /plans" do
+RSpec.describe "Budgets", type: :request do
+  describe "GET /budgets" do
     it "works! (now write some real specs)" do
-      get plans_path
+      get budgets_path
       expect(response).to have_http_status(200)
     end
   end

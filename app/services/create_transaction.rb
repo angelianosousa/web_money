@@ -3,6 +3,7 @@ class CreateTransaction < ApplicationService
     @profile            = profile
     @category           = @profile.categories.find(params.delete(:category_id))
     @account            = @profile.accounts.find(params.delete(:account_id))
+    @budget             = @profile.budgets.find(params.delete(:budget_id)) if params[:budget_id].present?
     @transaction        = @account.transactions.build
     @transaction_params = params
   end
@@ -17,6 +18,7 @@ class CreateTransaction < ApplicationService
       @transaction.description  = @transaction_params[:description]
       @transaction.price_cents  = @transaction_params[:price_cents].to_f
       @transaction.category     = @category
+      @transaction.budget       = @budget if @budget.present?
       @transaction.date         = Date.today.to_datetime
       @transaction.save
     end

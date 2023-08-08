@@ -11,6 +11,7 @@
         category_id: Categoria
         bill_id: Recorrência
         account_id: Conta
+        budget_id: Orçamento
       errors:
         models:
           transaction:

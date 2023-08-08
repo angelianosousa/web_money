@@ -12,7 +12,7 @@
       categories: Categorias
       dashboard: Painel
       users: User
-      plans: Planos
+      budgets: Orçamentos
     navbar:
       notifications:
         title: Notificações

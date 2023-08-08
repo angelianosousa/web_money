@@ -1,0 +1,42 @@
+# == Schema Information
+#
+# Table name: budgets
+#
+#  id                   :bigint           not null, primary key
+#  date_limit           :datetime
+#  goals_price_cents    :integer          default(0), not null
+#  goals_price_currency :string           default("BRL"), not null
+#  objective_name       :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  user_profile_id      :bigint           not null
+#
+# Indexes
+#
+#  index_budgets_on_user_profile_id  (user_profile_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_profile_id => user_profiles.id)
+#
+class Budget < ApplicationRecord
+  belongs_to :user_profile
+
+  has_many :transactions
+  
+  # Money Rails
+  monetize :goals_price_cents
+  register_currency :brl
+
+  validates :goals_price_cents, presence: true, 
+                                numericality: { greater_or_equal_than: 1 }
+  validates :objective_name, presence: true, uniqueness: { case_sensitive: false }
+
+  def title
+    date_limit.present? ? "#{Money.from_amount(goals_price_cents.to_f).format} | #{objective_name} - #{I18n.l date_limit, format: :short}" : objective_name
+  end
+
+  def progress
+    transactions.any? ? (transactions.sum(:price_cents) / goals_price_cents).to_f * 100 : 0
+  end
+end
