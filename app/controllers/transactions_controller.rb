@@ -6,11 +6,11 @@ class TransactionsController < ApplicationController
     params[:q] ||= { user_profile_id_eq: current_profile.id }
 
     @q = current_profile.transactions.ransack(params[:q])
-    @transactions = @q.result.order(date: :desc)
+    @transactions = @q.result.order(created_at: :desc).group_by(&:date)#.page(params[:page]).per(5)
 
     @balance = current_profile.accounts.sum(:price_cents)
 
-    @transactions = current_profile.transactions.default(@transactions).page(params[:page]).per(5)
+    @transactions = Kaminari.paginate_array(@transactions.to_a).page(params[:page]).per(5)
   end
 
   # GET /transactions/1/edit
@@ -66,6 +66,6 @@ class TransactionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:account_id, :category_id, :bill_id, :user_profile_id, :description, :price_cents, :date)
+      params.require(:transaction).permit(:account_id, :category_id, :bill_id, :user_profile_id, :budget_id, :description, :price_cents, :date)
     end
 end

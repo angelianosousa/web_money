@@ -2,7 +2,8 @@
 
 <div class="container mb-3">
   <nav class="navbar navbar-light ">
-    <%= navlink_transaction %>
+    <% text = t('.current_balance', balance: humanized_money_with_symbol(current_profile.accounts.sum(:price_cents))) %>
+    <%= navlink_header(text) %>
 
     <div class='float-right'>
       <%= modal_to_new_resource(t('.new_resource'), target: '#newTransactionModal') %>
@@ -26,29 +27,29 @@
               <thead>
                 <tr>
                   <th style='width:200px;'><%= model_class.human_attribute_name :description %></th>
-                  <th><%= model_class.human_attribute_name :value %></th>
-                  <th><%= model_class.human_attribute_name :date %></th>
+                  <th><%= model_class.human_attribute_name :price_cents %></th>
                   <th><%= model_class.human_attribute_name :category_id %></th>
                   <th><%= model_class.human_attribute_name :bill_id %></th>
                   <th><%= model_class.human_attribute_name :account_id %></th>
+                  <th><%= model_class.human_attribute_name :budget_id %></th>
                   <th colspan="1"></th>
                 </tr>
               </thead>
               <% transactions.each do |transaction| %>
                 <tbody class='border-bottom'>
-                  <tr >
+                  <tr>
                     <td><div class='card-text'><small><%= transaction.description %></small></div></td>
                     <td><%= value_style(transaction) %></td>
-                    <td><%= transaction.date.strftime('%d/%m/%Y') %></td>
-                    <td><%= transaction.category.title %></td>
-                    <td><%= transaction.bill.title rescue '-'%></td>
-                    <td><%= transaction.account.title %></td>
+                    <td><span class='badge badge-info p-2'><%= transaction.category.title %></span></td>
+                    <td><span class='badge badge-warning p-2'><%= transaction&.bill&.title %></span></td>
+                    <td><span class='badge badge-secondary p-2'><%= transaction.account.title %></span></td>
+                    <td><span class='badge badge-primary p-2'><%= transaction&.budget&.objective_name %></span></td>
                     <td><%= render 'actions', transaction: transaction %></td>
                   </tr>
                 </tbody>
               <% end %>
             </table>
-            <div class="card-footer balance-diary text-right"><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>
+            <div class="card-footer balance-diary text-right"><%= t '.balance_diary', day: I18n.l(day, format: :short), amount: humanized_money_with_symbol(balance_for_that_day(day)) %></div>
           </div>
         </div>
       </div>
@@ -68,4 +69,5 @@
 </div>
 
 <%= paginate @transactions %>
+
 <%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>

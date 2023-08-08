@@ -1,10 +1,11 @@
 <div class='container mb-4' style="padding-bottom: 70px;">
 
   <nav class="navbar navbar-light">
-    <%= navlink_dashboard %>
+    <% text = "#{t '.title'} - #{l(Date.today, format: :short)}" %>
+    <%= navlink_header text %>
 
     <div class='d-flex justify-content-center align-items-center'>
-      <% date_today = Date.today.last_month %>
+      <% date_today = Date.today %>
       <%= link_to 'Último mês', dashboard_index_path(q: { date_gteq: date_today.last_month.beginning_of_month, date_lteq: date_today.last_month.end_of_month } ), class:'btn btn-outline-dark btn-sm btn-round' %>
       <%= link_to 'Mes atual', dashboard_index_path(q: { date_gteq: date_today.beginning_of_month, date_lteq: date_today.end_of_month } ), class:'btn btn-outline-dark btn-sm btn-round' %>
 

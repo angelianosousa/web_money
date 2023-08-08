@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_29_043653) do
+ActiveRecord::Schema.define(version: 2023_08_07_030520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,17 @@ ActiveRecord::Schema.define(version: 2023_03_29_043653) do
     t.index ["user_profile_id"], name: "index_bills_on_user_profile_id"
   end
 
+  create_table "budgets", force: :cascade do |t|
+    t.string "objective_name"
+    t.integer "goals_price_cents", default: 0, null: false
+    t.string "goals_price_currency", default: "BRL", null: false
+    t.datetime "date_limit"
+    t.bigint "user_profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_profile_id"], name: "index_budgets_on_user_profile_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "title", null: false
     t.bigint "user_profile_id"
@@ -88,8 +99,10 @@ ActiveRecord::Schema.define(version: 2023_03_29_043653) do
     t.bigint "account_id"
     t.text "description"
     t.bigint "bill_id"
+    t.bigint "budget_id"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["bill_id"], name: "index_transactions_on_bill_id"
+    t.index ["budget_id"], name: "index_transactions_on_budget_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["user_profile_id"], name: "index_transactions_on_user_profile_id"
   end
@@ -117,10 +130,12 @@ ActiveRecord::Schema.define(version: 2023_03_29_043653) do
   add_foreign_key "accounts", "user_profiles"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bills", "user_profiles"
+  add_foreign_key "budgets", "user_profiles"
   add_foreign_key "categories", "user_profiles"
   add_foreign_key "notifications", "user_profiles"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "bills"
+  add_foreign_key "transactions", "budgets"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "user_profiles"
   add_foreign_key "user_profiles", "users"

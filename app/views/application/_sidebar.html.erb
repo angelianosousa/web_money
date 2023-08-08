@@ -19,6 +19,11 @@
       <% end %>
     </li>
     <li>
+      <%= link_to budgets_path do %>
+        <i class='fa fa-money' style='text-align:left;'></i> <%= t '.budgets' %>
+      <% end %>
+    </li>
+    <li>
       <%= link_to transactions_path do %>
         <i class='fa fa-exchange' style='text-align:left;'></i> <%= t '.transactions' %>
       <% end %>
@@ -33,7 +38,6 @@
         <i class='fa fa-refresh' style='text-align:left;'></i> <%= t '.bills' %>
       <% end %>
     </li>
-    
   </ul>
 </nav>
 

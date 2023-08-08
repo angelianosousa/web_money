@@ -70,3 +70,12 @@ a .dropdown-item:visited, .dropdown-item:hover {
   border-radius: 10px !important;
   margin: 0px;
 }
+
+.text-web-money {
+  color: $web-money-dark-green;
+}
+
+.bg-web-money-green {
+  background-color: $web-money-dark-green;
+  color: $web-money-white;
+}

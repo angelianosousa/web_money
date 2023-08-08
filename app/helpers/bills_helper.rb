@@ -1,5 +1,4 @@
 module BillsHelper
-
   def bill_payment(status, font_size: '12px')
     paid    = Bill.human_attribute_name 'bill.status.paid'
     pending = Bill.human_attribute_name 'bill.status.pending'
@@ -19,12 +18,6 @@ module BillsHelper
     text, fontawesome_class = (status == 'recipe') ? ['', 'bill-status-recipe fa fa-arrow-up'] : ['', 'bill-status-expense fa fa-arrow-down']
 
     content_tag :i, '', class: fontawesome_class, style:'font-size: 10px;'
-  end
-
-  def navlink_bill
-    link_to bills_path, class:'navbar-brand navbar-link mb-3' do
-      "#{t '.title'}"
-    end
   end
 
   def bill_type_options_for_select

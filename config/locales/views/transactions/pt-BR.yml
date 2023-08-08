@@ -4,8 +4,9 @@
     index:
       title: Movimentações %{balance}
       new_resource: ' Add Movimentação'
-      balance_diary: Balanço do dia %{amount}
+      balance_diary: "%{day} | %{amount}"
       table_title: Titulo
+      current_balance: Balanço | %{balance}
     edit:
       title: ' Editar movimentação'
     modals:

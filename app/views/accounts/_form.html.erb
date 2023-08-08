@@ -13,12 +13,12 @@
   <div class='form-group'>
     <div class="field">
       <%= form.label :price_cents %>
-      <%= form.text_field :price_cents, class:'form-control', min: 0, step: :any %>
+      <%= form.number_field :price_cents, class:'form-control', step: :any %>
     </div>
   </div>
 
   <div class="actions">
     <%= form.submit t('save'), class:'btn btn-primary' %>
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    <%= link_to t('back'), accounts_path, class:'btn btn-secondary' %>
   </div>
 <% end %>

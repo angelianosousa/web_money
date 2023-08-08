@@ -2,7 +2,7 @@ class CreateAccounts < ActiveRecord::Migration[6.0]
   def change
     create_table :accounts do |t|
       t.string :title
-      t.monetize :price, default: 1.00
+      t.monetize :price
       t.references :user_profile, null: false, foreign_key: true
 
       t.timestamps
