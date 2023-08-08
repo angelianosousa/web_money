@@ -94,13 +94,15 @@ user_profile = User.last.user_profile
   user_profile.budgets.each do |budget|
     category = user_profile.categories.recipes.sample
 
-    Transaction.create!(
-      description: Faker::Lorem.question(word_count: rand(2..5)),
-      user_profile: user_profile,
-      account: user_profile.accounts.sample,
-      category: category,
-      budget: budget,
-      price_cents: rand(100..5000),
-      date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
-    )
+    10.times do
+      Transaction.create!(
+        description: Faker::Lorem.question(word_count: rand(2..5)),
+        user_profile: user_profile,
+        account: user_profile.accounts.sample,
+        category: category,
+        budget: budget,
+        price_cents: rand(100..5000),
+        date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
+      )
+    end
   end
