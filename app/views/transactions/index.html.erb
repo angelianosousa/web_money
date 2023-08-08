@@ -1,4 +1,5 @@
 <%- model_class = Transaction -%>
+
 <div class="container mb-3">
   <nav class="navbar navbar-light ">
     <%= navlink_transaction %>
@@ -35,7 +36,7 @@
               </thead>
               <% transactions.each do |transaction| %>
                 <tbody class='border-bottom'>
-                  <tr>
+                  <tr >
                     <td><div class='card-text'><small><%= transaction.description %></small></div></td>
                     <td><%= value_style(transaction) %></td>
                     <td><%= transaction.date.strftime('%d/%m/%Y') %></td>
@@ -66,5 +67,5 @@
   <% end %>
 </div>
 
-<%= paginate @transactions, outer_window: 2 %>
+<%= paginate @transactions %>
 <%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>

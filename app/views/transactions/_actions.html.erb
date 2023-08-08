@@ -1,16 +1,16 @@
 <div class="dropdown dropleft">
-  <%= link_to '#', class:'btn btn-outline-dark btn-sm', style:'padding: 0px 10px 2px 10px; border-radius: 50%;', data: { toggle: 'dropdown'}, aria: { haspopup: 'true', expanded: 'false' } do %>
+  <%= link_to '#', class:'btn btn-sm', style:'padding: 0px 10px 2px 10px; border-radius: 50%;', data: { toggle: 'dropdown'}, aria: { haspopup: 'true', expanded: 'false' } do %>
     <span class='icon'><i class='fa fa-bars'></i></span>
   <% end %>
   <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
     <%= link_to '#', class: "dropdown-item", style:'font-size:15px;', "data-toggle":"modal", "data-target":"#showTransactionModal_#{transaction.id}" do %>
-      <span class='icon'><i class="fa fa-eye pull-right" style='font-size:18px;'></i></span> Ver
+      <span class='icon'><i class="fa fa-eye pull-right" style='font-size:15px; padding: 6px;'></i></span> Ver
     <% end %>
     <%= link_to edit_transaction_path(transaction), class:'dropdown-item', style:'font-size:15px;' do %>
-      <span class='icon'><i class="fa fa-pencil pull-right" style='font-size:18px;'></i></span> Editar
+      <span class='icon'><i class="fa fa-pencil pull-right" style='font-size:15px; padding: 6px;'></i></span> Editar
     <% end %>
     <%= link_to transaction_path(transaction), class:'dropdown-item', style:'font-size:15px;', method: :delete, data: { confirm: t('are_you_sure?') } do %>
-      <span class='icon'><i class="fa fa-trash pull-right" style='font-size:18px;'></i></span> Deletar
+      <span class='icon'><i class="fa fa-trash pull-right" style='font-size:15px; padding: 6px;'></i></span> Deletar
     <% end %>
   </div>
 </div>

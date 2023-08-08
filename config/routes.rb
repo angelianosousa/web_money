@@ -14,7 +14,10 @@ Rails.application.routes.draw do
     post 'new_transaction'
   end
 
-  resources :accounts, except: [:show, :new]
+  resources :accounts, except: [:show, :new] do
+    post :transfer_between_accounts, on: :collection
+  end
+
   resources :user_profile, only: %i[edit update destroy]
   resources :transactions, except: [:show, :new]
   resources :notifications, only: [:index]

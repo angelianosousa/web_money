@@ -27,3 +27,4 @@
       notice: Recorrência removida com sucesso!!
     new_transaction:
       notice: Movimentação adicionada com sucesso!!
+      bill_paid: Está recorrência já foi paga!

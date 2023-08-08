@@ -13,6 +13,13 @@
       bill/status:
         paid: Pago
         pending: Pendente
+      bill/bill_type:
+        recipe: Receita
+        expense: Despesa
     models:
-      one: Recorrência
-      other: Recorrências
+      bill:
+        one: Recorrência
+        other: Recorrências
+      transaction:
+        one: Transação
+        other: Transações

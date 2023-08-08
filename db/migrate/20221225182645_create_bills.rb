@@ -3,7 +3,7 @@ class CreateBills < ActiveRecord::Migration[6.0]
     create_table :bills do |t|
       t.string :title
       t.decimal :price_cents
-      t.date :due_pay, default: Date.today
+      t.date :due_pay
       t.integer :bill_type
       t.integer :status, default: 0 # Pending
 

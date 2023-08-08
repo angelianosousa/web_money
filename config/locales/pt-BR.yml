@@ -5,9 +5,8 @@
       recipe: Receita
       expense: Despesa
     bill_type_options_for_select:
-      pay: A pagar
-      receive: A receber
-
+      expense: Despesa
+      recipe: Receita
   number:
     format:
       delimiter: ","

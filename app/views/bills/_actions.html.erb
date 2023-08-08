@@ -12,7 +12,7 @@
     <%= link_to bill_path(bill), class:'dropdown-item py-3', style:'font-size:14px;', method: :delete, data: { confirm: t('are_you_sure?') } do %>
       <span class='icon'><i class="fa fa-trash pull-right"></i></span> Deletar
     <% end %>
-    <%= link_to '#', class: "dropdown-item py-3", style:'font-size:14px;', "data-toggle":"modal", "data-target":"#paymentModal_#{bill.id}" do %>
+    <%= link_to '#', class: "dropdown-item py-3", style:'font-size:14px;', data: { toggle: 'modal', target: "#paymentModal_#{bill.id}" } do %>
       <span class='icon'><i class="fa fa-money pull-right"></i></span> Pagar
     <% end %>
   </div>

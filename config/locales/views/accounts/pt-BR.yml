@@ -17,3 +17,5 @@
       notice: Conta removida com sucesso!!
     new_transaction:
       notice: Movimentação criada com sucesso!!
+    transfer_between_accounts:
+      notice: Transferência realizada com sucesso!!

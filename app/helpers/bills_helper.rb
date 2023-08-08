@@ -6,7 +6,7 @@ module BillsHelper
 
     text, badge_class = (status == 'paid') ? [paid, 'badge badge-success'] : [pending, 'badge badge-danger']
 
-    badge_pill(text.upcase, class:"#{badge_class}", style:"font-size: #{font_size}")
+    badge_pill(text.upcase, class: badge_class, style:"font-size: #{font_size}")
   end
 
   def bill_due_status(bill, font_size: '12px')
@@ -16,9 +16,9 @@ module BillsHelper
   end
 
   def bill_type_status(status)
-    text, fontawesome_class = (status == 'receive') ? ['', 'bill-status-recipe fa fa-arrow-up'] : ['', 'bill-status-expense fa fa-arrow-down']
+    text, fontawesome_class = (status == 'recipe') ? ['', 'bill-status-recipe fa fa-arrow-up'] : ['', 'bill-status-expense fa fa-arrow-down']
 
-    content_tag :i, '', class:"#{fontawesome_class}", style:'font-size: 10px;'
+    content_tag :i, '', class: fontawesome_class, style:'font-size: 10px;'
   end
 
   def navlink_bill
