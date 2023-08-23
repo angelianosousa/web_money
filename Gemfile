@@ -21,14 +21,13 @@ gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+# gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'rails-i18n'
-gem 'faker'
 gem 'tty-spinner'
 gem 'kaminari'
 gem "chartkick"
@@ -48,9 +47,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails', '~> 3.8'
-  gem 'factory_bot_rails'
-  gem 'pry-rails'
+  gem 'rspec-rails', '~> 5.0'
+  gem 'factory_bot_rails', '~>6.1'
+  gem 'faker', "~> 2.17"
   gem 'annotate'
   gem 'dotenv-rails'
 end
@@ -70,9 +69,11 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper'
+  gem "database_cleaner-active_record", "~> 2.1"
+  gem "shoulda-matchers", "~> 5.3"
+  gem "simplecov", "~> 0.22.0", require: false
+  gem "simplecov_json_formatter", "~> 0.1.4", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "hightop", "~> 0.3.0"
