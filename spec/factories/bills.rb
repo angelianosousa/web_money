@@ -22,10 +22,10 @@
 #
 FactoryBot.define do
   factory :bill do
-    title { "MyString" }
-    value { "9.99" }
-    due_pay { "2022-12-25" }
-    bill_type { 1 }
-    status { 1 }
+    title { Faker::Lorem.word }
+    value { rand(100..5000) }
+    due_pay { Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today) }
+    bill_type { ['recipe', 'expense'] }
+    status { :pending }
   end
 end
