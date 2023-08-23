@@ -20,8 +20,8 @@
 #
 FactoryBot.define do
   factory :account do
-    title { "MyString" }
-    value { "9.99" }
-    user_profile { nil }
+    title { Faker::Bank.name }
+    value { 0 }
+    user_profile
   end
 end
