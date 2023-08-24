@@ -1,6 +1,6 @@
 # Web Money
 
-## Project Description
+## Descrição
 Web Money é um sistema financeiro onde os usuários podem adicionar
 suas despesas ou receitas, registrar transações e acompanhar suas
 movimentações diariamente. Dividindo os registros em diferentes categorias,
@@ -12,16 +12,16 @@ acompanhamento da própria saúde financeira dos usuários, o planejamento de
 metas financeiras e desbloqueio de conquistas conforme estiver avançando
 nos seus planos e no uso do sistema.
 
-## Next steps
+## Próximos passos
 * Adicionar configuração de notificação de recorrências
 * O sistema deve deixar uma notificação padrão de recorrência para 1 dia antes do vencimento
-* Importação e exportação de planilha excel para movimentações
-* O sistema deve dar um link com uma planilha modelo para importação de movimentações
+* Relatórios de movimentações
+* Exportação / Importação de planilhas (Movimentações)
 * Adicionar testes automatizados de integração
 
-## Getting Started
+## Start
 
-### Dependencies
+### Dependências
 
 * ruby 2.7.5
 * rails 6.0.1
@@ -30,13 +30,13 @@ nos seus planos e no uso do sistema.
 * Chartkick and groupdate for charts
 * Fontawesome 4.6.3
 
-### Build Project
+### Construindo projeto
 
 ~~~bash
   rails db:setup
 ~~~
 
-### Running
+### Rodando projeto
 
 ~~~bash
   rails s
