@@ -1,7 +1,16 @@
 # Web Money
 
 ## Project Description
-The objective from this project is to implement a financial system where the users may create your expenses or recipes e register transactions by month whenever they want e see on the graphics how much money they using e what accounts are more expensive.
+Web Money é um sistema financeiro onde os usuários podem adicionar
+suas despesas ou receitas, registrar transações e acompanhar suas
+movimentações diariamente. Dividindo os registros em diferentes categorias,
+como também demonstrando cálculos pertinentes à movimentação
+utilizando-se de gráficos e tabelas.
+
+O objetivo principal do sistema é ser uma plataforma capaz de auxiliar o
+acompanhamento da própria saúde financeira dos usuários, o planejamento de
+metas financeiras e desbloqueio de conquistas conforme estiver avançando
+nos seus planos e no uso do sistema.
 
 ## Next steps
 * Adicionar configuração de notificação de recorrências
@@ -24,20 +33,14 @@ The objective from this project is to implement a financial system where the use
 ### Build Project
 
 ~~~bash
-  docker-compose up --build
+  rails db:setup
 ~~~
 
-This command will create run migrations
-
-### To populate the database
+### Running
 
 ~~~bash
-  docker-compose run app rails db:seed
+  rails s
 ~~~
-
-## Importants Links
-
-In Staging: https://web-money-6tx3.onrender.com/
 
 ## Author
 
