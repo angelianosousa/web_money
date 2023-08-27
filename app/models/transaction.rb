@@ -5,7 +5,7 @@
 #  id              :bigint           not null, primary key
 #  date            :date
 #  description     :text
-#  price_cents     :decimal(, )      default(0.0), not null
+#  price_cents     :integer          default(0), not null
 #  price_currency  :string           default("BRL"), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -43,9 +43,9 @@ class Transaction < ApplicationRecord
 
   # Validations
   validates :date, presence: true
+  validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
   # Callbacks
-  # before_save :operate_account
   before_save :check_deposit
   before_save :check_excharge
 

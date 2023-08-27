@@ -2,7 +2,7 @@
 'pt-BR':
   bills:
     index:
-      title: Recorrências
+      title: Recorrências | Balanço %{balance}
       new_resource: ' Add Recorrência'
     edit:
       title: ' Editar recorrência'

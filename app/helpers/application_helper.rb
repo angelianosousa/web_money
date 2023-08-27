@@ -18,13 +18,13 @@ module ApplicationHelper
   end
 
   def modal_to_new_resource(text, target: '', class_name: 'btn btn-outline-dark btn-sm btn-round my-sm-3', style_css: 'width:140px')
-    link_to '#', class: class_name, data: { toggle: 'modal', target: target}, style: style_css do
+    link_to '#', class: class_name, data: { toggle: 'modal', target: target }, style: style_css do
       "#{fontawesome_icon(text, 'fa fa-plus-square')}".html_safe
     end
   end
 
   def modal_to_pay_resource(text, target: '', width: '140px')
-    link_to '#', class: "btn-sm", data: { toggle: "modal", target: target}, style:"width:#{width}" do
+    link_to '#', class: "btn-sm", data: { toggle: "modal", target: target }, style:"width:#{width}" do
       "#{fontawesome_icon(text, 'fa fa-money')}".html_safe
     end
   end
@@ -55,6 +55,14 @@ module ApplicationHelper
           content_tag :i, class:'fa fa-sort-desc'
         end
       end
+    end
+  end
+
+  def navbrand_link
+    balance = current_profile.accounts.sum(:price_cents)
+
+    link_to "/#{params[:controller]}", class:'navbar-brand navbar-link mb-3' do
+      "#{t '.title', balance: humanized_money_with_symbol(balance)}".html_safe
     end
   end
 end

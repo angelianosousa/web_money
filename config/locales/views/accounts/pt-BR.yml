@@ -2,7 +2,7 @@
 'pt-BR':
   accounts:
     index:
-      current_balance: Balanço | %{balance}
+      title: Contas | Balanço %{balance}
       new_resource: ' Add Conta'
     edit:
       title: Editar conta

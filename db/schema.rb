@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_29_043653) do
+ActiveRecord::Schema.define(version: 2023_03_05_024812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
     t.string "title"
-    t.decimal "price_cents", default: "0.0", null: false
+    t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "BRL", null: false
     t.bigint "user_profile_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_043653) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.decimal "price_cents", default: "0.0", null: false
+    t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "BRL", null: false
     t.date "date"
     t.datetime "created_at", null: false

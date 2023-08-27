@@ -21,12 +21,6 @@ module BillsHelper
     content_tag :i, '', class: fontawesome_class, style:'font-size: 10px;'
   end
 
-  def navlink_bill
-    link_to bills_path, class:'navbar-brand navbar-link mb-3' do
-      "#{t '.title'}"
-    end
-  end
-
   def bill_type_options_for_select
     translations_scope = %i[helpers bill_type_options_for_select]
 

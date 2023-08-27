@@ -14,13 +14,7 @@ module TransactionsHelper
   def balance_for_that_day(day)
     recipes  = current_profile.transactions.recipes.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
     expenses = current_profile.transactions.expenses.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
-    accounts = current_profile.accounts.sum(:price_cents)
-    balance  = recipes - expenses
-  end
-
-  def navlink_transaction
-    link_to transactions_path, class:'navbar-brand navbar-link mb-3' do
-      "#{t '.title', balance: humanized_money_with_symbol(@balance)}".html_safe
-    end
+    
+    (recipes - expenses)
   end
 end

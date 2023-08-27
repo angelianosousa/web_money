@@ -6,11 +6,11 @@ class TransactionsController < ApplicationController
     params[:q] ||= { user_profile_id_eq: current_profile.id }
 
     @q = current_profile.transactions.ransack(params[:q])
-    @transactions = @q.result.order(date: :desc)
+    @transactions = @q.result.order(created_at: :desc).group_by(&:date)#.page(params[:page]).per(5)
 
     @balance = current_profile.accounts.sum(:price_cents)
 
-    @transactions = current_profile.transactions.default(@transactions).page(params[:page]).per(5)
+    @transactions = Kaminari.paginate_array(@transactions.to_a).page(params[:page]).per(5)
   end
 
   # GET /transactions/1/edit
@@ -49,8 +49,8 @@ class TransactionsController < ApplicationController
   def destroy
     @transaction.account.price_cents -= @transaction.price_cents if @transaction.category.category_type == 'recipe'
     @transaction.account.price_cents += @transaction.price_cents if @transaction.category.category_type == 'expense'
-    @transaction.account.save
     @transaction.destroy
+    @transaction.account.save
 
     respond_to do |format|
       format.html { redirect_to transactions_url, flash: { notice: [t('.notice')] } }
