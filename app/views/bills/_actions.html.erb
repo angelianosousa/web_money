@@ -1,5 +1,5 @@
 <div class="dropdown dropleft">
-  <%= link_to '#', class:'btn btn-outline-dark btn-sm', id:'dropdownActionButton', data: { toggle: 'dropdown'}, aria: { haspopup: 'true', expanded: 'false' } do %>
+  <%= link_to '#', class:'btn btn-sm', id:'dropdownActionButton', data: { toggle: 'dropdown'}, aria: { haspopup: 'true', expanded: 'false' } do %>
     <span class='icon'><i class='fa fa-bars'></i></span>
   <% end %>
   <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
@@ -12,8 +12,10 @@
     <%= link_to bill_path(bill), class:'dropdown-item py-3', style:'font-size:14px;', method: :delete, data: { confirm: t('are_you_sure?') } do %>
       <span class='icon'><i class="fa fa-trash pull-right"></i></span> Deletar
     <% end %>
-    <%= link_to '#', class: "dropdown-item py-3", style:'font-size:14px;', data: { toggle: 'modal', target: "#paymentModal_#{bill.id}" } do %>
-      <span class='icon'><i class="fa fa-money pull-right"></i></span> Pagar
+    <% unless bill.paid? %>
+      <%= link_to '#', class: "dropdown-item py-3", style:'font-size:14px;', data: { toggle: 'modal', target: "#paymentModal_#{bill.id}" } do %>
+        <span class='icon'><i class="fa fa-money pull-right"></i></span> Pagar
+      <% end %>
     <% end %>
   </div>
 </div>

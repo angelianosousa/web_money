@@ -16,11 +16,11 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to accounts_path, flash: { notice: t('.notice') }}
-        format.js { flash.now[:notice] = t('.notice') }
+        format.html { redirect_to accounts_path, flash: { success: t('.success') }}
+        format.js { flash.now[:notice] = t('.success') }
       else
-        format.html { redirect_to accounts_path, flash: { alert: @account.errors.full_messages } }
-        format.js { flash.now[:alert] = @account.errors.full_messages }
+        format.html { redirect_to accounts_path, flash: { alert: @account.errors.full_messages.to_sentence } }
+        format.js { flash.now[:alert] = @account.errors.full_messages.to_sentence }
       end
     end
   end
@@ -29,10 +29,10 @@ class AccountsController < ApplicationController
   def update
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
+        format.html { redirect_to accounts_url, flash: { success: t('.success') } }
         format.json { render :show, status: :ok, location: @account }
       else
-        format.html { render :edit, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
+        format.html { render :edit, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages.to_sentence } }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
@@ -40,20 +40,9 @@ class AccountsController < ApplicationController
 
   def new_transaction
     @account = CreateTransaction.call(current_profile, params)
-    # @account      = current_profile.accounts.find(params[:account_id])
-    # @category     = current_profile.categories.find(params[:category_id])
-
-    # @account.transactions.create!(
-    #   account: @account,
-    #   user_profile: current_profile,
-    #   description: params[:description],
-    #   price_cents: params[:price_cents].to_i,
-    #   category: @category,
-    #   date: Date.today.to_datetime
-    # )
     
     if @account.save
-      redirect_to accounts_url, flash: { notice: t('.notice') }
+      redirect_to accounts_url, flash: { success: t('.success') }
     else
       redirect_to accounts_url, flash: { alert: @account.errors.full_messages }
     end
@@ -63,7 +52,7 @@ class AccountsController < ApplicationController
     @result = TransferBetweenAccounts.call(current_profile, params)
     
     if @result
-      redirect_to accounts_path, flash: { notice: t('.notice') }
+      redirect_to accounts_path, flash: { success: t('.success') }
     else
       redirect_to accounts_path, flash: { alert: 'Saldo insuficiente para operação' }
     end
@@ -74,7 +63,7 @@ class AccountsController < ApplicationController
     @account.destroy
 
     respond_to do |format|
-      format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
+      format.html { redirect_to accounts_url, flash: { success: t('.success') } }
       format.json { head :no_content }
     end
   end

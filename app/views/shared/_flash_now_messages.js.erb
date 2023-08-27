@@ -1,11 +1,3 @@
-<% type_messages = { 'notice'=>'success', 'alert'=>'danger'} %>
-
 <% flash.each do |flash_type, message| %>
-  <% if type_messages[flash_type] == 'alert' %>
-    <% message.each do |msg| %>
-      showFlashNotification("<%= type_messages[flash_type] %>", "<%= msg %>");
-    <% end %>
-  <% else %>
-    showFlashNotification("<%= type_messages[flash_type] %>", "<%= message %>");
-  <% end %>
+  showFlashNotification("<%= flash_type %>", "<%= message %>");
 <% end %>

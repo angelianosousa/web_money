@@ -24,18 +24,18 @@ class BudgetsController < ApplicationController
     @budget = current_profile.budgets.build(budget_params)
 
     if @budget.save
-      redirect_to budgets_url, flash: { notice: "Budget was successfully created." }
+      redirect_to budgets_url, flash: { success: "Budget was successfully created." }
     else
-      redirect_to budgets_url, flash: { alert: @budget.errors.full_messages }
+      redirect_to budgets_url, flash: { danger: @budget.errors.full_messages.to_sentence }
     end
   end
 
   # PATCH/PUT /budgets/1 or /budgets/1.json
   def update
     if @budget.update(budget_params)
-      redirect_to budgets_url, flash: { notice: "Budget was successfully updated." }
+      redirect_to budgets_url, flash: { success: "Budget was successfully updated." }
     else
-      redirect_to edit_budget_path(@budget), flash: { alert: @budget.errors.full_messages }
+      redirect_to edit_budget_path(@budget), flash: { danger: @budget.errors.full_messages.to_sentence }
     end
   end
 
@@ -43,7 +43,7 @@ class BudgetsController < ApplicationController
   def destroy
     @budget.destroy
 
-    redirect_to budgets_url, flash: { notice: "Budget was successfully destroyed." }
+    redirect_to budgets_url, flash: { success: "Budget was successfully destroyed." }
   end
 
   private

@@ -1,0 +1,12 @@
+<%= fontawesome_icon('', 'fa fa-money', 'font-size: 45px;') %>
+<h3 class="display-5">Sem movimentações ainda...</h3>
+<p class="lead">Adicione a primeira aqui</p>
+<div class='d-flex flex-row justify-content-center'>
+  <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:140px' do %>
+    <%= "#{fontawesome_icon(' Add Receita', 'fa fa-plus-square')}".html_safe %>
+  <% end %>
+
+  <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:140px' do %>
+    <%= "#{fontawesome_icon(' Add Despesa', 'fa fa-plus-square')}".html_safe %>
+  <% end %>
+</div>

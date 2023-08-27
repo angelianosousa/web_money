@@ -30,7 +30,8 @@ class Budget < ApplicationRecord
 
   validates :goals_price_cents, presence: true, 
                                 numericality: { greater_or_equal_than: 1 }
-  validates :objective_name, presence: true, uniqueness: { case_sensitive: false }
+
+  validates :objective_name, presence: true, uniqueness: { case_sensitive: false, scope: :user_profile }
 
   def title
     date_limit.present? ? "#{Money.from_amount(goals_price_cents.to_f).format} | #{objective_name} - #{I18n.l date_limit, format: :short}" : objective_name

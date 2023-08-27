@@ -4,4 +4,4 @@
     edit:
       title: Editar perfil
     update:
-      notice: Perfil atualizado com sucesso!!
+      success: Perfil atualizado com sucesso!!

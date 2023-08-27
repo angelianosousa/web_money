@@ -32,7 +32,3 @@ function showFlashNotification(message_type, message) {
     }
   });
 }
-
-$('.datetimepicker').datetimepicker({
-  Default: true
-})

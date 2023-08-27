@@ -1,5 +1,6 @@
 ---
 'pt-BR':
+  months: Meses
   helpers:
     category_type_options_for_select:
       recipe: Receita
@@ -57,7 +58,7 @@
       unlocked: 'A sua conta foi desbloqueada com sucesso. Por favor faça o login para continuar.'
       send_paranoid_instructions: 'Se a sua conta existe, você receberá um email com instruções de como desbloqueá-la em alguns minutos.'
     omniauth_callbacks:
-      notice: 'Autorizado com sucesso da conta de %{kind}.'
+      success: 'Autorizado com sucesso da conta de %{kind}.'
       failure: 'Não pude autorizar de %{kind} porque "%{reason}".'
     mailer:
       confirmation_instructions:
@@ -101,7 +102,7 @@
     formats:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
-      short: "%d de %B"
+      short: "%d de %b"
     month_names:
     -
     - janeiro
