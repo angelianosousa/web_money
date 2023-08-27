@@ -2,8 +2,7 @@
 
 <div class="container mb-3">
   <nav class="navbar navbar-light ">
-    <% text = t('.current_balance', balance: humanized_money_with_symbol(current_profile.accounts.sum(:price_cents))) %>
-    <%= navlink_header(text) %>
+    <%= navbrand_link %>
 
     <div class='float-right'>
       <%= modal_to_new_resource(t('.new_resource'), target: '#newTransactionModal') %>

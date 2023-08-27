@@ -10,7 +10,7 @@
       transactions: Movimentações
       user_profile: Perfil
       categories: Categorias
-      dashboard: Painel
+      dashboard: Dashboard
       users: User
       budgets: Orçamentos
     navbar:

@@ -2,7 +2,7 @@
 'pt-BR':
   transactions:
     index:
-      title: Movimentações %{balance}
+      title: Movimentações | Balanço %{balance}
       new_resource: ' Add Movimentação'
       balance_diary: "%{day} | %{amount}"
       table_title: Titulo

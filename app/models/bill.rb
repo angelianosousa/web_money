@@ -25,7 +25,7 @@ class Bill < ApplicationRecord
   enum bill_type: %i[recipe expense]
 
   validates :due_pay, :title, presence: true
-  validates :price_cents, presence: true, numericality: { greater_than: 0 }
+  validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
   belongs_to :user_profile
   has_many :transactions, dependent: :destroy

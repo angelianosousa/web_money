@@ -1,7 +1,6 @@
 <div class="container">
   <nav class="navbar navbar-light">
-    <% text = t('.current_balance', balance: humanized_money_with_symbol(current_profile.accounts.sum(:price_cents))) %>
-    <%= navlink_header(text) %>
+    <%= navbrand_link %>
   </nav>
 </div><br>
 

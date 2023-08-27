@@ -49,8 +49,8 @@ class TransactionsController < ApplicationController
   def destroy
     @transaction.account.price_cents -= @transaction.price_cents if @transaction.category.category_type == 'recipe'
     @transaction.account.price_cents += @transaction.price_cents if @transaction.category.category_type == 'expense'
-    @transaction.account.save
     @transaction.destroy
+    @transaction.account.save
 
     respond_to do |format|
       format.html { redirect_to transactions_url, flash: { notice: [t('.notice')] } }

@@ -2,7 +2,7 @@
 'pt-BR':
   dashboard:
     index:
-      title: Painel Gráfico
+      title: Dashboard | Balanço %{balance}
       button_title:
         new_account: ' Add conta'
         new_transaction: ' Add movimentação'
