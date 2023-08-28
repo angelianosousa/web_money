@@ -33,6 +33,6 @@
       total_recipes: Receitas
       total_expenses: Despesas
     create_transaction:
-      notice: Movimentação criada com sucesso!!
+      success: Movimentação criada com sucesso!!
     create_account:
-      notice: Conta criada com sucesso!!
+      success: Conta criada com sucesso!!

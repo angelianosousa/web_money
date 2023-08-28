@@ -12,24 +12,24 @@ class CategoriesController < ApplicationController
     @category = current_profile.categories.build(category_params)
 
     if @category.save
-      redirect_to categories_path, flash: { notice: [t('.notice')] }
+      redirect_to categories_path, flash: { success: t('.success') }
     else
-      redirect_to categories_path, flash: { alert: @category.errors.full_messages }
+      redirect_to categories_path, flash: { alert: @category.errors.full_messages.to_sentence }
     end
   end
 
   def update
     if @category.update(category_params)
-      redirect_to categories_path, flash: { notice: [t('.notice')] }
+      redirect_to categories_path, flash: { success: t('.success') }
     else
-      redirect_to categories_path, flash: { alert: @category.errors.full_messages }
+      redirect_to categories_path, flash: { alert: @category.errors.full_messages.to_sentence }
     end
   end
 
   def destroy
     @category.destroy
 
-    redirect_to categories_path, flash: { notice: [t('.notice')] }
+    redirect_to categories_path, flash: { success: t('.success') }
   end
 
   private

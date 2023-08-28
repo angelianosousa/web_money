@@ -21,8 +21,9 @@
 function showFlashNotification(message_type, message) {
   $.notify({
     icon: 'fa fa-bell',
-    message: message
+    message: message,
   },{
+    style: 'mt-3',
     type: message_type,
     timer: 4000,
     placement: {

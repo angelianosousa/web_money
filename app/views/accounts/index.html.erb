@@ -27,4 +27,5 @@
 
 <%= render partial: "accounts/modals/new_account", locals: { account: @account = current_profile.accounts.new } %>
 <%= render partial: "accounts/modals/transfer" %>
-<%= render partial: "accounts/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>
+<%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
+<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>

@@ -1,4 +1,4 @@
-<%= form_with(model: @transaction, local: local) do |form| %>
+<%= form_with(model: @transaction, local: data[:local]) do |form| %>
 
   <div class="row">
     <div class="col-md-6">
@@ -11,16 +11,27 @@
         <%= form.date_field :date, class:"form-control", value: Date.today %>
       </div>
     </div>
+
     <div class="col-md-6">
       <div class="form-group">
         <%= form.label :category_id %>
-        <%= form.select :category_id, options_for_select(category_options_for_select, (@transaction.category_id rescue nil)), {}, {class:"form-control"} %>
+        <%= form.select :category_id, options_for_select(category_options_for_select(data[:move_type]), (@transaction.category_id rescue nil)), {}, {class:"form-control"} %>
       </div>
       <div class='form-group'>
         <%= form.label :account_id %>
         <%= form.select :account_id, options_for_select(accounts_options_for_select, (@transaction.account_id rescue nil)), {}, { class:'form-control' } %>
       </div>
     </div>
+
+    <% if data[:move_type] == 'recipe' %>
+      <div class='col-md-12'>
+        <div class="form-group">
+          <%= form.label :budget_id %>
+          <%= form.select :budget_id, budget_options_for_select, { include_blank: true }, { class:"form-control" } %>
+        </div>
+      </div>
+    <% end %>
+
     <div class='col-md-12'>
       <div class="form-group">
         <%= form.label :description %>
@@ -34,12 +45,3 @@
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
   </div>
 <% end %>
-
-<script>
-  $('#transaction_category_id').change(function(){
-    let category = $(this)
-    console.log(category)
-    console.log('<%= category_options_for_select %>')
-    
-  });
-</script>

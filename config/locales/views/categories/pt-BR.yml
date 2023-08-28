@@ -12,8 +12,8 @@
       new:
         title: Nova categoria
     create:
-      notice: Categoria criada com sucesso!!
+      success: Categoria criada com sucesso!!
     update:
-      notice: Categoria atualizada com sucesso!!
+      success: Categoria atualizada com sucesso!!
     destroy:
-      notice: Categoria removida com sucesso!!
+      success: Categoria removida com sucesso!!

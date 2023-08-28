@@ -1,0 +1,17 @@
+---
+'pt-BR':
+  budgets:
+    index:
+      title: Orçamentos | Balanço %{balance}
+      new_resource: ' Add Orçamento'
+    edit:
+      title: Editar orçamento
+    modals:
+      new:
+        title: Novo orçamento
+    create:
+      success: Orçamento criado com sucesso!!
+    update:
+      success: Orçamento atualizado com sucesso!!
+    destroy:
+      success: Orçamento removido com sucesso!!

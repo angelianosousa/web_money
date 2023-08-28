@@ -4,18 +4,19 @@
     index:
       title: Contas | Balanço %{balance}
       new_resource: ' Add Conta'
+      current_balance: Balanço | %{balance}
     edit:
       title: Editar conta
     modals:
       new_account:
         title: Nova conta
     create:
-      notice: Conta criada com sucesso!!
+      success: Conta criada com sucesso!!
     update:
-      notice: Conta atualizada com sucesso!!
+      success: Conta atualizada com sucesso!!
     destroy:
-      notice: Conta removida com sucesso!!
+      success: Conta removida com sucesso!!
     new_transaction:
-      notice: Movimentação criada com sucesso!!
+      success: Movimentação criada com sucesso!!
     transfer_between_accounts:
-      notice: Transferência realizada com sucesso!!
+      success: Transferência realizada com sucesso!!

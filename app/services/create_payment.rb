@@ -14,12 +14,12 @@ class CreatePayment < ApplicationService
 
       @bill.paid!
       @bill.due_pay += Date.today.next_month.month
-      @bill.save!
+      @bill.save
     rescue ActiveRecord::RecordInvalid => e
       p e.message
     end
 
-    return @bill
+    return true
   end
 
   def create_transaction

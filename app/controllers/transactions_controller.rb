@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
     params[:q] ||= { user_profile_id_eq: current_profile.id }
 
     @q = current_profile.transactions.ransack(params[:q])
-    @transactions = @q.result.order(created_at: :desc).group_by(&:date)#.page(params[:page]).per(5)
+    @transactions = @q.result.order(created_at: :desc).group_by(&:date)
 
     @balance = current_profile.accounts.sum(:price_cents)
 
@@ -23,11 +23,11 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.errors.none?
-        format.html { redirect_to transactions_path, flash: { notice: t('.notice') } }
-        format.js { flash.now[:notice] = t('.notice') }
+        format.html { redirect_to transactions_path, flash: { success: t('.success') } }
+        format.js { flash.now[:success] = t('.success') }
       else
-        format.html { redirect_to transactions_url, flash: { alert: @transaction.errors.full_messages } }
-        format.js { flash.now[:alert] = @transaction.errors.full_messages }
+        format.html { redirect_to transactions_url, flash: { danger: @transaction.errors.full_messages.to_sentence } }
+        format.js { flash.now[:danger] = @transaction.errors.full_messages }
       end
     end
   end
@@ -36,10 +36,10 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to transactions_path, flash: { notice: t('.notice') } }
+        format.html { redirect_to transactions_path, flash: { success: t('.success') } }
         format.json { render json: @transaction, status: :ok, location: @transaction }
       else
-        format.html { render :edit, flash: { alert: @transaction.errors.full_messages } }
+        format.html { render :edit, flash: { danger: @transaction.errors.full_messages } }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
@@ -53,7 +53,7 @@ class TransactionsController < ApplicationController
     @transaction.account.save
 
     respond_to do |format|
-      format.html { redirect_to transactions_url, flash: { notice: [t('.notice')] } }
+      format.html { redirect_to transactions_url, flash: { success: t('.success') } }
       format.json { head :no_content }
     end
   end
@@ -66,6 +66,6 @@ class TransactionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:account_id, :category_id, :bill_id, :user_profile_id, :description, :price_cents, :date)
+      params.require(:transaction).permit(:account_id, :category_id, :bill_id, :user_profile_id, :budget_id, :description, :price_cents, :date)
     end
 end

@@ -47,13 +47,21 @@ module ApplicationHelper
     end
   end
 
-  # TODO | Criar um metodo para juntar a criação de recorrência, conta e movimentação no dropdown
-  def dropdown_for_new_resource
-    content_tag :div, class:'dropdown dropleft' do
-      link_to '#', class:'btn btn-outline-dark btn-sm btn-round', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do
-        content_tag :span, class:'icon' do
-          content_tag :i, class:'fa fa-sort-desc'
-        end
+  def header_icon
+    {
+      'dashboard' => 'fa fa-bar-chart',
+      'accounts' => 'fa fa-bank',
+      'plans' => 'fa fa-map-o',
+      'transactions' => 'fa fa-exchange',
+      'categories' => 'fa fa-list',
+      'bills' => 'fa fa-refresh'
+    }
+  end
+
+  def navlink_header(title=t(".title"))
+    link_to "#{params[:controller]}", class: 'navbar-brand navbar-link' do
+      content_tag :span, class:'icon' do
+        title
       end
     end
   end

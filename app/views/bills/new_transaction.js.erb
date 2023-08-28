@@ -1,3 +1,6 @@
 $('.payment_modal').modal('hide');
-$("<%= escape_javascript(render @bill) %>").appendTo("#bills");
-<%= render 'shared/flash_now_messages' %>
+
+<% if @result %>
+  $('.bill_status').html('<%= bill_payment(@bill.status) %>')
+  <%= render 'shared/flash_now_messages' %>
+<% end %>
