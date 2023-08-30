@@ -11,4 +11,7 @@ jobs:
           ruby-version: '2.7.5'
           bundler-cache: true
       - run: gem install rubocop
-      - run: bundle exec rubocop
+      - run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rubocop
