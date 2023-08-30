@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class UserProfileController < ApplicationController
   before_action :set_user_profile, only: %i[edit update destroy]
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user_profile.update(user_profile_params)
@@ -21,5 +22,4 @@ class UserProfileController < ApplicationController
   def user_profile_params
     params.require(:user_profile).permit(:name, :avatar)
   end
-  
 end

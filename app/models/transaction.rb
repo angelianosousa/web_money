@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: transactions
@@ -40,7 +42,7 @@ class Transaction < ApplicationRecord
   belongs_to :bill, optional: true
   belongs_to :budget, optional: true
 
-  # Money Rails 
+  # Money Rails
   monetize :price_cents
   register_currency :brl
 

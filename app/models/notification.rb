@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -27,5 +29,4 @@ class Notification < ApplicationRecord
   scope :read, -> (user_profile_id) { where(user_profile_id: user_profile_id, read: true) }
 
   paginates_per 10
-
 end

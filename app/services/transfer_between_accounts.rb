@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TransferBetweenAccounts < ApplicationService
   # 1. Achar contas
   # 2. Validar se a conta tem dinheiro suficiente para transação
@@ -6,12 +8,10 @@ class TransferBetweenAccounts < ApplicationService
   def initialize(profile, params)
     @profile         = profile
     @params          = params
-    
-    
   end
 
   def call
-    return false if accounts_equals? or invalid_excharge
+    return false if accounts_equals? || invalid_excharge
 
     ActiveRecord::Base.transaction do
       create_excharge
@@ -22,11 +22,15 @@ class TransferBetweenAccounts < ApplicationService
   end
 
   def create_excharge
-    CreateTransaction.call(@profile, transaction_params.merge!({ category_id: category_expense(), account_id: @params[:account_id_out] }))
+    CreateTransaction.call(@profile,
+                           transaction_params.merge!({ category_id: category_expense,
+                                                       account_id: @params[:account_id_out] }))
   end
 
   def create_deposit
-    CreateTransaction.call(@profile, transaction_params.merge!({ category_id: category_recipe(), account_id: @params[:account_id_in] }))
+    CreateTransaction.call(@profile,
+                           transaction_params.merge!({ category_id: category_recipe,
+                                                       account_id: @params[:account_id_in] }))
   end
 
   private

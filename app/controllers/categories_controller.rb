@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[edit update destroy]
 
@@ -5,8 +7,7 @@ class CategoriesController < ApplicationController
     @categories = current_profile.categories.order(:category_type)
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @category = current_profile.categories.build(category_params)

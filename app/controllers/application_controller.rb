@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   add_flash_types :notice, :alert, :warning
   before_action :authenticate_user!
@@ -7,7 +9,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_profile
 
   def layout_by_resource
-    devise_controller? ? "#{resource_class.to_s.downcase}_devise" : "application"
+    devise_controller? ? "#{resource_class.to_s.downcase}_devise" : 'application'
   end
 
   def current_profile

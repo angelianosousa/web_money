@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   build-essential tzdata curl ruby-dev ca-certificates \
   libpq-dev \
   imagemagick libxslt-dev libxml2-dev \
-  nodejs && gem install -N bundler
+  nodejs && gem install -N bundler && gem install rubocop
 
 RUN adduser --disabled-password --gecos "" webmoney
 USER webmoney

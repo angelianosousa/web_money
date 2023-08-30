@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def badge_pill(content = nil, html_options = {})
     tag.span(class: "badge badge-pill #{html_options[:class]}", style: "font-size: 11px; #{html_options[:style]}") do
@@ -17,7 +19,8 @@ module ApplicationHelper
     end
   end
 
-  def modal_to_new_resource(text, target: '', class_name: 'btn btn-outline-dark btn-sm btn-round my-sm-3', style_css: 'width:140px')
+  def modal_to_new_resource(text, target: '', class_name: 'btn btn-outline-dark btn-sm btn-round my-sm-3',
+                            style_css: 'width:140px')
     link_to '#', class: class_name, data: { toggle: 'modal', target: target }, style: style_css do
       content_tag :span, class: 'icon' do
         content_tag :i, class: 'fa fa-plus-circle' do

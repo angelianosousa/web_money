@@ -1,7 +1,9 @@
-class DashboardController < ApplicationController
+# frozen_string_literal: true
 
+class DashboardController < ApplicationController
   def index
-    params[:q] ||= { user_profile_id_eq: current_profile.id, date_gteq: Date.today.beginning_of_month, date_lteq: Date.today.end_of_month }
+    params[:q] ||= { user_profile_id_eq: current_profile.id, date_gteq: Date.today.beginning_of_month,
+                     date_lteq: Date.today.end_of_month }
 
     @q = current_profile.transactions.ransack(params[:q])
 

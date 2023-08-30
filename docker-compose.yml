@@ -44,7 +44,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - .:/app
+      - webmoney:/app
       - node_modules:/app/node_modules
     depends_on:
       - postgres
@@ -73,3 +73,4 @@ volumes:
   dbdata:
   node_modules:
   pgadmin_data:
+  webmoney:
