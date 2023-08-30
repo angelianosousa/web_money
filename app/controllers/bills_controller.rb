@@ -50,7 +50,9 @@ class BillsController < ApplicationController
       if @bill.update(bill_params)
         format.html { redirect_to bills_path, flash: { success: t('.success') } }
       else
-        format.html { render :edit, status: :unprocessable_entity, flash: { danger: @bill.errors.full_messages.to_sentence } }
+        format.html do
+          render :edit, status: :unprocessable_entity, flash: { danger: @bill.errors.full_messages.to_sentence }
+        end
       end
     end
   end
