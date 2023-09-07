@@ -8,5 +8,11 @@
     "chart.js": "^3.7.1",
     "chartkick": "^4.1.1",
     "font-awesome": "4.6.3"
+  },
+  "devDependencies": {
+    "cypress": "^13.1.0"
+  },
+  "scripts": {
+    "cypress:open": "cypress open"
   }
 }
