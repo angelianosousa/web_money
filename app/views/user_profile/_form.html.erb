@@ -5,20 +5,29 @@
     <div class='col-md-4' style='margin:auto'>
       <div class='card border-dark mb-3'>
         <div class='card-body'>
-          <% @user_profile = current_profile.avatar %> <!-- Variable for set the current user for images profile --->
-          <%= @user_profile.attached? ? image_tag(@user_profile, size:"256x256", class:"img-circle profile_img") : image_tag("https://bulma.io/images/placeholders/1280x960.png", size:"128x128", class:"img-circle profile_img") %>
+          <% @avatar = current_profile.avatar.representation || 'https://bulma.io/images/placeholders/1280x960.png' %> <!-- Variable for set the current user for images profile --->
+          <%= image_tag(@avatar, size:"256x256", class:"img-circle profile_img") %>
         </div>
       </div>
     </div>
+
     <div class='col-md-8'>
       <div class='card border-dark'>
         <div class='card-body'>
           <div class='form-group'>
             <div class='field'>
-              <%= form.label :'Nome Completo' %>
+              <%= form.label :name %>
               <%= form.text_field :name, class:'form-control' %>
             </div>
           </div>
+
+          <div class='form-group'>
+            <div class='field'>
+              <%= form.label :email %>
+              <%= form.email_field :email, class:'form-control' %>
+            </div>
+          </div>
+
           <div class='form-group'>
             <label>Avatar</label>
             <div class='field'>

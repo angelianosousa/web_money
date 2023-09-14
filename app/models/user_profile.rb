@@ -29,4 +29,5 @@ class UserProfile < ApplicationRecord
   has_many :accounts,     dependent: :destroy
   has_many :bills,        dependent: :destroy
   has_many :budgets,      dependent: :destroy
+  has_many :achievements, dependent: :destroy
 end

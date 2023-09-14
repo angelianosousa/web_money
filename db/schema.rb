@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 2023_08_30_021256) do
 
   create_table "achievements", force: :cascade do |t|
     t.bigint "user_profile_id", null: false
-    t.string "message"
+    t.string "description"
     t.integer "code"
-    t.integer "goal"
+    t.jsonb "goal"
     t.integer "reached"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

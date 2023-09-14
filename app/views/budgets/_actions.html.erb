@@ -7,8 +7,8 @@
 <%= link_to budget_path(budget), class: 'btn text-white', method: :delete, data: { confirm: t('are_you_sure?') } do %>
   <span class='icon'><i class="fa fa-trash"></i></span>
 <% end %>
-<%= link_to '#', class: 'btn text-white', data: { toggle: 'collapse', target: "#budget-#{ budget.id }" }, aria: { expanded: 'true', controls: "budget-#{ budget.id }" } do %>
-  <i class='fa fa-chevron-down'></i>
+<%= link_to transactions_path(q: { budget_id_eq: budget.id }), class: 'btn text-white', target: '_blank' do %>
+  <i class='fa fa-eye'></i>
 <% end %>
 
 <%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>

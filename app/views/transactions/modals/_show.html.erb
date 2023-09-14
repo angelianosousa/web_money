@@ -24,13 +24,19 @@
         </div>
         
         <div class='row'>
-          <div class='col-sm-6'>
+          <div class='col-sm'>
             <h5><%= Transaction.human_attribute_name :price_cents %></h5>
             <%= value_style(transaction) %>
           </div>
-          <div class='col-sm-6'>
+
+          <div class='col-sm'>
             <h5><%= Transaction.human_attribute_name :date %></h5>
             <p><%= transaction.date.strftime('%d %b %y') %></p>
+          </div>
+
+          <div class='col-sm'>
+            <h5><%= Transaction.human_attribute_name :budget_id %></h5>
+            <p><%= transaction.budget.objective_name rescue '-' %></p>
           </div>
         </div>
         <div class='row'>

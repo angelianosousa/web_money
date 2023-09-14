@@ -4,8 +4,8 @@
 #
 #  id              :bigint           not null, primary key
 #  code            :integer
-#  goal            :integer
-#  message         :string
+#  description     :string
+#  goal            :jsonb
 #  reached         :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

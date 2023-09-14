@@ -1,22 +1,44 @@
 <div class="container">
   <nav class="navbar navbar-light">
     <%= navbrand_link %>
+    <div class='text-center'>
 
-    <div class='d-flex flex-row justify-content-right align-items-center'>
       <%= modal_to_new_resource(t('.new_resource'), target: '#newBudgetModal') %>
     </div>
   </nav>
 
 <% if @budgets.any? %>
 
+    <div class='row'>
   <% @budgets.each do |budget| %>
-    <div class="accordion" id="accordionBudget">
-      <div class="card mb-3" style='border-radius: 15px;'>
-        <%= render 'accordion_header', budget: budget %>
-        <%= render 'accordion_content', budget: budget %>
+    <div class='col-md-4'>
+      <div class='card mb-3'>
+        <div class="card-header bg-web-money-green py-0" style='border-radius: 15px;'>
+          <div class='row text-center'>
+            <div class='col-sm-12 mb-2'>
+              <h2 class="text-white">
+                <%= budget.title %>
+              </h2>
+
+              <%= I18n.l budget.date_limit, format: :short %>
+            </div>
+            <div class='col-sm-12 mb-2'>
+              <div class="progress" style='border-radius: 7px;'>
+                <div class="progress-bar bg-info px-3 <%= budget.progress.round(2) == 0 ? 'text-dark' : 0 %>" role="progressbar" style="width: <%= budget.progress.round(2) %>%;" aria-valuenow="<%= budget.progress.round(2) %>" aria-valuemin="0" aria-valuemax="<%= budget.progress.round(2) %>">
+                  <%= budget.progress.round(2) %>%
+                </div>
+              </div>
+            </div>
+            <div class='col-sm-12'>
+              <%= render 'actions', budget: budget %>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   <% end %>
+    </div>
 <% else %>
   <div class='w-100 text-center'>
     <div class="card">

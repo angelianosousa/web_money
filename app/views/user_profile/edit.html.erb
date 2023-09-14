@@ -6,3 +6,24 @@
     </div>
   </div>
 </div>
+
+<h2>Minhas conquistas</h2>
+
+<div class='container'>
+  <div class='row'>
+    <% @user_profile.achievements.each do |achive| %>
+      <div class='col-sm-4 d-flex flex-row'>
+        <div class='card mb-2'>
+          <div class='card-body d-flex flex-row align-items-center'>
+            <span class='icon d-inline mb-2' style='font-size: 24px;'>
+              <%= image_tag 'https://bulma.io/images/placeholders/1280x960.png', size: '64x64' %>
+            </span>
+
+            <p class='d-inline ml-2'><%= achive.description %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>
