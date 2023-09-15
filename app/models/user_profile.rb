@@ -23,11 +23,12 @@ class UserProfile < ApplicationRecord
     attachable.variant :menu_icon_profile, resize_to_limit: [50, 50]
   end
 
-  has_many :recurrences,  dependent: :destroy
-  has_many :transactions, dependent: :destroy
-  has_many :categories,   dependent: :destroy
-  has_many :accounts,     dependent: :destroy
-  has_many :bills,        dependent: :destroy
-  has_many :budgets,      dependent: :destroy
-  has_many :achievements, dependent: :destroy
+  has_many :recurrences,          dependent: :destroy
+  has_many :transactions,         dependent: :destroy
+  has_many :categories,           dependent: :destroy
+  has_many :accounts,             dependent: :destroy
+  has_many :bills,                dependent: :destroy
+  has_many :budgets,              dependent: :destroy
+  has_many :profile_achievements, dependent: :destroy
+  has_many :achievements, through: :profile_achievements
 end

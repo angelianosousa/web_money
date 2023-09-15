@@ -29,6 +29,7 @@ gem 'redis', '~> 4.0'
 gem 'aws-sdk',          '~> 3.1.0'
 gem 'chartkick',        '~> 5.0.2'
 gem 'devise',           '~> 4.9.2'
+gem "font-awesome-sass", "~> 6.4.2"
 gem 'groupdate',        '~> 6.2.1'
 gem 'image_processing', '~> 1.2'
 gem 'kaminari',         '~> 1.2.2'

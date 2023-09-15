@@ -1,21 +1,18 @@
-<nav class="navbar navbar-light bg-light mb-3 py-2" style='padding: 15px 10px;font-size: 12px;'>
+<nav class="navbar navbar-light bg-light w-100 mb-3 py-2" style='padding: 15px 10px;font-size: 12px;'>
   <%= link_to '#', id:'sidebarCollapse', style:'font-size:15px' do %>
-    <span class='icon'><i class="fa fa-bars"></i></span> Menu
+    <span class='icon'><i class="fa-solid fa-bars"></i></span> Menu
   <% end %>
 
-  <div class="nav-item dropdown">
-    <a href="javascript:;" class="user-profile dropdown-toggle pr-2" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false" style='margin-right:25px;'>
-      <%= image_tag("user-profile-icon.png", size: '10x10') %>
-      <%= current_user.email %>
-    </a>
-    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-      <%= link_to edit_user_profile_path(current_user), class:"dropdown-item" do %>
-        <i class="fa fa-user pull-right"></i><%= t '.notifications.profile' %>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <%= link_to notifications_path, class: 'btn' do %>
+      <i class="fa fa-bell"></i>
+    <% end %>
+    <%= link_to edit_user_profile_path(current_user), class:"btn" do %>
+        <i class="fa fa-user"></i> <%= current_user.email %>
       <% end %>
-
-      <%= link_to destroy_user_session_path, method: :delete, data: {confirm: "#{t '.notifications.confirm'}" }, class:"dropdown-item" do %>
-        <i class="fa fa-sign-out pull-right"></i><%= t '.notifications.sign_out' %>
-      <% end %>
-    </div>
+    <%= link_to destroy_user_session_path,class: 'btn', method: :delete, data: {confirm: "#{t '.notifications.confirm'}" } do %>
+      <i class="fa fa-sign-out"></i>
+    <% end %>
   </div>
+
 </nav>

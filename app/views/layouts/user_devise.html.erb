@@ -22,20 +22,13 @@
 
   <body>
     <div class="animate form login_form">
-      <section class="login_content">
+      <section class="login_content" style='width: 40%;'>
 
-        <div class='card card-style mt-5 mb-5'>
+        <div class='card card-style mt-5'>
           <div class='card-body'>
-            <div class='row'>
-              <div class='col-md-7'>
-                <%= image_tag 'finances.jpg', class:'figure-img img-fluid rounded' %>
-              </div>
-              <div class='col-md-5'>
-                <%= image_tag 'logo-banner.png' %>
+            <%= image_tag 'logo-banner.png' %>
 
-                <%= yield %>
-              </div>
-            </div>
+            <%= yield %>            
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-<div class='container mb-4' style="padding-bottom: 70px;">
+<div class='container' style="padding-bottom: 70px;">
 
   <nav class="navbar navbar-light">
     <%= navbrand_link %>
@@ -6,11 +6,11 @@
     <div class='d-flex justify-content-center align-items-center'>
 
       <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:140px' do %>
-        <%= "#{fontawesome_icon(' Add Receita', 'fa fa-arrow-down')}".html_safe %>
+        <%= fontawesome_icon(' Add Receita', 'fa fa-arrow-down').to_s.html_safe %>
       <% end %>
 
       <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:140px' do %>
-        <%= "#{fontawesome_icon(' Add Despesa', 'fa fa-arrow-up')}".html_safe %>
+        <%= fontawesome_icon(' Add Despesa', 'fa fa-arrow-up').to_s.html_safe %>
       <% end %>
 
       <div class="dropdown dropleft mt-1">
@@ -41,7 +41,7 @@
   </div>
 </div>
 
-<%= render partial: "accounts/modals/new_account", locals: { account: @account = current_profile.accounts.new } %>
-<%= render partial: "bills/modals/new_bill", locals: { bill: @bill = current_profile.bills.new } %>
-<%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
 <%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
+<%= render partial: "transactions/modals/new_recipe",  locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
+<%= render partial: "accounts/modals/new_account",     locals: { account: @account = current_profile.accounts.new } %>
+<%= render partial: "bills/modals/new_bill",           locals: { bill: @bill = current_profile.bills.new } %>

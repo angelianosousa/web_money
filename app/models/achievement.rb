@@ -2,26 +2,17 @@
 #
 # Table name: achievements
 #
-#  id              :bigint           not null, primary key
-#  code            :integer
-#  description     :string
-#  goal            :jsonb
-#  reached         :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  user_profile_id :bigint           not null
-#
-# Indexes
-#
-#  index_achievements_on_user_profile_id  (user_profile_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (user_profile_id => user_profiles.id)
+#  id          :bigint           not null, primary key
+#  code        :integer
+#  description :string
+#  goal        :jsonb
+#  icon        :string
+#  reached     :integer          default(0)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 class Achievement < ApplicationRecord
   enum code: %i[money_movement money_managed budget_reached bill_in_day profile_time]
-  belongs_to :user_profile
 end
 
 # Achievements
@@ -30,7 +21,7 @@ end
 # + 50 Transações adicionadas
 # + 100 Transações adicionadas
 
-# Moeny Managed
+# Money Managed
 # + R$ 1000 Geridos na plataforma
 # + R$ 3000 Geridos na plataforma
 # + R$ 5000 Geridos na plataforma

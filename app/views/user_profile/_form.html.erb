@@ -2,17 +2,17 @@
   <%= render "shared/error_messages", resource: @user_profile %>
 
   <div class='row'>
-    <div class='col-md-4' style='margin:auto'>
-      <div class='card border-dark mb-3'>
+    <div class='col-md-3' style='margin:auto'>
+      <div class='card mb-3'>
         <div class='card-body'>
-          <% @avatar = current_profile.avatar.representation || 'https://bulma.io/images/placeholders/1280x960.png' %> <!-- Variable for set the current user for images profile --->
-          <%= image_tag(@avatar, size:"256x256", class:"img-circle profile_img") %>
+          <% @avatar = current_profile.avatar || 'https://bulma.io/images/placeholders/1280x960.png' %> <!-- Variable for set the current user for images profile --->
+          <%= image_tag(@avatar, size:"192x192", class:"img-circle profile_img") %>
         </div>
       </div>
     </div>
 
-    <div class='col-md-8'>
-      <div class='card border-dark'>
+    <div class='col-md-9'>
+      <div class='card'>
         <div class='card-body'>
           <div class='form-group'>
             <div class='field'>
