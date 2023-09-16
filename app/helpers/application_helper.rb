@@ -60,7 +60,7 @@ module ApplicationHelper
   end
 
   def navbrand_link(text = t('.title'))
-    link_to params[:controller].to_s, class: 'navbar-brand navbar-link', style: 'font-size: 17px;' do
+    link_to params[:controller].to_s, class: 'navbar-brand navbar-link mb-3', style: 'font-size: 17px;' do
       text
     end
   end

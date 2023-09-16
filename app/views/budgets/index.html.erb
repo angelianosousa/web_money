@@ -15,15 +15,13 @@
     <div class='row'>
       <% @budgets.each do |budget| %>
         <div class='col-md-4'>
-          <div class='card mb-3'>
-            <div class="card-header bg-web-money-green py-0" style='border-radius: 15px;'>
+          <div class='card border-dark mb-3'>
+            <div class="card-body py-0" style='border-radius: 15px;'>
               <div class='row text-center'>
                 <div class='col-sm-12 mb-2'>
-                  <h2 class="text-white">
-                    <%= budget.title %>
-                  </h2>
+                  <h2><%= budget.title %></h2>
 
-                  <%= I18n.l budget.date_limit, format: :short %>
+                  <%= I18n.l budget.date_limit, format: :short rescue nil %>
                 </div>
                 <div class='col-sm-12 mb-2'>
                   <div class="progress" style='border-radius: 7px;'>

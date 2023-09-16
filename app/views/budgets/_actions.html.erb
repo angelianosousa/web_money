@@ -1,13 +1,13 @@
-<%= link_to '#', class: "btn text-white", style:'font-size:14px;', data: { toggle: 'modal', target: "#newRecipeModal" } do %>
+<%= link_to '#', class: "btn btn-md", style:'font-size:14px;', data: { toggle: 'modal', target: "#newRecipeModal" } do %>
   <span class='icon'><i class="fa fa-money"></i></span>
 <% end %>
-<%= link_to edit_budget_path(budget), class: 'btn text-white' do %>
+<%= link_to edit_budget_path(budget), class: 'btn btn-md' do %>
   <span class='icon'><i class="fa fa-pencil"></i></span>
 <% end %>
-<%= link_to budget_path(budget), class: 'btn text-white', method: :delete, data: { confirm: t('are_you_sure?') } do %>
+<%= link_to budget_path(budget), class: 'btn btn-md', method: :delete, data: { confirm: t('are_you_sure?') } do %>
   <span class='icon'><i class="fa fa-trash"></i></span>
 <% end %>
-<%= link_to transactions_path(q: { budget_id_eq: budget.id }), class: 'btn text-white', target: '_blank' do %>
+<%= link_to transactions_path(q: { budget_id_eq: budget.id }), class: 'btn btn-md', target: '_blank' do %>
   <i class='fa fa-eye'></i>
 <% end %>
 
