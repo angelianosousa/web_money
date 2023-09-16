@@ -2,7 +2,7 @@
 'pt-BR':
   bills:
     index:
-      title: Recorrências | Balanço %{balance}
+      title: Recorrências
       new_resource: ' Add Recorrência'
     edit:
       title: ' Editar recorrência'
@@ -12,7 +12,7 @@
     modals:
       new_payment:
         title: Add movimentação - %{bill}
-      new:
+      new_bill:
         title: Nova Recorrência
     search_filter:
       bill_type: Tipo de Recorrência

@@ -5,12 +5,16 @@
     <%= navbrand_link %>
 
     <div class='float-right'>
-      <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:140px' do %>
-        <%= "#{fontawesome_icon(' Add Receita', 'fa fa-plus-square')}".html_safe %>
+      <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:125px' do %>
+        <span class='icon'>
+          <i class='fa fa-arrow-up'></i> Add Receita
+        </span>
       <% end %>
 
-      <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:140px' do %>
-        <%= "#{fontawesome_icon(' Add Despesa', 'fa fa-plus-square')}".html_safe %>
+      <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:125px' do %>
+        <span class='icon'>
+          <i class='fa fa-arrow-down'></i> Add Despesa
+        </span>
       <% end %>
 
       <%= filter %>

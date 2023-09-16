@@ -1,8 +1,10 @@
 module TransactionsHelper
   def value_style(transaction)
-    symbol, style = (transaction.category.category_type == 'recipe') ? ['fa fa-arrow-up text-success'] : ['fa fa-arrow-down text-danger']
+    symbol = (transaction.category.category_type == 'recipe') ? ['fa fa-arrow-up'] : ['fa fa-arrow-down']
 
-    content_tag(:span, " #{humanized_money_with_symbol(transaction.price_cents)}", class: "#{symbol}")
+    content_tag :span, class: symbol.to_s, id: "transaction#{transaction.id}" do
+      humanized_money_with_symbol(transaction.price_cents).to_s
+    end
   end
 
   def balance_for_that_day(day)

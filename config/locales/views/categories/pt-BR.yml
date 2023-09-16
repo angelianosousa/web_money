@@ -2,7 +2,7 @@
 'pt-BR':
   categories:
     index:
-      title: Categorias | Balanço %{balance}
+      title: Categorias
       new_resource: ' Add Categoria'
       recipes: Receitas %{amount}
       expenses: Despesas %{amount}

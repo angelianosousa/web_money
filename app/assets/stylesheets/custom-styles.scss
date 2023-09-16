@@ -1,8 +1,9 @@
 @import 'sidebar';
+@import url('https://fonts.googleapis.com/css?family=Poppins|Oswald');
 
 a.navbar.navbar-brand, h1, h2, h3, h4, h5, h6 {
   color: $web-money-orange !important;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Oswald', sans-serif;
 }
 
 p {

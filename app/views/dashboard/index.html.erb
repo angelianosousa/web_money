@@ -1,25 +1,34 @@
 <div class='container' style="padding-bottom: 70px;">
 
   <nav class="navbar navbar-light">
-    <%= navbrand_link %>
+    <% balance = humanized_money_with_symbol(current_profile.accounts.sum(:price_cents)) %>
+    <%= navbrand_link(t('.title', balance: balance)) %>
 
     <div class='d-flex justify-content-center align-items-center'>
 
-      <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:140px' do %>
-        <%= fontawesome_icon(' Add Receita', 'fa fa-arrow-down').to_s.html_safe %>
+      <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:120px' do %>
+        <span class='icon'>
+          <i class='fa fa-arrow-up'></i> Add Receita
+        </span>
       <% end %>
 
-      <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:140px' do %>
-        <%= fontawesome_icon(' Add Despesa', 'fa fa-arrow-up').to_s.html_safe %>
+      <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:120px' do %>
+        <span class='icon'>
+          <i class='fa fa-arrow-down'></i> Add Despesa
+        </span>
       <% end %>
 
       <div class="dropdown dropleft mt-1">
         <%= link_to '#', class:'btn btn-outline-dark btn-sm btn-round', id:'dropdownActionButton', "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" do %>
-          <span class='icon'><i class='fa fa-plus-square'></i></span>
+          <span class='icon'><i class='fa fa-plus-circle'></i></span>
         <% end %>
         <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
-          <%= dropdown_item_dashboard(t('.button_title.new_account'), target: '#newAccountModal', icon: 'fa fa-bank') %>
-          <%= dropdown_item_dashboard(t('.button_title.new_bill'), target: '#newBillModal', icon: 'fa fa-recycle') %>
+          <a class="dropdown-item" href="#" data-target='#newAccountModal' data-toggle='modal'>
+            <span class='icon'><i class='fa fa-bank'></i></span>  <%= t('.button_title.new_account') %>
+          </a>
+          <a class="dropdown-item" href="#" data-target='#newBillModal' data-toggle='modal'>
+            <span class='icon'><i class='fa fa-recycle'></i></span>  <%= t('.button_title.new_bill') %>
+          </a>
         </div>
       </div>
 

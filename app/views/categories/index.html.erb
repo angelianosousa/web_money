@@ -2,9 +2,12 @@
   <nav class="navbar navbar-light">
     <%= navbrand_link %>
 
-    <div class='float-right'>
-      <%= modal_to_new_resource(t('.new_resource'), target: '#newCategoryModal') %>
-    </div>
+    <%= link_to '#', class: 'btn btn-outline-dark btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newCategoryModal' }, style: 'width:140px' do %>
+      <span class='icon'>
+        <i class='fa fa-plus-circle'></i> <%= t('.new_resource') %>
+      </span>
+    <% end %>
+
   </nav>
 </div><br>
 
