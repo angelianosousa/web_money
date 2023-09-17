@@ -1,15 +1,15 @@
 branch-defaults:
-  staging:
-    environment: web-money-stag
+  achievments:
+    environment: webmoney-dev
 environment-defaults:
-  web-money-stag:
+  webmoney-dev:
     branch: null
     repository: null
 global:
   application_name: webmoney
-  default_ec2_keyname: web-money-stag
+  default_ec2_keyname: webmoney-stag
   default_platform: Ruby 3.0 running on 64bit Amazon Linux 2
-  default_region: us-west-2
+  default_region: sa-east-1
   include_git_submodules: true
   instance_profile: null
   platform_name: null
