@@ -26,7 +26,6 @@ gem 'turbolinks', '~> 5'
 gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-gem 'aws-sdk',          '~> 3.1.0'
 gem 'chartkick',        '~> 5.0.2'
 gem 'devise',           '~> 4.9.2'
 gem "font-awesome-sass", "~> 6.4.2"
