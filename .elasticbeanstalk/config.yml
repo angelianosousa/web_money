@@ -1,6 +1,6 @@
 branch-defaults:
   achievments:
-    environment: webmoney
+    environment: webmoney-dev
 environment-defaults:
   webmoney-dev:
     branch: null
