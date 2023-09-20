@@ -7,3 +7,5 @@ AllCops:
     - 'config/**/*'
     - 'config.ru'
     - bin/*
+    - spec/acceptance_helper.rb
+    - spec/acceptance/*
