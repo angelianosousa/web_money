@@ -48,6 +48,7 @@ Gerar as tabelas do banco de dados
 
 ~~~bash
   rails s
+  docker compose up web
 ~~~
 
 ## Author
