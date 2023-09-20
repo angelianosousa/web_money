@@ -1,12 +1,12 @@
 # .rubocop.yml
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.0
   DisplayCopNames: true
   DisplayStyleGuide: true
   ExtraDetails: true
   Exclude:
-    - 'db/**/*' 
-    - 'bin/**/*' 
+    - 'db/**/*'
+    - 'bin/**/*'
 
 Layout/LineLength:
   Max: 120

@@ -1,4 +1,4 @@
-FROM ruby:2.7.5 AS builder
+FROM ruby:3.0.5 AS builder
 
 ARG RAILS_ENV
 ENV RACK_ENV=$RAILS_ENV
