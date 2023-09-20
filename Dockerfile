@@ -7,15 +7,17 @@ ENV BUNDLE_PATH /home/webmoney/bundle
 RUN apt-get update && apt-get install -y --no-install-recommends \
   build-essential tzdata curl ruby-dev ca-certificates \
   libpq-dev \
-  imagemagick libxslt-dev libxml2-dev \
+  imagemagick libxslt-dev libxml2-dev npm \
   nodejs && gem install -N bundler && gem install rubocop
 
 RUN adduser --disabled-password --gecos "" webmoney
 USER webmoney
-WORKDIR /home/webmoney/app
+WORKDIR /home/webmoney/web
 
 COPY --chown=webmoney Gemfile Gemfile.lock ./
+COPY --chown=webmoney package.json ./
 RUN if [[ "$RAILS_ENV" == "production" ]]; then bundle install --without development test; else bundle install; fi
+RUN npm install && bundle exec rails assets:precompile
 
 COPY --chown=webmoney . .
 

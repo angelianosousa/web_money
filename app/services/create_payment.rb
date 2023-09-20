@@ -2,6 +2,7 @@
 
 class CreatePayment < ApplicationService
   def initialize(profile, bill, params)
+    super
     @params   = params
     @profile  = profile
     @bill     = bill

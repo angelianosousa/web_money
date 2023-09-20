@@ -20,8 +20,15 @@ class RecurrencesControllerTest < ActionDispatch::IntegrationTest
   test 'should create recurrence' do
     assert_difference('Recurrence.count') do
       post recurrences_url,
-           params: { recurrence: { category_id: @recurrence.category_id, date_expire: @recurrence.date_expire,
-                                   title: @recurrence.title, user_profile_id: @recurrence.user_profile_id, price_cents: @recurrence.price_cents } }
+           params: {
+             recurrence: {
+               category_id: @recurrence.category_id,
+               date_expire: @recurrence.date_expire,
+               title: @recurrence.title,
+               user_profile_id: @recurrence.user_profile_id,
+               price_cents: @recurrence.price_cents
+             }
+           }
     end
 
     assert_redirected_to recurrence_url(Recurrence.last)
@@ -39,8 +46,15 @@ class RecurrencesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update recurrence' do
     patch recurrence_url(@recurrence),
-          params: { recurrence: { category_id: @recurrence.category_id, date_expire: @recurrence.date_expire,
-                                  title: @recurrence.title, user_profile_id: @recurrence.user_profile_id, price_cents: @recurrence.price_cents } }
+          params: {
+            recurrence: {
+              category_id: @recurrence.category_id,
+              date_expire: @recurrence.date_expire,
+              title: @recurrence.title,
+              user_profile_id: @recurrence.user_profile_id,
+              price_cents: @recurrence.price_cents
+            }
+          }
     assert_redirected_to recurrence_url(@recurrence)
   end
 

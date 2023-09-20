@@ -6,6 +6,7 @@ class TransferBetweenAccounts < ApplicationService
   # 3. Realizar transação caso seja possível
 
   def initialize(profile, params)
+    super
     @profile         = profile
     @params          = params
   end

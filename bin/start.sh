@@ -12,6 +12,7 @@ echo ""
 
 bundle check || bundle install
 bundle exec rails db:setup db:migrate
+bundle exec rake assets:precompile
 
 # Remove a potentially pre-existing server.pid for Rails.
 rm -f /app/tmp/pids/server.pid

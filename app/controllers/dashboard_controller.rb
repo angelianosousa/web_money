@@ -43,7 +43,7 @@ class DashboardController < ApplicationController
     end
   end
 
-  def create_account
+  def create_bill
     @bill = current_profile.bills.build(bill_params)
 
     respond_to do |format|

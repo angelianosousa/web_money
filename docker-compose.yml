@@ -19,7 +19,7 @@ services:
 
   pgadmin:
     container_name: pgadmin_webmoney
-    image: dpage/pgadmin4    
+    image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: gojira@gojira.com
       PGADMIN_DEFAULT_PASSWORD: gojira
@@ -44,15 +44,15 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - webmoney:/app
-      - node_modules:/app/node_modules
+      - .:/web
+      - node_modules:/web/node_modules
     depends_on:
       - postgres
       - redis
 
   # docker compose run --rm rspec spec/<path>
   rspec:
-    build: 
+    build:
       target: test
       args:
         RAILS_ENV: test
@@ -63,12 +63,12 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - .:/app
+      - .:/web
       - node_modules:/app/node_modules
     depends_on:
       - postgres
       - redis
-   
+
 volumes:
   dbdata:
   node_modules:
