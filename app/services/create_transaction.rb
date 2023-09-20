@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CreateTransaction < ApplicationService
-
   def initialize(profile, params)
     super
     @profile            = profile

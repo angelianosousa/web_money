@@ -37,7 +37,9 @@ class DashboardController < ApplicationController
         format.html { redirect_to root_path, flash: { success: [t('.success')] } }
         format.json { render :show, status: :created, location: @account }
       else
-        format.html { render root_path, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages } }
+        format.html do
+          render root_path, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages }
+        end
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end

@@ -33,7 +33,9 @@ class AccountsController < ApplicationController
         format.html { redirect_to accounts_url, flash: { success: t('.success') } }
         format.json { render :show, status: :ok, location: @account }
       else
-        format.html { render :edit, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages.to_sentence } }
+        format.html do
+          render :edit, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages.to_sentence }
+        end
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
