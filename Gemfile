@@ -55,6 +55,7 @@ group :development, :test do
   gem 'faker', "~> 2.17"
   gem 'annotate', '~> 3.2.0'
   gem 'dotenv-rails', '~> 2.8.1'
+  gem 'rspec_api_documentation', '~> 6.1'
 end
 
 group :development do

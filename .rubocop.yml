@@ -7,6 +7,3 @@ AllCops:
     - 'config/**/*'
     - 'config.ru'
     - bin/*
-    # TODO remove
-    - spec/acceptance_helper.rb
-    - spec/acceptance/*
