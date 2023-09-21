@@ -32,6 +32,14 @@ nos seus planos e no uso do sistema.
 
 ### Construindo projeto
 
+Instale as dependências do projeto
+
+~~~bash
+  bundle install
+~~~
+
+Gerar as tabelas do banco de dados
+
 ~~~bash
   rails db:setup
 ~~~

@@ -1,8 +1,10 @@
-@import 'custom';
+@import 'custom-styles';
 @import 'colors';
 
 body {
-  background-color: $web-money-orange;
+  background-color: $web-money-dark-green;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 }
 
 /* Glassmorphism card effect */

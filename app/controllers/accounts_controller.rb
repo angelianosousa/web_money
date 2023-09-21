@@ -19,8 +19,8 @@ class AccountsController < ApplicationController
         format.html { redirect_to accounts_path, flash: { success: t('.success') }}
         format.js { flash.now[:notice] = t('.success') }
       else
-        format.html { redirect_to accounts_path, flash: { alert: @account.errors.full_messages.to_sentence } }
-        format.js { flash.now[:alert] = @account.errors.full_messages.to_sentence }
+        format.html { redirect_to accounts_path, flash: { danger: @account.errors.full_messages.to_sentence } }
+        format.js { flash.now[:danger] = @account.errors.full_messages.to_sentence }
       end
     end
   end
@@ -32,7 +32,7 @@ class AccountsController < ApplicationController
         format.html { redirect_to accounts_url, flash: { success: t('.success') } }
         format.json { render :show, status: :ok, location: @account }
       else
-        format.html { render :edit, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages.to_sentence } }
+        format.html { render :edit, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages.to_sentence } }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
@@ -40,21 +40,21 @@ class AccountsController < ApplicationController
 
   def new_transaction
     @account = CreateTransaction.call(current_profile, params)
-    
+
     if @account.save
       redirect_to accounts_url, flash: { success: t('.success') }
     else
-      redirect_to accounts_url, flash: { alert: @account.errors.full_messages }
+      redirect_to accounts_url, flash: { danger: @account.errors.full_messages }
     end
   end
 
   def transfer_between_accounts
     @result = TransferBetweenAccounts.call(current_profile, params)
-    
+
     if @result
       redirect_to accounts_path, flash: { success: t('.success') }
     else
-      redirect_to accounts_path, flash: { alert: 'Saldo insuficiente para operação' }
+      redirect_to accounts_path, flash: { danger: 'Saldo insuficiente para operação' }
     end
   end
 
@@ -69,13 +69,14 @@ class AccountsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_account
-      @account = current_profile.accounts.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def account_params
-      params.require(:account).permit(:title, :price_cents, :user_profile_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_account
+    @account = current_profile.accounts.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def account_params
+    params.require(:account).permit(:title, :price_cents, :user_profile_id)
+  end
 end

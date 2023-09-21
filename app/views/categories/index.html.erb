@@ -2,9 +2,12 @@
   <nav class="navbar navbar-light">
     <%= navbrand_link %>
 
-    <div class='float-right'>
-      <%= modal_to_new_resource(t('.new_resource'), target: '#newCategoryModal') %>
-    </div>
+    <%= link_to '#', class: 'btn btn-outline-dark btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newCategoryModal' }, style: 'width:140px' do %>
+      <span class='icon'>
+        <i class='fa fa-plus-circle'></i> <%= t('.new_resource') %>
+      </span>
+    <% end %>
+
   </nav>
 </div><br>
 
@@ -31,8 +34,8 @@
           <% @categories.recipes.each do |category| %>
             <tr>
               <td><%= category.title %></td>
-              <% amount = current_profile.transactions.where(category: category).sum(:price_cents) %>
-              <td><%= Money.from_cents(amount).format %></td>
+              <% amount = current_profile.transactions.where(category: category, date: Date.today.beginning_of_month..Date.today.end_of_month).sum(:price_cents) %>
+              <td><%= humanized_money_with_symbol(amount) %></td>
               <td><%= render 'actions', category: category %></td>
             </tr>
           <% end %>

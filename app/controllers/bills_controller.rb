@@ -31,13 +31,12 @@ class BillsController < ApplicationController
   def new_transaction
     @bill = current_profile.bills.find(params.delete(:bill_id))
 
-    if @bill.paid?
-      flash.now[:warning] = t('.bill_paid')
-    end
-    
+    flash.now[:warning] = t('.bill_paid') if @bill.paid?
+
     @result = CreatePayment.call(current_profile, @bill, params)
-    
+
     if @result
+      CountAchieve.call(current_profile, :bill_in_day)
       flash.now[:success] = t('transactions.create.success')
     else
       flash.now[:danger] = @bill.errors.full_messages.to_sentence

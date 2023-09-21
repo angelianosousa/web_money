@@ -1,4 +1,5 @@
 class CreateTransaction < ApplicationService
+
   def initialize(profile, params)
     @profile            = profile
     @category           = @profile.categories.find(params.delete(:category_id))
@@ -23,7 +24,7 @@ class CreateTransaction < ApplicationService
       @transaction.save
     end
 
-    return @transaction
+    @transaction
   end
 
   private
