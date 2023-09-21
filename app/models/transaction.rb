@@ -32,7 +32,6 @@
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
 class Transaction < ApplicationRecord
-  enum move_type: %i[recipe expense]
 
   # Record Relations
   belongs_to :account

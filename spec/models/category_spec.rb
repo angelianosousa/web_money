@@ -17,9 +17,8 @@
 #
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
-FactoryBot.define do
-  factory :category do
-    user_profile
-    title { Faker::Lorem.word }
-  end
+require 'rails_helper'
+
+RSpec.describe Category, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

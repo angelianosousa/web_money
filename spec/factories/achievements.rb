@@ -13,8 +13,8 @@
 #
 FactoryBot.define do
   factory :achievement do
-    user_profile { user_profile }
-    code { "MyString" }
+    user_profile
+    code { Faker::Commerce.department }
     goal { 1 }
     reached { 1 }
   end

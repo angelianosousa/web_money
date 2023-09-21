@@ -31,21 +31,8 @@
 #  fk_rails_...  (category_id => categories.id)
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
-FactoryBot.define do
-  factory :transaction do
-    user_profile
-    category
-    account
-    description { Faker::Lorem.paragraph(sentence_count: 2) }
-    price_cents { rand(100..1000) }
-    date { Faker::Date.in_date_period }
-  end
+require 'rails_helper'
 
-  trait :with_bill do
-    bill
-  end
-
-  trait :with_budget do
-    budget
-  end
+RSpec.describe Transaction, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

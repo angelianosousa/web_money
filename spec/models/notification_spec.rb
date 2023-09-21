@@ -18,11 +18,8 @@
 #
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
-FactoryBot.define do
-  factory :notification do
-    user_profile
-    title { Faker::Restaurant.type }
-    description { Faker::Restaurant.description }
-    read { %i[true false].sample }
-  end
+require 'rails_helper'
+
+RSpec.describe Notification, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

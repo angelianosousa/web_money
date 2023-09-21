@@ -21,9 +21,9 @@
 #
 FactoryBot.define do
   factory :budget do
-    objective_name { "MyString" }
-    goals_price { "9.99" }
-    date_limit { "2023-08-06 22:50:40" }
-    user_profile { nil }
+    objective_name { Faker::Commerce.department }
+    goals_price { rand(1000.00..9999.00) }
+    date_limit { Faker::Date.forward(days: 60) }
+    user_profile
   end
 end

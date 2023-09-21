@@ -1,25 +1,25 @@
 # == Schema Information
 #
-# Table name: profile_achievements
+# Table name: accounts
 #
 #  id              :bigint           not null, primary key
+#  price_cents     :integer          default(0), not null
+#  price_currency  :string           default("BRL"), not null
+#  title           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  achievement_id  :bigint           not null
 #  user_profile_id :bigint           not null
 #
 # Indexes
 #
-#  index_profile_achievements_on_achievement_id   (achievement_id)
-#  index_profile_achievements_on_user_profile_id  (user_profile_id)
+#  index_accounts_on_user_profile_id  (user_profile_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (achievement_id => achievements.id)
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
 require 'rails_helper'
 
-RSpec.describe ProfileAchievement, type: :model do
+RSpec.describe Account, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end
