@@ -311,6 +311,7 @@ GEM
     zeitwerk (2.6.11)
 
 PLATFORMS
+  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -339,7 +340,7 @@ DEPENDENCIES
   ransack (~> 3.2.1)
   redis (~> 4.0)
   rspec-rails (~> 5.0)
-  sass-rails (~> 5.0)
+  sassc-rails
   selenium-webdriver
   shoulda-matchers (~> 5.3)
   simplecov (~> 0.22.0)
