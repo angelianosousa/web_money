@@ -1,9 +1,9 @@
-@import 'colors';
 @import 'sidebar';
+@import url('https://fonts.googleapis.com/css?family=Poppins|Oswald');
 
-a.navbar-brand, h1, h2, h3, h4, h5, h6 {
+a.navbar.navbar-brand, h1, h2, h3, h4, h5, h6 {
   color: $web-money-orange !important;
-  font-family: 'Oswald', sans-serif !important;
+  font-family: 'Oswald', sans-serif;
 }
 
 p {
@@ -78,4 +78,9 @@ a .dropdown-item:visited, .dropdown-item:hover {
 .bg-web-money-green {
   background-color: $web-money-dark-green;
   color: $web-money-white;
+}
+
+#navbar_home{
+  background-color: $web-money-dark-green !important;
+  color: $web-money-white !important;
 }

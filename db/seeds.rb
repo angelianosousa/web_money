@@ -106,3 +106,20 @@ user_profile = User.last.user_profile
       )
     end
   end
+
+  achievements = [
+    'Parabéns, você está construindo um hábito muito importante para a saude financeira',
+    'Parabéns, continue gerindo seu patrimônio!!',
+    'Parabéns, cumprir suas metas é um passo importante para construir o futuro!!',
+    'Continue pagando suas contas em dia',
+    'Continue gerindo seu dinheiro com a Web Money'
+  ]
+
+  Achievement.create(icon: 'fa-duotone fa-money-bill-transfer', description: achievements[0], code: :money_movement, goal: { level_01: 10, level_02: 50, level_03: 100 })
+  Achievement.create(icon: 'fa-solid fa-sack-dollar',           description: achievements[1], code: :money_managed, goal: { level_01: 1000, level_02: 3000, level_03: 5000 })
+  Achievement.create(icon: 'fa-solid fa-hand-holding-dollar',   description: achievements[2], code: :budget_reached, goal: { level_01: 1, level_02: 3, level_03: 5 })
+  Achievement.create(icon: 'fa-solid fa-calendar-check',        description: achievements[3], code: :bill_in_day, goal: { level_01: 1, level_02: 3, level_03: 5 })
+  Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: { level_01: 1, level_02: 3, level_03: 5 })
+
+  user_profile.achievements = Achievement.all
+  user_profile.save!

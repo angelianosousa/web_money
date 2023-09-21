@@ -2,7 +2,7 @@
 'pt-BR':
   budgets:
     index:
-      title: Orçamentos | Balanço %{balance}
+      title: Orçamentos
       new_resource: ' Add Orçamento'
     edit:
       title: Editar orçamento

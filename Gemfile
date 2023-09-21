@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
+ruby '3.0.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.1'
+gem 'rails', '~> 6.1.7'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -26,14 +26,15 @@ gem 'turbolinks', '~> 5'
 gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-gem 'devise'
-gem 'rails-i18n'
-gem 'tty-spinner'
-gem 'kaminari'
-gem "chartkick"
-gem 'groupdate'
-gem 'money-rails', '~>1.12'
-gem 'ransack'
+gem 'chartkick',        '~> 5.0.2'
+gem 'devise',           '~> 4.9.2'
+gem "font-awesome-sass", "~> 6.4.2"
+gem 'groupdate',        '~> 6.2.1'
+gem 'image_processing', '~> 1.2'
+gem 'kaminari',         '~> 1.2.2'
+gem 'money-rails',      '~> 1.12'
+gem 'rails-i18n',       '~> 7.0.7'
+gem 'ransack',          '~> 3.2.1'
 
 # Use ActiveStorage variant
 gem 'mini_magick', '~> 4.8'
@@ -51,8 +52,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0'
   gem 'factory_bot_rails', '~>6.1'
   gem 'faker', "~> 2.17"
-  gem 'annotate'
-  gem 'dotenv-rails'
+  gem 'annotate', '~> 3.2.0'
+  gem 'dotenv-rails', '~> 2.8.1'
 end
 
 group :development do

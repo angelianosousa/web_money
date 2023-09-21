@@ -34,10 +34,10 @@ class Budget < ApplicationRecord
   validates :objective_name, presence: true, uniqueness: { case_sensitive: false, scope: :user_profile }
 
   def title
-    date_limit.present? ? "#{Money.from_amount(goals_price_cents.to_f).format} | #{objective_name} - #{I18n.l date_limit, format: :short}" : objective_name
+    date_limit.present? ? "#{Money.from_amount(goals_price_cents).format} | #{objective_name}" : objective_name
   end
 
   def progress
-    transactions.any? ? (transactions.sum(:price_cents) / goals_price_cents).to_f * 100 : 0
+    transactions.any? ? (transactions.sum(:price_cents).to_f / goals_price_cents).to_f * 100 : 0
   end
 end

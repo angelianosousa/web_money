@@ -3,10 +3,10 @@
 <p class="lead">Adicione a primeira aqui</p>
 <div class='d-flex flex-row justify-content-center'>
   <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:140px' do %>
-    <%= "#{fontawesome_icon(' Add Receita', 'fa fa-plus-square')}".html_safe %>
+    <%= fontawesome_icon(' Add Receita', 'fa fa-plus-circle').html_safe %>
   <% end %>
 
   <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-sm-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:140px' do %>
-    <%= "#{fontawesome_icon(' Add Despesa', 'fa fa-plus-square')}".html_safe %>
+    <%= fontawesome_icon(' Add Despesa', 'fa fa-plus-circle').html_safe %>
   <% end %>
 </div>

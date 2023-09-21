@@ -6,9 +6,9 @@ class UserProfileController < ApplicationController
 
   def update
     if @user_profile.update(user_profile_params)
-      redirect_to edit_user_profile_path(@user_profile), flash: { success: [t('.success')] }
+      redirect_to edit_user_profile_path(@user_profile), flash: { success: t('.success') }
     else
-      render :edit, alert: @user_profile.errors
+      render :edit, danger: @user_profile.errors
     end
   end
 

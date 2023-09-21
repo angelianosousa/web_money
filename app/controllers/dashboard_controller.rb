@@ -21,7 +21,7 @@ class DashboardController < ApplicationController
         format.json { render :index, status: :created, location: @transaction }
         format.js
       else
-        format.html { redirect_to dashboard_index_url, flash: { alert: @transaction.errors.full_messages } }
+        format.html { redirect_to dashboard_index_url, flash: { danger: @transaction.errors.full_messages } }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
@@ -35,7 +35,7 @@ class DashboardController < ApplicationController
         format.html { redirect_to root_path, flash: { success: [t('.success')] } }
         format.json { render :show, status: :created, location: @account }
       else
-        format.html { render root_path, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
+        format.html { render root_path, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages } }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
@@ -49,7 +49,7 @@ class DashboardController < ApplicationController
         format.html { redirect_to root_path, flash: { success: [t('.success')] } }
         format.json { render :show, status: :created, location: @bill }
       else
-        format.html { render root_path, status: :unprocessable_entity, flash: { alert: @bill.errors.full_messages } }
+        format.html { render root_path, status: :unprocessable_entity, flash: { danger: @bill.errors.full_messages } }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end

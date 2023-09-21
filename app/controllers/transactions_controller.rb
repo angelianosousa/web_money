@@ -23,6 +23,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.errors.none?
+        CountAchieve.call(current_profile, :money_movement)
         format.html { redirect_to transactions_path, flash: { success: t('.success') } }
         format.js { flash.now[:success] = t('.success') }
       else

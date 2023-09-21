@@ -2,7 +2,7 @@
 'pt-BR':
   accounts:
     index:
-      title: Contas | Balanço %{balance}
+      title: Contas
       new_resource: ' Add Conta'
       current_balance: Balanço | %{balance}
     edit:
@@ -10,6 +10,8 @@
     modals:
       new_account:
         title: Nova conta
+      transfer:
+        title: Transferência entre contas
     create:
       success: Conta criada com sucesso!!
     update:
