@@ -21,5 +21,41 @@
 require 'rails_helper'
 
 RSpec.describe Account, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user_profile)    { create(:user_profile) }
+
+  context 'Validations' do
+    subject { build(:account) }
+
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_numericality_of(:price_cents) }
+    it { is_expected.to belong_to(:user_profile) }
+    it { is_expected.to have_many(:transactions) }
+  end
+
+  context '#save' do
+    context 'when title is empty' do
+      let(:account) { build(:account, title: '', user_profile: user_profile) }
+
+      it 'should not be valid' do
+        expect(account.valid?).to be_falsey
+      end
+
+      it 'should not save' do
+        expect(account.save).to be_falsey
+      end
+    end
+
+    context 'when title is full' do
+      let(:account)   { build(:account, user_profile: user_profile) }
+
+      it 'shoud be valid' do
+        expect(account.valid?).to be_truthy
+      end
+
+      it 'shoud be saved' do
+        expect(account.save).to be_truthy
+      end
+    end
+  end
+
 end

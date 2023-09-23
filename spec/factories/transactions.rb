@@ -33,9 +33,9 @@
 #
 FactoryBot.define do
   factory :transaction do
-    user_profile
-    category
-    account
+    user_profile { create(:user_profile) }
+    category { create(:category) }
+    account { create(:account) }
     description { Faker::Lorem.paragraph(sentence_count: 2) }
     price_cents { rand(100..1000) }
     date { Faker::Date.in_date_period }

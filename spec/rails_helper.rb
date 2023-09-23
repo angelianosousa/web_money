@@ -32,9 +32,8 @@ SimpleCov.start
 #
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  SimpleCov::Formatter::JSONFormatter,
-  SimpleCov::Formatter::HTMLFormatter
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([  
+  SimpleCov::Formatter::JSONFormatter, SimpleCov::Formatter::HTMLFormatter
 ])
 
 SimpleCov.start do
@@ -90,4 +89,11 @@ RSpec.configure do |config|
   end
 
   config.include Request::JsonHelpers, type: :request
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end

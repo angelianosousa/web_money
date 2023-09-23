@@ -19,7 +19,8 @@
 #
 FactoryBot.define do
   factory :category do
-    user_profile
     title { Faker::Lorem.word }
+    category_type { %w[recipe expense].sample }
+    user_profile { create(:user_profile) }
   end
 end

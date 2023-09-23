@@ -20,5 +20,41 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user_profile) { create(:user_profile) }
+
+  context 'Validations' do
+    subject { build(:category) }
+
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_uniqueness_of(:title).scoped_to(:user_profile_id) }
+    it { is_expected.to define_enum_for(:category_type) }
+    it { is_expected.to belong_to(:user_profile) }
+    it { is_expected.to have_many(:transactions) }
+  end
+
+  context '#save' do
+    context 'when title is empty' do
+      let(:category) { build(:category, user_profile: user_profile, title: '') }
+
+      it 'should not be valid' do
+        expect(category.valid?).to be_falsey
+      end
+
+      it 'should not save' do
+        expect(category.save).to be_falsey
+      end
+    end
+
+    context 'when title is full' do
+      let(:category) { build(:category, user_profile: user_profile) }
+
+      it 'should be valid' do
+        expect(category.valid?).to be_truthy
+      end
+
+      it 'should be saved' do
+        expect(category.save).to be_truthy
+      end
+    end
+  end
 end
