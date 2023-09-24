@@ -25,11 +25,11 @@ RSpec.describe Category, type: :model do
   context 'Validations' do
     subject { build(:category) }
 
+    it { is_expected.to belong_to(:user_profile).required }
+    it { is_expected.to have_many(:transactions).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_uniqueness_of(:title).scoped_to(:user_profile_id) }
     it { is_expected.to define_enum_for(:category_type) }
-    it { is_expected.to belong_to(:user_profile) }
-    it { is_expected.to have_many(:transactions) }
   end
 
   context '#save' do

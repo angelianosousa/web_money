@@ -55,40 +55,24 @@ class Transaction < ApplicationRecord
   paginates_per 7
 
   def check_deposit
-    if category.category_type == 'recipe'
-      @account = Account.find(account_id)
-      @account.price_cents += price_cents.to_i
-      @account.save
-    end
+    return unless category.recipe?
+
+    account.price_cents += price_cents.to_f
+    account.save
   end
 
   def check_excharge
-    if category.category_type == 'expense'
-      @account = Account.find(account_id)
-      @account.price_cents -= price_cents.to_i
-      @account.save
-    end
+    return unless category.expense?
+
+    account.price_cents -= price_cents.to_f
+    account.save
   end
 
-  # Scope Methods
-
-  scope :default, ->(transactions){
-    @transaction_per_days = {}
-
-    transactions_days_for_current_user = transactions.pluck(:date)
-    
-    transactions_days_for_current_user.each do |day|
-      @transaction_per_days["#{day.strftime('%d/%m/%Y')}"] = transactions.select { |transaction| transaction.date.beginning_of_day == day.beginning_of_day }
-    end
-
-    Kaminari.paginate_array(@transaction_per_days.to_a)
-  }
-  
-  scope :recipes,-> (){
+  scope :recipes, lambda {
     where(category_id: Category.where(category_type: :recipe)).includes(:account, :category)
   }
 
-  scope :expenses,-> (){
+  scope :expenses, lambda {
     where(category_id: Category.where(category_type: :expense)).includes(:account, :category)
   }
 end

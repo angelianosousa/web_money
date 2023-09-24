@@ -26,10 +26,10 @@ RSpec.describe Account, type: :model do
   context 'Validations' do
     subject { build(:account) }
 
+    it { is_expected.to belong_to(:user_profile).required }
+    it { is_expected.to have_many(:transactions).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_numericality_of(:price_cents) }
-    it { is_expected.to belong_to(:user_profile) }
-    it { is_expected.to have_many(:transactions) }
   end
 
   context '#save' do
@@ -46,7 +46,7 @@ RSpec.describe Account, type: :model do
     end
 
     context 'when title is full' do
-      let(:account)   { build(:account, user_profile: user_profile) }
+      let(:account) { build(:account, user_profile: user_profile) }
 
       it 'shoud be valid' do
         expect(account.valid?).to be_truthy

@@ -21,7 +21,7 @@
 FactoryBot.define do
   factory :account do
     title { Faker::Bank.name }
-    price_cents { 1.0 }
+    price_cents { rand(200..2000) }
     user_profile { create(:user_profile) }
   end
 end
