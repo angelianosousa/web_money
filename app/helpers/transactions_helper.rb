@@ -1,6 +1,6 @@
 module TransactionsHelper
   def value_style(transaction)
-    symbol = (transaction.category.category_type == 'recipe') ? ['fa fa-arrow-up'] : ['fa fa-arrow-down']
+    symbol = (transaction.category.recipe?) ? ['fa fa-arrow-up'] : ['fa fa-arrow-down']
 
     content_tag :span, class: symbol.to_s, id: "transaction#{transaction.id}" do
       humanized_money_with_symbol(transaction.price_cents).to_s

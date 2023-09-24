@@ -48,8 +48,8 @@ class TransactionsController < ApplicationController
 
   # DELETE /transactions/1 or /transactions/1.json
   def destroy
-    @transaction.account.price_cents -= @transaction.price_cents if @transaction.category.category_type == 'recipe'
-    @transaction.account.price_cents += @transaction.price_cents if @transaction.category.category_type == 'expense'
+    @transaction.account.price_cents -= @transaction.price_cents if @transaction.category.recipe?
+    @transaction.account.price_cents += @transaction.price_cents if @transaction.category.expense?
     @transaction.destroy
     @transaction.account.save
 
