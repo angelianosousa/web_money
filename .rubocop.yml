@@ -1,5 +1,32 @@
 inherit_from: .rubocop_todo.yml
 
+Bundler:
+  Enabled: true
+
+Gemspec:
+  Enabled: true
+
+Layout:
+  Enabled: true
+
+Lint:
+  Enabled: true
+
+Metrics:
+  Enabled: true
+
+Migration:
+  Enabled: true
+
+Naming:
+  Enabled: true
+
+Security:
+  Enabled: true
+
+Style:
+  Enabled: true
+
 AllCops:
   Exclude:
     - 'lib/tasks/*'

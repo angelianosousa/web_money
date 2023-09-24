@@ -56,6 +56,9 @@ group :development, :test do
   gem 'faker', '~> 2.17'
   gem 'rspec_api_documentation', '~> 6.1'
   gem 'rspec-rails', '~> 5.0'
+  gem 'brakeman'
+  gem 'fasterer'
+  gem "rubycritic", require: false
 end
 
 group :development do

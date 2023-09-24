@@ -17,11 +17,11 @@ Metrics/MethodLength:
 Style/StringLiterals:
   EnforcedStyle: single_quotes
 
-Metrics/AbcSize:
-  Enabled: false
+# Metrics/AbcSize:
+#   Enabled: false
 
-Style/Documentation:
-  Enabled: false
+# Style/Documentation:
+#   Enabled: false
 
 Metrics/BlockLength:
   Exclude:
