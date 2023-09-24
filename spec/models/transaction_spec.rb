@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: transactions
@@ -34,7 +36,6 @@
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
-
   context 'Validations' do
     it { is_expected.to belong_to(:user_profile).required }
     it { is_expected.to belong_to(:account).required }
@@ -52,19 +53,15 @@ RSpec.describe Transaction, type: :model do
   let(:transaction)  { build(:transaction) }
 
   context '#save' do
-
     context 'when price_cents is empty' do
       let(:transaction) { build(:transaction, price_cents: nil, date: nil) }
 
       it 'should not be valid' do
         expect(transaction.valid?).to be_falsey
       end
-
-      
     end
 
     context 'when title is full' do
-
       it 'should be valid' do
         expect(transaction.valid?).to be_truthy
       end
@@ -94,7 +91,9 @@ RSpec.describe Transaction, type: :model do
   context '.check_deposit' do
     let(:account)             { create(:account, price_cents: 1000, user_profile: user_profile) }
     let(:category_recipe)     { create(:category, category_type: :recipe, user_profile: user_profile) }
-    let(:deposit_transaction) { build(:transaction, price_cents: 1000, account: account, category: category_recipe, user_profile: user_profile) }
+    let(:deposit_transaction) do
+      build(:transaction, price_cents: 1000, account: account, category: category_recipe, user_profile: user_profile)
+    end
 
     it 'should save if is a recipe transaction' do
       expect(deposit_transaction.category.recipe?).to be_truthy
@@ -113,7 +112,9 @@ RSpec.describe Transaction, type: :model do
   context '.check_excharge' do
     let(:account)              { create(:account, price_cents: 1000, user_profile: user_profile) }
     let(:category_expense)     { create(:category, category_type: :expense, user_profile: user_profile) }
-    let(:excharge_account)     { build(:transaction, price_cents: 101, category: category_expense, account: account, user_profile: user_profile) }
+    let(:excharge_account)     do
+      build(:transaction, price_cents: 101, category: category_expense, account: account, user_profile: user_profile)
+    end
 
     it 'should save if is a expense transaction' do
       expect(excharge_account.category.expense?).to be_truthy
@@ -128,7 +129,9 @@ RSpec.describe Transaction, type: :model do
       expect(amount_after).to satisfy("be less than #{amount_before}") { |n| n < amount_before }
     end
 
-    let(:not_excharge_account) { build(:transaction, price_cents: 1001, category: category_expense, account: account, user_profile: user_profile) }
+    let(:not_excharge_account) do
+      build(:transaction, price_cents: 1001, category: category_expense, account: account, user_profile: user_profile)
+    end
 
     it 'should not excharge a account that does not have enough money' do
       excharge_invalid = not_excharge_account.category.expense? && (account.price_cents.to_f < not_excharge_account.price_cents.to_f)

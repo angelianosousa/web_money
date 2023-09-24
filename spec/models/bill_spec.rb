@@ -25,7 +25,6 @@
 require 'rails_helper'
 
 RSpec.describe Bill, type: :model do
-
   context 'Validations' do
     subject { build(:bill) }
 

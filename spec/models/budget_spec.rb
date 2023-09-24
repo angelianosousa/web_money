@@ -25,7 +25,7 @@ require 'rails_helper'
 
 RSpec.describe Budget, type: :model do
   context 'Validations' do
-    subject { build(:budget, user_profile: create(:user_profile) ) }
+    subject { build(:budget, user_profile: create(:user_profile)) }
 
     it { is_expected.to belong_to(:user_profile).required }
     it { is_expected.to have_many(:transactions).dependent(:destroy) }

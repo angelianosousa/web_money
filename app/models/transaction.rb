@@ -34,7 +34,6 @@
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
 class Transaction < ApplicationRecord
-
   # Record Relations
   belongs_to :account
   belongs_to :user_profile
