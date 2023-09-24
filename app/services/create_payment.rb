@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CreatePayment < ApplicationService
-  
   def initialize(profile, bill, params)
+    super
     @params   = params
     @profile  = profile
     @bill     = bill
@@ -19,7 +21,7 @@ class CreatePayment < ApplicationService
       p e.message
     end
 
-    return true
+    @bill
   end
 
   def create_transaction
@@ -32,5 +34,4 @@ class CreatePayment < ApplicationService
       date: Date.today.to_datetime
     )
   end
-
 end

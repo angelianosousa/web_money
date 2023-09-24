@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CountAchieve < ApplicationService
-  
   def initialize(profile, achieve_code)
+    super
     @profile = profile
     @achieve = Achievement.find_by(code: achieve_code)
   end

@@ -4,6 +4,11 @@ default: &default
   pool: 5
   timeout: 5000
 
+  # remove if local running
+  host: postgres
+  user: postgres
+  password: password
+
 development:
   <<: *default
   database: web_money_development

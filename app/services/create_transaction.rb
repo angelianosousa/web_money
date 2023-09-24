@@ -1,6 +1,8 @@
-class CreateTransaction < ApplicationService
+# frozen_string_literal: true
 
+class CreateTransaction < ApplicationService
   def initialize(profile, params)
+    super
     @profile            = profile
     @category           = @profile.categories.find(params.delete(:category_id))
     @account            = @profile.accounts.find(params.delete(:account_id))
@@ -34,6 +36,9 @@ class CreateTransaction < ApplicationService
   end
 
   def valid_transaction
-    @transaction.errors.add :base, :invalid, message: "Conta #{@account.title} não possui saldo suficiente." unless validate_excharge
+    return if validate_excharge
+
+    @transaction.errors.add :base, :invalid,
+                            message: "Conta #{@account.title} não possui saldo suficiente."
   end
 end

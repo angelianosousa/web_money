@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: bills
@@ -23,7 +25,6 @@
 require 'rails_helper'
 
 RSpec.describe Bill, type: :model do
-
   context 'Validations' do
     subject { build(:bill) }
 

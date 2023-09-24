@@ -23,7 +23,7 @@ nos seus planos e no uso do sistema.
 
 ### Dependências
 
-* ruby 2.7.5
+* ruby 3.0.5
 * rails 6.0.1
 * Postgre SQL 12.1
 * Bootstrap 4.3.1
@@ -48,6 +48,7 @@ Gerar as tabelas do banco de dados
 
 ~~~bash
   rails s
+  docker compose up web
 ~~~
 
 ## Author

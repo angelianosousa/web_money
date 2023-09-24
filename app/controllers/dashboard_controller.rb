@@ -1,7 +1,9 @@
-class DashboardController < ApplicationController
+# frozen_string_literal: true
 
+class DashboardController < ApplicationController
   def index
-    params[:q] ||= { user_profile_id_eq: current_profile.id, date_gteq: Date.today.beginning_of_month, date_lteq: Date.today.end_of_month }
+    params[:q] ||= { user_profile_id_eq: current_profile.id, date_gteq: Date.today.beginning_of_month,
+                     date_lteq: Date.today.end_of_month }
 
     @q = current_profile.transactions.ransack(params[:q])
 
@@ -35,13 +37,15 @@ class DashboardController < ApplicationController
         format.html { redirect_to root_path, flash: { success: [t('.success')] } }
         format.json { render :show, status: :created, location: @account }
       else
-        format.html { render root_path, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages } }
+        format.html do
+          render root_path, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages }
+        end
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  def create_account
+  def create_bill
     @bill = current_profile.bills.build(bill_params)
 
     respond_to do |format|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -13,16 +15,16 @@
 ActiveRecord::Schema.define(version: 2023_09_15_034147) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "accounts", force: :cascade do |t|
-    t.string "title"
-    t.integer "price_cents", default: 0, null: false
-    t.string "price_currency", default: "BRL", null: false
-    t.bigint "user_profile_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_profile_id"], name: "index_accounts_on_user_profile_id"
+  create_table 'accounts', force: :cascade do |t|
+    t.string 'title'
+    t.integer 'price_cents', default: 0, null: false
+    t.string 'price_currency', default: 'BRL', null: false
+    t.bigint 'user_profile_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['user_profile_id'], name: 'index_accounts_on_user_profile_id'
   end
 
   create_table "achievements", force: :cascade do |t|
@@ -75,34 +77,34 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.index ["user_profile_id"], name: "index_bills_on_user_profile_id"
   end
 
-  create_table "budgets", force: :cascade do |t|
-    t.string "objective_name"
-    t.integer "goals_price_cents", default: 0, null: false
-    t.string "goals_price_currency", default: "BRL", null: false
-    t.datetime "date_limit"
-    t.bigint "user_profile_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_profile_id"], name: "index_budgets_on_user_profile_id"
+  create_table 'budgets', force: :cascade do |t|
+    t.string 'objective_name'
+    t.integer 'goals_price_cents', default: 0, null: false
+    t.string 'goals_price_currency', default: 'BRL', null: false
+    t.datetime 'date_limit'
+    t.bigint 'user_profile_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['user_profile_id'], name: 'index_budgets_on_user_profile_id'
   end
 
-  create_table "categories", force: :cascade do |t|
-    t.string "title", null: false
-    t.bigint "user_profile_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "category_type", default: 0
-    t.index ["user_profile_id"], name: "index_categories_on_user_profile_id"
+  create_table 'categories', force: :cascade do |t|
+    t.string 'title', null: false
+    t.bigint 'user_profile_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'category_type', default: 0
+    t.index ['user_profile_id'], name: 'index_categories_on_user_profile_id'
   end
 
-  create_table "notifications", force: :cascade do |t|
-    t.bigint "user_profile_id"
-    t.string "title"
-    t.string "description"
-    t.boolean "read", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_profile_id"], name: "index_notifications_on_user_profile_id"
+  create_table 'notifications', force: :cascade do |t|
+    t.bigint 'user_profile_id'
+    t.string 'title'
+    t.string 'description'
+    t.boolean 'read', default: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['user_profile_id'], name: 'index_notifications_on_user_profile_id'
   end
 
   create_table "profile_achievements", force: :cascade do |t|
@@ -133,24 +135,24 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.index ["user_profile_id"], name: "index_transactions_on_user_profile_id"
   end
 
-  create_table "user_profiles", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "name", default: ""
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_profiles_on_user_id"
+  create_table 'user_profiles', force: :cascade do |t|
+    t.bigint 'user_id'
+    t.string 'name', default: ''
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['user_id'], name: 'index_user_profiles_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'email', default: '', null: false
+    t.string 'encrypted_password', default: '', null: false
+    t.string 'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.datetime 'remember_created_at'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
 
   add_foreign_key "accounts", "user_profiles"

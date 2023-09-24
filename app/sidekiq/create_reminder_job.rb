@@ -1,5 +1,6 @@
-class CreateReminderJob
+# frozen_string_literal: true
 
+class CreateReminderJob
   def perform
     number_of_notifications = 0
 
@@ -9,7 +10,7 @@ class CreateReminderJob
         number_of_notifications += 1
       end
     end
-    
+
     p "Notificações criadas #{number_of_notifications} - #{Date.today}"
   end
 end

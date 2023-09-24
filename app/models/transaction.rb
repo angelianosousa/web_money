@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: transactions
@@ -32,7 +34,6 @@
 #  fk_rails_...  (user_profile_id => user_profiles.id)
 #
 class Transaction < ApplicationRecord
-
   # Record Relations
   belongs_to :account
   belongs_to :user_profile
@@ -40,7 +41,7 @@ class Transaction < ApplicationRecord
   belongs_to :bill, optional: true
   belongs_to :budget, optional: true
 
-  # Money Rails 
+  # Money Rails
   monetize :price_cents
   register_currency :brl
 

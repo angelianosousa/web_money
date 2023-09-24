@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: %i[ edit update destroy ]
+  before_action :set_transaction, only: %i[edit update destroy]
 
   # GET /transactions or /transactions.json
   def index
     params[:q] ||= { user_profile_id_eq: current_profile.id }
 
     @q = current_profile.transactions.ransack(params[:q])
-    @transactions = @q.result.order(created_at: :desc).group_by(&:date)
+    @transactions = @q.result.order(created_at: :desc).group_by(&:date) # .page(params[:page]).per(5)
 
     @balance = current_profile.accounts.sum(:price_cents)
 
@@ -14,8 +16,7 @@ class TransactionsController < ApplicationController
   end
 
   # GET /transactions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /transactions or /transactions.json
   def create
@@ -60,13 +61,15 @@ class TransactionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transaction
-      @transaction = current_profile.transactions.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def transaction_params
-      params.require(:transaction).permit(:account_id, :category_id, :bill_id, :user_profile_id, :budget_id, :description, :price_cents, :date)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_transaction
+    @transaction = current_profile.transactions.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def transaction_params
+    params.require(:transaction).permit(:account_id, :category_id, :bill_id, :user_profile_id, :description,
+                                        :price_cents, :date)
+  end
 end

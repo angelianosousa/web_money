@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: accounts
@@ -57,5 +59,4 @@ RSpec.describe Account, type: :model do
       end
     end
   end
-
 end

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[ show edit update destroy ]
+  before_action :set_account, only: %i[show edit update destroy]
 
   # GET /accounts or /accounts.json
   def index
@@ -7,8 +9,7 @@ class AccountsController < ApplicationController
   end
 
   # GET /accounts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /accounts or /accounts.json
   def create
@@ -16,8 +17,8 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to accounts_path, flash: { success: t('.success') }}
-        format.js { flash.now[:notice] = t('.success') }
+        format.html { redirect_to accounts_path, flash: { notice: t('.notice') } }
+        format.js { flash.now[:notice] = t('.notice') }
       else
         format.html { redirect_to accounts_path, flash: { danger: @account.errors.full_messages.to_sentence } }
         format.js { flash.now[:danger] = @account.errors.full_messages.to_sentence }
@@ -32,7 +33,9 @@ class AccountsController < ApplicationController
         format.html { redirect_to accounts_url, flash: { success: t('.success') } }
         format.json { render :show, status: :ok, location: @account }
       else
-        format.html { render :edit, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages.to_sentence } }
+        format.html do
+          render :edit, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages.to_sentence }
+        end
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
