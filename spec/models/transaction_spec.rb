@@ -36,7 +36,8 @@
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
-  context 'Validations' do
+
+  describe 'Validations' do
     it { is_expected.to belong_to(:user_profile).required }
     it { is_expected.to belong_to(:account).required }
     it { is_expected.to belong_to(:category).required }
@@ -52,7 +53,7 @@ RSpec.describe Transaction, type: :model do
   let(:user_profile) { create(:user_profile) }
   let(:transaction)  { build(:transaction) }
 
-  context '#save' do
+  describe '#save' do
     context 'when price_cents is empty' do
       let(:transaction) { build(:transaction, price_cents: nil, date: nil) }
 

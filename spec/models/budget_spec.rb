@@ -24,7 +24,8 @@
 require 'rails_helper'
 
 RSpec.describe Budget, type: :model do
-  context 'Validations' do
+
+  describe 'Validations' do
     subject { build(:budget, user_profile: create(:user_profile)) }
 
     it { is_expected.to belong_to(:user_profile).required }
@@ -35,7 +36,7 @@ RSpec.describe Budget, type: :model do
     it { is_expected.to validate_numericality_of(:goals_price_cents) }
   end
 
-  context '#save' do
+  describe '#save' do
     context 'when title is empty' do
       let(:budget) { build(:budget, objective_name: '') }
 

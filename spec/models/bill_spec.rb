@@ -25,7 +25,8 @@
 require 'rails_helper'
 
 RSpec.describe Bill, type: :model do
-  context 'Validations' do
+
+  describe 'Validations' do
     subject { build(:bill) }
 
     it { is_expected.to belong_to(:user_profile).required }
@@ -37,7 +38,7 @@ RSpec.describe Bill, type: :model do
     it { is_expected.to validate_numericality_of(:price_cents) }
   end
 
-  context '#save' do
+  describe '#save' do
     context 'when title is empty' do
       let(:bill) { build(:bill, title: '', due_pay: nil) }
 

@@ -23,12 +23,13 @@
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
-  context 'Validations' do
+
+  describe 'Validations' do
     it { is_expected.to validate_presence_of(:description) }
     it { is_expected.to belong_to(:user_profile) }
   end
 
-  context '#save' do
+  describe '#save' do
     context 'when title is empty' do
       let(:notification) { build(:notification, description: '') }
 

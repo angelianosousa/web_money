@@ -24,7 +24,7 @@ require 'rails_helper'
 RSpec.describe Category, type: :model do
   let(:user_profile) { create(:user_profile) }
 
-  context 'Validations' do
+  describe 'Validations' do
     subject { build(:category) }
 
     it { is_expected.to belong_to(:user_profile).required }
@@ -34,7 +34,7 @@ RSpec.describe Category, type: :model do
     it { is_expected.to define_enum_for(:category_type) }
   end
 
-  context '#save' do
+  describe '#save' do
     context 'when title is empty' do
       let(:category) { build(:category, user_profile: user_profile, title: '') }
 

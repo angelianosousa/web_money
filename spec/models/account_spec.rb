@@ -25,7 +25,7 @@ require 'rails_helper'
 RSpec.describe Account, type: :model do
   let(:user_profile)    { create(:user_profile) }
 
-  context 'Validations' do
+  describe 'Validations' do
     subject { build(:account) }
 
     it { is_expected.to belong_to(:user_profile).required }
@@ -34,7 +34,7 @@ RSpec.describe Account, type: :model do
     it { is_expected.to validate_numericality_of(:price_cents) }
   end
 
-  context '#save' do
+  describe '#save' do
     context 'when title is empty' do
       let(:account) { build(:account, title: '', user_profile: user_profile) }
 

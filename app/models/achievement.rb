@@ -18,6 +18,9 @@ class Achievement < ApplicationRecord
   enum code: %i[money_movement money_managed budget_reached]
   enum level: %i[silver golden diamond]
 
+  validates :description, :icon, :code, :level, presence: true
+  validates :points_reached, :total_points, numericality: { greater_or_equal_than: 0, only_integer: true }
+
   has_many :profile_achievements
   has_many :user_profiles, through: :profile_achievements, source: :user_profile
 
@@ -33,14 +36,6 @@ class Achievement < ApplicationRecord
     when 'budget_reached'
       'Cada meta batida vale 100 pontos'.html_safe
     end
-  end
-
-  def completed
-    points_reached >= total_points
-  end
-
-  def not_completed
-    points_reached >= total_points
   end
 
 end
