@@ -81,7 +81,7 @@ user_profile.bills.each do |bill|
   end
 end
 
-# Orçamentos
+# Meta
 ['Reserva de Emergência', 'Aposentadoria', 'Carro Novo'].each do |e|
   Budget.create!(
     objective_name: e,
@@ -91,7 +91,7 @@ end
   )
 end
 
-## Transações dos orçamentos
+## Transações das metas
 
 user_profile.budgets.each do |budget|
   category = user_profile.categories.recipes.sample
@@ -110,18 +110,29 @@ user_profile.budgets.each do |budget|
   end
 
   achievements = [
-    'Parabéns, você está construindo um hábito muito importante para a saude financeira',
-    'Parabéns, continue gerindo seu patrimônio!!',
-    'Parabéns, cumprir suas metas é um passo importante para construir o futuro!!',
+    'Movemente a plataforma e com isso construa o hábito de acompanhar suas finanças regularmente.',
+    'Acumule pontos conforme sua receita aumenta',
+    'Cada meta batida significa uma superação.',
     'Continue pagando suas contas em dia',
     'Continue gerindo seu dinheiro com a Web Money'
   ]
 
-  Achievement.create(icon: 'fa-duotone fa-money-bill-transfer', description: achievements[0], code: :money_movement, goal: { level_01: 10, level_02: 50, level_03: 100 })
-  Achievement.create(icon: 'fa-solid fa-sack-dollar',           description: achievements[1], code: :money_managed, goal: { level_01: 1000, level_02: 3000, level_03: 5000 })
-  Achievement.create(icon: 'fa-solid fa-hand-holding-dollar',   description: achievements[2], code: :budget_reached, goal: { level_01: 1, level_02: 3, level_03: 5 })
-  Achievement.create(icon: 'fa-solid fa-calendar-check',        description: achievements[3], code: :bill_in_day, goal: { level_01: 1, level_02: 3, level_03: 5 })
-  Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: { level_01: 1, level_02: 3, level_03: 5 })
+  user_profile.achievements.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :silver, total_points: 100)
+  user_profile.achievements.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :golden, total_points: 500)
+  user_profile.achievements.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :diamond, total_points: 1000)
 
-  user_profile.achievements = Achievement.all
-  user_profile.save!
+  user_profile.achievements.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :silver, total_points: 1000)
+  user_profile.achievements.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :golden, total_points: 3000)
+  user_profile.achievements.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :diamond, total_points: 5000)
+
+  user_profile.achievements.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :silver, total_points: 100)
+  user_profile.achievements.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :golden, total_points: 300)
+  user_profile.achievements.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :diamond, total_points: 500)
+
+  # Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 1, total_points: 1)
+  # Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 2, total_points: 3)
+  # Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 3, total_points: 5)
+
+  # Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 1)
+  # Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 3)
+  # Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 5)

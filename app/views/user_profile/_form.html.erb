@@ -5,7 +5,8 @@
     <div class='col-md-3' style='margin:auto'>
       <div class='card mb-3'>
         <div class='card-body'>
-          <% @avatar = current_profile.avatar || 'https://bulma.io/images/placeholders/1280x960.png' %> <!-- Variable for set the current user for images profile --->
+          <% @avatar = current_profile.avatar.url || 'https://bulma.io/images/placeholders/1280x960.png' %>
+
           <%= image_tag(@avatar, size:"192x192", class:"img-circle profile_img") %>
         </div>
       </div>

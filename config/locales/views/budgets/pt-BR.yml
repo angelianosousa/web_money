@@ -2,16 +2,16 @@
 'pt-BR':
   budgets:
     index:
-      title: Orçamentos
-      new_resource: ' Add Orçamento'
+      title: Metas
+      new_resource: ' Nova Meta'
     edit:
-      title: Editar orçamento
+      title: Editar meta
     modals:
       new:
-        title: Novo orçamento
+        title: Nova meta
     create:
-      success: Orçamento criado com sucesso!!
+      success: Meta criada com sucesso!!
     update:
-      success: Orçamento atualizado com sucesso!!
+      success: Meta atualizada com sucesso!!
     destroy:
-      success: Orçamento removido com sucesso!!
+      success: Meta removida com sucesso!!

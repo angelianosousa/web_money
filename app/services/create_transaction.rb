@@ -2,7 +2,6 @@
 
 class CreateTransaction < ApplicationService
   def initialize(profile, params)
-    super
     @profile            = profile
     @category           = @profile.categories.find(params.delete(:category_id))
     @account            = @profile.accounts.find(params.delete(:account_id))

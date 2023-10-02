@@ -42,4 +42,13 @@ class Budget < ApplicationRecord
   def progress
     transactions.any? ? (transactions.sum(:price_cents).to_f / goals_price_cents).to_f * 100 : 0
   end
+
+  def self.finished(user_profile)
+    budgets = []
+    budgets.push user_profile.budgets.map do |b|
+      return b if b.progress.round(2) >= 100
+    end
+
+    budgets
+  end
 end

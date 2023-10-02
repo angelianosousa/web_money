@@ -110,9 +110,10 @@ RSpec.describe Transaction, type: :model do
   end
 
   context '.check_excharge' do
-    let(:account)              { create(:account, price_cents: 1000, user_profile: user_profile) }
-    let(:category_expense)     { create(:category, category_type: :expense, user_profile: user_profile) }
-    let(:excharge_account)     do
+    let(:account)          { create(:account, price_cents: 1000, user_profile: user_profile) }
+    let(:category_expense) { create(:category, category_type: :expense, user_profile: user_profile) }
+
+    let(:excharge_account) do
       build(:transaction, price_cents: 101, category: category_expense, account: account, user_profile: user_profile)
     end
 

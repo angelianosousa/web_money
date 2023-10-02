@@ -12,7 +12,7 @@
       categories: Categorias
       dashboard: Dashboard
       users: User
-      budgets: Orçamentos
+      budgets: Metas
     navbar:
       notifications:
         title: Notificações

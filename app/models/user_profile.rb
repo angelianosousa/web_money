@@ -31,5 +31,5 @@ class UserProfile < ApplicationRecord
   has_many :bills,                dependent: :destroy
   has_many :budgets,              dependent: :destroy
   has_many :profile_achievements, dependent: :destroy
-  has_many :achievements, through: :profile_achievements, dependent: :destroy
+  has_many :achievements, -> { order(:code) }, through: :profile_achievements, dependent: :destroy
 end

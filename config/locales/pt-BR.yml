@@ -1,6 +1,11 @@
 ---
 'pt-BR':
   months: Meses
+  button_title:
+    new_account: ' Nova conta'
+    new_bill: ' Nova recorrência'
+    new_recipe: ' Receita'
+    new_expense: ' Despesa'
   helpers:
     category_type_options_for_select:
       recipe: Receita

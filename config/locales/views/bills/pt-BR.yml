@@ -3,7 +3,7 @@
   bills:
     index:
       title: Recorrências
-      new_resource: ' Add Recorrência'
+      new_resource: ' Nova Recorrência'
     edit:
       title: ' Editar recorrência'
     show:
@@ -11,7 +11,7 @@
       balance: Movimentações - %{balance}
     modals:
       new_payment:
-        title: Add movimentação - %{bill}
+        title: Nova movimentação - %{bill}
       new_bill:
         title: Nova Recorrência
     search_filter:
