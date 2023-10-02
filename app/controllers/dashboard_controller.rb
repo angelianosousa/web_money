@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
+# Dashboard Routes Controller
 class DashboardController < ApplicationController
   def index
-    params[:q] ||= { user_profile_id_eq: current_profile.id, date_gteq: Date.today.beginning_of_month,
-                     date_lteq: Date.today.end_of_month }
-
-    @q = current_profile.transactions.ransack(params[:q])
-
-    @transactions    = @q.result(distinct: true)
+    set_default_search_params
+    perform_search
 
     @categories      = @transactions.includes(:category).group(:title).sum(:price_cents)
     @bills           = @transactions.where.not(bill_id: nil).includes(:bill).group(:title).sum(:price_cents)
@@ -19,12 +16,9 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to root_path, flash: { success: [t('.success')] } }
-        format.json { render :index, status: :created, location: @transaction }
-        format.js
+        handle_successful_creation(format, root_path, { success: [t('.success')] }, @transaction)
       else
-        format.html { redirect_to dashboard_index_url, flash: { danger: @transaction.errors.full_messages } }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        handle_failed_creation(format, dashboard_index_url, @transaction)
       end
     end
   end
@@ -34,27 +28,22 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to root_path, flash: { success: [t('.success')] } }
-        format.json { render :show, status: :created, location: @account }
+        handle_successful_creation(
+          format, root_path, { success: [t('.success')] }, @account
+        )
       else
-        format.html do
-          render root_path, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages }
-        end
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+        handle_failed_creation(format, root_path, @account)
       end
     end
   end
 
   def create_bill
     @bill = current_profile.bills.build(bill_params)
-
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to root_path, flash: { success: [t('.success')] } }
-        format.json { render :show, status: :created, location: @bill }
+        handle_successful_creation(format, root_path, { success: [t('.success')] }, @bill)
       else
-        format.html { render root_path, status: :unprocessable_entity, flash: { danger: @bill.errors.full_messages } }
-        format.json { render json: @bill.errors, status: :unprocessable_entity }
+        handle_failed_creation(format, root_path, @bill)
       end
     end
   end
@@ -71,5 +60,15 @@ class DashboardController < ApplicationController
 
   def bill_params
     params.require(:bill).permit(:title, :price_cents, :due_pay, :bill_type, :status)
+  end
+
+  def set_default_search_params
+    params[:q] ||= { user_profile_id_eq: current_profile.id, date_gteq: Date.today.beginning_of_month,
+                     date_lteq: Date.today.end_of_month }
+  end
+
+  def perform_search
+    @q = current_profile.transactions.ransack(params[:q])
+    @transactions = @q.result(distinct: true)
   end
 end

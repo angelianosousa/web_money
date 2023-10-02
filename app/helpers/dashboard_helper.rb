@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper
 module DashboardHelper
   def dropdown_item_dashboard(text, icon:, target: '')
     link_to '#', class: 'btn btn-outline-dark dropdown-item py-2', data: { toggle: 'modal', target: target } do

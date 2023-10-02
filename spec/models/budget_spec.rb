@@ -24,7 +24,6 @@
 require 'rails_helper'
 
 RSpec.describe Budget, type: :model do
-
   describe 'Validations' do
     subject { build(:budget, user_profile: create(:user_profile)) }
 

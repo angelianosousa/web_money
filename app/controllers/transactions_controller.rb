@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
+# Transactions Entity Controller
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[edit update destroy]
 
   # GET /transactions or /transactions.json
   def index
-    params[:q] ||= { user_profile_id_eq: current_profile.id }
-
-    @q = current_profile.transactions.ransack(params[:q])
-    @transactions = @q.result.order(created_at: :desc).group_by(&:date) # .page(params[:page]).per(5)
+    set_default_search_params
+    perform_search
 
     @balance = current_profile.accounts.sum(:price_cents)
-
     @transactions = Kaminari.paginate_array(@transactions.to_a).page(params[:page]).per(5)
   end
 
@@ -25,11 +23,9 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       if @transaction.errors.none?
         CountAchieve.call(current_profile, :money_movement)
-        format.html { redirect_to transactions_path, flash: { success: t('.success') } }
-        format.js { flash.now[:success] = t('.success') }
+        handle_successful_creation(format, transactions_path, { success: t('.success') }, @transaction)
       else
-        format.html { redirect_to transactions_url, flash: { danger: @transaction.errors.full_messages.to_sentence } }
-        format.js { flash.now[:danger] = @transaction.errors.full_messages }
+        handle_failed_creation(format, transactions_url, @transaction)
       end
     end
   end
@@ -49,8 +45,7 @@ class TransactionsController < ApplicationController
 
   # DELETE /transactions/1 or /transactions/1.json
   def destroy
-    @transaction.account.price_cents -= @transaction.price_cents if @transaction.category.recipe?
-    @transaction.account.price_cents += @transaction.price_cents if @transaction.category.expense?
+    @transaction.expense_or_recipe_calc
     @transaction.destroy
     @transaction.account.save
 
@@ -69,6 +64,16 @@ class TransactionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def transaction_params
-    params.require(:transaction).permit(:account_id, :category_id, :bill_id, :budget_id, :user_profile_id, :description, :price_cents, :date)
+    params.require(:transaction).permit(:account_id, :category_id, :bill_id, :budget_id, :user_profile_id,
+                                        :description, :price_cents, :date)
+  end
+
+  def set_default_search_params
+    params[:q] ||= { user_profile_id_eq: current_profile.id }
+  end
+
+  def perform_search
+    @q = current_profile.transactions.ransack(params[:q])
+    @transactions = @q.result.order(created_at: :desc).group_by(&:date) # .page(params[:page]).per(5)
   end
 end

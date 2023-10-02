@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+# TransferBetweenAccounts
 class TransferBetweenAccounts < ApplicationService
   # 1. Achar contas
   # 2. Validar se a conta tem dinheiro suficiente para transação
   # 3. Realizar transação caso seja possível
 
   def initialize(profile, params)
-    super
+    super()
     @profile         = profile
     @params          = params
   end

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# CreatePayment
 class CreateTransaction < ApplicationService
   def initialize(profile, params)
+    super()
     @profile            = profile
     @category           = @profile.categories.find(params.delete(:category_id))
     @account            = @profile.accounts.find(params.delete(:account_id))
@@ -12,9 +14,20 @@ class CreateTransaction < ApplicationService
 
   def call
     valid_transaction if @category.expense?
-
     return @transaction unless @transaction.errors.none?
 
+    transaction_payment_create
+
+    @transaction
+  end
+
+  private
+
+  def validate_excharge
+    @account.price_cents > @transaction_params[:price_cents].to_f
+  end
+
+  def transaction_payment_create
     Transaction.transaction do
       @transaction.user_profile = @profile
       @transaction.description  = @transaction_params[:description]
@@ -24,14 +37,6 @@ class CreateTransaction < ApplicationService
       @transaction.date         = Date.today.to_datetime
       @transaction.save
     end
-
-    @transaction
-  end
-
-  private
-
-  def validate_excharge
-    @account.price_cents > @transaction_params[:price_cents].to_f
   end
 
   def valid_transaction

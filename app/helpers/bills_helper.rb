@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper
 module BillsHelper
   def bill_payment(status, font_size: '12px')
     paid    = Bill.human_attribute_name 'bill.status.paid'

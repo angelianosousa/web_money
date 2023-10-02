@@ -35,7 +35,8 @@ SimpleCov.start
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-                                                                 SimpleCov::Formatter::JSONFormatter, SimpleCov::Formatter::HTMLFormatter
+                                                                 SimpleCov::Formatter::JSONFormatter,
+                                                                 SimpleCov::Formatter::HTMLFormatter
                                                                ])
 
 SimpleCov.start do
