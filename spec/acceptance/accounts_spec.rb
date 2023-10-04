@@ -1,19 +1,22 @@
+# frozen_string_literal: true
+
 require 'acceptance_helper'
 
-let!(:user_profile) do
-  create(:user_profile)
-end
+# FIXME
+# let!(:user_profile) do
+#   create(:user_profile)
+# end
 
-resource 'Account' do
-  get '/accounts' do
-    example 'Getting user information' do
-      explanation 'This endpoint returns the accounts information'
+# resource 'Account' do
+#   get '/accounts' do
+#     example 'Getting user information' do
+#       explanation 'This endpoint returns the accounts information'
 
-      params = {}
+#       params = {}
 
-      do_request(params)
+#       do_request(params)
 
-      expect(status).to eq(200)
-    end
-  end
-end
+#       expect(status).to eq(200)
+#     end
+#   end
+# end

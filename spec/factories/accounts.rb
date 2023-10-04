@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: accounts
@@ -21,7 +23,7 @@
 FactoryBot.define do
   factory :account do
     title { Faker::Bank.name }
-    value { 0 }
-    user_profile
+    price_cents { rand(200..2000) }
+    user_profile { create(:user_profile) }
   end
 end

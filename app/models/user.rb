@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -25,21 +27,18 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :user_profile
-  
-  def building_profile
-    begin
-      UserProfile.transaction do
-        user_profile = UserProfile.create(user_id: User.last.id)
-  
-        user_profile.accounts.create(title:"Banco X", price_cents: 0)
-        user_profile.accounts.create(title:"Banco Y", price_cents: 0)
-  
-        user_profile.categories.create(title: 'Despesa X', category_type: 'expense')
-        user_profile.categories.create(title: 'Receita X', category_type: 'recipe')
-      end
-    rescue ActiveRecord::RecordInvalid => e
-      p e.message
-    end
-  end
 
+  def building_profile
+    UserProfile.transaction do
+      user_profile = UserProfile.create(user_id: User.last.id)
+
+      user_profile.accounts.create(title: 'Banco X', price_cents: 0)
+      user_profile.accounts.create(title: 'Banco Y', price_cents: 0)
+
+      user_profile.categories.create(title: 'Despesa X', category_type: 'expense')
+      user_profile.categories.create(title: 'Receita X', category_type: 'recipe')
+    end
+  rescue ActiveRecord::RecordInvalid => e
+    p e.message
+  end
 end

@@ -8,13 +8,13 @@
 
       <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:120px' do %>
         <span class='icon'>
-          <i class='fa fa-arrow-up'></i> Add Receita
+          <i class='fa fa-plus-circle'></i> <%= t('button_title.new_recipe') %>
         </span>
       <% end %>
 
       <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:120px' do %>
         <span class='icon'>
-          <i class='fa fa-arrow-down'></i> Add Despesa
+          <i class='fa fa-plus-circle'></i> <%= t('button_title.new_expense') %>
         </span>
       <% end %>
 
@@ -24,10 +24,10 @@
         <% end %>
         <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
           <a class="dropdown-item" href="#" data-target='#newAccountModal' data-toggle='modal'>
-            <span class='icon'><i class='fa fa-bank'></i></span>  <%= t('.button_title.new_account') %>
+            <span class='icon'><i class='fa fa-bank'></i></span>  <%= t('button_title.new_account') %>
           </a>
           <a class="dropdown-item" href="#" data-target='#newBillModal' data-toggle='modal'>
-            <span class='icon'><i class='fa fa-recycle'></i></span>  <%= t('.button_title.new_bill') %>
+            <span class='icon'><i class='fa fa-recycle'></i></span>  <%= t('button_title.new_bill') %>
           </a>
         </div>
       </div>

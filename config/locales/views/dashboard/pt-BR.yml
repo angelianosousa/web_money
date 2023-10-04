@@ -3,10 +3,6 @@
   dashboard:
     index:
       title: Dashboard | Balanço %{balance}
-      button_title:
-        new_account: ' Add conta'
-        new_transaction: ' Add movimentação'
-        new_bill: ' Add recorrência'
     modals:
       new_account:
         title: Nova conta

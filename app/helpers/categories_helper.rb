@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module CategoriesHelper
-  def category_options_for_select(move_type='')
-    if move_type == 'recipe'
-      current_profile.categories.recipes.collect { |c| [ c.title.upcase, c.id ] }
-    elsif move_type == 'expense'
-      current_profile.categories.expenses.collect { |c| [ c.title.upcase, c.id ] }
+  def category_options_for_select(filter = '')
+    if filter == 'recipe'
+      current_profile.categories.recipes.collect { |c| [c.title.upcase, c.id] }
+    elsif filter == 'expense'
+      current_profile.categories.expenses.collect { |c| [c.title.upcase, c.id] }
     else
-      current_profile.categories.collect { |c| [ c.title.upcase, c.id ] }
+      current_profile.categories.collect { |c| [c.title.upcase, c.id] }
     end
   end
 

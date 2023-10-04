@@ -7,13 +7,13 @@
     <div class='float-right'>
       <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:125px' do %>
         <span class='icon'>
-          <i class='fa fa-arrow-up'></i> Add Receita
+          <i class='fa fa-plus-circle'></i> <%= t('button_title.new_recipe') %>
         </span>
       <% end %>
 
       <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:125px' do %>
         <span class='icon'>
-          <i class='fa fa-arrow-down'></i> Add Despesa
+          <i class='fa fa-plus-circle'></i> <%= t('button_title.new_expense') %>
         </span>
       <% end %>
 

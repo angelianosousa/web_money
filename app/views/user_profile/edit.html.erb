@@ -5,31 +5,16 @@
   </div>
 </div>
 
-<h3 class='mb-4'>Minhas conquistas</h3>
+<div class='d-flex justify-content-left'>
+  <h3 class='mb-4'><%= t('.my_achievements') %></h3>
 
-<div class='container'>
-  <div class='row'>
-    <% @user_profile.achievements.each do |achievement| %>
-      <div class='col-sm-4'>
-        <div class='card border-dark w-100 mb-2'>
-          <h4 class='card-header d-flex flex-row justify-content-between'>
-            <%= t(".achievements.codes.#{achievement.code.parameterize}") %>
-
-            <button type="button" class="btn btn-success btn-sm">
-              Contador <span class="badge badge-light"><%= achievement.reached %></span>
-            </button>
-          </h4>
-
-          <div class='card-body d-flex flex-row align-items-center'>
-            <span class='icon d-inline mb-2' style='font-size: 24px;'>
-              <%= fontawesome_icon('', achievement.icon.to_s, 'font-size: 32px') %>
-            </span>
-
-            <p class='d-inline ml-2'><%= achievement.description %></p>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
+  <%= link_to '#', class: 'ml-3 my-3', data: { toggle: 'modal', target: '.all_achievements' } do %>
+    <%= fontawesome_icon('', 'fa-solid fa-circle-question', 'font-size: 24px') %>
+  <% end %>
 </div>
+
+<hr>
+
+<%= render 'achievements' %>
+
+<%= render 'user_profile/modals/achieve_not_finished', achievements_not_fineshed: @achievements_not_fineshed %>

@@ -3,7 +3,7 @@
   accounts:
     index:
       title: Contas
-      new_resource: ' Add Conta'
+      new_resource: ' Nova Conta'
       current_balance: Balanço | %{balance}
     edit:
       title: Editar conta

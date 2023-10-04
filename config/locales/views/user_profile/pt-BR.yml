@@ -3,6 +3,7 @@
   user_profile:
     edit:
       title: Editar perfil
+      my_achievements: Minhas conquistas
       achievements:
         codes:
           money_managed: Gestão consciente
@@ -10,5 +11,9 @@
           bill_in_day: Contas em dia
           profile_time: Cuidando do dinheiro
           money_movement: Conta movimentada
+        levels:
+          silver: Level Prata
+          golden: Level Ouro
+          diamond: Level Diamante
     update:
       success: Perfil atualizado com sucesso!!

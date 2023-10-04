@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: transactions
@@ -33,15 +35,19 @@
 #
 FactoryBot.define do
   factory :transaction do
-    # recurrence_id { Recurrence.all.sample.id }
-    # user_profile { UserProfile.all.sample.id }
-    # category_id { Category.all.sample.id }
-    # association :recurrence
-    recurrence
-    user_profile
-    category
-    title { Faker::Restaurant.name }
+    user_profile { create(:user_profile) }
+    category { create(:category) }
+    account { create(:account) }
+    description { Faker::Lorem.paragraph(sentence_count: 2) }
     price_cents { rand(100..1000) }
     date { Faker::Date.in_date_period }
+  end
+
+  trait :with_bill do
+    bill
+  end
+
+  trait :with_budget do
+    budget
   end
 end

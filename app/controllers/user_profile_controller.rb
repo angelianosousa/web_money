@@ -1,7 +1,13 @@
+# frozen_string_literal: true
+
 class UserProfileController < ApplicationController
   before_action :set_user_profile, only: %i[edit update destroy]
 
   def edit
+    @achievements_not_fineshed = @user_profile.achievements.not_finished
+    @achievements_silver       = @user_profile.achievements.silver
+    @achievements_golden       = @user_profile.achievements.golden
+    @achievements_diamond      = @user_profile.achievements.diamond
   end
 
   def update
@@ -21,5 +27,4 @@ class UserProfileController < ApplicationController
   def user_profile_params
     params.require(:user_profile).permit(:name, :avatar)
   end
-  
 end

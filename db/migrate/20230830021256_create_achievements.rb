@@ -4,8 +4,9 @@ class CreateAchievements < ActiveRecord::Migration[6.0]
       t.string :icon
       t.string :description
       t.integer :code
-      t.jsonb :goal
-      t.integer :reached, default: 0
+      t.integer :total_points
+      t.integer :level, default: 1
+      t.integer :points_reached, default: 0
 
       t.timestamps
     end

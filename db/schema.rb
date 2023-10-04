@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.string "icon"
     t.string "description"
     t.integer "code"
-    t.jsonb "goal"
-    t.integer "reached", default: 0
+    t.integer "total_points"
+    t.integer "level", default: 1
+    t.integer "points_reached", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
