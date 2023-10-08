@@ -43,6 +43,14 @@ FactoryBot.define do
     date { Faker::Date.in_date_period }
   end
 
+  trait :recipe do
+    category { create(:category, category_type: :recipe) }
+  end
+
+  trait :expense do
+    category { create(:category, category_type: :expense) }
+  end
+
   trait :with_bill do
     bill
   end
