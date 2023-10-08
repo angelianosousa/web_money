@@ -36,7 +36,6 @@
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
-
   describe 'Validations' do
     it { is_expected.to belong_to(:user_profile).required }
     it { is_expected.to belong_to(:account).required }
@@ -136,7 +135,8 @@ RSpec.describe Transaction, type: :model do
     end
 
     it 'should not excharge a account that does not have enough money' do
-      excharge_invalid = not_excharge_account.category.expense? && (account.price_cents.to_f < not_excharge_account.price_cents.to_f)
+      excharge_invalid = not_excharge_account.category.expense? &&
+                         (account.price_cents.to_f < not_excharge_account.price_cents.to_f)
 
       expect(excharge_invalid).to be_truthy
     end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Accounts Entity Controller
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show edit update destroy]
 
@@ -17,11 +18,9 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to accounts_path, flash: { notice: t('.notice') } }
-        format.js { flash.now[:notice] = t('.notice') }
+        handle_successful_creation(format, accounts_path, { success: t('.success') }, @account)
       else
-        format.html { redirect_to accounts_path, flash: { danger: @account.errors.full_messages.to_sentence } }
-        format.js { flash.now[:danger] = @account.errors.full_messages.to_sentence }
+        handle_failed_creation(format, accounts_path, @account)
       end
     end
   end
@@ -30,13 +29,9 @@ class AccountsController < ApplicationController
   def update
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to accounts_url, flash: { success: t('.success') } }
-        format.json { render :show, status: :ok, location: @account }
+        handle_successful_update(format, accounts_url, @account)
       else
-        format.html do
-          render :edit, status: :unprocessable_entity, flash: { danger: @account.errors.full_messages.to_sentence }
-        end
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+        handle_failed_update(format, nil, @account)
       end
     end
   end

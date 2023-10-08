@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper
 module BudgetsHelper
   def budget_options_for_select
     current_profile.budgets.map do |budget|

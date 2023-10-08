@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Budgets Entity Controller
 class BudgetsController < ApplicationController
   before_action :set_budget, only: %i[show edit update destroy]
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Bills Entity Controller
 class BillsController < ApplicationController
   before_action :set_bill, only: %i[show edit update destroy]
 
@@ -30,18 +31,11 @@ class BillsController < ApplicationController
   end
 
   def new_transaction
-    @bill = current_profile.bills.find(params.delete(:bill_id))
+    @bill = find_bill_by(params.delete(:bill_id))
+    set_warning_flash_if_bill_paid
+    @result = create_payment
 
-    flash.now[:warning] = t('.bill_paid') if @bill.paid?
-
-    @result = CreatePayment.call(current_profile, @bill, params)
-
-    if @result
-      CountAchieve.call(current_profile, :bill_in_day)
-      flash.now[:success] = t('transactions.create.success')
-    else
-      flash.now[:danger] = @bill.errors.full_messages.to_sentence
-    end
+    handle_new_transaction
   end
 
   # PATCH/PUT /bills/1 or /bills/1.json
@@ -81,5 +75,26 @@ class BillsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(:account_id, :category_id, :user_profile_id, :description, :price_cents, :date)
+  end
+
+  def handle_new_transaction
+    if @result
+      CountAchieve.call(current_profile, :bill_in_day)
+      flash.now[:success] = t('transactions.create.success')
+    else
+      flash.now[:danger] = @bill.errors.full_messages.to_sentence
+    end
+  end
+
+  def set_warning_flash_if_bill_paid
+    flash.now[:warning] = t('.bill_paid') if @bill.paid?
+  end
+
+  def create_payment
+    CreatePayment.call(current_profile, @bill, params)
+  end
+
+  def find_bill_by(params)
+    current_profile.bills.find(params)
   end
 end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CreateReminderJob
 class CreateReminderJob
   def perform
     number_of_notifications = 0

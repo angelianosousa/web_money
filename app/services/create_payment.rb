@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+# CreatePayment
 class CreatePayment < ApplicationService
   def initialize(profile, bill, params)
-    super
+    super()
     @params   = params
     @profile  = profile
     @bill     = bill

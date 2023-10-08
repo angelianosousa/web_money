@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Notifications Routes Controller
 class NotificationsController < ApplicationController
   def index
     @notifications_read = Notification.read(current_user.user_profile.id).page(params[:page])

@@ -37,7 +37,6 @@ class Achievement < ApplicationRecord
       'Cada meta batida vale 100 pontos'.html_safe
     end
   end
-
 end
 
 # Achievements

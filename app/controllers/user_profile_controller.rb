@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# User Profile Entity Controller
 class UserProfileController < ApplicationController
   before_action :set_user_profile, only: %i[edit update destroy]
 

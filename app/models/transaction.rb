@@ -76,4 +76,9 @@ class Transaction < ApplicationRecord
   scope :expenses, lambda {
     where(category_id: Category.where(category_type: :expense)).includes(:account, :category)
   }
+
+  def expense_or_recipe_calc
+    account.price_cents -= price_cents if category.recipe?
+    account.price_cents += price_cents if category.expense?
+  end
 end

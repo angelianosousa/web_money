@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper
 module TransactionsHelper
   def transaction_status(transaction_type)
     text, badge_class = if transaction_type == 'recipe'

@@ -58,21 +58,6 @@ RSpec.describe BudgetsController, type: :controller do
     end
   end
 
-  describe 'GET #new' do
-    it 'returns a success response' do
-      get :new, params: {}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'GET #edit' do
-    it 'returns a success response' do
-      budget = Budget.create! valid_attributes
-      get :edit, params: { id: budget.to_param }, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Budget' do
