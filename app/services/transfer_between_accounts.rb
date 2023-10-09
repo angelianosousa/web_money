@@ -8,8 +8,8 @@ class TransferBetweenAccounts < ApplicationService
 
   def initialize(profile, params)
     super()
-    @profile         = profile
-    @params          = params
+    @profile = profile
+    @params  = params
   end
 
   def call

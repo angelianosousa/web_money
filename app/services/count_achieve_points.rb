@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-# CountAchieve Service
-class CountAchieve < ApplicationService
+# CountAchievePoints Service
+class CountAchievePoints < ApplicationService
   def initialize(profile, achieve_code)
     super()
     @profile = profile
-    @achieve = Achievement.find_by(code: achieve_code)
+    @achieve = @profile.achievements.not_finished.find_by(code: achieve_code, level: :silver)
+    @achieve = @profile.achievements.not_finished.find_by(code: achieve_code, level: :golden) if @achieve.conquest?
+    @achieve = @profile.achievements.not_finished.find_by(code: achieve_code, level: :diamond) if @achieve.conquest?
   end
 
   def call

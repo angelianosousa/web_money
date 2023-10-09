@@ -36,7 +36,7 @@ class Budget < ApplicationRecord
   validates :objective_name, presence: true, uniqueness: { scope: :user_profile_id }
 
   def title
-    date_limit.present? ? "#{Money.from_amount(goals_price_cents).format} | #{objective_name}" : objective_name
+    "#{Money.from_amount(goals_price_cents).format} | #{objective_name}"
   end
 
   def progress

@@ -32,7 +32,7 @@ class BillsController < ApplicationController
 
   def new_transaction
     @bill = find_bill_by(params.delete(:bill_id))
-    set_warning_flash_if_bill_paid
+    set_warning_flash_if_bill_already_paid
     @result = create_payment
 
     handle_new_transaction
@@ -79,14 +79,13 @@ class BillsController < ApplicationController
 
   def handle_new_transaction
     if @result
-      CountAchieve.call(current_profile, :bill_in_day)
       flash.now[:success] = t('transactions.create.success')
     else
       flash.now[:danger] = @bill.errors.full_messages.to_sentence
     end
   end
 
-  def set_warning_flash_if_bill_paid
+  def set_warning_flash_if_bill_already_paid
     flash.now[:warning] = t('.bill_paid') if @bill.paid?
   end
 

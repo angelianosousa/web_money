@@ -22,7 +22,6 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.errors.none?
-        CountAchieve.call(current_profile, :money_movement)
         handle_successful_creation(format, transactions_path, { success: t('.success') }, @transaction)
       else
         handle_failed_creation(format, transactions_url, @transaction)

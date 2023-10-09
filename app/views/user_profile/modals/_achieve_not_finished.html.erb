@@ -9,7 +9,7 @@
       </div>
 
       <div class='container mx-5 mt-2 mb-5'>
-        <% @achievements_not_fineshed.group_by(&:level).each do |level, achievements| %>
+        <% Achievement.all.group_by(&:level).each do |level, achievements| %>
           <h4 class='mb-3'><%= t("user_profile.edit.achievements.levels.#{level}") %></h4>
 
           <div class='row mb-3'>
