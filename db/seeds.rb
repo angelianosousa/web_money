@@ -8,6 +8,34 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+achievements = [
+  'Movemente a plataforma e com isso construa o hábito de acompanhar suas finanças regularmente.',
+  'Acumule pontos conforme sua receita aumenta',
+  'Cada meta batida significa uma superação.',
+  'Continue pagando suas contas em dia',
+  'Continue gerindo seu dinheiro com a Web Money'
+]
+
+Achievement.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :silver, total_points: 100)
+Achievement.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :golden, total_points: 500)
+Achievement.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :diamond, total_points: 1000)
+
+Achievement.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :silver, total_points: 1000)
+Achievement.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :golden, total_points: 3000)
+Achievement.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :diamond, total_points: 5000)
+
+Achievement.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :silver, total_points: 100)
+Achievement.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :golden, total_points: 300)
+Achievement.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :diamond, total_points: 500)
+
+# Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 1, total_points: 1)
+# Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 2, total_points: 3)
+# Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 3, total_points: 5)
+
+# Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 1)
+# Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 3)
+# Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 5)
+
 User.create(email: 'user@user.com', password: 'user123', password_confirmation: 'user123')
 
 user_profile = User.last.user_profile
@@ -109,30 +137,3 @@ user_profile.budgets.each do |budget|
     end
   end
 
-  achievements = [
-    'Movemente a plataforma e com isso construa o hábito de acompanhar suas finanças regularmente.',
-    'Acumule pontos conforme sua receita aumenta',
-    'Cada meta batida significa uma superação.',
-    'Continue pagando suas contas em dia',
-    'Continue gerindo seu dinheiro com a Web Money'
-  ]
-
-  user_profile.achievements.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :silver, total_points: 100)
-  user_profile.achievements.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :golden, total_points: 500)
-  user_profile.achievements.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :diamond, total_points: 1000)
-
-  user_profile.achievements.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :silver, total_points: 1000)
-  user_profile.achievements.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :golden, total_points: 3000)
-  user_profile.achievements.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :diamond, total_points: 5000)
-
-  user_profile.achievements.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :silver, total_points: 100)
-  user_profile.achievements.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :golden, total_points: 300)
-  user_profile.achievements.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :diamond, total_points: 500)
-
-  # Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 1, total_points: 1)
-  # Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 2, total_points: 3)
-  # Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 3, total_points: 5)
-
-  # Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 1)
-  # Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 3)
-  # Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 5)

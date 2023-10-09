@@ -37,6 +37,10 @@ class Achievement < ApplicationRecord
       'Cada meta batida vale 100 pontos'.html_safe
     end
   end
+
+  def conquest?
+    points_reached >= total_points
+  end
 end
 
 # Achievements

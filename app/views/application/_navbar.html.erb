@@ -1,4 +1,4 @@
-<nav id='navbar_home' class="navbar navbar-light bg-light sticky-top mb-3 py-2" style='padding: 15px 10px;font-size: 12px;'>
+<nav id='navbar_home' class="navbar navbar-light bg-light sticky-top mb-3 p-2" style='font-size: 12px;'>
   <%= link_to '#', id:'sidebarCollapse', style:'font-size:15px' do %>
     <span class='icon'><i class="fa-solid fa-bars"></i></span> Menu
   <% end %>
@@ -7,7 +7,7 @@
     <%= link_to notifications_path, class: 'btn btn-sm text-white' do %>
       <i class="fa fa-bell"></i>
     <% end %>
-    <%= link_to edit_user_profile_path(current_user), class:"btn btn-sm text-white" do %>
+    <%= link_to edit_user_profile_path(current_profile), class:"btn btn-sm text-white" do %>
         <i class="fa fa-user"></i> <%= current_user.email %>
       <% end %>
     <%= link_to destroy_user_session_path,class: 'btn btn-sm text-white', method: :delete, data: {confirm: "#{t '.notifications.confirm'}" } do %>

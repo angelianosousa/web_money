@@ -50,8 +50,8 @@ class Transaction < ApplicationRecord
   validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
   # Callbacks
-  before_save :check_deposit
-  before_save :check_excharge
+  after_save :check_deposit
+  after_save :check_excharge
 
   paginates_per 7
 
@@ -69,6 +69,11 @@ class Transaction < ApplicationRecord
     account.save
   end
 
+  def expense_or_recipe_calc
+    account.price_cents -= price_cents if category.recipe?
+    account.price_cents += price_cents if category.expense?
+  end
+
   scope :recipes, lambda {
     where(category_id: Category.where(category_type: :recipe)).includes(:account, :category)
   }
@@ -77,8 +82,4 @@ class Transaction < ApplicationRecord
     where(category_id: Category.where(category_type: :expense)).includes(:account, :category)
   }
 
-  def expense_or_recipe_calc
-    account.price_cents -= price_cents if category.recipe?
-    account.price_cents += price_cents if category.expense?
-  end
 end

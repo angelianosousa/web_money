@@ -1,8 +1,6 @@
 <div class='container-fluid mx-3'>
 
   <% @achievements_silver.group_by(&:level).each do |level, achievements| %>
-    <h4 class='mb-3'><%= t("user_profile.edit.achievements.levels.#{level}") %></h4>
-
     <div class='row mb-3'>
 
       <% achievements.each do |achieve| %>
@@ -31,8 +29,6 @@
   <% if @achievements_silver.not_finished.count.zero? %>
 
     <% @achievements_golden.group_by(&:level).each do |level, achievements| %>
-      <h4 class='mb-3'><%= t(".achievements.levels.#{level}") %></h4>
-
       <div class='row mb-3'>
 
         <% achievements.each do |achieve| %>
@@ -62,8 +58,6 @@
   <% if @achievements_silver.not_finished.count.zero? && @achievements_golden.not_finished.count.zero? %>
 
     <% @achievements_diamond.group_by(&:level).each do |level, achievements| %>
-      <h4 class='mb-3'><%= t(".achievements.levels.#{level}") %></h4>
-
       <div class='row mb-3'>
 
         <% achievements.each do |achieve| %>

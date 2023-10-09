@@ -7,8 +7,8 @@ class CreatePayment < ApplicationService
     @params   = params
     @profile  = profile
     @bill     = bill
-    @account  = @profile.accounts.find(params.delete(:account_id))
-    @category = @profile.categories.find(params.delete(:category_id))
+    @account  = @params.delete(:account_id)
+    @category = @params.delete(:category_id)
   end
 
   def call
@@ -17,7 +17,6 @@ class CreatePayment < ApplicationService
 
       @bill.paid!
       @bill.due_pay += Date.today.next_month.month
-      @bill.save
     rescue ActiveRecord::RecordInvalid => e
       p e.message
     end
@@ -26,13 +25,16 @@ class CreatePayment < ApplicationService
   end
 
   def create_transaction
-    @bill.transactions.build(
-      account: @account,
-      user_profile: @profile,
-      category: @category,
+    @bill.transactions << CreateTransaction.call(@profile, transaction_params)
+  end
+
+  def transaction_params
+    {
+      account_id: @account,
+      category_id: @category,
       price_cents: @params[:price_cents],
       description: @params[:description],
       date: Date.today.to_datetime
-    )
+    }
   end
 end
