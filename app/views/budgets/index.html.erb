@@ -15,26 +15,26 @@
     <div class='row'>
       <% @budgets.each do |budget| %>
         <div class='col-md-4'>
-          <div class='card border-dark mb-3'>
-            <div class="card-body py-0" style='border-radius: 15px;'>
-              <div class='row text-center'>
-                <div class='col-sm-12 mb-2'>
-                  <h2><%= budget.title %></h2>
+          <div class='card border-dark text-center mb-3'>
+            <div class='d-flex flex-column'>
+              <h2 class='card-header mt-0 bg-web-money-green mb-2'><%= budget.title %></h2>
+              <div class="card-body py-0" style='border-radius: 15px;'>
+              
 
-                  <%= I18n.l budget.date_limit, format: :short rescue nil %>
-                </div>
-                <div class='col-sm-12 mb-2'>
-                  <div class="progress" style='border-radius: 7px;'>
-                    <div class="progress-bar bg-info px-3 <%= budget.progress.round(2) == 0 ? 'text-dark' : 0 %>" role="progressbar" style="width: <%= budget.progress.round(2) %>%;" aria-valuenow="<%= budget.progress.round(2) %>" aria-valuemin="0" aria-valuemax="<%= budget.progress.round(2) %>">
-                      <%= budget.progress.round(2) %>%
-                    </div>
+                <span class='icon'>
+                  <i class='fa-solid fa-flag'></i> <%= I18n.l budget.date_limit, format: :short rescue 'sem data limite' %>
+                </span>
+              
+                <div class="progress m-2" style='border-radius: 7px;'>
+                  <div class="progress-bar bg-info px-3 <%= budget.progress.round(2) <= 10 ? 'text-dark' : 0 %>" role="progressbar" style="width: <%= budget.progress.round(2) %>%;" aria-valuenow="<%= budget.progress.round(2) %>" aria-valuemin="0" aria-valuemax="<%= budget.progress.round(2) %>">
+                    <%= budget.progress.round(2) %>%
                   </div>
                 </div>
+                
                 <div class='col-sm-12'>
                   <%= render 'actions', budget: budget %>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

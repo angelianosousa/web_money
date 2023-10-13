@@ -16,25 +16,25 @@ achievements = [
   'Continue gerindo seu dinheiro com a Web Money'
 ]
 
-Achievement.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :silver, total_points: 100)
-Achievement.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :golden, total_points: 500)
-Achievement.create(icon: 'fa-solid fa-money-bill-transfer', description: achievements[0], code: :money_movement, level: :diamond, total_points: 1000)
+Achievement.create(description: achievements[0], code: :money_movement, level: :silver, points: 100)
+Achievement.create(description: achievements[0], code: :money_movement, level: :golden, points: 500)
+Achievement.create(description: achievements[0], code: :money_movement, level: :diamond, points: 1000)
 
-Achievement.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :silver, total_points: 1000)
-Achievement.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :golden, total_points: 3000)
-Achievement.create(icon: 'fa-solid fa-sack-dollar',         description: achievements[1], code: :money_managed, level: :diamond, total_points: 5000)
+Achievement.create(description: achievements[1], code: :money_managed, level: :silver, points: 1000)
+Achievement.create(description: achievements[1], code: :money_managed, level: :golden, points: 3000)
+Achievement.create(description: achievements[1], code: :money_managed, level: :diamond, points: 5000)
 
-Achievement.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :silver, total_points: 100)
-Achievement.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :golden, total_points: 300)
-Achievement.create(icon: 'fa-solid fa-hand-holding-dollar', description: achievements[2], code: :budget_reached, level: :diamond, total_points: 500)
+Achievement.create(description: achievements[2], code: :budget_reached, level: :silver, points: 100)
+Achievement.create(description: achievements[2], code: :budget_reached, level: :golden, points: 300)
+Achievement.create(description: achievements[2], code: :budget_reached, level: :diamond, points: 500)
 
-# Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 1, total_points: 1)
-# Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 2, total_points: 3)
-# Achievement.create(icon: 'fa-solid fa-calendar-check',      description: achievements[3], code: :bill_in_day, level: 3, total_points: 5)
+# Achievement.create(description: achievements[3], code: :bill_in_day, level: 1, points: 1)
+# Achievement.create(description: achievements[3], code: :bill_in_day, level: 2, points: 3)
+# Achievement.create(description: achievements[3], code: :bill_in_day, level: 3, points: 5)
 
-# Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 1)
-# Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 3)
-# Achievement.create(icon: 'fa-solid fa-business-time',         description: achievements[4], code: :profile_time, goal: 5)
+# Achievement.create(description: achievements[4], code: :profile_time, points: 1)
+# Achievement.create(description: achievements[4], code: :profile_time, points: 3)
+# Achievement.create(description: achievements[4], code: :profile_time, points: 5)
 
 User.create(email: 'user@user.com', password: 'user123', password_confirmation: 'user123')
 

@@ -26,12 +26,10 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
   end
 
   create_table "achievements", force: :cascade do |t|
-    t.string "icon"
     t.string "description"
     t.integer "code"
-    t.integer "total_points"
+    t.integer "points"
     t.integer "level", default: 1
-    t.integer "points_reached", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -109,6 +107,7 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
   create_table "profile_achievements", force: :cascade do |t|
     t.bigint "user_profile_id", null: false
     t.bigint "achievement_id", null: false
+    t.integer "points_reached", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["achievement_id"], name: "index_profile_achievements_on_achievement_id"

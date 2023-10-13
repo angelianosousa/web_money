@@ -1,7 +1,5 @@
 ---
 'pt-BR':
-  hello: 'Olá Mundo'
-
   activerecord:
     attributes:
       transaction:
@@ -11,7 +9,7 @@
         category_id: Categoria
         bill_id: Recorrência
         account_id: Conta
-        budget_id: Orçamento
+        budget_id: Meta
       errors:
         models:
           transaction:

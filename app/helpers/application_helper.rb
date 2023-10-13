@@ -77,4 +77,8 @@ module ApplicationHelper
       text
     end
   end
+
+  def active_flag(flag)
+    flag ? 'active' : ''
+  end
 end

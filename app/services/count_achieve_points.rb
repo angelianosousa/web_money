@@ -5,24 +5,26 @@ class CountAchievePoints < ApplicationService
   def initialize(profile, achieve_code)
     super()
     @profile = profile
-    @achieve = @profile.achievements.not_finished.find_by(code: achieve_code, level: :silver)
-    @achieve = @profile.achievements.not_finished.find_by(code: achieve_code, level: :golden) if @achieve.conquest?
-    @achieve = @profile.achievements.not_finished.find_by(code: achieve_code, level: :diamond) if @achieve.conquest?
+    @achievement = Achievement.find_by(code: achieve_code, level: :silver)
+    @achievement = Achievement.find_by(code: achieve_code, level: :golden) if @achievement.finished?(@profile)
+    @achievement = Achievement.find_by(code: achieve_code, level: :diamond) if @achievement.finished?(@profile)
+
+    @profile_achievement = ProfileAchievement.find_by(user_profile: @profile, achievement: @achievement)
   end
 
   def call
     sum_points
-    @achieve.save
+    @profile_achievement.save
   end
 
   def sum_points
-    case @achieve.code
+    case @achievement.code
     when 'money_movement'
-      @achieve.points_reached += 10
+      @profile_achievement.points_reached += 10
     when 'money_managed'
-      @achieve.points_reached += 10
+      @profile_achievement.points_reached += 10
     when 'budget_reached'
-      @achieve.points_reached += 100
+      @profile_achievement.points_reached += 100
     end
   end
 end

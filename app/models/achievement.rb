@@ -4,28 +4,23 @@
 #
 # Table name: achievements
 #
-#  id             :bigint           not null, primary key
-#  code           :integer
-#  description    :string
-#  icon           :string
-#  level          :integer          default("golden")
-#  points_reached :integer          default(0)
-#  total_points   :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  id          :bigint           not null, primary key
+#  code        :integer
+#  description :string
+#  level       :integer          default("golden")
+#  points      :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 class Achievement < ApplicationRecord
   enum code: %i[money_movement money_managed budget_reached]
   enum level: %i[silver golden diamond]
 
-  validates :description, :icon, :code, :level, presence: true
-  validates :points_reached, :total_points, numericality: { greater_or_equal_than: 0, only_integer: true }
+  validates :description, :code, :level, presence: true
+  validates :points, numericality: { greater_or_equal_than: 0 }
 
   has_many :profile_achievements
   has_many :user_profiles, through: :profile_achievements, source: :user_profile
-
-  scope :finished, ->     { where('points_reached >= total_points') }
-  scope :not_finished, -> { where('points_reached <= total_points') }
 
   def how_to_earn_points
     case code
@@ -38,8 +33,20 @@ class Achievement < ApplicationRecord
     end
   end
 
-  def conquest?
-    points_reached >= total_points
+  def previous_level_finished?(current_profile)
+    previous_level = Achievement.levels[level] - 1
+    achieve = Achievement.find_by(code: code, level: previous_level)
+    return true unless achieve.present?
+
+    achieve.finished?(current_profile)
+  end
+
+  def finished?(current_profile)
+    profile_achieve_points(current_profile, self).points_reached >= points
+  end
+
+  def profile_achieve_points(current_profile, achieve)
+    ProfileAchievement.find_by(user_profile: current_profile, achievement: achieve)
   end
 end
 

@@ -1,93 +1,29 @@
-<div class='container-fluid mx-3'>
+<div class='row mb-3'>
+  <% current_profile.achievements.group_by(&:level).each do |level, achievements| %>
 
-  <% @achievements_silver.group_by(&:level).each do |level, achievements| %>
-    <div class='row mb-3'>
+    <% achievements.each do |achieve| %>
+      
+      <% user_conquest = achieve.finished?(current_profile) %>
+      <% next if user_conquest || !achieve.previous_level_finished?(current_profile) %>
 
-      <% achievements.each do |achieve| %>
-        <div class='card-deck col-sm-4'>
-          <div class='card card-achieve-<%= level %> w-100 mb-2'>
-            <h4 class='card-header d-flex flex-row justify-content-between'>
-              <%= t("user_profile.edit.achievements.codes.#{achieve.code.parameterize}") %>
+      <div class='card-deck col-sm-4'>
+        <div class='card card-achieve-<%= level %> w-100 mb-2'>
+          <h4 class='card-header d-flex flex-row justify-content-between'>
+            <%= t("user_profile.edit.achievements.codes.#{achieve.code.parameterize}") %>
 
-              <%= help_button(achieve) %>
-            </h4>
+            <%= help_button(achieve) %>
+          </h4>
 
-            <div class='card-body d-flex flex-row align-items-center'>
-              <span class='icon d-inline mb-2' style='font-size: 24px;'>
-                <%= fontawesome_icon('', achieve.icon.to_s, 'font-size: 32px') %>
-              </span>
+          <div class='card-body d-flex flex-row align-items-center'>
+            <span class='icon d-inline mb-2' style='font-size: 24px;'>
+              <%= fontawesome_icon('', achieve_icon(achieve), 'font-size: 32px') %>
+            </span>
 
-              <p class='d-inline ml-2'><%= achieve.description %></p>
-            </div>
+            <p class='d-inline ml-2'><%= achieve.description %></p>
           </div>
         </div>
-      <% end %>
-
-    </div>
-  <% end %>
-
-  <% if @achievements_silver.not_finished.count.zero? %>
-
-    <% @achievements_golden.group_by(&:level).each do |level, achievements| %>
-      <div class='row mb-3'>
-
-        <% achievements.each do |achieve| %>
-          <div class='card-deck col-sm-4'>
-            <div class='card card-achieve-<%= level %> w-100 mb-2'>
-              <h4 class='card-header d-flex flex-row justify-content-between'>
-                <%= t(".achievements.codes.#{achieve.code.parameterize}") %>
-
-                <%= help_button(achieve) %>
-              </h4>
-
-              <div class='card-body d-flex flex-row align-items-center'>
-                <span class='icon d-inline mb-2' style='font-size: 24px;'>
-                  <%= fontawesome_icon('', achieve.icon.to_s, 'font-size: 32px') %>
-                </span>
-
-                <p class='d-inline ml-2'><%= achieve.description %></p>
-              </div>
-            </div>
-          </div>
-        <% end %>
-
       </div>
     <% end %>
+
   <% end %>
-  
-  <% if @achievements_silver.not_finished.count.zero? && @achievements_golden.not_finished.count.zero? %>
-
-    <% @achievements_diamond.group_by(&:level).each do |level, achievements| %>
-      <div class='row mb-3'>
-
-        <% achievements.each do |achieve| %>
-          <div class='card-deck col-sm-4'>
-            <div class='card card-achieve-<%= level %> w-100 mb-2'>
-              <h4 class='card-header d-flex flex-row justify-content-between'>
-                <%= t(".achievements.codes.#{achieve.code.parameterize}") %>
-
-                <%= help_button(achieve) %>
-              </h4>
-
-              <div class='card-body d-flex flex-row align-items-center'>
-                <span class='icon d-inline mb-2' style='font-size: 24px;'>
-                  <%= fontawesome_icon('', achieve.icon.to_s, 'font-size: 32px') %>
-                </span>
-
-                <p class='d-inline ml-2'><%= achieve.description %></p>
-              </div>
-            </div>
-          </div>
-        <% end %>
-
-      </div>
-    <% end %>
-  <% end %>
-
 </div>
-
-<script>
-  $(document).ready(function(){
-    $('.popover-test').popover()
-  });
-</script>

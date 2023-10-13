@@ -12,6 +12,10 @@
         title: Nova conta
       transfer:
         title: Transferência entre contas
+        form:
+          price_cents: Valor da transferência
+          account_id_in: Conta destino
+          account_id_out: Conta saida
     create:
       success: Conta criada com sucesso!!
     update:

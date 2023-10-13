@@ -77,7 +77,7 @@ a .dropdown-item:visited, .dropdown-item:hover {
 
 .bg-web-money-green {
   background-color: $web-money-dark-green;
-  color: $web-money-white;
+  color: $web-money-white !important;
 }
 
 #navbar_home{
