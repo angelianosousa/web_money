@@ -36,16 +36,6 @@ class AccountsController < ApplicationController
     end
   end
 
-  def new_transaction
-    @transaction = CreateTransaction.call(current_profile, params)
-
-    unless @transaction.errors.none?
-      redirect_to accounts_url, flash: { success: t('.success') }
-    else
-      redirect_to accounts_url, flash: { danger: @transaction.errors.full_messages }
-    end
-  end
-
   def transfer_between_accounts
     @result = TransferBetweenAccounts.call(current_profile, params)
 

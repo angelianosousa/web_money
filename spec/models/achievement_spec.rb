@@ -20,15 +20,12 @@ RSpec.describe Achievement, type: :model do
 
     it { is_expected.to define_enum_for(:level) }
     it { is_expected.to define_enum_for(:code) }
-    it { is_expected.to validate_numericality_of(:points_reached) }
-    it { is_expected.to validate_numericality_of(:total_points) }
+    it { is_expected.to validate_numericality_of(:points) }
     it { is_expected.to validate_presence_of(:description) }
-    it { is_expected.to have_many(:profile_achievements) }
-    it { is_expected.to have_many(:user_profiles).through(:profile_achievements) }
   end
 
   describe '#save' do
-    context 'when title is empty' do
+    context 'when code or / and level is empty' do
       let(:achievement) { build(:achievement, code: '', level: '') }
 
       it 'should not be valid' do
@@ -40,7 +37,7 @@ RSpec.describe Achievement, type: :model do
       end
     end
 
-    context 'when title is full' do
+    context 'when code and level is full' do
       let(:achievement) { build(:achievement) }
 
       it 'should be valid' do

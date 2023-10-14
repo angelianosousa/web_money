@@ -9,14 +9,6 @@ class BudgetsController < ApplicationController
     @budgets = current_profile.budgets
   end
 
-  # GET /budgets/1 or /budgets/1.json
-  def show; end
-
-  # GET /budgets/new
-  def new
-    @budget = current_profile.budgets.build
-  end
-
   # GET /budgets/1/edit
   def edit; end
 

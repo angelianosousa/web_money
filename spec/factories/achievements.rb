@@ -14,11 +14,9 @@
 #
 FactoryBot.define do
   factory :achievement do
-    icon { 'fa-solid fa-circle-question' }
     description { Faker::Lorem.paragraph(sentence_count: 2) }
     code { %i[money_movement money_managed budget_reached].sample }
     level { %i[silver golden diamond].sample }
-    total_points { rand(1..1000) }
-    points_reached { rand(1..1000) }
+    points { rand(1..1000) }
   end
 end
