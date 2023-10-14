@@ -52,5 +52,5 @@
 
 <%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
 <%= render partial: "transactions/modals/new_recipe",  locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
-<%= render partial: "accounts/modals/new_account",     locals: { account: @account = current_profile.accounts.new } %>
-<%= render partial: "bills/modals/new_bill",           locals: { bill: @bill = current_profile.bills.new } %>
+<%= render partial: "accounts/modals/new_account",     locals: { account: @account = current_profile.accounts.new, local: false } %>
+<%= render partial: "bills/modals/new_bill",           locals: { bill: @bill = current_profile.bills.new, local: false } %>

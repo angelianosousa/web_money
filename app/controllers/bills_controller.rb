@@ -23,10 +23,12 @@ class BillsController < ApplicationController
   def create
     @bill = current_profile.bills.build(bill_params)
 
-    if @bill.save
-      redirect_to bills_path, flash: { success: t('.success') }
-    else
-      redirect_to bills_path, flash: { danger: @bill.errors.full_messages.to_sentence }
+    respond_to do |format|
+      if @bill.save
+        handle_successful_creation(format, bills_path, @bill)
+      else
+        handle_failed_creation(format, bills_path, @bill)
+      end
     end
   end
 
@@ -42,11 +44,9 @@ class BillsController < ApplicationController
   def update
     respond_to do |format|
       if @bill.update(bill_params)
-        format.html { redirect_to bills_path, flash: { success: t('.success') } }
+        handle_successful_update(format, bills_path, @bill)
       else
-        format.html do
-          render :edit, status: :unprocessable_entity, flash: { danger: @bill.errors.full_messages.to_sentence }
-        end
+        handle_failed_update(format, bills_path, @bill)
       end
     end
   end

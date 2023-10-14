@@ -13,18 +13,22 @@ class CategoriesController < ApplicationController
   def create
     @category = current_profile.categories.build(category_params)
 
-    if @category.save
-      redirect_to categories_path, flash: { success: t('.success') }
-    else
-      redirect_to categories_path, flash: { danger: @category.errors.full_messages.to_sentence }
+    respond_to do |format|
+      if @category.save
+        handle_successful_creation(format, categories_path, @budget)
+      else
+        handle_failed_creation(format, categories_path, @budget)
+      end
     end
   end
 
   def update
-    if @category.update(category_params)
-      redirect_to categories_path, flash: { success: t('.success') }
-    else
-      redirect_to categories_path, flash: { danger: @category.errors.full_messages.to_sentence }
+    respond_to do |format|
+      if @category.update(category_params)
+        handle_successful_update(format, categories_url, @category)
+      else
+        handle_failed_update(format, nil, @category)
+      end
     end
   end
 

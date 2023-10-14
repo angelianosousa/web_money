@@ -4,18 +4,15 @@
 class UserProfileController < ApplicationController
   before_action :set_user_profile, only: %i[edit update]
 
-  def edit
-    # @achievements_not_fineshed = @user_profile.achievements.not_finished
-    @achievements_silver       = @user_profile.achievements.silver
-    @achievements_golden       = @user_profile.achievements.golden
-    @achievements_diamond      = @user_profile.achievements.diamond
-  end
+  def edit; end
 
   def update
-    if @user_profile.update(user_profile_params)
-      redirect_to edit_user_profile_path(@user_profile), flash: { success: t('.success') }
-    else
-      render :edit, danger: @user_profile.errors
+    respond_to do |format|
+      if @user_profile.update(user_profile_params)
+        handle_successful_update(format, edit_user_profile_path(@user_profile), @user_profile)
+      else
+        handle_failed_update(format, nil, @user_profile)
+      end
     end
   end
 

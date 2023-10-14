@@ -24,19 +24,23 @@ class BudgetsController < ApplicationController
   def create
     @budget = current_profile.budgets.build(budget_params)
 
-    if @budget.save
-      redirect_to budgets_url, flash: { success: t('.success') }
-    else
-      redirect_to budgets_url, flash: { danger: @budget.errors.full_messages.to_sentence }
+    respond_to do |format|
+      if @budget.save
+        handle_successful_creation(format, budgets_url, @budget)
+      else
+        handle_failed_creation(format, budgets_url, @budget)
+      end
     end
   end
 
   # PATCH/PUT /budgets/1 or /budgets/1.json
   def update
-    if @budget.update(budget_params)
-      redirect_to budgets_url, flash: { success: t('.success') }
-    else
-      redirect_to edit_budget_path(@budget), flash: { danger: @budget.errors.full_messages.to_sentence }
+    respond_to do |format|
+      if @budget.update(budget_params)
+        handle_successful_update(format, budgets_url, @budget)
+      else
+        handle_failed_update(format, budgets_url, @budget)
+      end
     end
   end
 

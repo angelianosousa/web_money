@@ -18,7 +18,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        handle_successful_creation(format, accounts_path, { success: t('.success') }, @account)
+        handle_successful_creation(format, accounts_path, @account)
       else
         handle_failed_creation(format, accounts_path, @account)
       end
@@ -37,12 +37,12 @@ class AccountsController < ApplicationController
   end
 
   def new_transaction
-    @account = CreateTransaction.call(current_profile, params)
+    @transaction = CreateTransaction.call(current_profile, params)
 
-    if @account.save
+    unless @transaction.errors.none?
       redirect_to accounts_url, flash: { success: t('.success') }
     else
-      redirect_to accounts_url, flash: { danger: @account.errors.full_messages }
+      redirect_to accounts_url, flash: { danger: @transaction.errors.full_messages }
     end
   end
 

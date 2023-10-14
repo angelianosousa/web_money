@@ -22,29 +22,27 @@ class ApplicationController < ActionController::Base
     I18n.with_locale(locale, &action)
   end
 
-  def handle_successful_creation(format, to_path, message, resource)
-    format.html { redirect_to to_path, flash: message }
-    format.js { flash.now[:success] = t('.success') }
+  # CREATE
+  def handle_successful_creation(format, to_path, resource)
+    format.html { redirect_to to_path, flash: { success: t('.success') } }
+    format.js   { flash.now[:success] = t('.success') }
     format.json { render :show, status: :created, location: resource }
   end
 
   def handle_failed_creation(format, to_path, resource)
-    format.html do
-      redirect_to to_path, flash: { danger: resource.errors.full_messages.to_sentence }, status: :unprocessable_entity
-    end
-    format.js { flash.now[:danger] = resource.errors.full_messages.to_sentence }
+    format.html { redirect_to to_path, flash: { danger: resource.errors.full_messages.to_sentence } }
+    format.js   { flash.now[:danger] = resource.errors.full_messages.to_sentence }
     format.json { render json: resource.errors, status: :unprocessable_entity }
   end
 
+  # UPDATE
   def handle_successful_update(format, to_path, resource)
     format.html { redirect_to to_path, flash: { success: t('.success') } }
     format.json { render :show, status: :ok, location: resource }
   end
 
-  def handle_failed_update(format, _to_path, resource)
-    format.html do
-      render :edit, status: :unprocessable_entity, flash: { danger: resource.errors.full_messages.to_sentence }
-    end
+  def handle_failed_update(format, to_path, resource)
+    format.html { redirect_to to_path, flash: { danger: resource.errors.full_messages.to_sentence } }
     format.json { render json: resource.errors, status: :unprocessable_entity }
   end
 end

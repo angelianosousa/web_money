@@ -22,7 +22,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.errors.none?
-        handle_successful_creation(format, transactions_path, { success: t('.success') }, @transaction)
+        handle_successful_creation(format, transactions_path, @transaction)
       else
         handle_failed_creation(format, transactions_url, @transaction)
       end
@@ -33,11 +33,9 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to transactions_path, flash: { success: t('.success') } }
-        format.json { render json: @transaction, status: :ok, location: @transaction }
+        handle_successful_update(format, transactions_url, @transaction)
       else
-        format.html { render :edit, flash: { danger: @transaction.errors.full_messages } }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        handle_failed_update(format, transactions_url, @transaction)
       end
     end
   end
