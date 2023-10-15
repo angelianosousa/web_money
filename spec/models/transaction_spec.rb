@@ -141,4 +141,5 @@ RSpec.describe Transaction, type: :model do
       expect(excharge_invalid).to be_truthy
     end
   end
+
 end

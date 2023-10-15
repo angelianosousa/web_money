@@ -52,6 +52,7 @@ class Transaction < ApplicationRecord
   # Callbacks
   after_save :check_deposit
   after_save :check_excharge
+  after_save :count_points
 
   paginates_per 7
 
@@ -72,6 +73,14 @@ class Transaction < ApplicationRecord
   def expense_or_recipe_calc
     account.price_cents -= price_cents if category.recipe?
     account.price_cents += price_cents if category.expense?
+  end
+
+  def count_points
+    return unless new_record?
+
+    CountAchievePoints.call(user_profile, :money_movement)
+    CountAchievePoints.call(user_profile, :money_managed)
+    CountAchievePoints.call(user_profile, :budget_reached) if budget.present?
   end
 
   scope :recipes, lambda {

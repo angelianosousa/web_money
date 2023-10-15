@@ -16,5 +16,8 @@ RSpec.describe "UserProfiles", type: :request do
     end
   end
 
-  describe 'PATCH /user_profile/:id'
+  describe 'PATCH /user_profile/:id' do
+    context 'Success Scenario'
+    context 'Fail Scenario'
+  end
 end

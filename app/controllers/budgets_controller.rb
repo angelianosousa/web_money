@@ -31,7 +31,7 @@ class BudgetsController < ApplicationController
       if @budget.update(budget_params)
         handle_successful_update(format, budgets_url, @budget)
       else
-        handle_failed_update(format, budgets_url, @budget)
+        handle_failed_update(format, edit_budget_url(@budget), @budget)
       end
     end
   end

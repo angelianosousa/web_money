@@ -14,22 +14,20 @@ class CreateTransaction < ApplicationService
 
   def call
     valid_transaction if @category.expense?
-    return @transaction unless @transaction.errors.none?
 
     transaction_payment_create
-    count_points_to_achieve if @transaction.save
-
+    
     @transaction
   end
 
   private
 
-  def validate_excharge
+  def invalid_excharge
     @account.price_cents > @transaction_params[:price_cents].to_f
   end
 
   def valid_transaction
-    return if validate_excharge
+    return if invalid_excharge
 
     @transaction.errors.add :base, :invalid,
                             message: "Conta #{@account.title} não possui saldo suficiente."
@@ -44,11 +42,5 @@ class CreateTransaction < ApplicationService
       @transaction.budget       = @budget if @budget.present?
       @transaction.date         = Date.today.to_datetime
     end
-  end
-
-  def count_points_to_achieve
-    CountAchievePoints.call(@profile, :money_movement)
-    CountAchievePoints.call(@profile, :money_managed)
-    CountAchievePoints.call(@profile, :budget_reached) if @budget.present?
   end
 end

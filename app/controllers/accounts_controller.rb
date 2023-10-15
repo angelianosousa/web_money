@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
       if @account.update(account_params)
         handle_successful_update(format, accounts_url, @account)
       else
-        handle_failed_update(format, nil, @account)
+        handle_failed_update(format, edit_account_url(@account), @account)
       end
     end
   end
