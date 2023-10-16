@@ -36,8 +36,6 @@ class User < ApplicationRecord
 
       user_profile.categories.create(title: 'Despesa X', category_type: 'expense')
       user_profile.categories.create(title: 'Receita X', category_type: 'recipe')
-      user_profile.categories.create(title: 'Transferência saída', category_type: 'expense')
-      user_profile.categories.create(title: 'Transferência entrada', category_type: 'recipe')
 
       user_profile.achievements = Achievement.all
     end

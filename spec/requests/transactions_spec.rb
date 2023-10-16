@@ -30,7 +30,8 @@ RSpec.describe "Transactions", type: :request do
           category_id: new_category.id,
           description: 'Description test',
           price_cents: 1,
-          date: Date.today
+          date: Date.today,
+          move_type: 'recipe'
         }}
         # byebug
         post transactions_path, params: params

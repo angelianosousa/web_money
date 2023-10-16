@@ -7,6 +7,7 @@
 #  id              :bigint           not null, primary key
 #  date            :date
 #  description     :text
+#  move_type       :integer          default("recipe"), not null
 #  price_cents     :integer          default(0), not null
 #  price_currency  :string           default("BRL"), not null
 #  created_at      :datetime         not null
@@ -14,7 +15,7 @@
 #  account_id      :bigint
 #  bill_id         :bigint
 #  budget_id       :bigint
-#  category_id     :bigint           not null
+#  category_id     :bigint
 #  user_profile_id :bigint
 #
 # Indexes
@@ -36,11 +37,12 @@
 FactoryBot.define do
   factory :transaction do
     user_profile { create(:user_profile) }
-    category { create(:category) }
-    account { create(:account) }
-    description { Faker::Lorem.paragraph(sentence_count: 2) }
-    price_cents { rand(100..1000) }
-    date { Faker::Date.in_date_period }
+    category     { create(:category) }
+    account      { create(:account) }
+    description  { Faker::Lorem.paragraph(sentence_count: 2) }
+    price_cents  { rand(100..1000) }
+    date         { Faker::Date.in_date_period }
+    move_type    { 'recipe' }
   end
 
   trait :recipe do

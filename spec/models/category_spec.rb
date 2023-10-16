@@ -5,7 +5,7 @@
 # Table name: categories
 #
 #  id              :bigint           not null, primary key
-#  category_type   :integer          default("recipe")
+#  category_type   :integer          default("recipe"), not null
 #  title           :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

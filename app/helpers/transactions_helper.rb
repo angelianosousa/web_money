@@ -14,9 +14,11 @@ module TransactionsHelper
   end
 
   def value_style(transaction)
-    symbol = transaction.category.recipe? ? ['fa fa-arrow-up'] : ['fa fa-arrow-down']
+    symbol, color = ['fa fa-arrow-up', 'green'] if transaction.recipe?
+    symbol, color = ['fa fa-arrow-down', 'red'] if transaction.expense?
+    symbol, color = ['fa fa-exchange', 'blue']  if transaction.transfer?
 
-    content_tag :span, class: symbol.to_s, id: "transaction#{transaction.id}" do
+    content_tag :span, class: symbol.to_s, id: "transaction#{transaction.id}", style: "color: #{color};font-family: Poppins; font-size: 15px." do
       humanized_money_with_symbol(transaction.price_cents).to_s
     end
   end

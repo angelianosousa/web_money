@@ -44,7 +44,7 @@
           <tbody class='border-bottom'>
             <tr>
               <td><%= transaction.account.title %></td>
-              <td><%= transaction.category.title %></td>
+              <td><%= transaction.category&.title %></td>
               <td><%= value_style transaction %></td>
               <td><%= transaction.date %></td>
               <td><%= transaction.description %></td>

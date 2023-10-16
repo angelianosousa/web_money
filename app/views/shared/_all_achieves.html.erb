@@ -28,6 +28,8 @@
 
 <script>
   $(document).ready(function(){
-    $('.popover-achieve-info').popover('toggle');
+    $('.popover-achieve-info').click(function(){
+      $(this).popover('toggle');
+    });
   })
 </script>

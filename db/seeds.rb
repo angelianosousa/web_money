@@ -36,9 +36,9 @@ Achievement.create(description: achievements[2], code: :budget_reached, level: :
 # Achievement.create(description: achievements[4], code: :profile_time, points: 3)
 # Achievement.create(description: achievements[4], code: :profile_time, points: 5)
 
-User.find_or_create_by(email: 'user@user.com', password: 'user123', password_confirmation: 'user123')
+user = User.create(email: 'user@user.com', password: 'user123', password_confirmation: 'user123')
 
-user_profile = User.last.user_profile
+user_profile = user.user_profile
 
 # Categorias
 ## Despesas
@@ -61,6 +61,7 @@ user_profile.accounts.each do |account|
       user_profile: user_profile,
       account: account,
       category: category,
+      move_type: category.category_type,
       price_cents: rand(100..5000),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
@@ -103,6 +104,7 @@ user_profile.bills.each do |bill|
       bill: bill,
       account: user_profile.accounts.sample,
       category: category,
+      move_type: category.category_type,
       price_cents: rand(100..5000),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
@@ -131,6 +133,7 @@ user_profile.budgets.each do |budget|
         account: user_profile.accounts.sample,
         category: category,
         budget: budget,
+        move_type: category.category_type,
         price_cents: rand(100..5000),
         date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
       )

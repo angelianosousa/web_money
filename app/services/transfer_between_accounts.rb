@@ -24,15 +24,21 @@ class TransferBetweenAccounts < ApplicationService
   end
 
   def create_excharge
-    @account_out              = account_out
-    @account_out.price_cents -= @params[:price_cents].to_f
-    @account_out.save
+    transaction = CreateTransaction.call(@profile, transaction_params.merge!({ account_id: @params[:account_id_out] }))
+    @account_out = account_out
+    if transaction.save
+      @account_out.price_cents -= transaction.price_cents
+      @account_out.save
+    end
   end
 
   def create_deposit
-    @account_in              = @profile.accounts.find(@params[:account_id_in])
-    @account_in.price_cents += @params[:price_cents].to_f
-    @account_in.save
+    transaction = CreateTransaction.call(@profile, transaction_params.merge!({ account_id: @params[:account_id_in] }))
+    @account_in = account_in
+    if transaction.save
+      @account_in.price_cents += transaction.price_cents
+      @account_in.save
+    end
   end
 
   private
@@ -45,7 +51,22 @@ class TransferBetweenAccounts < ApplicationService
     @profile.accounts.find(@params[:account_id_out])
   end
 
+  def account_in
+    @profile.accounts.find(@params[:account_id_in])
+  end
+
   def invalid_excharge
     account_out.price_cents < @params[:price_cents].to_f
+  end
+
+  def transaction_params
+    {
+      account_id:  @account,
+      category_id: @category,
+      price_cents: @params[:price_cents],
+      description: @params[:description],
+      move_type:   'transfer',
+      date:        Date.today.to_datetime
+    }
   end
 end
