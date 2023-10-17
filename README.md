@@ -54,3 +54,12 @@ Gerar as tabelas do banco de dados
 ## Author
 
 Angeliano Sousa [LinkedIn](https://www.linkedin.com/in/angeliano-sousa/)
+
+
+## Running Cypress
+
+~~~bash
+  yarn cypress open
+~~~
+
+Docs [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)
