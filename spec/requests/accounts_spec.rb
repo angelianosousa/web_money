@@ -43,7 +43,6 @@ RSpec.describe 'Accounts', type: :request do
       expect(response).to redirect_to(accounts_path)
       follow_redirect!
 
-      byebug
       expect(request.flash[:danger]).to eq(account_attributes_invalid.errors.full_messages.to_sentence)
     end
   end
