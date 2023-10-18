@@ -3,6 +3,9 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
+  host: postgres
+  user: postgres
+  password: password
 
 development:
   <<: *default
