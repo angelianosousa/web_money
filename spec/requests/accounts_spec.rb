@@ -1,16 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe 'Accounts', type: :request do
-  let(:user)    { create(:user) }
-  let(:account) { create(:account, user_profile: user.user_profile) }
+
+  let(:achievement_money_managed)  { create(:achievement, level: :silver, code: :money_managed) }
+  let(:achievement_money_movement) { create(:achievement, level: :silver, code: :money_movement) }
+  let(:achievement_budget_reached) { create(:achievement, level: :silver, code: :budget_reached) }
+  
+  let(:user_profile) do
+    create(:user_profile) do |user_profile|
+      user_profile.achievements << [ achievement_money_managed, achievement_money_movement, achievement_budget_reached ]
+    end
+  end
+
+  let(:account) { create(:account, user_profile_id: user_profile.id) }
 
   before do
-    sign_in user
+    sign_in user_profile.user
   end
   
   describe 'GET /accounts' do
 
-    it 'Deve retornar sucesso' do
+    it 'user logged access your accounts screen' do
       get accounts_path
 
       expect(response).to have_http_status(:success)
@@ -18,14 +28,14 @@ RSpec.describe 'Accounts', type: :request do
   end
 
   describe 'POST /accounts' do
-    let(:account_attributes) { attributes_for(:account, user_profile: user.user_profile) }
-    let(:account_attributes_invalid) { attributes_for(:account, user_profile: user.user_profile, title: '') }
+    let(:account_attributes)         { attributes_for(:account, user_profile: user_profile) }
+    let(:account_attributes_invalid) { attributes_for(:account, user_profile: user_profile, title: '') }
 
     context 'Success Scenario' do
       it 'should save account with valid attributes' do
         params = { account: account_attributes }
         post accounts_path, params: params
-  
+
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(accounts_path)
         follow_redirect!
@@ -40,7 +50,7 @@ RSpec.describe 'Accounts', type: :request do
         post accounts_path, params: params
   
         expect(response).to have_http_status(302)
-        expect(response).to redirect_to(accounts_path)      
+        expect(response).to redirect_to(accounts_path)
       end
     end
   end
@@ -56,7 +66,7 @@ RSpec.describe 'Accounts', type: :request do
   describe 'PUT | PATCH /accounts/:id' do
 
     context 'Success Scenario' do
-      let(:new_account_attributes) { attributes_for(:account, user_profile: user.user_profile) }
+      let(:new_account_attributes) { attributes_for(:account, user_profile: user_profile) }
 
       it 'update account, should return success' do
         params = { account: new_account_attributes }
@@ -72,7 +82,7 @@ RSpec.describe 'Accounts', type: :request do
 
     context 'Fail Scenarios' do      
       describe 'When given a title name empty' do
-        let(:account_with_title_empty) { attributes_for(:account, user_profile: user.user_profile, title: '') }
+        let(:account_with_title_empty) { attributes_for(:account, user_profile: user_profile, title: '') }
 
         it 'should return account invalid' do
           params = { account: account_with_title_empty }
@@ -84,7 +94,7 @@ RSpec.describe 'Accounts', type: :request do
       end
 
       describe 'When given a amount minor than 0' do
-        let(:account_with_amount_negative) { attributes_for(:account, user_profile: user.user_profile, price_cents: -1) }
+        let(:account_with_amount_negative) { attributes_for(:account, user_profile: user_profile, price_cents: -1) }
 
         it 'should return account invalid' do
           params = { account: account_with_amount_negative }
@@ -99,7 +109,7 @@ RSpec.describe 'Accounts', type: :request do
   end
 
   describe 'DESTROY /accounts/:id' do
-    let(:new_account) { create(:account, user_profile: user.user_profile) }
+    let(:new_account) { create(:account, user_profile: user_profile) }
 
     context 'Success Scenario' do
       it 'should delete account' do
@@ -112,13 +122,13 @@ RSpec.describe 'Accounts', type: :request do
   end
 
   describe 'POST /accounts/transfer_between_accounts' do
-    let(:account_out) { create(:account, user_profile: user.user_profile, price_cents: 1000) }
+    let(:account_out) { create(:account, user_profile: user_profile, price_cents: 1000) }
 
     context 'Success Scenario' do
       it 'User fil form with valid information' do
 
         params = { 
-          user_profile: user.user_profile,
+          user_profile: user_profile,
           price_cents: 500,
           account_id_in: account.id,
           account_id_out: account_out.id

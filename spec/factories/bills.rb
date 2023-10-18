@@ -24,11 +24,21 @@
 #
 FactoryBot.define do
   factory :bill do
-    user_profile { create(:user_profile) }
-    title { Faker::Lorem.word }
-    price_cents { rand(100..5000) }
-    due_pay { Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today) }
-    bill_type { %w[recipe expense].sample }
-    status { %w[pending paid].sample }
+    user_profile_id { create(:user_profile).id }
+    title           { Faker::Lorem.word }
+    price_cents     { rand(100..5000) }
+    due_pay         { Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today) }
+    bill_type       { %w[recipe expense].sample }
+    status          { %w[pending paid].sample }
+
+    trait :invalid do
+      user_profile_id {}
+      title           {}
+      price_cents     {}
+      due_pay         {}
+      bill_type       {}
+      status          {}
+    end
   end
+
 end

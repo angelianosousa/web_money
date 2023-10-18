@@ -10,7 +10,7 @@ RSpec.describe "Categories", type: :request do
   
   describe 'GET /categories' do
 
-    it 'user logged acccess your categories screen' do
+    it 'user logged access your categories screen' do
       get categories_path
 
       expect(response).to have_http_status(200)
@@ -45,7 +45,7 @@ RSpec.describe "Categories", type: :request do
     end
   end
 
-  describe 'GET /categories/:id' do
+  describe 'GET /categories/:id/edit' do
     it 'Getting category update form' do
       get edit_category_path(category)
 
@@ -83,7 +83,7 @@ RSpec.describe "Categories", type: :request do
     end
   end
 
-  describe 'DESTROY /categories/:id' do
+  describe 'DELETE /categories/:id' do
     it 'should delete category' do
       expect {
         delete category_path(category)

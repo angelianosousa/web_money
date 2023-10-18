@@ -10,7 +10,7 @@ RSpec.describe "Bills", type: :request do
   
   describe 'GET /bills' do
 
-    it 'user logged acccess your bills screen' do
+    it 'user logged access your bills screen' do
       get bills_path
 
       expect(response).to have_http_status(200)
@@ -94,7 +94,7 @@ RSpec.describe "Bills", type: :request do
     end
   end
 
-  describe 'DESTROY /bills/:id' do
+  describe 'DELETE /bills/:id' do
     it 'should delete bill' do
       expect {
         delete bill_path(bill)

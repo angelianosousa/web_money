@@ -18,9 +18,13 @@ Rails.application.routes.draw do
   resources :user_profile,  only: %i[edit update destroy]
   resources :transactions,  except: %i[show new]
   resources :budgets,       except: %i[show new]
-  resources :notifications, only: [:index]
   resources :categories,    except: [:show]
-  patch '/notifications/mark_as_read/:id', to: 'notifications#mark_as_read'
+  
+  resources :notifications, only: [:index] do
+    patch :mark_as_read, on: :member
+  end
+
+  # patch '/notifications/mark_as_read/:id', to: 'notifications#mark_as_read'
 
   root to: 'dashboard#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

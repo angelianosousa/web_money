@@ -30,6 +30,8 @@ class TransferBetweenAccounts < ApplicationService
       @account_out.price_cents -= transaction.price_cents
       @account_out.save
     end
+
+    @account_out.errors.any?
   end
 
   def create_deposit
@@ -39,6 +41,8 @@ class TransferBetweenAccounts < ApplicationService
       @account_in.price_cents += transaction.price_cents
       @account_in.save
     end
+
+    @account_in.errors.any?
   end
 
   private
@@ -61,11 +65,9 @@ class TransferBetweenAccounts < ApplicationService
 
   def transaction_params
     {
-      account_id:  @account,
-      category_id: @category,
       price_cents: @params[:price_cents],
       description: @params[:description],
-      move_type:   'transfer',
+      move_type:   :transfer,
       date:        Date.today.to_datetime
     }
   end

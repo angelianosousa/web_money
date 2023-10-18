@@ -36,28 +36,39 @@
 #
 FactoryBot.define do
   factory :transaction do
-    user_profile { create(:user_profile) }
-    category     { create(:category) }
-    account      { create(:account) }
-    description  { Faker::Lorem.paragraph(sentence_count: 2) }
-    price_cents  { rand(100..1000) }
-    date         { Faker::Date.in_date_period }
-    move_type    { 'recipe' }
+    user_profile_id { create(:user_profile).id }
+    category_id     { create(:category).id }
+    account_id      { create(:account).id }
+    description     { Faker::Lorem.paragraph(sentence_count: 2) }
+    price_cents     { rand(100..1000) }
+    date            { Faker::Date.in_date_period }
+    move_type       { 'recipe' }
+
+    trait :recipe do
+      category { create(:category, category_type: :recipe) }
+    end
+  
+    trait :expense do
+      category { create(:category, category_type: :expense) }
+    end
+  
+    trait :with_bill do
+      bill { create(:bill) }
+    end
+  
+    trait :with_budget do
+      budget { create(:budget) }
+    end
+  
+    trait :invalid do
+      user_profile_id {}
+      category_id     {}
+      account_id      {}
+      description     {}
+      price_cents     {}
+      move_type       {}
+      date            {}
+    end
   end
 
-  trait :recipe do
-    category { create(:category, category_type: :recipe) }
-  end
-
-  trait :expense do
-    category { create(:category, category_type: :expense) }
-  end
-
-  trait :with_bill do
-    bill
-  end
-
-  trait :with_budget do
-    budget
-  end
 end

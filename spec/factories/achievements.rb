@@ -15,8 +15,8 @@
 FactoryBot.define do
   factory :achievement do
     description { Faker::Lorem.paragraph(sentence_count: 2) }
-    code { %i[money_movement money_managed budget_reached].sample }
-    level { %i[silver golden diamond].sample }
-    points { rand(1..1000) }
+    code        { %i[money_movement money_managed budget_reached].sample }
+    level       { %i[silver golden diamond].sample }
+    points      { rand(1..1000) }
   end
 end

@@ -74,5 +74,5 @@
 
 <%= paginate @transactions %>
 
-<%= render partial: "#{params[:controller]}/modals/new_recipe", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>
-<%= render partial: "#{params[:controller]}/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>
+<%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>
+<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>

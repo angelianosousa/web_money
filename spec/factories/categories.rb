@@ -21,8 +21,15 @@
 #
 FactoryBot.define do
   factory :category do
-    title         { Faker::Lorem.word }
-    category_type { %w[recipe expense].sample }
-    user_profile  { create(:user_profile) }
+    user_profile_id { create(:user_profile).id }
+    title           { Faker::Lorem.word }
+    category_type   { 'recipe' }
+
+    trait :invalid do
+      user_profile_id {}
+      category_type   {}
+      title           {}
+    end
   end
+
 end

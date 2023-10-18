@@ -9,7 +9,7 @@ RSpec.describe "Budgets", type: :request do
   end
   
   describe 'GET /budgets' do
-    it 'user logged acccess your budgets screen' do
+    it 'user logged access your budgets screen' do
       get budgets_path
 
       expect(response).to have_http_status(200)
@@ -76,7 +76,7 @@ RSpec.describe "Budgets", type: :request do
     end
   end
 
-  describe 'DESTROY /budgets/:id' do
+  describe 'DELETE /budgets/:id' do
     it 'should delete budget' do
       expect {
         delete budget_path(budget)

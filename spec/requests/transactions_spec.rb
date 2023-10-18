@@ -1,63 +1,94 @@
 require 'rails_helper'
 
 RSpec.describe "Transactions", type: :request do
-  let(:user)         { create(:user) }
-  let(:new_category) { create(:category, user_profile: user.user_profile) }
-  let(:new_account)  { create(:account, user_profile: user.user_profile) }
-  let(:transaction)  { create(:transaction, user_profile: user.user_profile, category: new_category, account: new_account) }
+  let(:user_profile) { create(:user_profile) }
+
+  let(:transaction) do
+    create(:transaction, user_profile: user_profile) do |t|
+      t.create_category(attributes_for(:category, user_profile_id: user_profile.id))
+      t.create_account(attributes_for(:account, user_profile_id: user_profile.id))
+    end
+  end
 
   before do
-    sign_in user
+    sign_in user_profile.user
   end
 
   describe 'GET /transactions' do
 
-    it 'user logged acccess your transactions screen' do
-      get transactions_path
+    describe 'User access the transaction screen' do
+      it 'And see all your transactions' do
+        get transactions_path
+  
+        expect(response).to have_http_status(200)
+      end
+    end
+  end
+
+  describe 'POST /transactions' do
+    let(:account)  { create(:account, user_profile_id: user_profile.id) }
+    let(:category) { create(:category, user_profile_id: user_profile.id) }
+
+    context 'Success Scenario' do
+      let(:transaction_attributes) do
+        attributes_for(:transaction, user_profile_id: user_profile.id, account_id: account.id, category_id: category.id)
+      end
+
+      describe 'fill the form with valid information' do
+        it 'should save transaction with valid attributes' do
+          params = { transaction: transaction_attributes }
+          post transactions_path, params: params
+  
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to(transactions_path)
+          follow_redirect!
+          expect(response.body).to include(I18n.t('transactions.create.success'))
+        end
+      end
+    end
+  end
+
+  describe 'GET /transactions/:id/edit' do
+    it 'Getting transaction update form' do
+      get edit_transaction_path(transaction)
 
       expect(response).to have_http_status(200)
     end
   end
 
-  describe 'POST /transactions' do
+  describe 'PATCH /transactions/:id' do
+    
     context 'Success Scenario' do
-      # let(:transaction_attributes) { attributes_for(:transaction, user_profile_id: user.user_profile_id, category_id: new_category.id, account_id: new_account.id) }
+      let(:transaction_attributes) { attributes_for(:transaction, user_profile_id: user_profile.id)}
 
-      it 'should save transaction with valid attributes' do
-        params = { transaction: {
-          user_profile_id: user.user_profile.id,
-          account_id: new_account.id,
-          category_id: new_category.id,
-          description: 'Description test',
-          price_cents: 1,
-          date: Date.today,
-          move_type: 'recipe'
-        }}
-        # byebug
-        post transactions_path, params: params
+      describe 'update transaction' do
+        it 'should return success' do
+        params = { transaction: transaction_attributes }
+        patch transaction_path(transaction), params: params
 
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(transactions_path)
         follow_redirect!
-        expect(response.body).to include(I18n.t('transactions.create.success'))
+        expect(response.body).to include(I18n.t('transactions.update.success'))
+        end
       end
     end
+    
+    # context 'Fail Scenario' do
+    #   let(:transaction_attributes_invalid) { attributes_for(:transaction, :invalid)}
 
-    context 'Fail Scenario' do
-      let(:transaction_attributes) { attributes_for(:transaction) }
+    #   it 'should not update transactin with invalid attributes' do
+    #     params = { transaction: transaction_attributes_invalid }
+    #     patch transaction_path(transaction), params: params
 
-      it 'should not save with title, date or price_cents invalid'
-    end
+    #     expect(response).to have_http_status(302)
+    #     expect(response).to redirect_to(edit_transaction_path(transaction))
+    #     expect(transaction).to raise ActiveRecord::RecordInvalid
+    #   end
+    # end
   end
 
-  describe 'GET /transactions/:id'
-
-  describe 'PATCH /transactions/:id' do
-    context 'Success Scenario'
-    context 'Fail Scenario'
-  end
-
-  describe 'DESTROY /transactions/:id' do
+  describe 'DELETE /transactions/:id' do
     it 'should delete transaction' do
       expect {
         delete transaction_path(transaction)

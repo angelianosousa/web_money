@@ -23,9 +23,17 @@
 #
 FactoryBot.define do
   factory :budget do
-    user_profile { create(:user_profile) }
-    objective_name { Faker::Commerce.department }
+    user_profile_id   { create(:user_profile).id }
+    objective_name    { Faker::Commerce.department }
     goals_price_cents { rand(1000.00..9999.00) }
-    date_limit { Faker::Date.forward(days: 60) }
+    date_limit        { Faker::Date.forward(days: 60) }
+
+    trait :invalid do
+      user_profile_id   {}
+      objective_name    {}
+      goals_price_cents {}
+      date_limit        {}
+    end
   end
+
 end
