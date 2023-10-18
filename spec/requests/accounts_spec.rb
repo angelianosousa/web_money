@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Accounts', type: :request do
@@ -8,9 +10,8 @@ RSpec.describe 'Accounts', type: :request do
   before do
     sign_in user
   end
-  
-  describe 'GET /accounts' do
 
+  describe 'GET /accounts' do
     it 'user logged acccess your accoumt' do
       get accounts_path
 
@@ -41,13 +42,12 @@ RSpec.describe 'Accounts', type: :request do
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(accounts_path)
       follow_redirect!
-      
-      byebug
+
       expect(request.flash[:danger]).to eq(account_attributes_invalid.errors.full_messages.to_sentence)
     end
   end
 
   # describe 'PATCH /accounts' do
-  #   it 
+  #   it
   # end
 end
