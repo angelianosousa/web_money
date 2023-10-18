@@ -39,10 +39,10 @@ class AccountsController < ApplicationController
   def new_transaction
     @transaction = CreateTransaction.call(current_profile, params)
 
-    unless @transaction.errors.none?
-      redirect_to accounts_url, flash: { success: t('.success') }
-    else
+    if @transaction.errors.none?
       redirect_to accounts_url, flash: { danger: @transaction.errors.full_messages }
+    else
+      redirect_to accounts_url, flash: { success: t('.success') }
     end
   end
 

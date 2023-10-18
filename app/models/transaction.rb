@@ -81,5 +81,4 @@ class Transaction < ApplicationRecord
   scope :expenses, lambda {
     where(category_id: Category.where(category_type: :expense)).includes(:account, :category)
   }
-
 end
