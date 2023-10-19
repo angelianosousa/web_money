@@ -51,97 +51,165 @@ RSpec.describe Transaction, type: :model do
     it { is_expected.to define_enum_for(:move_type) }
   end
 
-  let(:user_profile) { create(:user_profile) }
-  let(:transaction)  { build(:transaction) }
+  let(:achievement_money_managed)  { create(:achievement, level: :silver, code: :money_managed) }
+  let(:achievement_money_movement) { create(:achievement, level: :silver, code: :money_movement) }
+  let(:achievement_budget_reached) { create(:achievement, level: :silver, code: :budget_reached) }
 
+  let(:user_profile) do
+    create(:user_profile) do |user_profile|
+      user_profile.achievements << [ achievement_money_managed, achievement_money_movement, achievement_budget_reached ]
+    end
+  end
+
+  let(:account)          { create(:account, price_cents: 1000, user_profile: user_profile) }
+  let(:category_recipe)  { create(:category, category_type: :recipe, user_profile: user_profile) }
+  let(:category_expense) { create(:category, category_type: :expense, user_profile: user_profile) }
+
+  
   describe '#save' do
-    context 'when price_cents is empty' do
-      let(:transaction) { build(:transaction, price_cents: nil, date: nil) }
 
-      it 'should not be valid' do
-        expect(transaction.valid?).to be_falsey
+    describe 'Fail scenario' do
+      context 'when given invalid attributes' do
+        let(:transaction) { build(:transaction, :invalid) }
+  
+        it 'should not be valid' do
+          expect(transaction.valid?).to be_falsey
+          expect(transaction.errors.messages[:account]).to      include 'é obrigatório(a)'
+          expect(transaction.errors.messages[:user_profile]).to include 'é obrigatório(a)'
+          expect(transaction.errors.messages[:price_cents]).to  include 'não é um número'
+          expect(transaction.errors.messages[:price_cents]).to  include 'não pode ficar em branco'
+          expect(transaction.errors.messages[:date]).to         include 'não pode ficar em branco'
+        end
+      end
+      
+    end
+    
+    describe 'Success scenario' do
+      let(:transaction) { build(:transaction, user_profile_id: user_profile.id) }
+
+      context 'when title is full' do
+        it 'should be valid' do
+          expect(transaction.valid?).to be_truthy
+        end
+  
+        it 'should be saved' do
+          expect(transaction.save).to be_truthy
+        end
       end
     end
 
-    context 'when title is full' do
-      it 'should be valid' do
-        expect(transaction.valid?).to be_truthy
+  end
+
+  describe '.check_deposit' do
+    
+    context 'Success scenario' do
+      let(:deposit_transaction) do
+        build(:transaction, price_cents: 1000, account: account, move_type: :recipe, category: category_recipe, user_profile: user_profile)
       end
 
-      it 'should be saved' do
-        expect(transaction.save).to be_truthy
+      it 'should save if is a recipe transaction' do
+        expect(deposit_transaction.recipe?).to be_truthy
+      end
+  
+      it 'should have more money in account than before' do
+        amount_before = account.price_cents
+        deposit_transaction.save
+        account.reload
+        amount_after = account.price_cents
+  
+        expect(amount_after).to satisfy("be greater than #{amount_before}") { |n| n > amount_before }
       end
     end
 
-    context 'presence of account' do
-      let(:transaction_without_account) { build(:transaction, account_id: 0) }
-
-      it 'when account not exists' do
-        account = Account.find_by(id: transaction_without_account.account_id)
-
-        expect(account.present?).to be_falsey
+    context 'Fail scenario' do
+      let(:excharge_transaction) do
+        build(:transaction, price_cents: 1000, account: account, move_type: :expense, category: category_expense, user_profile: user_profile)
       end
 
-      it 'when account exists' do
-        account = Account.find(transaction.account_id)
+      it 'should not save a expense movement' do
+        current_value = account.price_cents
+        excharge_transaction.check_deposit
+        account.reload
 
-        expect(account.present?).to be_truthy
+        expect(account.price_cents).to eq(current_value)
       end
     end
   end
 
-  context '.check_deposit' do
-    let(:account)             { create(:account, price_cents: 1000, user_profile: user_profile) }
-    let(:category_recipe)     { create(:category, category_type: :recipe, user_profile: user_profile) }
-    let(:deposit_transaction) do
-      build(:transaction, price_cents: 1000, account: account, category: category_recipe, user_profile: user_profile)
-    end
+  describe '.check_excharge' do
 
-    it 'should save if is a recipe transaction' do
-      expect(deposit_transaction.category.recipe?).to be_truthy
-    end
+    context 'Fail scenario' do
+      let(:excharge_transaction) do
+        build(:transaction, price_cents: 1001, move_type: :expense, category: category_expense, account: account, user_profile: user_profile)
+      end
+  
+      it 'excharge are invalid for account with not enough money' do
+        excharge_invalid = excharge_transaction.expense? && (account.price_cents.to_f < excharge_transaction.price_cents.to_f)
+  
+        expect(excharge_invalid).to be_truthy
+      end
 
-    it 'should have more money in account than before' do
-      amount_before = account.price_cents
-      deposit_transaction.save
-      account.reload
-      amount_after = account.price_cents
+      it 'should not excharge a account that does not have enough money' do
+        current_value = account.price_cents
+        excharge_transaction.check_excharge
+        account.reload
+        expect(excharge_transaction.expense?).to be_truthy
+        expect(account.price_cents).to eq(current_value)
+      end
 
-      expect(amount_after).to satisfy("be greater than #{amount_before}") { |n| n > amount_before }
+      it 'should not save a recipe movement' do
+        current_value = account.price_cents
+        excharge_transaction.check_excharge
+        account.reload
+
+        expect(account.price_cents).to eq(current_value)
+      end
     end
+    
+    context 'Success scenario' do
+      let(:excharge_transaction) do
+        build(:transaction, price_cents: 101, move_type: :expense, category: category_expense, account: account, user_profile: user_profile)
+      end
+
+      it 'should save if is a expense transaction' do
+        expect(excharge_transaction.expense?).to be_truthy
+      end
+  
+      it 'should have less money in account than before' do
+        amount_before = account.price_cents
+        excharge_transaction.save
+        account.reload
+        amount_after = account.price_cents
+  
+        expect(amount_after).to satisfy("be less than #{amount_before}") { |n| n < amount_before }
+      end
+    end
+    
   end
 
-  context '.check_excharge' do
-    let(:account)          { create(:account, price_cents: 1000, user_profile: user_profile) }
-    let(:category_expense) { create(:category, category_type: :expense, user_profile: user_profile) }
+  # describe '.count_points' do
+  #   context 'Success scenario' do
+  #     describe 'When a transaction count only to money_managed and money_movement achievements' do
+  #       let(:deposit_transaction) do
+  #         build(:transaction, price_cents: 1000, account: account, move_type: :recipe, category: category_recipe, user_profile: user_profile)
+  #       end
 
-    let(:excharge_account) do
-      build(:transaction, price_cents: 101, category: category_expense, account: account, user_profile: user_profile)
-    end
+  #       it 'Achivements must increase points' do
+  #         money_managed_achieve = user_profile.profile_achievements.find_by(achievement_id: achievement_money_managed.id)
+  #         money_movement_achieve = user_profile.profile_achievements.find_by(achievement_id: achievement_money_movement.id)
 
-    it 'should save if is a expense transaction' do
-      expect(excharge_account.category.expense?).to be_truthy
-    end
+  #         expect(deposit_transaction.save).to be_truthy
+  #         deposit_transaction.count_points
+  #         money_managed_achieve.reload
+  #         money_movement_achieve.reload
 
-    it 'should have less money in account than before' do
-      amount_before = account.price_cents
-      excharge_account.save
-      account.reload
-      amount_after = account.price_cents
+  #         expect(money_managed_achieve.points_reached).to eq(10)
+  #         expect(money_movement_achieve.points_reached).to eq(10)
+  #       end
+  #     end
+  #   end
 
-      expect(amount_after).to satisfy("be less than #{amount_before}") { |n| n < amount_before }
-    end
-
-    let(:not_excharge_account) do
-      build(:transaction, price_cents: 1001, category: category_expense, account: account, user_profile: user_profile)
-    end
-
-    it 'should not excharge a account that does not have enough money' do
-      excharge_invalid = not_excharge_account.category.expense? &&
-                         (account.price_cents.to_f < not_excharge_account.price_cents.to_f)
-
-      expect(excharge_invalid).to be_truthy
-    end
-  end
+  #   context 'Fail scenario'
+  # end
 
 end

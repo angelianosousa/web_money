@@ -2,16 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Accounts', type: :request do
 
-  let(:achievement_money_managed)  { create(:achievement, level: :silver, code: :money_managed) }
-  let(:achievement_money_movement) { create(:achievement, level: :silver, code: :money_movement) }
-  let(:achievement_budget_reached) { create(:achievement, level: :silver, code: :budget_reached) }
-  
-  let(:user_profile) do
-    create(:user_profile) do |user_profile|
-      user_profile.achievements << [ achievement_money_managed, achievement_money_movement, achievement_budget_reached ]
-    end
-  end
-
+  let(:user_profile) { create(:user_profile) }
   let(:account) { create(:account, user_profile_id: user_profile.id) }
 
   before do

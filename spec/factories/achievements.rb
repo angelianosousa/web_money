@@ -18,5 +18,12 @@ FactoryBot.define do
     code        { %i[money_movement money_managed budget_reached].sample }
     level       { %i[silver golden diamond].sample }
     points      { rand(1..1000) }
+
+    trait :invalid do
+      description {}
+      code        {}
+      level       {}
+      points      {}
+    end
   end
 end

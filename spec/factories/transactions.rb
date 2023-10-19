@@ -46,10 +46,12 @@ FactoryBot.define do
 
     trait :recipe do
       category { create(:category, category_type: :recipe) }
+      move_type { 'recipe' }
     end
   
     trait :expense do
       category { create(:category, category_type: :expense) }
+      move_type { 'expense' }
     end
   
     trait :with_bill do

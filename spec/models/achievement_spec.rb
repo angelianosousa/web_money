@@ -16,8 +16,6 @@ require 'rails_helper'
 
 RSpec.describe Achievement, type: :model do
   describe 'Validations' do
-    subject { build(:achievement) }
-
     it { is_expected.to define_enum_for(:level) }
     it { is_expected.to define_enum_for(:code) }
     it { is_expected.to validate_numericality_of(:points) }
@@ -25,11 +23,16 @@ RSpec.describe Achievement, type: :model do
   end
 
   describe '#save' do
+
     context 'when code or / and level is empty' do
-      let(:achievement) { build(:achievement, code: '', level: '') }
+      let(:achievement) { build(:achievement, :invalid) }
 
       it 'should not be valid' do
         expect(achievement.valid?).to be_falsey
+        expect(achievement.errors.messages[:description]).to include 'não pode ficar em branco'
+        expect(achievement.errors.messages[:code]).to        include 'não pode ficar em branco'
+        expect(achievement.errors.messages[:level]).to       include 'não pode ficar em branco'
+        expect(achievement.errors.messages[:points]).to      include 'não é um número'
       end
 
       it 'should not save' do
