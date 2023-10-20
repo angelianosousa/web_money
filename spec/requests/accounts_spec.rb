@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Accounts', type: :request do
@@ -8,10 +10,9 @@ RSpec.describe 'Accounts', type: :request do
   before do
     sign_in user_profile.user
   end
-  
-  describe 'GET /accounts' do
 
-    it 'user logged access your accounts screen' do
+  describe 'GET /accounts' do
+    it 'user logged acccess your accoumt' do
       get accounts_path
 
       expect(response).to have_http_status(:success)
