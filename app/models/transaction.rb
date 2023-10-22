@@ -73,7 +73,7 @@ class Transaction < ApplicationRecord
     account.save
   end
 
-  # TODO | E se a transação for uma transferência entre contas ?
+  # TODO: | E se a transação for uma transferência entre contas ?
   def expense_or_recipe_calc
     check_excharge if recipe? || category&.recipe?
     check_deposit  if expense? || category&.expense?
@@ -88,10 +88,9 @@ class Transaction < ApplicationRecord
   end
 
   def transfer_between_account?
-    category_id == nil && transfer?
+    category_id.nil? && transfer?
   end
 
   scope :recipes, ->  { where(move_type: :recipe).includes(:account, :category) }
   scope :expenses, -> { where(move_type: :expense).includes(:account, :category) }
-
 end

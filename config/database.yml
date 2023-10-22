@@ -4,9 +4,9 @@ default: &default
   pool: 5
   timeout: 5000
   # remove if local running
-  host: postgres
-  user: postgres
-  password: password
+  # host: postgres
+  # user: postgres
+  # password: password
 
 development:
   <<: *default

@@ -50,18 +50,18 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem "cypress-rails"
   gem 'annotate',                 '~> 3.2.0'
   gem 'brakeman',                 '~> 6.0.1'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'cypress-rails'
   gem 'dotenv-rails',             '~> 2.8.1'
   gem 'factory_bot_rails',        '~> 6.1'
   gem 'faker',                    '~> 2.17'
   gem 'fasterer',                 '~> 0.10.1'
+  gem 'rails-controller-testing', '~> 1.0.5'
   gem 'rspec_api_documentation',  '~> 6.1'
   gem 'rspec-rails',              '~> 5.0'
   gem 'rubycritic',               '~> 4.8.1', require: false
-  gem 'rails-controller-testing', '~> 1.0.5'
 end
 
 group :development do

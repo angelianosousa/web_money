@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Categories", type: :request do
+RSpec.describe 'Categories', type: :request do
   let(:user)     { create(:user) }
   let(:category) { create(:category, user_profile: user.user_profile) }
 
   before do
     sign_in user
   end
-  
-  describe 'GET /categories' do
 
+  describe 'GET /categories' do
     it 'user logged access your categories screen' do
       get categories_path
 
@@ -85,9 +86,9 @@ RSpec.describe "Categories", type: :request do
 
   describe 'DELETE /categories/:id' do
     it 'should delete category' do
-      expect {
+      expect do
         delete category_path(category)
-      }.to change(Category, :count).by(0)
+      end.to change(Category, :count).by(0)
       expect(response).to have_http_status(:redirect)
     end
   end

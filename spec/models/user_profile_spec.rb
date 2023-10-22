@@ -40,12 +40,12 @@ RSpec.describe UserProfile, type: :model do
         expect(user_profile.valid?).to be_falsey
         expect(user_profile.errors.messages[:user]).to include 'é obrigatório(a)'
       end
-      
+
       it 'should not save' do
         expect(user_profile.save).to be_falsey
       end
     end
-    
+
     context 'when title is full' do
       let(:user_profile) { build(:user_profile, user: create(:user)) }
 

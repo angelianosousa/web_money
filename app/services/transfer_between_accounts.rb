@@ -67,8 +67,8 @@ class TransferBetweenAccounts < ApplicationService
     {
       price_cents: @params[:price_cents],
       description: @params[:description],
-      move_type:   :transfer,
-      date:        Date.today.to_datetime
+      move_type: :transfer,
+      date: Date.today.to_datetime
     }
   end
 end

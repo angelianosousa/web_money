@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Transactions", type: :request do
+RSpec.describe 'Transactions', type: :request do
   let(:user_profile) { create(:user_profile) }
 
   let(:transaction) do
@@ -15,11 +17,10 @@ RSpec.describe "Transactions", type: :request do
   end
 
   describe 'GET /transactions' do
-
     describe 'User access the transaction screen' do
       it 'And see all your transactions' do
         get transactions_path
-  
+
         expect(response).to have_http_status(200)
       end
     end
@@ -38,7 +39,7 @@ RSpec.describe "Transactions", type: :request do
         it 'should save transaction with valid attributes' do
           params = { transaction: transaction_attributes }
           post transactions_path, params: params
-  
+
           expect(response).to have_http_status(302)
           expect(response).to redirect_to(transactions_path)
           follow_redirect!
@@ -57,23 +58,22 @@ RSpec.describe "Transactions", type: :request do
   end
 
   describe 'PATCH /transactions/:id' do
-    
     context 'Success Scenario' do
-      let(:transaction_attributes) { attributes_for(:transaction, user_profile_id: user_profile.id)}
+      let(:transaction_attributes) { attributes_for(:transaction, user_profile_id: user_profile.id) }
 
       describe 'update transaction' do
         it 'should return success' do
-        params = { transaction: transaction_attributes }
-        patch transaction_path(transaction), params: params
+          params = { transaction: transaction_attributes }
+          patch transaction_path(transaction), params: params
 
-        expect(response).to have_http_status(302)
-        expect(response).to redirect_to(transactions_path)
-        follow_redirect!
-        expect(response.body).to include(I18n.t('transactions.update.success'))
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to(transactions_path)
+          follow_redirect!
+          expect(response.body).to include(I18n.t('transactions.update.success'))
         end
       end
     end
-    
+
     # context 'Fail Scenario' do
     #   let(:transaction_attributes_invalid) { attributes_for(:transaction, :invalid)}
 
@@ -90,9 +90,9 @@ RSpec.describe "Transactions", type: :request do
 
   describe 'DELETE /transactions/:id' do
     it 'should delete transaction' do
-      expect {
+      expect do
         delete transaction_path(transaction)
-      }.to change(Transaction, :count).by(0)
+      end.to change(Transaction, :count).by(0)
       expect(response).to have_http_status(:redirect)
       follow_redirect!
       expect(response.body).to include(I18n.t('transactions.destroy.success'))

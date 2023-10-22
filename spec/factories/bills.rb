@@ -40,5 +40,4 @@ FactoryBot.define do
       status          {}
     end
   end
-
 end

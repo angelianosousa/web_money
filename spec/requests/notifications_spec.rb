@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Notifications", type: :request do
+RSpec.describe 'Notifications', type: :request do
   let(:user)         { create(:user) }
   let(:notification) { create(:notification, read: false) }
 
   before do
     sign_in user
   end
-  
-  describe 'GET /notifications' do
 
+  describe 'GET /notifications' do
     it 'user logged acccess your notifications screen' do
       get notifications_path
 
@@ -18,7 +19,6 @@ RSpec.describe "Notifications", type: :request do
   end
 
   describe 'PATCH /notifications/:id/mark_as_read' do
-
     describe 'read notification' do
       it 'should return success' do
         params = { id:  notification.id }

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Accounts', type: :request do
-
   let(:user_profile) { create(:user_profile) }
   let(:account) { create(:account, user_profile_id: user_profile.id) }
 
@@ -31,7 +30,7 @@ RSpec.describe 'Accounts', type: :request do
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(accounts_path)
         follow_redirect!
-  
+
         expect(response.body).to include(I18n.t('accounts.create.success'))
       end
     end
@@ -40,7 +39,7 @@ RSpec.describe 'Accounts', type: :request do
       it 'should not save account with invalid attributes' do
         params = { account: account_attributes_invalid }
         post accounts_path, params: params
-  
+
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(accounts_path)
       end
@@ -56,7 +55,6 @@ RSpec.describe 'Accounts', type: :request do
   end
 
   describe 'PUT | PATCH /accounts/:id' do
-
     context 'Success Scenario' do
       let(:new_account_attributes) { attributes_for(:account, user_profile: user_profile) }
 
@@ -72,7 +70,7 @@ RSpec.describe 'Accounts', type: :request do
       end
     end
 
-    context 'Fail Scenarios' do      
+    context 'Fail Scenarios' do
       describe 'When given a title name empty' do
         let(:account_with_title_empty) { attributes_for(:account, user_profile: user_profile, title: '') }
 
@@ -97,7 +95,6 @@ RSpec.describe 'Accounts', type: :request do
         end
       end
     end
-
   end
 
   describe 'DESTROY /accounts/:id' do
@@ -105,9 +102,9 @@ RSpec.describe 'Accounts', type: :request do
 
     context 'Success Scenario' do
       it 'should delete account' do
-        expect {
+        expect do
           delete account_path(new_account)
-        }.to change(Account, :count).by(0)
+        end.to change(Account, :count).by(0)
         expect(response).to have_http_status(:redirect)
       end
     end
@@ -118,8 +115,7 @@ RSpec.describe 'Accounts', type: :request do
 
     context 'Success Scenario' do
       it 'User fil form with valid information' do
-
-        params = { 
+        params = {
           user_profile: user_profile,
           price_cents: 500,
           account_id_in: account.id,
@@ -138,5 +134,4 @@ RSpec.describe 'Accounts', type: :request do
     #   it 'User must have to see the errors on screen'
     # end
   end
-
 end

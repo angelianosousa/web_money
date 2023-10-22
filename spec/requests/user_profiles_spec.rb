@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "UserProfiles", type: :request do
+RSpec.describe 'UserProfiles', type: :request do
   let(:user)         { create(:user) }
   let(:user_profile) { create(:user_profile, user: user) }
 
   before do
     sign_in user_profile.user
   end
-  
-  describe 'GET /user_profile/:id/edit' do
 
+  describe 'GET /user_profile/:id/edit' do
     it 'user logged acccess your profile screen' do
       get edit_user_profile_path(user_profile)
 
@@ -18,7 +19,6 @@ RSpec.describe "UserProfiles", type: :request do
   end
 
   describe 'PATCH /user_profile/:id' do
-    
     context 'Success Scenario' do
       let(:user_profile_attributes) { attributes_for(:user_profile, user: user) }
 

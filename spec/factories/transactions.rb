@@ -48,20 +48,20 @@ FactoryBot.define do
       category { create(:category, category_type: :recipe) }
       move_type { 'recipe' }
     end
-  
+
     trait :expense do
       category { create(:category, category_type: :expense) }
       move_type { 'expense' }
     end
-  
+
     trait :with_bill do
       bill { create(:bill) }
     end
-  
+
     trait :with_budget do
       budget { create(:budget) }
     end
-  
+
     trait :invalid do
       user_profile_id {}
       category_id     {}
@@ -72,5 +72,4 @@ FactoryBot.define do
       date            {}
     end
   end
-
 end

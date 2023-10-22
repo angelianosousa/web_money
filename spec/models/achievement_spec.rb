@@ -23,7 +23,6 @@ RSpec.describe Achievement, type: :model do
   end
 
   describe '#save' do
-
     context 'when code or / and level is empty' do
       let(:achievement) { build(:achievement, :invalid) }
 

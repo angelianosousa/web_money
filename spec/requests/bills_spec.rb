@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Bills", type: :request do
+RSpec.describe 'Bills', type: :request do
   let(:user) { create(:user) }
   let(:bill) { create(:bill, user_profile: user.user_profile) }
 
   before do
     sign_in user
   end
-  
-  describe 'GET /bills' do
 
+  describe 'GET /bills' do
     it 'user logged access your bills screen' do
       get bills_path
 
@@ -26,7 +27,6 @@ RSpec.describe "Bills", type: :request do
   end
 
   describe 'POST /bills' do
-    
     context 'Success Scenario' do
       let(:bill_attributes) { attributes_for(:bill, user_profile: user.user_profile) }
 
@@ -42,7 +42,9 @@ RSpec.describe "Bills", type: :request do
     end
 
     context 'Fail Scenarios' do
-      let(:bill_attributes_invalid) { attributes_for(:bill, user_profile: user.user_profile, title: nil, date: nil, price_cents: -1) }
+      let(:bill_attributes_invalid) do
+        attributes_for(:bill, user_profile: user.user_profile, title: nil, date: nil, price_cents: -1)
+      end
 
       it 'should not save with title, date or price_cents invalid' do
         params = { bill: bill_attributes_invalid }
@@ -57,30 +59,31 @@ RSpec.describe "Bills", type: :request do
   describe 'GET /bills/:id' do
     it 'should return success' do
       get edit_bill_path(bill)
-  
+
       expect(response).to have_http_status(200)
     end
   end
 
   describe 'PUT | PATCH /bills/:id' do
-
     context 'Success Scenario' do
       let(:new_bill_attributes) { attributes_for(:bill, user_profile: user.user_profile, title: 'My title') }
 
       it 'update bill, should return success' do
-        params    = { bill: new_bill_attributes }  
+        params = { bill: new_bill_attributes }
         put bill_path(bill), params: params
 
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(bills_path)
         follow_redirect!
-  
+
         expect(response.body).to include(I18n.t('bills.update.success'))
       end
     end
 
     context 'Fail Scenario' do
-      let(:bill_attributes_invalid) { attributes_for(:bill, user_profile: user.user_profile, title: nil, date: nil, price_cents: -1) }
+      let(:bill_attributes_invalid) do
+        attributes_for(:bill, user_profile: user.user_profile, title: nil, date: nil, price_cents: -1)
+      end
 
       describe 'when given title, date or price_cents empty' do
         it 'should not save' do
@@ -96,9 +99,9 @@ RSpec.describe "Bills", type: :request do
 
   describe 'DELETE /bills/:id' do
     it 'should delete bill' do
-      expect {
+      expect do
         delete bill_path(bill)
-      }.to change(Bill, :count).by(0)
+      end.to change(Bill, :count).by(0)
       expect(response).to have_http_status(:redirect)
       follow_redirect!
       expect(response.body).to include(I18n.t('bills.destroy.success'))

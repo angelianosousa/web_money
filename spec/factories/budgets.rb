@@ -35,5 +35,4 @@ FactoryBot.define do
       date_limit        {}
     end
   end
-
 end

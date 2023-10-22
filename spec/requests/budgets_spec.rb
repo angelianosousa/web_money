@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Budgets", type: :request do
+RSpec.describe 'Budgets', type: :request do
   let(:user) { create(:user) }
   let(:budget) { create(:budget, user_profile: user.user_profile) }
 
   before do
     sign_in user
   end
-  
+
   describe 'GET /budgets' do
     it 'user logged access your budgets screen' do
       get budgets_path
@@ -33,7 +35,10 @@ RSpec.describe "Budgets", type: :request do
     end
 
     context 'Fail Scenario' do
-      let(:budget_attributes_invalid) { attributes_for(:budget, user_profile: user.user_profile, objective_name: nil, date_limit: nil, goals_price_cents: -1) }
+      let(:budget_attributes_invalid) do
+        attributes_for(:budget, user_profile: user.user_profile, objective_name: nil, date_limit: nil,
+                                goals_price_cents: -1)
+      end
 
       it 'should not save with objective_name, date_limit or goals_price_cents invalid' do
         params = { budget: budget_attributes_invalid }
@@ -46,7 +51,6 @@ RSpec.describe "Budgets", type: :request do
   end
 
   describe 'PUT | PATCH /budgets/:id' do
-    
     context 'Success Scenario' do
       let(:budget_attributes) { attributes_for(:budget, user_profile: user.user_profile) }
 
@@ -62,7 +66,10 @@ RSpec.describe "Budgets", type: :request do
     end
 
     context 'Fail Scenario' do
-      let(:budget_attributes_invalid) { attributes_for(:budget, user_profile: user.user_profile, objective_name: nil, date_limit: nil, goals_price_cents: -1) }
+      let(:budget_attributes_invalid) do
+        attributes_for(:budget, user_profile: user.user_profile, objective_name: nil, date_limit: nil,
+                                goals_price_cents: -1)
+      end
 
       describe 'when given objective_name, date_limit or goals_price_cents invalid' do
         it 'should not save' do
@@ -78,9 +85,9 @@ RSpec.describe "Budgets", type: :request do
 
   describe 'DELETE /budgets/:id' do
     it 'should delete budget' do
-      expect {
+      expect do
         delete budget_path(budget)
-      }.to change(Budget, :count).by(0)
+      end.to change(Budget, :count).by(0)
       expect(response).to have_http_status(:redirect)
       follow_redirect!
       expect(response.body).to include(I18n.t('budgets.destroy.success'))

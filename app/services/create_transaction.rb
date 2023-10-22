@@ -6,15 +6,19 @@ class CreateTransaction < ApplicationService
     super()
     @user_profile       = user_profile
     @transaction_params = params
-    @account            = @user_profile.accounts.find(@transaction_params[:account_id]) rescue nil
+    @account            = begin
+      @user_profile.accounts.find(@transaction_params[:account_id])
+    rescue StandardError
+      nil
+    end
   end
 
   def call
     valid_transaction if transaction_are_expense
-    
+
     @transaction_params.merge!(description: 'Transferência entre contas') if transaction_are_transfer?
     @transaction = @account.transactions.build(@transaction_params)
-    
+
     @transaction
   end
 

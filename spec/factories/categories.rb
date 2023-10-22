@@ -31,5 +31,4 @@ FactoryBot.define do
       title           {}
     end
   end
-
 end
