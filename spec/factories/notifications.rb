@@ -26,5 +26,12 @@ FactoryBot.define do
     title           { Faker::Restaurant.type }
     description     { Faker::Restaurant.description }
     read            { false }
+
+    trait :invalid do
+      user_profile_id {}
+      title           {}
+      description     {}
+      read            {}
+    end
   end
 end

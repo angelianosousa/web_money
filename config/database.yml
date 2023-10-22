@@ -3,7 +3,6 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-
   # remove if local running
   # host: postgres
   # user: postgres

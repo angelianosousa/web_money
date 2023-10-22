@@ -33,6 +33,24 @@ RSpec.describe Account, type: :model do
 
   describe '#save' do
     
+    describe 'Fail scenario' do
+      let(:account) { build(:account, :invalid) }
+      
+      context 'when submit invalid attributes' do
+
+        it 'should not be valid' do
+          expect(account.valid?).to be_falsey
+          expect(account.errors.messages[:user_profile]).to include 'é obrigatório(a)'
+          expect(account.errors.messages[:price_cents]).to  include 'não é um número'
+          expect(account.errors.messages[:title]).to        include 'não pode ficar em branco'
+        end
+  
+        it 'should not save' do
+          expect(account.save).to be_falsey
+        end
+      end
+    end
+
     describe 'Success scenario' do
 
       context 'when submit valid attributes' do
@@ -48,22 +66,5 @@ RSpec.describe Account, type: :model do
       end
     end
     
-    describe 'Fail scenario' do
-      let(:account) { build(:account, :invalid) }
-      
-      context 'when submit invalid attributes' do
-
-        it 'should not be valid' do
-          expect(account.valid?).to be_falsey
-          expect(account.errors.messages[:title]).to include 'não pode ficar em branco'
-          expect(account.errors.messages[:user_profile]).to include 'é obrigatório(a)'
-          expect(account.errors.messages[:price_cents]).to include 'não é um número'
-        end
-  
-        it 'should not save' do
-          expect(account.save).to be_falsey
-        end
-      end
-    end
   end
 end

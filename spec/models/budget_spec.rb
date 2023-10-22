@@ -37,10 +37,13 @@ RSpec.describe Budget, type: :model do
 
   describe '#save' do
     context 'when title is empty' do
-      let(:budget) { build(:budget, objective_name: '') }
+      let(:budget) { build(:budget, :invalid) }
 
       it 'should not be valid' do
         expect(budget.valid?).to be_falsey
+        expect(budget.errors.messages[:user_profile]).to       include 'é obrigatório(a)'
+        expect(budget.errors.messages[:objective_name]).to     include 'não pode ficar em branco'
+        expect(budget.errors.messages[:goals_price_cents]).to  include 'não pode ficar em branco', 'não é um número'
       end
 
       it 'should not save' do

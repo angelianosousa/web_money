@@ -26,8 +26,6 @@ require 'rails_helper'
 
 RSpec.describe Bill, type: :model do
   describe 'Validations' do
-    subject { build(:bill) }
-
     it { is_expected.to belong_to(:user_profile).required }
     it { is_expected.to have_many(:transactions).dependent(:destroy) }
     it { is_expected.to define_enum_for(:status) }
@@ -39,10 +37,16 @@ RSpec.describe Bill, type: :model do
 
   describe '#save' do
     context 'when title is empty' do
-      let(:bill) { build(:bill, title: '', due_pay: nil) }
+      let(:bill) { build(:bill, :invalid) }
 
       it 'should not be valid' do
         expect(bill.valid?).to be_falsey
+        expect(bill.errors.messages[:user_profile]).to include 'é obrigatório(a)'
+        expect(bill.errors.messages[:title]).to        include 'não pode ficar em branco'
+        expect(bill.errors.messages[:price_cents]).to  include 'não pode ficar em branco', 'não é um número'
+        expect(bill.errors.messages[:bill_type]).to    include 'não pode ficar em branco'
+        expect(bill.errors.messages[:status]).to       include 'não pode ficar em branco'
+        expect(bill.errors.messages[:due_pay]).to      include 'não pode ficar em branco'
       end
 
       it 'should not save' do

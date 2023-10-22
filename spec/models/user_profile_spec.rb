@@ -32,23 +32,22 @@ RSpec.describe UserProfile, type: :model do
     it { is_expected.to have_many(:achievements).through(:profile_achievements) }
   end
 
-  let(:user) { create(:user) }
-
   describe '#save' do
     context 'when title is empty' do
-      let(:user_profile) { build(:user_profile, user: nil) }
+      let(:user_profile) { build(:user_profile, :invalid) }
 
       it 'should not be valid' do
         expect(user_profile.valid?).to be_falsey
+        expect(user_profile.errors.messages[:user]).to include 'é obrigatório(a)'
       end
-
+      
       it 'should not save' do
         expect(user_profile.save).to be_falsey
       end
     end
-
+    
     context 'when title is full' do
-      let(:user_profile) { build(:user_profile, user: user) }
+      let(:user_profile) { build(:user_profile, user: create(:user)) }
 
       it 'should be valid' do
         expect(user_profile.valid?).to be_truthy
