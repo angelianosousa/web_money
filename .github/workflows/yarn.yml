@@ -15,5 +15,5 @@ jobs:
 
       - name: Run install
         uses: borales/actions-yarn@v4
-      - name: Installing node packages
-        run:  yarn install
+        with:
+          cmd: install # will run `yarn install` command
