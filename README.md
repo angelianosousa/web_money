@@ -51,18 +51,18 @@ Gerar as tabelas do banco de dados
   docker compose up web
 ~~~
 
-## Author
-
-Angeliano Sousa [LinkedIn](https://www.linkedin.com/in/angeliano-sousa/)
-
-
 ## Running Cypress
 
 ~~~bash
   yarn cypress install
 ~~~
+
 ~~~bash
   yarn cypress open
 ~~~
 
 Docs [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)
+
+## Author
+
+Angeliano Sousa [LinkedIn](https://www.linkedin.com/in/angeliano-sousa/)
