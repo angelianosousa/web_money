@@ -88,9 +88,9 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
   create_table "categories", force: :cascade do |t|
     t.string "title", null: false
     t.bigint "user_profile_id"
+    t.integer "category_type", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "category_type", default: 0
     t.index ["user_profile_id"], name: "index_categories_on_user_profile_id"
   end
 
@@ -118,10 +118,11 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "BRL", null: false
     t.date "date"
+    t.integer "move_type", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_profile_id"
-    t.bigint "category_id", null: false
+    t.bigint "category_id"
     t.bigint "account_id"
     t.text "description"
     t.bigint "bill_id"

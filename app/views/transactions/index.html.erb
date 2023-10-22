@@ -38,7 +38,6 @@
                   <th style='width:200px;'><%= model_class.human_attribute_name :description %></th>
                   <th><%= model_class.human_attribute_name :price_cents %></th>
                   <th><%= model_class.human_attribute_name :category_id %></th>
-                  <th><%= model_class.human_attribute_name :bill_id %></th>
                   <th><%= model_class.human_attribute_name :account_id %></th>
                   <th><%= model_class.human_attribute_name :budget_id %></th>
                   <th colspan="1"></th>
@@ -49,8 +48,7 @@
                   <tr>
                     <td><div class='card-text'><small><%= transaction.description %></small></div></td>
                     <td><%= value_style(transaction) %></td>
-                    <td><span class='badge badge-info p-2'><%= transaction.category.title %></span></td>
-                    <td><span class='badge badge-warning p-2'><%= transaction&.bill&.title %></span></td>
+                    <td><span class='badge badge-info p-2'><%= transaction.category&.title %></span></td>
                     <td><span class='badge badge-secondary p-2'><%= transaction.account.title %></span></td>
                     <td><span class='badge badge-primary p-2'><%= transaction&.budget&.objective_name %></span></td>
                     <td><%= render 'actions', transaction: transaction %></td>
@@ -76,5 +74,5 @@
 
 <%= paginate @transactions %>
 
-<%= render partial: "#{params[:controller]}/modals/new_recipe", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>
-<%= render partial: "#{params[:controller]}/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>
+<%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>
+<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>

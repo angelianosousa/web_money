@@ -2,10 +2,10 @@
 
 # Categories Helper
 module CategoriesHelper
-  def category_options_for_select(filter = '')
-    map_category_options.fetch(filter.to_sym, lambda {
-      current_profile.categories.collect { |c| [c.title.upcase, c.id] }
-    }).call
+  def category_options_for_select(filter)
+    return current_profile.categories.collect { |c| [c.title.upcase, c.id] } if filter == 'all'
+
+    map_category_options.fetch(filter.to_sym).call
   end
 
   def category_type_options_for_select

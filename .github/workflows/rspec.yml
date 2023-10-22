@@ -33,7 +33,9 @@ jobs:
         run: |
           sudo apt-get -yqq install libpq-dev
           gem install bundler
+          npm install
           bundle config set frozen false
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
+          bundle exec rails assets:precompile
           bundle exec rspec

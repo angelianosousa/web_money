@@ -19,9 +19,6 @@ class Achievement < ApplicationRecord
   validates :description, :code, :level, presence: true
   validates :points, numericality: { greater_or_equal_than: 0 }
 
-  has_many :profile_achievements
-  has_many :user_profiles, through: :profile_achievements, source: :user_profile
-
   def how_to_earn_points
     case code
     when 'money_movement'
@@ -35,18 +32,18 @@ class Achievement < ApplicationRecord
 
   def previous_level_finished?(current_profile)
     previous_level = Achievement.levels[level] - 1
-    achieve = Achievement.find_by(code: code, level: previous_level)
+    achieve        = Achievement.find_by(code: code, level: previous_level)
     return true unless achieve.present?
 
     achieve.finished?(current_profile)
   end
 
   def finished?(current_profile)
-    profile_achieve_points(current_profile, self).points_reached >= points
+    profile_achieve_points(current_profile, self) >= points
   end
 
   def profile_achieve_points(current_profile, achieve)
-    ProfileAchievement.find_by(user_profile: current_profile, achievement: achieve)
+    ProfileAchievement.find_by(user_profile: current_profile, achievement: achieve).points_reached
   end
 end
 

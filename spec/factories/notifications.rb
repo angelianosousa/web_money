@@ -22,9 +22,16 @@
 #
 FactoryBot.define do
   factory :notification do
-    user_profile
-    title { Faker::Restaurant.type }
-    description { Faker::Restaurant.description }
-    read { %i[true false].sample }
+    user_profile_id { create(:user_profile).id }
+    title           { Faker::Restaurant.type }
+    description     { Faker::Restaurant.description }
+    read            { false }
+
+    trait :invalid do
+      user_profile_id {}
+      title           {}
+      description     {}
+      read            {}
+    end
   end
 end

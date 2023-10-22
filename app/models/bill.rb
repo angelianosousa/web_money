@@ -26,7 +26,7 @@ class Bill < ApplicationRecord
   enum status: %i[pending paid]
   enum bill_type: %i[recipe expense]
 
-  validates :due_pay, :title, presence: true
+  validates :status, :bill_type, :due_pay, :title, presence: true
   validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
   belongs_to :user_profile

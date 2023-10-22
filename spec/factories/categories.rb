@@ -5,7 +5,7 @@
 # Table name: categories
 #
 #  id              :bigint           not null, primary key
-#  category_type   :integer          default("recipe")
+#  category_type   :integer          default("recipe"), not null
 #  title           :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -21,8 +21,14 @@
 #
 FactoryBot.define do
   factory :category do
-    title { Faker::Lorem.word }
-    category_type { %w[recipe expense].sample }
-    user_profile { create(:user_profile) }
+    user_profile_id { create(:user_profile).id }
+    title           { Faker::Lorem.word }
+    category_type   { 'recipe' }
+
+    trait :invalid do
+      user_profile_id {}
+      category_type   {}
+      title           {}
+    end
   end
 end

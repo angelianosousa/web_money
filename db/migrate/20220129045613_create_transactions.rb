@@ -6,6 +6,7 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
       t.string :title
       t.monetize :price
       t.datetime :date
+      t.integer :move_type, null: false, default: 0
 
       t.timestamps
     end
