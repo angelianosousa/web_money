@@ -53,7 +53,7 @@ end
 
 # Contas
 user_profile.accounts.each do |account|
-  250.times do
+  25.times do
     category = user_profile.categories.sample
 
     user_profile.transactions.create(
@@ -95,7 +95,7 @@ end
 
 ## Transações dos Pag. Recorrentes
 user_profile.bills.each do |bill|
-  100.times do
+  10.times do
     category = user_profile.categories.sample
 
     Transaction.create!(

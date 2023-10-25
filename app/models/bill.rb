@@ -36,4 +36,7 @@ class Bill < ApplicationRecord
   register_currency :brl
 
   paginates_per 9
+
+  scope :recipes, ->  { where(bill_type: :recipe).includes(:transactions) }
+  scope :expenses, -> { where(bill_type: :expense).includes(:transactions) }
 end
