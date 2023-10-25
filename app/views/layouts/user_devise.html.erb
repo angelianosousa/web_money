@@ -39,8 +39,8 @@
     </div>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
-    <% unless resource.errors.empty? %>
+
+    <% unless resource.valid? %>
       <% resource.errors.full_messages.each do |msg|%>
         <%= javascript_tag do %>
           $.notify(

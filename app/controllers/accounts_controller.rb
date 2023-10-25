@@ -31,18 +31,8 @@ class AccountsController < ApplicationController
       if @account.update(account_params)
         handle_successful_update(format, accounts_url, @account)
       else
-        handle_failed_update(format, nil, @account)
+        handle_failed_update(format, edit_account_url(@account), @account)
       end
-    end
-  end
-
-  def new_transaction
-    @transaction = CreateTransaction.call(current_profile, params)
-
-    unless @transaction.errors.none?
-      redirect_to accounts_url, flash: { success: t('.success') }
-    else
-      redirect_to accounts_url, flash: { danger: @transaction.errors.full_messages }
     end
   end
 

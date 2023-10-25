@@ -23,11 +23,7 @@
 require 'rails_helper'
 
 RSpec.describe Account, type: :model do
-  let(:user_profile)    { create(:user_profile) }
-
   describe 'Validations' do
-    subject { build(:account) }
-
     it { is_expected.to belong_to(:user_profile).required }
     it { is_expected.to have_many(:transactions).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:title) }
@@ -35,27 +31,34 @@ RSpec.describe Account, type: :model do
   end
 
   describe '#save' do
-    context 'when title is empty' do
-      let(:account) { build(:account, title: '', user_profile: user_profile) }
+    describe 'Fail scenario' do
+      let(:account) { build(:account, :invalid) }
 
-      it 'should not be valid' do
-        expect(account.valid?).to be_falsey
-      end
+      context 'when submit invalid attributes' do
+        it 'should not be valid' do
+          expect(account.valid?).to be_falsey
+          expect(account.errors.messages[:user_profile]).to include 'é obrigatório(a)'
+          expect(account.errors.messages[:price_cents]).to  include 'não é um número'
+          expect(account.errors.messages[:title]).to        include 'não pode ficar em branco'
+        end
 
-      it 'should not save' do
-        expect(account.save).to be_falsey
+        it 'should not save' do
+          expect(account.save).to be_falsey
+        end
       end
     end
 
-    context 'when title is full' do
-      let(:account) { build(:account, user_profile: user_profile) }
+    describe 'Success scenario' do
+      context 'when submit valid attributes' do
+        let(:account) { build(:account) }
 
-      it 'shoud be valid' do
-        expect(account.valid?).to be_truthy
-      end
+        it 'shoud be valid' do
+          expect(account.valid?).to be_truthy
+        end
 
-      it 'shoud be saved' do
-        expect(account.save).to be_truthy
+        it 'shoud be saved' do
+          expect(account.save).to be_truthy
+        end
       end
     end
   end

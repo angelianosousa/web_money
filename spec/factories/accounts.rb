@@ -22,8 +22,14 @@
 #
 FactoryBot.define do
   factory :account do
-    title { Faker::Bank.name }
-    price_cents { rand(200..2000) }
-    user_profile { create(:user_profile) }
+    user_profile_id { create(:user_profile).id }
+    title           { Faker::Bank.name }
+    price_cents     { rand(200..2000) }
+
+    trait :invalid do
+      user_profile_id {}
+      title           {}
+      price_cents     {}
+    end
   end
 end

@@ -5,6 +5,7 @@ class CreateCategories < ActiveRecord::Migration[6.0]
     create_table :categories do |t|
       t.string :title, null: false
       t.references :user_profile, foreign_key: true
+      t.integer :category_type, null: false, default: 0
 
       t.timestamps
     end

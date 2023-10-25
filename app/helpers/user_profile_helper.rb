@@ -11,13 +11,12 @@ module UserProfileHelper
   end
 
   def achieve_icon(achieve)
-    case achieve.code
-    when 'money_movement'
-      'fa-solid fa-money-bill-transfer'
-    when 'money_managed'
-      'fa-solid fa-sack-dollar'
-    when 'budget_reached'
-      'fa-solid fa-hand-holding-dollar'
-    end
+    icon_mapping = {
+      'money_movement' => 'fa-solid fa-money-bill-transfer',
+      'money_managed' => 'fa-solid fa-sack-dollar',
+      'budget_reached' => 'fa-solid fa-hand-holding-dollar'
+    }
+
+    icon_mapping[achieve.code]
   end
 end
