@@ -67,7 +67,7 @@ user_profile.accounts.each do |account|
   end
 end
 
-# Recorrências
+# Pag. Recorrentes
 ## Despesas
 %w[Água Energia Internet].each do |bill|
   user_profile.bills.create(
@@ -92,7 +92,7 @@ end
   )
 end
 
-## Transações das recorrências
+## Transações dos Pag. Recorrentes
 user_profile.bills.each do |bill|
   100.times do
     category = user_profile.categories.sample

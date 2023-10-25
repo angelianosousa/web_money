@@ -13,17 +13,16 @@ metas financeiras e desbloqueio de conquistas conforme estiver avançando
 nos seus planos e no uso do sistema.
 
 ## Próximos passos
-* Adicionar configuração de notificação de recorrências
-* O sistema deve deixar uma notificação padrão de recorrência para 1 dia antes do vencimento
+* Adicionar configuração de notificação de Pag. Recorrentes
+* O sistema deve deixar uma notificação padrão de Pag. Recorrente para 1 dia antes do vencimento
 * Relatórios de movimentações
 * Exportação / Importação de planilhas (Movimentações)
-* Adicionar testes automatizados de integração
 
 ## Start
 
 ### Dependências
 
-* ruby 3.0.5
+* ruby 3.0.6
 * rails 6.0.1
 * Postgre SQL 12.1
 * Bootstrap 4.3.1
@@ -49,6 +48,20 @@ Gerar as tabelas do banco de dados
 ~~~bash
   rails s
   docker compose up web
+~~~
+
+### Rodando os testes
+
+~~~bash
+  rspec
+~~~
+
+* Se quiser rodar testes especificos você pode passar o caminho da pasta com os testes que deve rodar
+
+~~~bash
+  rspec spec/models # Testes unitarios
+  rspec spec/requests # Testes de Integração
+  rspec spec/services # Testes dos Services Objects
 ~~~
 
 ## Author

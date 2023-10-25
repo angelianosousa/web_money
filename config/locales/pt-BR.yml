@@ -3,7 +3,7 @@
   months: Meses
   button_title:
     new_account: ' Nova conta'
-    new_bill: ' Nova recorrência'
+    new_bill: ' Novo Pag. Recorrente'
     new_recipe: ' Receita'
     new_expense: ' Despesa'
   helpers:

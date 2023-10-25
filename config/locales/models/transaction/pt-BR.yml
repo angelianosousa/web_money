@@ -7,7 +7,7 @@
         price_cents: Valor
         date: Dia do pagamento
         category_id: Categoria
-        bill_id: Recorrência
+        bill_id: Pag. Recorrente
         account_id: Conta
         budget_id: Meta
       errors:

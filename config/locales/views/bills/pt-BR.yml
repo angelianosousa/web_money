@@ -2,29 +2,29 @@
 'pt-BR':
   bills:
     index:
-      title: Recorrências
-      new_resource: ' Nova Recorrência'
+      title: Pag. Recorrentes
+      new_resource: ' Novo Pag. Recorrente'
     edit:
-      title: ' Editar recorrência'
+      title: ' Editar Pag. Recorrente'
     show:
-      title: Recorrência - %{bill}
+      title: Pag. Recorrente - %{bill}
       balance: Movimentações - %{balance}
     modals:
       new_payment:
         title: Nova movimentação - %{bill}
       new_bill:
-        title: Nova Recorrência
+        title: Novo Pag. Recorrente
     search_filter:
-      bill_type: Tipo de Recorrência
+      bill_type: Tipo de Pag. Recorrente
       status: Status
       price_cents: Valor
       due_pay: Vencimento
     create:
-      success: Recorrência criada com sucesso!!
+      success: Pag. Recorrente criado com sucesso!!
     update:
-      success: Recorrência atualizada com sucesso!!
+      success: Pag. Recorrente atualizado com sucesso!!
     destroy:
-      success: Recorrência removida com sucesso!!
+      success: Pag. Recorrente removido com sucesso!!
     new_transaction:
       success: Movimentação adicionada com sucesso!!
-      bill_paid: Está recorrência já foi paga!
+      bill_paid: Este Pag. Recorrente já foi paga!
