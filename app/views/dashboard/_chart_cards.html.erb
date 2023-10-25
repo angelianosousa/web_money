@@ -138,7 +138,6 @@
                 <tr>
                   <th scope="col"><%= Bill.human_attribute_name :title %></th>
                   <th scope="col"><%= Bill.human_attribute_name :due_pay %></th>
-                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
@@ -146,7 +145,6 @@
                   <tr>
                     <td><%= bill.title %></td>
                     <td><%= l bill.due_pay, format: :short %></td>
-                    <td><%= bill_payment(bill.status) %></td>
                   </tr>
                 <% end %>
               </tbody>
