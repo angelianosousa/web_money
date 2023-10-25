@@ -35,7 +35,8 @@ class BillsController < ApplicationController
   def new_transaction
     @bill = find_bill_by(params.delete(:bill_id))
     set_warning_flash_if_bill_already_paid
-    @result = create_payment
+
+    @result = create_payment if @bill.pending?
 
     handle_new_transaction
   end
