@@ -4,7 +4,6 @@ require 'rails_helper'
 require './app/services/create_transaction'
 
 RSpec.describe CreateTransaction do
-
   describe '#call' do
     let(:user_profile)       { create(:user_profile) }
     let(:account)            { create(:account, user_profile_id: user_profile.id, price_cents: 1000) }
@@ -13,7 +12,6 @@ RSpec.describe CreateTransaction do
       let(:transaction_params) do
         attributes_for(:transaction, user_profile_id: user_profile.id, account_id: account.id)
       end
-
       let(:transaction) { CreateTransaction.call(user_profile, transaction_params) }
 
       it 'validate @transaction' do

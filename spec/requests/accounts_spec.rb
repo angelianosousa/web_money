@@ -137,10 +137,10 @@ RSpec.describe 'Accounts', type: :request do
       end
     end
 
-    # context 'User fill the form with same account to account_id_in and account_id_out' do
-    #   it 'Movement should not be saved'
-    #   it 'Movement should get errors'
-    #   it 'User must have to see the errors on screen'
-    # end
+    context 'User fill the form with same account to account_id_in and account_id_out' do
+      it 'Movement should not be saved'
+      it 'Movement should get errors'
+      it 'User must have to see the errors on screen'
+    end
   end
 end

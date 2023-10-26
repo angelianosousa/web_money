@@ -41,7 +41,7 @@ FactoryBot.define do
     account_id      { create(:account).id }
     description     { Faker::Lorem.paragraph(sentence_count: 2) }
     price_cents     { rand(100..500) }
-    date            { Faker::Date.in_date_period }
+s    date            { Faker::Date.in_date_period }
     move_type       { 'recipe' }
 
     trait :recipe do

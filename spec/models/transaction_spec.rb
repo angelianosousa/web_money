@@ -108,6 +108,8 @@ RSpec.describe Transaction, type: :model do
           expect(transaction_recipe.save).to be_truthy
         end
       end
+    end
+  end
 
       context 'Add a new expense' do
         let(:transaction_expense) { build(:transaction, account_id: account.id, move_type: :expense, user_profile_id: user_profile.id) }
@@ -120,8 +122,6 @@ RSpec.describe Transaction, type: :model do
           expect(transaction_expense.save).to be_truthy
         end
       end
-    end
-  end
 
   describe '.check_deposit' do
     context 'Success scenario' do
@@ -200,14 +200,14 @@ RSpec.describe Transaction, type: :model do
         expect(transaction.expense?).to be_truthy
       end
 
-      # it 'should have less money in account than before' do
-      #   amount_before = account.price_cents
-      #   transaction.save
-      #   account.reload
-      #   amount_after = account.price_cents
+      it 'should have less money in account than before' do
+        amount_before = account.price_cents
+        transaction.save
+        account.reload
+        amount_after = account.price_cents
 
-      #   expect(amount_after).to satisfy("be less than #{amount_before}") { |n| n < amount_before }
-      # end
+        expect(amount_after).to satisfy("be less than #{amount_before}") { |n| n < amount_before }
+      end
     end
   end
 end
