@@ -12,10 +12,13 @@ class UsersController < Users::RegistrationsController
 
   def update
     respond_to do |format|
-      if @user.update(user_params)
-        handle_successful_update(format, edit_user_path(@user), @user)
-      else
-        handle_failed_update(format, nil, @user)
+      super do |resource|
+        byebug
+        if @user.update(user_params)
+          handle_successful_update(format, edit_user_registration_path(@user), @user)
+        else
+          handle_failed_update(format, nil, @user)
+        end
       end
     end
   end

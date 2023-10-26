@@ -40,14 +40,12 @@
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <% unless resource.valid? %>
-      <% resource.errors.full_messages.each do |msg|%>
-        <%= javascript_tag do %>
-          $.notify(
-            '<%= msg %>',
-            { type: 'danger', allow_dismiss: true }
-          );
-        <% end %>
+    <% resource.errors.full_messages.each do |msg|%>
+      <%= javascript_tag do %>
+        $.notify(
+          '<%= msg %>',
+          { type: 'danger', allow_dismiss: true }
+        );
       <% end %>
     <% end %>
 

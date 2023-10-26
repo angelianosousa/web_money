@@ -51,8 +51,8 @@ class Transaction < ApplicationRecord
   # Validations
   validates :date, presence: true
   validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
-  validate :validate_expense
-  validates :user, :account_id, presence: true
+  # validate :validate_expense
+  validates :account_id, presence: true
 
   # Callbacks
   after_save :check_deposit
