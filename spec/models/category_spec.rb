@@ -5,7 +5,7 @@
 # Table name: categories
 #
 #  id              :bigint           not null, primary key
-#  category_type   :integer          default("recipe")
+#  category_type   :integer          default("recipe"), not null
 #  title           :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -22,8 +22,6 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  let(:user_profile) { create(:user_profile) }
-
   describe 'Validations' do
     subject { build(:category) }
 
@@ -36,10 +34,12 @@ RSpec.describe Category, type: :model do
 
   describe '#save' do
     context 'when title is empty' do
-      let(:category) { build(:category, user_profile: user_profile, title: '') }
+      let(:category) { build(:category, :invalid) }
 
       it 'should not be valid' do
         expect(category.valid?).to be_falsey
+        expect(category.errors.messages[:user_profile]).to include 'é obrigatório(a)'
+        expect(category.errors.messages[:title]).to        include 'não pode ficar em branco'
       end
 
       it 'should not save' do
@@ -48,7 +48,7 @@ RSpec.describe Category, type: :model do
     end
 
     context 'when title is full' do
-      let(:category) { build(:category, user_profile: user_profile) }
+      let(:category) { build(:category) }
 
       it 'should be valid' do
         expect(category.valid?).to be_truthy

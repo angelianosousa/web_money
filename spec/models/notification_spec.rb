@@ -30,10 +30,13 @@ RSpec.describe Notification, type: :model do
 
   describe '#save' do
     context 'when title is empty' do
-      let(:notification) { build(:notification, description: '') }
+      let(:notification) { build(:notification, :invalid) }
 
       it 'should not be valid' do
         expect(notification.valid?).to be_falsey
+        expect(notification.errors.messages[:user_profile]).to include 'é obrigatório(a)'
+        expect(notification.errors.messages[:description]).to  include 'não pode ficar em branco'
+        expect(notification.errors.messages[:title]).to        include 'não pode ficar em branco'
       end
 
       it 'should not save' do

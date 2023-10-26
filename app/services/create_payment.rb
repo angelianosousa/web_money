@@ -25,7 +25,7 @@ class CreatePayment < ApplicationService
   end
 
   def create_transaction
-    @bill.transactions << CreateTransaction.call(@profile, transaction_params)
+    CreateTransaction.call(@profile, transaction_params)
   end
 
   def transaction_params
@@ -34,7 +34,9 @@ class CreatePayment < ApplicationService
       category_id: @category,
       price_cents: @params[:price_cents],
       description: @params[:description],
-      date: Date.today.to_datetime
+      move_type: @bill.bill_type,
+      date: Date.today.to_datetime,
+      bill_id: @bill.id
     }
   end
 end

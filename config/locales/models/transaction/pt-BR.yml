@@ -12,6 +12,7 @@
         budget_id: Meta
       errors:
         models:
+          invalid_movement: Conta %{account_title} não possui saldo suficiente.
           transaction:
             one: Transação
             other: Transações

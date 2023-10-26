@@ -4,7 +4,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= form.label :price_cents %>
-        <%= form.number_field :price_cents, step: :any, class:"form-control" %>
+        <%= form.number_field :price_cents, step: :any, placeholder: 'R$0,00', class:"form-control" %>
       </div>
       <div class="form-group">
         <%= form.label :date %>
@@ -31,6 +31,8 @@
         </div>
       </div>
     <% end %>
+
+    <%= form.hidden_field :move_type, value: data[:move_type] %>
 
     <div class='col-md-12'>
       <div class="form-group">

@@ -21,8 +21,8 @@ class TransactionsController < ApplicationController
     @transaction = CreateTransaction.call(current_profile, transaction_params)
 
     respond_to do |format|
-      if @transaction.errors.none?
-        handle_successful_creation(format, transactions_path, @transaction)
+      if @transaction.save
+        handle_successful_creation(format, transactions_url, @transaction)
       else
         handle_failed_creation(format, transactions_url, @transaction)
       end
@@ -35,7 +35,7 @@ class TransactionsController < ApplicationController
       if @transaction.update(transaction_params)
         handle_successful_update(format, transactions_url, @transaction)
       else
-        handle_failed_update(format, transactions_url, @transaction)
+        handle_failed_update(format, edit_transaction_url(@transaction), @transaction)
       end
     end
   end
@@ -62,7 +62,7 @@ class TransactionsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def transaction_params
     params.require(:transaction).permit(:account_id, :category_id, :bill_id, :budget_id, :user_profile_id,
-                                        :description, :price_cents, :date)
+                                        :description, :price_cents, :date, :move_type)
   end
 
   def set_default_search_params

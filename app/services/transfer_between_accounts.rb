@@ -24,15 +24,25 @@ class TransferBetweenAccounts < ApplicationService
   end
 
   def create_excharge
-    CreateTransaction.call(@profile,
-                           transaction_params.merge!({ category_id: category_expense,
-                                                       account_id: @params[:account_id_out] }))
+    transaction = CreateTransaction.call(@profile, transaction_params.merge!({ account_id: @params[:account_id_out] }))
+    @account_out = account_out
+    if transaction.save
+      @account_out.price_cents -= transaction.price_cents
+      @account_out.save
+    end
+
+    @account_out.errors.any?
   end
 
   def create_deposit
-    CreateTransaction.call(@profile,
-                           transaction_params.merge!({ category_id: category_recipe,
-                                                       account_id: @params[:account_id_in] }))
+    transaction = CreateTransaction.call(@profile, transaction_params.merge!({ account_id: @params[:account_id_in] }))
+    @account_in = account_in
+    if transaction.save
+      @account_in.price_cents += transaction.price_cents
+      @account_in.save
+    end
+
+    @account_in.errors.any?
   end
 
   private
@@ -41,27 +51,23 @@ class TransferBetweenAccounts < ApplicationService
     @params[:account_id_in] == @params[:account_id_out]
   end
 
-  def invalid_excharge
-    account_out.price_cents < @params[:price_cents].to_f
-  end
-
   def account_out
     @profile.accounts.find(@params[:account_id_out])
   end
 
-  def category_recipe
-    @profile.categories.find_by(title: 'Transferência entrada').id
+  def account_in
+    @profile.accounts.find(@params[:account_id_in])
   end
 
-  def category_expense
-    @profile.categories.find_by(title: 'Transferência saída').id
+  def invalid_excharge
+    account_out.price_cents < @params[:price_cents].to_f
   end
 
   def transaction_params
     {
-      user_profile: @profile,
-      price_cents: @params[:price_cents].to_f,
-      description: 'Transferência entre contas',
+      price_cents: @params[:price_cents],
+      description: @params[:description],
+      move_type: :transfer,
       date: Date.today.to_datetime
     }
   end

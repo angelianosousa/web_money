@@ -21,7 +21,7 @@ class BillsController < ApplicationController
 
   # POST /bills or /bills.json
   def create
-    @bill = current_profile.bills.build(bill_params)
+    @bill = current_profile.bills.new(bill_params)
 
     respond_to do |format|
       if @bill.save
@@ -35,7 +35,8 @@ class BillsController < ApplicationController
   def new_transaction
     @bill = find_bill_by(params.delete(:bill_id))
     set_warning_flash_if_bill_already_paid
-    @result = create_payment
+
+    @result = create_payment if @bill.pending?
 
     handle_new_transaction
   end
@@ -46,7 +47,7 @@ class BillsController < ApplicationController
       if @bill.update(bill_params)
         handle_successful_update(format, bills_path, @bill)
       else
-        handle_failed_update(format, bills_path, @bill)
+        handle_failed_update(format, edit_bill_path(@bill), @bill)
       end
     end
   end

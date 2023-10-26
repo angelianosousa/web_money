@@ -9,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 achievements = [
-  'Movemente a plataforma e com isso construa o hábito de acompanhar suas finanças regularmente.',
+  'Movimente a plataforma e com isso construa o hábito de acompanhar suas finanças regularmente.',
   'Acumule pontos conforme sua receita aumenta',
   'Cada meta batida significa uma superação.',
   'Continue pagando suas contas em dia',
@@ -36,9 +36,9 @@ Achievement.create(description: achievements[2], code: :budget_reached, level: :
 # Achievement.create(description: achievements[4], code: :profile_time, points: 3)
 # Achievement.create(description: achievements[4], code: :profile_time, points: 5)
 
-User.create(email: 'user@user.com', password: 'user123', password_confirmation: 'user123')
+user = User.create(email: 'user@user.com', password: 'user123', password_confirmation: 'user123')
 
-user_profile = User.last.user_profile
+user_profile = user.user_profile
 
 # Categorias
 ## Despesas
@@ -53,7 +53,7 @@ end
 
 # Contas
 user_profile.accounts.each do |account|
-  250.times do
+  25.times do
     category = user_profile.categories.sample
 
     user_profile.transactions.create(
@@ -61,6 +61,7 @@ user_profile.accounts.each do |account|
       user_profile: user_profile,
       account: account,
       category: category,
+      move_type: category.category_type,
       price_cents: rand(100..5000),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
@@ -70,7 +71,7 @@ end
 # Pag. Recorrentes
 ## Despesas
 %w[Água Energia Internet].each do |bill|
-  user_profile.bills.create(
+  user_profile.bills.find_or_create_by(
     title: bill,
     price_cents: rand(100..5000),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
@@ -82,7 +83,7 @@ end
 
 ## Receitas
 ['Salário', 'Investimentos', 'Renda Extra'].each do |bill|
-  user_profile.bills.create(
+  user_profile.bills.find_or_create_by(
     title: bill,
     price_cents: rand(100..5000),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
@@ -94,7 +95,7 @@ end
 
 ## Transações dos Pag. Recorrentes
 user_profile.bills.each do |bill|
-  100.times do
+  10.times do
     category = user_profile.categories.sample
 
     Transaction.create!(
@@ -103,6 +104,7 @@ user_profile.bills.each do |bill|
       bill: bill,
       account: user_profile.accounts.sample,
       category: category,
+      move_type: category.category_type,
       price_cents: rand(100..5000),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
@@ -111,7 +113,7 @@ end
 
 # Meta
 ['Reserva de Emergência', 'Aposentadoria', 'Carro Novo'].each do |e|
-  Budget.create!(
+  Budget.find_or_create_by!(
     objective_name: e,
     goals_price_cents: rand(5000..99_999),
     date_limit: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today.end_of_year),
@@ -131,6 +133,7 @@ user_profile.budgets.each do |budget|
         account: user_profile.accounts.sample,
         category: category,
         budget: budget,
+        move_type: category.category_type,
         price_cents: rand(100..5000),
         date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
       )

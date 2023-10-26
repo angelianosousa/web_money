@@ -50,22 +50,23 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem "cypress-rails"
-  gem 'annotate', '~> 3.2.0'
-  gem 'brakeman'
-  gem 'dotenv-rails', '~> 2.8.1'
-  gem 'factory_bot_rails', '~>6.1'
-  gem 'faker', '~> 2.17'
-  gem 'fasterer'
-  gem 'rspec_api_documentation', '~> 6.1'
-  gem 'rspec-rails', '~> 5.0'
-  gem 'rubycritic', require: false
+  gem 'annotate',                 '~> 3.2.0'
+  gem 'brakeman',                 '~> 6.0.1'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'cypress-rails'
+  gem 'dotenv-rails',             '~> 2.8.1'
+  gem 'factory_bot_rails',        '~> 6.1'
+  gem 'faker',                    '~> 2.17'
+  gem 'fasterer',                 '~> 0.10.1'
+  gem 'rails-controller-testing', '~> 1.0.5'
+  gem 'rspec_api_documentation',  '~> 6.1'
+  gem 'rspec-rails',              '~> 5.0'
+  gem 'rubycritic',               '~> 4.8.1', require: false
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen',      '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -74,14 +75,14 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15', '< 4.0'
-  gem 'selenium-webdriver'
+  gem 'capybara',           '>= 2.15', '< 4.0'
+  gem 'selenium-webdriver', '~> 4.13.1'
   # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper'
   gem 'database_cleaner-active_record', '~> 2.1'
-  gem 'shoulda-matchers', '~> 5.3'
-  gem 'simplecov', '~> 0.22.0', require: false
-  gem 'simplecov_json_formatter', '~> 0.1.4', require: false
+  gem 'shoulda-matchers',               '~> 5.3'
+  gem 'simplecov',                      '~> 0.22.0', require: false
+  gem 'simplecov_json_formatter',       '~> 0.1.4',  require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

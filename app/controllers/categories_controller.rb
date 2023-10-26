@@ -11,13 +11,13 @@ class CategoriesController < ApplicationController
   def edit; end
 
   def create
-    @category = current_profile.categories.build(category_params)
+    @category = current_profile.categories.new(category_params)
 
     respond_to do |format|
       if @category.save
-        handle_successful_creation(format, categories_path, @budget)
+        handle_successful_creation(format, categories_path, @category)
       else
-        handle_failed_creation(format, categories_path, @budget)
+        handle_failed_creation(format, categories_path, @category)
       end
     end
   end
@@ -27,7 +27,7 @@ class CategoriesController < ApplicationController
       if @category.update(category_params)
         handle_successful_update(format, categories_url, @category)
       else
-        handle_failed_update(format, nil, @category)
+        handle_failed_update(format, edit_category_path(@category), @category)
       end
     end
   end
