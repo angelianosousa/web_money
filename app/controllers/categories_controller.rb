@@ -5,13 +5,13 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[edit update destroy]
 
   def index
-    @categories = current_profile.categories.order(:category_type)
+    @categories = current_user.categories.order(:category_type)
   end
 
   def edit; end
 
   def create
-    @category = current_profile.categories.new(category_params)
+    @category = current_user.categories.new(category_params)
 
     respond_to do |format|
       if @category.save
@@ -41,10 +41,10 @@ class CategoriesController < ApplicationController
   private
 
   def set_category
-    @category = current_profile.categories.find params[:id]
+    @category = current_user.categories.find params[:id]
   end
 
   def category_params
-    params.require(:category).permit(:title, :category_type, :user_profile_id)
+    params.require(:category).permit(:title, :category_type, :user_id)
   end
 end

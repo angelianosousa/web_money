@@ -2,10 +2,10 @@
 
 # CreatePayment
 class CreatePayment < ApplicationService
-  def initialize(profile, bill, params)
+  def initialize(user, bill, params)
     super()
     @params      = params
-    @profile     = profile
+    @user        = user
     @bill        = bill
     @transaction = create_transaction
   end
@@ -24,7 +24,7 @@ class CreatePayment < ApplicationService
   end
 
   def create_transaction
-    CreateTransaction.call(@profile, transaction_params)
+    CreateTransaction.call(@user, transaction_params)
   end
 
   def transaction_params

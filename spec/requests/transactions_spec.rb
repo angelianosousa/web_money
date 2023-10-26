@@ -3,17 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Transactions', type: :request do
-  let(:user_profile) { create(:user_profile) }
+  let(:user) { create(:user) }
 
   let(:transaction) do
-    create(:transaction, user_profile: user_profile) do |t|
-      t.create_category(attributes_for(:category, user_profile_id: user_profile.id))
-      t.create_account(attributes_for(:account, user_profile_id: user_profile.id))
+    create(:transaction, user: user) do |t|
+      t.create_category(attributes_for(:category, user_id: user.id))
+      t.create_account(attributes_for(:account, user_id: user.id))
     end
   end
 
   before do
-    sign_in user_profile.user
+    sign_in user
   end
 
   describe 'GET /transactions' do
@@ -27,12 +27,12 @@ RSpec.describe 'Transactions', type: :request do
   end
 
   describe 'POST /transactions' do
-    let(:account)  { create(:account, user_profile_id: user_profile.id) }
-    let(:category) { create(:category, user_profile_id: user_profile.id) }
+    let(:account)  { create(:account, user_id: user.id) }
+    let(:category) { create(:category, user_id: user.id) }
 
     context 'Success Scenario' do
       let(:transaction_attributes) do
-        attributes_for(:transaction, user_profile_id: user_profile.id, account_id: account.id, category_id: category.id)
+        attributes_for(:transaction, user_id: user.id, account_id: account.id, category_id: category.id)
       end
 
       describe 'fill the form with valid information' do
@@ -59,7 +59,7 @@ RSpec.describe 'Transactions', type: :request do
 
   describe 'PATCH /transactions/:id' do
     context 'Success Scenario' do
-      let(:transaction_attributes) { attributes_for(:transaction, user_profile_id: user_profile.id) }
+      let(:transaction_attributes) { attributes_for(:transaction, user_id: user.id) }
 
       describe 'update transaction' do
         it 'should return success' do

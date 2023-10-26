@@ -4,23 +4,23 @@
 #
 # Table name: bills
 #
-#  id              :bigint           not null, primary key
-#  bill_type       :integer
-#  due_pay         :date
-#  price_cents     :decimal(, )
-#  status          :integer          default("pending")
-#  title           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  user_profile_id :bigint           not null
+#  id          :bigint           not null, primary key
+#  bill_type   :integer
+#  due_pay     :date
+#  price_cents :decimal(, )
+#  status      :integer          default("pending")
+#  title       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :bigint           not null
 #
 # Indexes
 #
-#  index_bills_on_user_profile_id  (user_profile_id)
+#  index_bills_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_profile_id => user_profiles.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Bill < ApplicationRecord
   enum status: %i[pending paid]
@@ -29,7 +29,7 @@ class Bill < ApplicationRecord
   validates :status, :bill_type, :due_pay, :title, presence: true
   validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
-  belongs_to :user_profile
+  belongs_to :user
   has_many :transactions, dependent: :destroy
 
   monetize :price_cents

@@ -7,6 +7,7 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
       t.monetize :price, amount: { null: false, default: nil }
       t.datetime :date
       t.integer :move_type, null: false, default: 0
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

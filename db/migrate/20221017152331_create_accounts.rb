@@ -5,7 +5,7 @@ class CreateAccounts < ActiveRecord::Migration[6.0]
     create_table :accounts do |t|
       t.string :title
       t.monetize :price, amount: { null: false, default: nil }
-      t.references :user_profile, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

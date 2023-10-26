@@ -1,6 +1,6 @@
 <%= form_with(model: @bill, url: url, local: local) do |form| %>
 
-  <%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div class='row mb-2'>
     <div class='col-md'>

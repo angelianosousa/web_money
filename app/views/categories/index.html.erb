@@ -15,7 +15,7 @@
 
   <div class='card card-success'>
     <div class='card-header'>
-      <% amount_recipes = current_profile.transactions.recipes.sum(:price_cents) %>
+      <% amount_recipes = current_user.transactions.recipes.sum(:price_cents) %>
       <span class='icon'>
         <i class='fa fa-arrow-up mr-2' style='font-size:20px;'></i>
         <%= t '.recipes', amount: humanized_money_with_symbol(amount_recipes) %>
@@ -34,7 +34,7 @@
           <% @categories.recipes.each do |category| %>
             <tr>
               <td><%= category.title %></td>
-              <% amount = current_profile.transactions.where(category: category, date: Date.today.beginning_of_month..Date.today.end_of_month).sum(:price_cents) %>
+              <% amount = current_user.transactions.where(category: category, date: Date.today.beginning_of_month..Date.today.end_of_month).sum(:price_cents) %>
               <td><%= humanized_money_with_symbol(amount) %></td>
               <td><%= render 'actions', category: category %></td>
             </tr>
@@ -46,7 +46,7 @@
 
   <div class='card card-danger'>
     <div class='card-header'>
-      <% amount_expenses = current_profile.transactions.expenses.sum(:price_cents) %>
+      <% amount_expenses = current_user.transactions.expenses.sum(:price_cents) %>
       <span class='icon'>
         <i class='fa fa-arrow-down mr-2' style='font-size:20px;'></i>
         <%= t '.expenses', amount: humanized_money_with_symbol(amount_expenses) %>
@@ -65,7 +65,7 @@
           <% @categories.expenses.each do |category| %>
             <tr>
               <td><%= category.title %></td>
-              <% amount = current_profile.transactions.where(category: category).sum(:price_cents) %>
+              <% amount = current_user.transactions.where(category: category).sum(:price_cents) %>
               <td><%= humanized_money_with_symbol(amount) %></td>
               <td><%= render 'actions', category: category %></td>
             </tr>
@@ -76,4 +76,4 @@
   </div>
 </div>
 
-<%= render partial: "#{params[:controller]}/modals/new", locals: { category: @category = current_profile.categories.build } %>
+<%= render partial: "#{params[:controller]}/modals/new", locals: { category: @category = current_user.categories.build } %>

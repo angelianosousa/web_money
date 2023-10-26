@@ -71,4 +71,4 @@
   <%= paginate @bills %>
 </div>
 
-<%= render partial: "#{params[:controller]}/modals/new_bill", locals: { bill: @bill = current_profile.bills.build, local: true } %>
+<%= render partial: "#{params[:controller]}/modals/new_bill", locals: { bill: @bill = current_user.bills.build, local: true } %>

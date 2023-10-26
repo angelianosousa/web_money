@@ -11,25 +11,25 @@
 #  objective_name       :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  user_profile_id      :bigint           not null
+#  user_id              :bigint           not null
 #
 # Indexes
 #
-#  index_budgets_on_user_profile_id  (user_profile_id)
+#  index_budgets_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_profile_id => user_profiles.id)
+#  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
   factory :budget do
-    user_profile_id   { create(:user_profile).id }
+    user_id           { create(:user).id }
     objective_name    { Faker::Commerce.department }
     goals_price_cents { rand(1000.00..9999.00) }
     date_limit        { Faker::Date.forward(days: 60) }
 
     trait :invalid do
-      user_profile_id   {}
+      user_id           {}
       objective_name    {}
       goals_price_cents {}
       date_limit        {}

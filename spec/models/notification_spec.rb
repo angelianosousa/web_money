@@ -4,28 +4,28 @@
 #
 # Table name: notifications
 #
-#  id              :bigint           not null, primary key
-#  description     :string
-#  read            :boolean          default(FALSE)
-#  title           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  user_profile_id :bigint
+#  id          :bigint           not null, primary key
+#  description :string
+#  read        :boolean          default(FALSE)
+#  title       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :bigint           not null
 #
 # Indexes
 #
-#  index_notifications_on_user_profile_id  (user_profile_id)
+#  index_notifications_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_profile_id => user_profiles.id)
+#  fk_rails_...  (user_id => users.id)
 #
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
   describe 'Validations' do
     it { is_expected.to validate_presence_of(:description) }
-    it { is_expected.to belong_to(:user_profile) }
+    it { is_expected.to belong_to(:user) }
   end
 
   describe '#save' do
@@ -34,7 +34,7 @@ RSpec.describe Notification, type: :model do
 
       it 'should not be valid' do
         expect(notification.valid?).to be_falsey
-        expect(notification.errors.messages[:user_profile]).to include 'é obrigatório(a)'
+        expect(notification.errors.messages[:user]).to include 'é obrigatório(a)'
         expect(notification.errors.messages[:description]).to  include 'não pode ficar em branco'
         expect(notification.errors.messages[:title]).to        include 'não pode ficar em branco'
       end

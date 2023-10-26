@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
   
   resources :dashboard, only: :index
-  resources :user_profile,  only: %i[edit update destroy]
+  resources :users,  only: %i[edit update destroy]
   resources :transactions,  except: %i[show new]
   resources :budgets,       except: %i[show new]
   resources :categories,    except: [:show]

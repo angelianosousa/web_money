@@ -8,6 +8,7 @@ class CreateBills < ActiveRecord::Migration[6.0]
       t.date :due_pay
       t.integer :bill_type
       t.integer :status, default: 0 # Pending
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

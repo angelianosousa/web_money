@@ -7,14 +7,19 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
-  helper_method :current_profile
+  helper_method :current_user
 
   def layout_by_resource
-    devise_controller? ? "#{resource_class.to_s.downcase}_devise" : 'application'
-  end
+    # profile_edit = 
+    if controller_name == 'registrations' && action_name == 'edit'
+      'application'
+    elsif devise_controller?
+      'user_devise'
+    else
+      'application'
+    end
 
-  def current_profile
-    current_user.try(:user_profile)
+    # devise_controller? ? "#{resource_class.to_s.downcase}_devise" : 'application'
   end
 
   def switch_locale(&action)

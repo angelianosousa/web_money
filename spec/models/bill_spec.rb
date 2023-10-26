@@ -4,29 +4,29 @@
 #
 # Table name: bills
 #
-#  id              :bigint           not null, primary key
-#  bill_type       :integer
-#  due_pay         :date
-#  price_cents     :decimal(, )
-#  status          :integer          default("pending")
-#  title           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  user_profile_id :bigint           not null
+#  id          :bigint           not null, primary key
+#  bill_type   :integer
+#  due_pay     :date
+#  price_cents :decimal(, )
+#  status      :integer          default("pending")
+#  title       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :bigint           not null
 #
 # Indexes
 #
-#  index_bills_on_user_profile_id  (user_profile_id)
+#  index_bills_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_profile_id => user_profiles.id)
+#  fk_rails_...  (user_id => users.id)
 #
 require 'rails_helper'
 
 RSpec.describe Bill, type: :model do
   describe 'Validations' do
-    it { is_expected.to belong_to(:user_profile).required }
+    it { is_expected.to belong_to(:user).required }
     it { is_expected.to have_many(:transactions).dependent(:destroy) }
     it { is_expected.to define_enum_for(:status) }
     it { is_expected.to define_enum_for(:bill_type) }
@@ -41,7 +41,7 @@ RSpec.describe Bill, type: :model do
 
       it 'should not be valid' do
         expect(bill.valid?).to be_falsey
-        expect(bill.errors.messages[:user_profile]).to include 'é obrigatório(a)'
+        expect(bill.errors.messages[:user]).to include 'é obrigatório(a)'
         expect(bill.errors.messages[:title]).to        include 'não pode ficar em branco'
         expect(bill.errors.messages[:price_cents]).to  include 'não pode ficar em branco', 'não é um número'
         expect(bill.errors.messages[:bill_type]).to    include 'não pode ficar em branco'

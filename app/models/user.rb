@@ -10,6 +10,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  username               :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -25,19 +26,27 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable :recoverable
   devise :database_authenticatable, :registerable, :rememberable, :validatable
 
-  has_one :user_profile
+  has_one_attached :avatar do |attachable|
+    attachable.variant :menu_icon_profile, resize_to_limit: [50, 50]
+  end
+
+  has_many :transactions,         dependent: :destroy
+  has_many :categories,           dependent: :destroy
+  has_many :accounts,             dependent: :destroy
+  has_many :bills,                dependent: :destroy
+  has_many :budgets,              dependent: :destroy
+  has_many :profile_achievements, dependent: :destroy
+  has_many :achievements, -> { order(:code) }, through: :profile_achievements, dependent: :destroy
 
   def building_profile
-    UserProfile.transaction do
-      user_profile = UserProfile.create(user_id: User.last.id)
+    User.transaction do
+      accounts.create(title: 'Banco X', price_cents: 0)
+      accounts.create(title: 'Banco Y', price_cents: 0)
 
-      user_profile.accounts.create(title: 'Banco X', price_cents: 0)
-      user_profile.accounts.create(title: 'Banco Y', price_cents: 0)
+      categories.create(title: 'Despesa X', category_type: 'expense')
+      categories.create(title: 'Receita X', category_type: 'recipe')
 
-      user_profile.categories.create(title: 'Despesa X', category_type: 'expense')
-      user_profile.categories.create(title: 'Receita X', category_type: 'recipe')
-
-      user_profile.achievements = Achievement.all
+      self.achievements = Achievement.all
     end
   rescue ActiveRecord::RecordInvalid => e
     p e.message

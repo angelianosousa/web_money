@@ -1,9 +1,7 @@
 ---
 'pt-BR':
-  user_profile:
-    edit:
-      title: Editar perfil
-      my_achievements: Minhas conquistas
+  users:
+    registrations:
       achievements:
         codes:
           money_managed: Gestão consciente
@@ -15,5 +13,8 @@
           silver: Level Prata
           golden: Level Ouro
           diamond: Level Diamante
+      edit:
+        title: Editar perfil
+        my_achievements: Minhas conquistas
     update:
       success: Perfil atualizado com sucesso!!

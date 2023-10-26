@@ -11,18 +11,18 @@
 #  objective_name       :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  user_profile_id      :bigint           not null
+#  user_id              :bigint           not null
 #
 # Indexes
 #
-#  index_budgets_on_user_profile_id  (user_profile_id)
+#  index_budgets_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_profile_id => user_profiles.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Budget < ApplicationRecord
-  belongs_to :user_profile
+  belongs_to :user
 
   has_many :transactions, dependent: :destroy
 
@@ -33,7 +33,7 @@ class Budget < ApplicationRecord
   validates :goals_price_cents, presence: true,
                                 numericality: { greater_or_equal_than: 1 }
 
-  validates :objective_name, presence: true, uniqueness: { scope: :user_profile_id }
+  validates :objective_name, presence: true, uniqueness: { scope: :user_id }
 
   def title
     "#{Money.from_amount(goals_price_cents).format} | #{objective_name}"
@@ -43,9 +43,9 @@ class Budget < ApplicationRecord
     transactions.any? ? (transactions.sum(:price_cents).to_f / goals_price_cents).to_f * 100 : 0
   end
 
-  def self.finished(user_profile)
+  def self.finished(user)
     budgets = []
-    budgets.push user_profile.budgets.map do |b|
+    budgets.push user.budgets.map do |b|
       return b if b.progress.round(2) >= 100
     end
 

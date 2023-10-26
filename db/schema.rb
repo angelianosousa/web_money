@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.string "title"
     t.integer "price_cents", null: false
     t.string "price_currency", default: "BRL", null: false
-    t.bigint "user_profile_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_profile_id"], name: "index_accounts_on_user_profile_id"
+    t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
   create_table "achievements", force: :cascade do |t|
@@ -68,10 +68,10 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.date "due_pay"
     t.integer "bill_type"
     t.integer "status", default: 0
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_profile_id", null: false
-    t.index ["user_profile_id"], name: "index_bills_on_user_profile_id"
+    t.index ["user_id"], name: "index_bills_on_user_id"
   end
 
   create_table "budgets", force: :cascade do |t|
@@ -79,39 +79,39 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.integer "goals_price_cents", null: false
     t.string "goals_price_currency", default: "BRL", null: false
     t.datetime "date_limit"
-    t.bigint "user_profile_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_profile_id"], name: "index_budgets_on_user_profile_id"
+    t.index ["user_id"], name: "index_budgets_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "title", null: false
-    t.bigint "user_profile_id"
+    t.bigint "user_id", null: false
     t.integer "category_type", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_profile_id"], name: "index_categories_on_user_profile_id"
+    t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.bigint "user_profile_id"
+    t.bigint "user_id", null: false
     t.string "title"
     t.string "description"
     t.boolean "read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_profile_id"], name: "index_notifications_on_user_profile_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "profile_achievements", force: :cascade do |t|
-    t.bigint "user_profile_id", null: false
+    t.bigint "user_id", null: false
     t.bigint "achievement_id", null: false
     t.integer "points_reached", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["achievement_id"], name: "index_profile_achievements_on_achievement_id"
-    t.index ["user_profile_id"], name: "index_profile_achievements_on_user_profile_id"
+    t.index ["user_id"], name: "index_profile_achievements_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -119,9 +119,9 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.string "price_currency", default: "BRL", null: false
     t.date "date"
     t.integer "move_type", default: 0, null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_profile_id"
     t.bigint "category_id"
     t.bigint "account_id"
     t.text "description"
@@ -131,18 +131,11 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.index ["bill_id"], name: "index_transactions_on_bill_id"
     t.index ["budget_id"], name: "index_transactions_on_budget_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
-    t.index ["user_profile_id"], name: "index_transactions_on_user_profile_id"
-  end
-
-  create_table "user_profiles", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "name", default: ""
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_profiles_on_user_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "username"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -154,19 +147,18 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "accounts", "user_profiles"
+  add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bills", "user_profiles"
-  add_foreign_key "budgets", "user_profiles"
-  add_foreign_key "categories", "user_profiles"
-  add_foreign_key "notifications", "user_profiles"
+  add_foreign_key "bills", "users"
+  add_foreign_key "budgets", "users"
+  add_foreign_key "categories", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "profile_achievements", "achievements"
-  add_foreign_key "profile_achievements", "user_profiles"
+  add_foreign_key "profile_achievements", "users"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "bills"
   add_foreign_key "transactions", "budgets"
   add_foreign_key "transactions", "categories"
-  add_foreign_key "transactions", "user_profiles"
-  add_foreign_key "user_profiles", "users"
+  add_foreign_key "transactions", "users"
 end
