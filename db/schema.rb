@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "title"
-    t.integer "price_cents", default: 0, null: false
+    t.integer "price_cents", null: false
     t.string "price_currency", default: "BRL", null: false
     t.bigint "user_profile_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
 
   create_table "budgets", force: :cascade do |t|
     t.string "objective_name"
-    t.integer "goals_price_cents", default: 0, null: false
+    t.integer "goals_price_cents", null: false
     t.string "goals_price_currency", default: "BRL", null: false
     t.datetime "date_limit"
     t.bigint "user_profile_id", null: false
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "price_cents", default: 0, null: false
+    t.integer "price_cents", null: false
     t.string "price_currency", default: "BRL", null: false
     t.date "date"
     t.integer "move_type", default: 0, null: false

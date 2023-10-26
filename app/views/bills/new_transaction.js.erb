@@ -3,4 +3,5 @@ $('.payment_modal').modal('hide');
 <% if @result %>
   $('#bill_status<%= @bill.id %>').html('<%= bill_payment(@bill.status) %>')
   <%= render 'shared/flash_now_messages' %>
+  window.location.reload(true);
 <% end %>

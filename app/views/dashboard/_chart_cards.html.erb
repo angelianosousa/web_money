@@ -141,7 +141,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% @bills.each do |bill| %>
+                <% @bills.pending.each do |bill| %>
                   <tr>
                     <td><%= bill.title %></td>
                     <td><%= l bill.due_pay, format: :short %></td>

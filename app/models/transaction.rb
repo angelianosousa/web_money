@@ -8,7 +8,7 @@
 #  date            :date
 #  description     :text
 #  move_type       :integer          default("recipe"), not null
-#  price_cents     :integer          default(0), not null
+#  price_cents     :integer          not null
 #  price_currency  :string           default("BRL"), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -52,8 +52,7 @@ class Transaction < ApplicationRecord
   validates :date, presence: true
   validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
   validate :validate_expense
-  validates_associated :account
-  validates_associated :user_profile
+  validates :user_profile, :account_id, presence: true
 
   # Callbacks
   after_save :check_deposit

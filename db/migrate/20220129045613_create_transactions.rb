@@ -4,7 +4,7 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
   def change
     create_table :transactions do |t|
       t.string :title
-      t.monetize :price
+      t.monetize :price, amount: { null: false, default: nil }
       t.datetime :date
       t.integer :move_type, null: false, default: 0
 

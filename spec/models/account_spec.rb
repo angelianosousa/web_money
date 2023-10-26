@@ -5,7 +5,7 @@
 # Table name: accounts
 #
 #  id              :bigint           not null, primary key
-#  price_cents     :integer          default(0), not null
+#  price_cents     :integer          not null
 #  price_currency  :string           default("BRL"), not null
 #  title           :string
 #  created_at      :datetime         not null

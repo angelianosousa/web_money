@@ -6,7 +6,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  date_limit           :datetime
-#  goals_price_cents    :integer          default(0), not null
+#  goals_price_cents    :integer          not null
 #  goals_price_currency :string           default("BRL"), not null
 #  objective_name       :string
 #  created_at           :datetime         not null
