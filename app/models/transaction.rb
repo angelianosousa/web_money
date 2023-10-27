@@ -51,7 +51,7 @@ class Transaction < ApplicationRecord
   # Validations
   validates :date, presence: true
   validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
-  # validate :validate_expense
+  validate :validate_expense, if: :excharge_valid?
   validates :account_id, presence: true
 
   # Callbacks
@@ -103,15 +103,13 @@ class Transaction < ApplicationRecord
   end
 
   def excharge_valid?
-    return false unless account.present?
+    return if recipe? || transfer? || account.nil?
 
-    account.price_cents > price_cents
+    account.price_cents < price_cents.to_f
   end
 
   # Must be error if are recipe or are expense value is higher that account amount
   def validate_expense
-    return if recipe? || excharge_valid? || account.nil?
-
     message = I18n.t('activerecord.attributes.errors.models.invalid_movement', account_title: account.title)
     errors.add :base, :invalid, message: message
   end

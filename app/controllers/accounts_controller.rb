@@ -42,7 +42,7 @@ class AccountsController < ApplicationController
     if @result
       redirect_to accounts_path, flash: { success: t('.success') }
     else
-      redirect_to accounts_path, flash: { danger: 'Saldo insuficiente para operação' }
+      redirect_to accounts_path, flash: { danger: t('accounts.transfer_between_accounts.error') }
     end
   end
 

@@ -137,10 +137,22 @@ RSpec.describe 'Accounts', type: :request do
       end
     end
 
-    context 'User fill the form with same account to account_id_in and account_id_out' do
-      it 'Movement should not be saved'
-      it 'Movement should get errors'
-      it 'User must have to see the errors on screen'
+    context 'Fail Scenario' do
+      describe 'User fill the form with same account to account_id_in and account_id_out' do
+        it 'Movement should not be saved' do
+          params = {
+            user: user,
+            price_cents: 500,
+            account_id_in: account.id,
+            account_id_out: account.id
+          }
+
+          post transfer_between_accounts_accounts_path, params: params
+          expect(response).to have_http_status(302)
+          follow_redirect!
+          expect(response.body).to include I18n.t('accounts.transfer_between_accounts.error')
+        end
+      end
     end
   end
 end

@@ -7,15 +7,14 @@ class CreatePayment < ApplicationService
     @params      = params
     @user        = user
     @bill        = bill
-    @transaction = create_transaction
+    @transaction = build_transaction
   end
 
   def call
     ActiveRecord::Base.transaction do
       return payment_without_bill unless @bill.present?
 
-      @transaction.save
-      @bill.update(due_pay: @bill.due_pay.next_month, status: :paid)
+      @bill.update(due_pay: @bill.due_pay.next_month, status: :paid) if @transaction.save!
     rescue ActiveRecord::RecordInvalid => e
       p e.message
     end
@@ -23,7 +22,7 @@ class CreatePayment < ApplicationService
     @bill
   end
 
-  def create_transaction
+  def build_transaction
     CreateTransaction.call(@user, transaction_params)
   end
 

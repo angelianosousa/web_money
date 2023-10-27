@@ -4,30 +4,69 @@ require 'rails_helper'
 require './app/services/create_payment'
 
 RSpec.describe CreatePayment do
+
   describe '#call' do
-    let(:user)    { create(:user) }
-    let(:account) { create(:account, user_id: user.id) }
-    let(:bill)    { create(:bill, user_id: user.id) }
-    let(:transaction_params) do
-      attributes_for(:transaction, price_cents: bill.price_cents, account_id: account.id)
-    end
+    let(:user) { create(:user) }
+    let(:account) { create(:account, user_id: user.id, price_cents: 1000) }
 
     context 'Success scenario' do
-      let(:payment) { CreatePayment.call(user, bill, transaction_params) }
 
-      it 'validate @payment' do
-        expect(payment.valid?).to be_truthy
+      describe 'Paid a recipe' do
+        let(:bill_recipe) { create(:bill, user_id: user.id, bill_type: :recipe) }
+        let(:transaction_params) do
+          attributes_for(:transaction, price_cents: bill_recipe.price_cents, account_id: account.id)
+        end
+        let(:payment) { CreatePayment.call(user, bill_recipe, transaction_params) }
+
+        it 'validate @payment' do
+          expect(payment.valid?).to be_truthy
+        end
+
+        it '@payment paid' do
+          expect(payment.status).to eq('paid')
+        end
+
+        it '@payment should have a new transaction' do
+          expect(payment.transactions.count).to eq(1)
+        end
       end
 
-      it '@payment paid' do
-        expect(payment.status).to eq('paid')
-      end
+      describe 'Paid a expense' do
+        let(:bill_expense) { create(:bill, user_id: user.id, bill_type: :expense, price_cents: account.price_cents) }
+        let(:transaction_params) do
+          attributes_for(:transaction, price_cents: bill_expense.price_cents, account_id: account.id,
+                                       move_type: bill_expense.bill_type)
+        end
+        let(:payment) { CreatePayment.call(user, bill_expense, transaction_params) }
 
-      it '@payment with valid integral transaction' do
-        expect(payment.transactions.last.price_cents.to_f).to eq(bill.price_cents.to_f)
+        it '@payment paid' do
+          expect(payment.status).to eq('paid')
+        end
+
+        it '@payment should have a new transaction' do
+          expect(payment.transactions.count).to eq(1)
+        end
       end
     end
 
-    context 'Fail scenario'
+    context 'Fail scenario' do
+      let(:bill_expense) { create(:bill, user_id: user.id, bill_type: :expense, price_cents: 1500) }
+      let(:transaction_params) do
+        attributes_for(:transaction, price_cents: bill_expense.price_cents,
+                                     move_type: bill_expense.bill_type, account_id: account.id)
+      end
+
+      describe 'not paid a @payment using account with lower amount' do
+        let(:payment) { CreatePayment.call(user, bill_expense, transaction_params) }
+
+        it '@payment pending' do
+          expect(payment.status).to eq('pending')
+        end
+
+        it '@payment should not have zero transactions' do
+          expect(payment.transactions.count).to eq(0)
+        end
+      end
+    end
   end
 end

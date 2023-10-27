@@ -26,3 +26,4 @@
       success: Movimentação criada com sucesso!!
     transfer_between_accounts:
       success: Transferência realizada com sucesso!!
+      error: Saldo insuficiente para operação

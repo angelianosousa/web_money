@@ -76,7 +76,7 @@ RSpec.describe Transaction, type: :model do
         it 'should not be valid' do
           expect(transaction.valid?).to be_falsey
           expect(transaction.errors.messages[:account]).to      include 'é obrigatório(a)'
-          expect(transaction.errors.messages[:user]).to include 'é obrigatório(a)'
+          expect(transaction.errors.messages[:user]).to         include 'é obrigatório(a)'
           expect(transaction.errors.messages[:price_cents]).to  include 'não é um número'
           expect(transaction.errors.messages[:price_cents]).to  include 'não pode ficar em branco'
           expect(transaction.errors.messages[:date]).to         include 'não pode ficar em branco'
