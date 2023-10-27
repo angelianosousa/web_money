@@ -2,4 +2,3 @@ $('#newRecipeModal').modal('hide');
 $('#newExpenseModal').modal('hide');
 $('#transaction<%= @transaction.account_id %>').html('<%= humanized_money_with_symbol(@transaction.account.price_cents) %>')
 <%= render 'shared/flash_now_messages' %>
-window.location.reload(true);

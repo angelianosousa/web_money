@@ -15,16 +15,24 @@
 
 <div class="card border-dark text-center">
   <div class='card-body'>
-    <div class='col-md-4'>
-      <%= render 'shared/cards_for_new_users/transactions' %>
-    </div>
+    <div class='row'>
+      <% unless current_user.transactions.any? %>
+        <div class='col-md'>
+          <%= render 'shared/cards_for_new_users/transactions' %>
+        </div>
+      <% end %>
 
-    <div class='col-md-4'>
-      <%= render 'shared/cards_for_new_users/accounts' %>
-    </div>
+      <% unless current_user.accounts.any? %>
+        <div class='col-md'>
+          <%= render 'shared/cards_for_new_users/accounts' %>
+        </div>
+      <% end %>
 
-    <div class='col-md-4'>
-      <%= render 'shared/cards_for_new_users/bills' %>
+      <% unless current_user.bills.any? %>
+        <div class='col-md'>
+          <%= render 'shared/cards_for_new_users/bills' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

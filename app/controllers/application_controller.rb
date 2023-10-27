@@ -33,8 +33,8 @@ class ApplicationController < ActionController::Base
   end
 
   def handle_failed_creation(format, to_path, resource)
-    format.html { redirect_to to_path, flash: { danger: resource.errors.full_messages.to_sentence } }
-    format.js   { flash.now[:danger] = resource.errors.full_messages.to_sentence }
+    format.html { redirect_to to_path, flash: { danger: resource.errors.full_messages } }
+    format.js   { flash.now[:danger] = resource.errors.full_messages }
     format.json { render json: resource.errors, status: :unprocessable_entity }
   end
 
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   end
 
   def handle_failed_update(format, to_path, resource)
-    format.html { redirect_to to_path, flash: { danger: resource.errors.full_messages.to_sentence } }
+    format.html { redirect_to to_path, flash: { danger: resource.errors.full_messages } }
     format.json { render json: resource.errors, status: :unprocessable_entity }
   end
 

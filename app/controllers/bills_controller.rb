@@ -57,7 +57,7 @@ class BillsController < ApplicationController
     @bill.destroy
 
     respond_to do |format|
-      format.html { redirect_to bills_path, flash: { danger: t('.success') } }
+      format.html { redirect_to bills_path, flash: { success: t('.success') } }
       format.json { head :no_content }
     end
   end
