@@ -26,4 +26,6 @@
       success: Movimentação criada com sucesso!!
     transfer_between_accounts:
       success: Transferência realizada com sucesso!!
-      error: Saldo insuficiente para operação
+      errors:
+        same_account: Transferência inválida, tem de selecionar contas diferentes.
+        insufficient_amount: Transferência inválida, %{account_title} não possui saldo suficiente

@@ -5,7 +5,15 @@ require './app/services/create_transaction'
 
 RSpec.describe CreateTransaction do
   describe '#call' do
-    let(:user)    { create(:user) }
+    let(:achievement_money_managed)  { create(:achievement, level: :silver, code: :money_managed) }
+    let(:achievement_money_movement) { create(:achievement, level: :silver, code: :money_movement) }
+    let(:achievement_budget_reached) { create(:achievement, level: :silver, code: :budget_reached) }
+
+    let(:user) do
+      create(:user) do |user|
+        user.achievements = [achievement_money_managed, achievement_money_movement, achievement_budget_reached]
+      end
+    end
     let(:account) { create(:account, user_id: user.id, price_cents: 1000) }
 
     context 'Success scenario' do

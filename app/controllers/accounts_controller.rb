@@ -38,11 +38,11 @@ class AccountsController < ApplicationController
 
   def transfer_between_accounts
     @result = TransferBetweenAccounts.call(current_user, params)
-
-    if @result
+    # byebug
+    if @result.errors.empty?
       redirect_to accounts_path, flash: { success: t('.success') }
     else
-      redirect_to accounts_path, flash: { danger: t('accounts.transfer_between_accounts.error') }
+      redirect_to accounts_path, flash: { danger: @result.errors.full_messages }
     end
   end
 

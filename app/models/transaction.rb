@@ -85,7 +85,7 @@ class Transaction < ApplicationRecord
   private
 
   def count_points
-    return unless new_record? || transfer_between_account?
+    return if transfer_between_account?
 
     CountAchievePoints.call(user, :money_movement)
     CountAchievePoints.call(user, :money_managed)

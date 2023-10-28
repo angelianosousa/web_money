@@ -4,19 +4,19 @@ require 'rails_helper'
 require './app/services/count_achieve_points'
 
 RSpec.describe CountAchievePoints do
-  describe '#call' do
-    let(:achievement_money_managed)  { create(:achievement, level: :silver, code: :money_managed) }
-    let(:achievement_money_movement) { create(:achievement, level: :silver, code: :money_movement) }
-    let(:achievement_budget_reached) { create(:achievement, level: :silver, code: :budget_reached) }
+  let(:achievement_money_managed)  { create(:achievement, level: :silver, code: :money_managed) }
+  let(:achievement_money_movement) { create(:achievement, level: :silver, code: :money_movement) }
+  let(:achievement_budget_reached) { create(:achievement, level: :silver, code: :budget_reached) }
 
-    let(:user) do
-      create(:user) do |user|
-        user.achievements = [achievement_money_managed, achievement_money_movement, achievement_budget_reached]
-      end
+  let(:user) do
+    create(:user) do |user|
+      user.achievements = [achievement_money_managed, achievement_money_movement, achievement_budget_reached]
     end
+  end
+  let(:bill) { create(:bill, user: user) }
+  let(:transaction) { create(:transaction, user: user, bill: bill, price_cents: bill.price_cents) }
 
-    let(:bill) { create(:bill) }
-    let(:transaction) { create(:transaction, user: user, bill: bill, price_cents: bill.price_cents) }
+  describe '#call' do
 
     describe 'Count points for achievement money managed' do
       let(:points_for_money_managed) { CountAchievePoints.call(user, :money_managed) }

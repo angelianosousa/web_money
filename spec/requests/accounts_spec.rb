@@ -134,23 +134,47 @@ RSpec.describe 'Accounts', type: :request do
         post transfer_between_accounts_accounts_path, params: params
 
         expect(response).to have_http_status(302)
+        follow_redirect!
+        expect(response.body).to include I18n.t('accounts.transfer_between_accounts.success')
       end
     end
 
     context 'Fail Scenario' do
-      describe 'User fill the form with same account to account_id_in and account_id_out' do
-        it 'Movement should not be saved' do
+      describe 'User fill the form with same account' do
+        let(:new_account) { create(:account, user: user) }
+
+        it 'Movement should get error for same account' do
           params = {
             user: user,
-            price_cents: 500,
-            account_id_in: account.id,
-            account_id_out: account.id
+            price_cents: 100,
+            account_id_in: new_account.id,
+            account_id_out: new_account.id
           }
 
           post transfer_between_accounts_accounts_path, params: params
           expect(response).to have_http_status(302)
           follow_redirect!
-          expect(response.body).to include I18n.t('accounts.transfer_between_accounts.error')
+          expect(response.body).to include I18n.t('accounts.transfer_between_accounts.errors.same_account')
+        end
+      end
+
+      describe 'when user get more money than available on account' do
+        let(:account_out) { create(:account, user: user, price_cents: 100) }
+
+        it 'Should get a error for amount insufficient' do
+          params = {
+            user: user,
+            price_cents: 200,
+            account_id_in: account.id,
+            account_id_out: account_out.id
+          }
+  
+          post transfer_between_accounts_accounts_path, params: params
+          expect(response).to have_http_status(302)
+          follow_redirect!
+          # byebug
+          message = I18n.t('accounts.transfer_between_accounts.errors.insufficient_amount', account_title: account_out.title)
+          expect(response.body).to include message
         end
       end
     end
