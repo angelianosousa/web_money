@@ -36,7 +36,10 @@ Achievement.create(description: achievements[2], code: :budget_reached, level: :
 # Achievement.create(description: achievements[4], code: :profile_time, points: 3)
 # Achievement.create(description: achievements[4], code: :profile_time, points: 5)
 
-user = User.create(email: 'user@user.com', password: 'user123', password_confirmation: 'user123')
+user = User.find_or_create_by(email: 'user@user.com') do |u|
+  u.password = 'user123'
+  u.password_confirmation = 'user123'
+end
 
 # Categorias
 ## Despesas
@@ -54,7 +57,7 @@ user.accounts.each do |account|
   25.times do
     category = user.categories.sample
 
-    user.transactions.create(
+    user.transactions.build(
       description: Faker::Lorem.question(word_count: rand(2..5)),
       user: user,
       account: account,
@@ -63,6 +66,8 @@ user.accounts.each do |account|
       price_cents: rand(100..5000),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
+
+    user.save
   end
 end
 
@@ -96,7 +101,7 @@ user.bills.each do |bill|
   10.times do
     category = user.categories.sample
 
-    Transaction.create!(
+    transaction = Transaction.new(
       description: Faker::Lorem.question(word_count: rand(2..5)),
       user: user,
       bill: bill,
@@ -106,16 +111,17 @@ user.bills.each do |bill|
       price_cents: rand(100..5000),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
+
+    transaction.save
   end
 end
 
 # Meta
 ['Reserva de Emergência', 'Aposentadoria', 'Carro Novo'].each do |e|
-  Budget.find_or_create_by!(
+  user.budgets.find_or_create_by!(
     objective_name: e,
     goals_price_cents: rand(5000..99_999),
-    date_limit: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today.end_of_year),
-    user: user
+    date_limit: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today.end_of_year)
   )
 end
 
@@ -124,17 +130,17 @@ end
 user.budgets.each do |budget|
   category = user.categories.recipes.sample
 
-    10.times do
-      Transaction.create!(
-        description: Faker::Lorem.question(word_count: rand(2..5)),
-        user: user,
-        account: user.accounts.sample,
-        category: category,
-        budget: budget,
-        move_type: category.category_type,
-        price_cents: rand(100..5000),
-        date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
-      )
-    end
+  10.times do
+    Transaction.create!(
+      description: Faker::Lorem.question(word_count: rand(2..5)),
+      user: user,
+      account: user.accounts.sample,
+      category: category,
+      budget: budget,
+      move_type: category.category_type,
+      price_cents: rand(100..5000),
+      date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
+    )
   end
+end
 
