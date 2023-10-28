@@ -64,7 +64,8 @@ class TransferBetweenAccounts < ApplicationService
   def invalid_excharge
     return false unless account_out.price_cents < @params[:price_cents].to_f
 
-    @user.errors.add :base, :transfer_invalid, message: "Transferência inválida, #{account_out.title} não possui saldo suficiente"
+    @user.errors.add :base, :transfer_invalid,
+                     message: "Transferência inválida, #{account_out.title} não possui saldo suficiente"
   end
 
   def transaction_params

@@ -168,12 +168,13 @@ RSpec.describe 'Accounts', type: :request do
             account_id_in: account.id,
             account_id_out: account_out.id
           }
-  
+
           post transfer_between_accounts_accounts_path, params: params
           expect(response).to have_http_status(302)
           follow_redirect!
           # byebug
-          message = I18n.t('accounts.transfer_between_accounts.errors.insufficient_amount', account_title: account_out.title)
+          message = I18n.t('accounts.transfer_between_accounts.errors.insufficient_amount',
+                           account_title: account_out.title)
           expect(response.body).to include message
         end
       end

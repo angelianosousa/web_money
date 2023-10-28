@@ -17,7 +17,6 @@ RSpec.describe CountAchievePoints do
   let(:transaction) { create(:transaction, user: user, bill: bill, price_cents: bill.price_cents) }
 
   describe '#call' do
-
     describe 'Count points for achievement money managed' do
       let(:points_for_money_managed) { CountAchievePoints.call(user, :money_managed) }
 
