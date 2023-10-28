@@ -41,9 +41,9 @@ RSpec.describe Budget, type: :model do
 
       it 'should not be valid' do
         expect(budget.valid?).to be_falsey
-        expect(budget.errors.messages[:user]).to       include 'é obrigatório(a)'
-        expect(budget.errors.messages[:objective_name]).to     include 'não pode ficar em branco'
-        expect(budget.errors.messages[:goals_price_cents]).to  include 'não pode ficar em branco', 'não é um número'
+        expect(budget.errors.messages[:user]).to              include 'é obrigatório(a)'
+        expect(budget.errors.messages[:objective_name]).to    include 'não pode ficar em branco'
+        expect(budget.errors.messages[:goals_price_cents]).to include 'não pode ficar em branco', 'não é um número'
       end
 
       it 'should not save' do

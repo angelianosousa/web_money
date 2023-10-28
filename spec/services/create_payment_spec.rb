@@ -4,13 +4,11 @@ require 'rails_helper'
 require './app/services/create_payment'
 
 RSpec.describe CreatePayment do
-
   describe '#call' do
     let(:user) { create(:user) }
     let(:account) { create(:account, user_id: user.id, price_cents: 1000) }
 
     context 'Success scenario' do
-
       describe 'Paid a recipe' do
         let(:bill_recipe) { create(:bill, user_id: user.id, bill_type: :recipe) }
         let(:transaction_params) do

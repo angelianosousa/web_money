@@ -37,7 +37,6 @@
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
-
   describe 'Validations' do
     subject { build(:transaction, user: create(:user), account: create(:account)) }
 
@@ -84,7 +83,9 @@ RSpec.describe Transaction, type: :model do
       end
 
       context 'when a expense are higher than value in accout' do
-        let(:transaction) { build(:transaction, account_id: account.id, move_type: :expense, price_cents: 1001, user_id: user.id) }
+        let(:transaction) do
+          build(:transaction, account_id: account.id, move_type: :expense, price_cents: 1001, user_id: user.id)
+        end
 
         it 'should not be valid' do
           message = I18n.t('activerecord.attributes.errors.models.invalid_movement', account_title: account.title)

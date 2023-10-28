@@ -4,7 +4,6 @@ require 'rails_helper'
 require './app/services/count_achieve_points'
 
 RSpec.describe CountAchievePoints do
-
   describe '#call' do
     let(:achievement_money_managed)  { create(:achievement, level: :silver, code: :money_managed) }
     let(:achievement_money_movement) { create(:achievement, level: :silver, code: :money_movement) }
