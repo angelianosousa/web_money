@@ -40,6 +40,9 @@ class User < ApplicationRecord
 
   def building_profile
     User.transaction do
+      accounts.create(title: 'Banco X', price_cents: 0)
+      accounts.create(title: 'Banco Y', price_cents: 0)
+
       categories.create(title: 'Despesa X', category_type: 'expense')
       categories.create(title: 'Receita X', category_type: 'recipe')
 
