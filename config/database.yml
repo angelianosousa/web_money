@@ -5,9 +5,9 @@ default: &default
   timeout: 5000
 
   # remove if local running
-  # host: postgres
-  # user: postgres
-  # password: password
+  host:     <%= ENV['DB_HOST'] || '' %>
+  user:     <%= ENV['DB_USERNAME'] || ''%>
+  password: <%= ENV['DB_PASSWORD'] || ''%>
 
 development:
   <<: *default
