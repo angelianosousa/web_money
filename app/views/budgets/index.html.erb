@@ -1,0 +1,58 @@
+<div class="container">
+  <nav class="navbar navbar-light">
+    <%= navbrand_link %>
+    <div class='text-center'>
+      <%= link_to '#', class: 'btn btn-outline-dark btn-round btn-sm', data: { target: '#newBudgetModal', toggle: 'modal' } do %>
+        <span class='icon'>
+          <i class='fa fa-plus-circle'></i> <%= t('.new_resource') %>
+        </span>
+      <% end %>
+    </div>
+  </nav>
+
+  <% if @budgets.any? %>
+
+    <div class='row'>
+      <% @budgets.each do |budget| %>
+        <div class='col-md-4'>
+          <div class='card border-dark text-center mb-3'>
+            <div class='d-flex flex-column'>
+              <h2 class='card-header mt-0 bg-web-money-green mb-2'><%= budget.title %></h2>
+              <div class="card-body py-0" style='border-radius: 15px;'>
+              
+
+                <span class='icon'>
+                  <i class='fa-solid fa-flag'></i> <%= I18n.l budget.date_limit, format: :short rescue 'sem data limite' %>
+                </span>
+              
+                <div class="progress m-2" style='border-radius: 7px;'>
+                  <div class="progress-bar bg-info px-3 <%= budget.progress.round(2) <= 10 ? 'text-dark' : 0 %>" role="progressbar" style="width: <%= budget.progress.round(2) %>%;" aria-valuenow="<%= budget.progress.round(2) %>" aria-valuemin="0" aria-valuemax="<%= budget.progress.round(2) %>">
+                    <%= budget.progress.round(2) %>%
+                  </div>
+                </div>
+                
+                <div class='col-sm-12'>
+                  <%= render 'actions', budget: budget %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  <% else %>
+
+    <div class='w-100 text-center'>
+      <div class="card">
+        <div class='card-body'>
+          <%= render 'shared/cards_for_new_users/budgets' %>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
+
+<%= render partial: "#{params[:controller]}/modals/new", locals: { budget: @budget = current_user.budgets.build } %>

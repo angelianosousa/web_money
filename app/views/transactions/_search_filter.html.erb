@@ -4,14 +4,14 @@
     <div class='mx-2'>
       <div class='form-group col-md-2'>
         <%= f.label :category_id_eq, t('.category'), class: 'label-control' %>
-        <%= f.select :category_id_eq, options_for_select(Category.pluck(:title, :id), (params[:q][:category_id_eq] rescue nil)), 
+        <%= f.select :category_id_eq, options_for_select(current_user.categories.pluck(:title, :id), (params[:q][:category_id_eq] rescue nil)), 
                                                           { include_blank: 'All' },
                                                           { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
       </div>
 
       <div class='form-group col-md-2'>
-        <%= f.label :account_id_in, t('.account'), class:'label-control' %>
-        <%= f.select :account_id_in, options_for_select(Account.pluck(:title, :id), (params[:q][:account_id_in] rescue nil)),
+        <%= f.label :account_id_eq, t('.account'), class:'label-control' %>
+        <%= f.select :account_id_eq, options_for_select(current_user.accounts.pluck(:title, :id), (params[:q][:account_id_eq] rescue nil)),
                                                         { include_blank: 'All' },
                                                         { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
       </div>
@@ -27,11 +27,11 @@
 
       <div class='form-group col-md-2'>
         <%= f.label :date, t('.date'), class:'label-control' %>
-        <%= f.date_field :date_gteq, value: (params[:q][:date_gteq] rescue nil), class:'form-control', value: Date.today %>
+        <%= f.date_field :date_gteq, value: (params[:q][:date_gteq] rescue Date.today), class:'form-control' %>
       </div>
 
       <div class='form-group col-md-2'>
-        <%= f.date_field :date_lteq, value: (params[:q][:date_lteq] rescue nil), class:'form-control', value: Date.today, style:'margin-top: 25px;' %>
+        <%= f.date_field :date_lteq, value: (params[:q][:date_lteq] rescue Date.today), class:'form-control', style:'margin-top: 25px;' %>
       </div>
       
       <div class='form-group col-md-2 d-flex flex-column'>

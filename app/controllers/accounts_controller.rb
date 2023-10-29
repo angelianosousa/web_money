@@ -1,26 +1,26 @@
+# frozen_string_literal: true
+
+# Accounts Entity Controller
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[ show edit update destroy ]
+  before_action :set_account, only: %i[show edit update destroy]
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = current_profile.accounts.page(params[:page]).order(created_at: :desc)
+    @accounts = current_user.accounts.page(params[:page]).order(created_at: :desc)
   end
 
   # GET /accounts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /accounts or /accounts.json
   def create
-    @account = current_profile.accounts.new(account_params)
+    @account = current_user.accounts.new(account_params)
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to accounts_path, flash: { notice: t('.notice') }}
-        format.js { flash.now[:notice] = t('.notice') }
+        handle_successful_creation(format, accounts_path, @account)
       else
-        format.html { redirect_to accounts_path, flash: { alert: @account.errors.full_messages } }
-        format.js { flash.now[:alert] = @account.errors.full_messages }
+        handle_failed_creation(format, accounts_path, @account)
       end
     end
   end
@@ -29,43 +29,20 @@ class AccountsController < ApplicationController
   def update
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
-        format.json { render :show, status: :ok, location: @account }
+        handle_successful_update(format, accounts_url, @account)
       else
-        format.html { render :edit, status: :unprocessable_entity, flash: { alert: @account.errors.full_messages } }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+        handle_failed_update(format, edit_account_url(@account), @account)
       end
     end
   end
 
-  def new_transaction
-    @account = CreateTransaction.call(current_profile, params)
-    # @account      = current_profile.accounts.find(params[:account_id])
-    # @category     = current_profile.categories.find(params[:category_id])
-
-    # @account.transactions.create!(
-    #   account: @account,
-    #   user_profile: current_profile,
-    #   description: params[:description],
-    #   price_cents: params[:price_cents].to_i,
-    #   category: @category,
-    #   date: Date.today.to_datetime
-    # )
-    
-    if @account.save
-      redirect_to accounts_url, flash: { notice: t('.notice') }
-    else
-      redirect_to accounts_url, flash: { alert: @account.errors.full_messages }
-    end
-  end
-
   def transfer_between_accounts
-    @result = TransferBetweenAccounts.call(current_profile, params)
-    
-    if @result
-      redirect_to accounts_path, flash: { notice: t('.notice') }
+    @result = TransferBetweenAccounts.call(current_user, params)
+    # byebug
+    if @result.errors.empty?
+      redirect_to accounts_path, flash: { success: t('.success') }
     else
-      redirect_to accounts_path, flash: { alert: 'Saldo insuficiente para operação' }
+      redirect_to accounts_path, flash: { danger: @result.errors.full_messages }
     end
   end
 
@@ -74,19 +51,20 @@ class AccountsController < ApplicationController
     @account.destroy
 
     respond_to do |format|
-      format.html { redirect_to accounts_url, flash: { notice: t('.notice') } }
+      format.html { redirect_to accounts_url, flash: { success: t('.success') } }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_account
-      @account = current_profile.accounts.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def account_params
-      params.require(:account).permit(:title, :price_cents, :user_profile_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_account
+    @account = current_user.accounts.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def account_params
+    params.require(:account).permit(:title, :price_cents)
+  end
 end

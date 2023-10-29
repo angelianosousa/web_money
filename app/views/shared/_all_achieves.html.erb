@@ -1,0 +1,35 @@
+<% Achievement.all.group_by(&:level).each do |level, achievements| %>
+  <h4 class='mb-3'><%= t("user.edit.achievements.levels.#{level}") %></h4>
+
+  <div class='row mb-3'>
+
+    <% achievements.each do |achieve| %>
+      <div class='card-group col-sm-4 col-md-4'>
+        <div class='card card-achieve-<%= level %> mb-2'>
+          <h4 class='card-header d-flex flex-row justify-content-between'>
+            <%= t("user.edit.achievements.codes.#{achieve.code.parameterize}") %>
+
+            <%= help_button(achieve) %>
+          </h4>
+
+          <div class='card-body d-flex flex-row align-items-center'>
+            <span class='icon d-inline mb-2' style='font-size: 24px;'>
+              <%= fontawesome_icon('', achieve_icon(achieve), 'font-size: 32px') %>
+            </span>
+
+            <p class='d-inline ml-2'><%= achieve.description %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    $('.popover-achieve-info').click(function(){
+      $(this).popover('toggle');
+    });
+  })
+</script>

@@ -1,9 +1,9 @@
-@import 'colors';
 @import 'sidebar';
+@import url('https://fonts.googleapis.com/css?family=Poppins|Oswald');
 
-a.navbar-brand, h1, h2, h3, h4, h5, h6 {
+a.navbar.navbar-brand, h1, h2, h3, h4, h5, h6 {
   color: $web-money-orange !important;
-  font-family: 'Oswald', sans-serif !important;
+  font-family: 'Oswald', sans-serif;
 }
 
 p {
@@ -69,4 +69,50 @@ a .dropdown-item:visited, .dropdown-item:hover {
   color: $web-money-dark-green !important;
   border-radius: 10px !important;
   margin: 0px;
+}
+
+.text-web-money {
+  color: $web-money-dark-green;
+}
+
+.bg-web-money-green {
+  background-color: $web-money-dark-green;
+  color: $web-money-white !important;
+}
+
+#navbar_home{
+  background-color: $web-money-dark-green !important;
+  color: $web-money-white !important;
+}
+
+// Achievements Section
+
+.card.card-achieve-silver {
+  border: solid 1px $achieve-silver !important;
+
+  & > .card-header {
+    background-color: $achieve-silver !important;
+    color: $web-money-white !important;
+    padding: 8px 10px;
+  }
+}
+
+.card-achieve-golden{
+  border: solid 1px $achieve-golden;
+
+  & > .card-header {
+    background-color: $achieve-golden;
+    color: $web-money-white !important;
+    padding: 8px 10px;
+  }
+}
+
+.card-achieve-diamond{
+  border: solid 1px $achieve-diamond;
+
+  & > .card-header {
+    background-color: $achieve-diamond;
+    color: $web-money-white !important;
+    padding: 8px 10px;
+  }
 }

@@ -4,7 +4,7 @@
     attributes:
       category:
         title: Titulo
-        amount: Montante
+        amount: Montante (Este Mês)
         category_type: Tipo
       category/category_type:
         recipe: Receita

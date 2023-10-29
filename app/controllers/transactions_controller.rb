@@ -1,33 +1,30 @@
+# frozen_string_literal: true
+
+# Transactions Entity Controller
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: %i[ edit update destroy ]
+  before_action :set_transaction, only: %i[edit update destroy]
 
   # GET /transactions or /transactions.json
   def index
-    params[:q] ||= { user_profile_id_eq: current_profile.id }
+    set_default_search_params
+    perform_search
 
-    @q = current_profile.transactions.ransack(params[:q])
-    @transactions = @q.result.order(date: :desc)
-
-    @balance = current_profile.accounts.sum(:price_cents)
-
-    @transactions = current_profile.transactions.default(@transactions).page(params[:page]).per(5)
+    @balance = current_user.accounts.sum(:price_cents)
+    @transactions = Kaminari.paginate_array(@transactions.to_a).page(params[:page]).per(5)
   end
 
   # GET /transactions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /transactions or /transactions.json
   def create
-    @transaction = CreateTransaction.call(current_profile, transaction_params)
+    @transaction = CreateTransaction.call(current_user, transaction_params)
 
     respond_to do |format|
-      if @transaction.errors.none?
-        format.html { redirect_to transactions_path, flash: { notice: t('.notice') } }
-        format.js { flash.now[:notice] = t('.notice') }
+      if @transaction.save
+        handle_successful_creation(format, transactions_url, @transaction)
       else
-        format.html { redirect_to transactions_url, flash: { alert: @transaction.errors.full_messages } }
-        format.js { flash.now[:alert] = @transaction.errors.full_messages }
+        handle_failed_creation(format, transactions_url, @transaction)
       end
     end
   end
@@ -36,36 +33,44 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to transactions_path, flash: { notice: t('.notice') } }
-        format.json { render json: @transaction, status: :ok, location: @transaction }
+        handle_successful_update(format, transactions_url, @transaction)
       else
-        format.html { render :edit, flash: { alert: @transaction.errors.full_messages } }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        handle_failed_update(format, edit_transaction_url(@transaction), @transaction)
       end
     end
   end
 
   # DELETE /transactions/1 or /transactions/1.json
   def destroy
-    @transaction.account.price_cents -= @transaction.price_cents if @transaction.category.category_type == 'recipe'
-    @transaction.account.price_cents += @transaction.price_cents if @transaction.category.category_type == 'expense'
-    @transaction.account.save
+    @transaction.expense_or_recipe_calc
     @transaction.destroy
+    @transaction.account.save
 
     respond_to do |format|
-      format.html { redirect_to transactions_url, flash: { notice: [t('.notice')] } }
+      format.html { redirect_to transactions_url, flash: { success: t('.success') } }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transaction
-      @transaction = current_profile.transactions.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def transaction_params
-      params.require(:transaction).permit(:account_id, :category_id, :bill_id, :user_profile_id, :description, :price_cents, :date)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_transaction
+    @transaction = current_user.transactions.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def transaction_params
+    params.require(:transaction).permit(:account_id, :category_id, :bill_id, :budget_id, :user_id,
+                                        :description, :price_cents, :date, :move_type)
+  end
+
+  def set_default_search_params
+    params[:q] ||= { user_id_eq: current_user.id }
+  end
+
+  def perform_search
+    @q = current_user.transactions.ransack(params[:q])
+    @transactions = @q.result.order(created_at: :desc).group_by(&:date) # .page(params[:page]).per(5)
+  end
 end

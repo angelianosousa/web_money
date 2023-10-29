@@ -2,20 +2,30 @@
 'pt-BR':
   accounts:
     index:
+      title: Contas
+      new_resource: ' Nova Conta'
       current_balance: Balanço | %{balance}
-      new_resource: ' Add Conta'
     edit:
       title: Editar conta
     modals:
       new_account:
         title: Nova conta
+      transfer:
+        title: Transferência entre contas
+        form:
+          price_cents: Valor da transferência
+          account_id_in: Conta destino
+          account_id_out: Conta saida
     create:
-      notice: Conta criada com sucesso!!
+      success: Conta criada com sucesso!!
     update:
-      notice: Conta atualizada com sucesso!!
+      success: Conta atualizada com sucesso!!
     destroy:
-      notice: Conta removida com sucesso!!
+      success: Conta removida com sucesso!!
     new_transaction:
-      notice: Movimentação criada com sucesso!!
+      success: Movimentação criada com sucesso!!
     transfer_between_accounts:
-      notice: Transferência realizada com sucesso!!
+      success: Transferência realizada com sucesso!!
+      errors:
+        same_account: Transferência inválida, tem de selecionar contas diferentes.
+        insufficient_amount: Transferência inválida, %{account_title} não possui saldo suficiente

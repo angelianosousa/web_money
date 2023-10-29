@@ -1,6 +1,6 @@
 class CreateDocumentationGenerator < Rails::Generators::NamedBase
-  attr_accessor :tables
-  attr_accessor :objects
+  attr_accessor :tables, :objects
+
   source_root File.expand_path('templates', __dir__)
 
   # Build c4builder files
@@ -15,7 +15,7 @@ class CreateDocumentationGenerator < Rails::Generators::NamedBase
 
   def create_models_md
     @tables.each do |model|
-      fields = ActiveRecord::Base.connection.columns(model.pluralize).map(&:name)#@objects[model.capitalize.singularize]#.map(&:name) # getting a field list
+      fields = ActiveRecord::Base.connection.columns(model.pluralize).map(&:name) # @objects[model.capitalize.singularize]#.map(&:name) # getting a field list
 
       create_file "src/#{model}/README.md", <<~MD
         ## Descrição da classe
@@ -56,7 +56,7 @@ class CreateDocumentationGenerator < Rails::Generators::NamedBase
 
     # Separate the fields per class
     @descendants.each do |class_type|
-      next if class_type.first == nil
+      next if class_type.first.nil?
 
       @objects["#{class_type.first.model_name.name}"] = class_type.first
     end

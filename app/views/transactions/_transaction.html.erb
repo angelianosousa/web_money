@@ -1,9 +1,0 @@
-<tr>
-  <td><div class='card-text'><small><%= transaction.description %></small></div></td>
-  <td><%= value_style(transaction) %></td>
-  <td><%= transaction.date.strftime('%d/%m/%Y') %></td>
-  <td><%= transaction.category.title %></td>
-  <td><%= transaction.bill.title rescue '-'%></td>
-  <td><%= transaction.account.title %></td>
-  <td><%= render 'actions', transaction: transaction %></td>
-</tr>

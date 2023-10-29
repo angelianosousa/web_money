@@ -1,6 +1,6 @@
-<%= form_with(model: @bill, local: local) do |form| %>
+<%= form_with(model: @bill, url: url, local: local) do |form| %>
 
-  <%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div class='row mb-2'>
     <div class='col-md'>
@@ -12,7 +12,7 @@
     <div class='col-md'>
       <div class='form_group'>
         <%= form.label :price_cents %>
-        <%= form.number_field :price_cents, class:'form-control', min: 0, step: :any %>
+        <%= form.number_field :price_cents, placeholder: 'R$0,00', class:'form-control', min: 1, step: :any %>
       </div>
     </div>
   </div>
@@ -24,6 +24,7 @@
         <%= form.date_field :due_pay, class:'form-control' %>
       </div>
     </div>
+
     <div class='col-md-6'>
       <div class='form_group'>
         <%= form.label :bill_type %>

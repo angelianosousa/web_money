@@ -3,12 +3,12 @@
     <div class='card'>
 
       <div class='card-body d-flex'>
-        <span class="fa-stack fa-lg" style='font-size:30px;'>
+        <span class="fa-stack fa-lg" style='font-size:25px;'>
           <i class="fa fa-square fa-stack-2x"></i>
-          <i class="fa fa-bank fa-stack-1x fa-inverse" style='background-color:blue;border-radius:10px;'></i>
+          <i class="fa-solid fa-scale-balanced fa-stack-1x fa-inverse" style='background-color:blue;border-radius:10px;'></i>
         </span>
         
-        <div class="count ml-3" style="font-size:20px;">
+        <div class="count ml-3" style="font-size:14px;">
           <h5><%= t '.current_balance' %></h5>
           <%= humanized_money_with_symbol(@current_balance) %>
         </div>
@@ -21,12 +21,12 @@
     <div class='card'>
 
       <div class='card-body d-flex'>
-        <span class="fa-stack fa-lg" style='font-size:30px;'>
+        <span class="fa-stack fa-lg" style='font-size:25px;'>
           <i class="fa fa-square fa-stack-2x"></i>
           <i class="fa fa-arrow-up fa-stack-1x fa-inverse" style='background-color:DarkSlateGray;border-radius:10px;'></i>
         </span>
         
-        <div class="count ml-3" style="font-size:20px;">
+        <div class="count ml-3" style="font-size:14px;">
           <h5><%= t '.total_recipes' %></h5>
           <%= humanized_money_with_symbol(@transactions.recipes.sum(:price_cents)) %>
         </div>
@@ -39,12 +39,12 @@
     <div class='card'>
 
       <div class='card-body d-flex'>
-        <span class="fa-stack fa-lg" style='font-size:30px;'>
+        <span class="fa-stack fa-lg" style='font-size:25px;'>
           <i class="fa fa-square fa-stack-2x"></i>
           <i class="fa fa-arrow-down fa-stack-1x fa-inverse bg-danger" style='border-radius:10px;'></i>
         </span>
         
-        <div class="count ml-3" style="font-size:20px;">
+        <div class="count ml-3" style="font-size:14px;">
           <h5><%= t '.total_expenses' %></h5>
           <%= humanized_money_with_symbol(@transactions.expenses.sum(:price_cents)) %>
         </div>

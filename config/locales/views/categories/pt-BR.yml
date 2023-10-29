@@ -3,17 +3,17 @@
   categories:
     index:
       title: Categorias
-      new_resource: ' Add Categoria'
-      recipes: Receitas - %{amount}
-      expenses: Despesas - %{amount}
+      new_resource: ' Nova Categoria'
+      recipes: Receitas %{amount}
+      expenses: Despesas %{amount}
     edit:
       title: Editar categoria
     modals:
       new:
         title: Nova categoria
     create:
-      notice: Categoria criada com sucesso!!
+      success: Categoria criada com sucesso!!
     update:
-      notice: Categoria atualizada com sucesso!!
+      success: Categoria atualizada com sucesso!!
     destroy:
-      notice: Categoria removida com sucesso!!
+      success: Categoria removida com sucesso!!

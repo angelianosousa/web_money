@@ -1,0 +1,9 @@
+---
+'pt-BR':
+  activerecord:
+    attributes:
+      budget:
+        objective_name: Nome
+        date_limit: Data limite
+        user_id: Perfil
+        goals_price_cents: Valor

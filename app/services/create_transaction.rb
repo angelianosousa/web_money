@@ -1,36 +1,34 @@
+# frozen_string_literal: true
+
+# CreateTransaction
 class CreateTransaction < ApplicationService
-  def initialize(profile, params)
-    @profile            = profile
-    @category           = @profile.categories.find(params.delete(:category_id))
-    @account            = @profile.accounts.find(params.delete(:account_id))
-    @transaction        = @account.transactions.build
-    @transaction_params = params
+  def initialize(user, params)
+    super()
+    @user   = user
+    @params = params
   end
 
   def call
-    valid_transaction if @category.expense?
-
-    return @transaction unless @transaction.errors.none?
-
-    Transaction.transaction do
-      @transaction.user_profile = @profile
-      @transaction.description  = @transaction_params[:description]
-      @transaction.price_cents  = @transaction_params[:price_cents].to_f
-      @transaction.category     = @category
-      @transaction.date         = Date.today.to_datetime
-      @transaction.save
-    end
-
-    return @transaction
+    @transaction = @user.transactions.build(transaction_params)
+    @transaction
   end
 
   private
 
-  def validate_excharge
-    @account.price_cents > @transaction_params[:price_cents].to_f
+  def find_account
+    @user.accounts.find(@params[:account_id])
   end
 
-  def valid_transaction
-    @transaction.errors.add :base, :invalid, message: "Conta #{@account.title} não possui saldo suficiente." unless validate_excharge
+  def transaction_params
+    {
+      user_id: @user.id,
+      account_id: @params[:account_id],
+      category_id: @params[:category_id],
+      bill_id: @params[:bill_id],
+      budget_id: @params[:budget_id],
+      price_cents: @params[:price_cents],
+      date: DateTime.now,
+      move_type: @params[:move_type]
+    }
   end
 end

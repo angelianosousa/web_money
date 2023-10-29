@@ -1,0 +1,17 @@
+---
+'pt-BR':
+  budgets:
+    index:
+      title: Metas
+      new_resource: ' Nova Meta'
+    edit:
+      title: Editar meta
+    modals:
+      new:
+        title: Nova meta
+    create:
+      success: Meta criada com sucesso!!
+    update:
+      success: Meta atualizada com sucesso!!
+    destroy:
+      success: Meta removida com sucesso!!

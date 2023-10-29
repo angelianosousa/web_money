@@ -2,10 +2,20 @@
 
 <div class="container mb-3">
   <nav class="navbar navbar-light ">
-    <%= navlink_transaction %>
+    <%= navbrand_link %>
 
     <div class='float-right'>
-      <%= modal_to_new_resource(t('.new_resource'), target: '#newTransactionModal') %>
+      <%= link_to '#', class: 'btn btn-outline-success btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:125px' do %>
+        <span class='icon'>
+          <i class='fa fa-plus-circle'></i> <%= t('button_title.new_recipe') %>
+        </span>
+      <% end %>
+
+      <%= link_to '#', class: 'btn btn-outline-danger btn-sm btn-round my-3', data: { toggle: 'modal', target: '#newExpenseModal' }, style: 'width:125px' do %>
+        <span class='icon'>
+          <i class='fa fa-plus-circle'></i> <%= t('button_title.new_expense') %>
+        </span>
+      <% end %>
 
       <%= filter %>
     </div>
@@ -26,41 +36,36 @@
               <thead>
                 <tr>
                   <th style='width:200px;'><%= model_class.human_attribute_name :description %></th>
-                  <th><%= model_class.human_attribute_name :value %></th>
-                  <th><%= model_class.human_attribute_name :date %></th>
+                  <th><%= model_class.human_attribute_name :price_cents %></th>
                   <th><%= model_class.human_attribute_name :category_id %></th>
-                  <th><%= model_class.human_attribute_name :bill_id %></th>
                   <th><%= model_class.human_attribute_name :account_id %></th>
+                  <th><%= model_class.human_attribute_name :budget_id %></th>
                   <th colspan="1"></th>
                 </tr>
               </thead>
               <% transactions.each do |transaction| %>
                 <tbody class='border-bottom'>
-                  <tr >
+                  <tr>
                     <td><div class='card-text'><small><%= transaction.description %></small></div></td>
                     <td><%= value_style(transaction) %></td>
-                    <td><%= transaction.date.strftime('%d/%m/%Y') %></td>
-                    <td><%= transaction.category.title %></td>
-                    <td><%= transaction.bill.title rescue '-'%></td>
-                    <td><%= transaction.account.title %></td>
+                    <td><span class='badge badge-info p-2'><%= transaction.category&.title %></span></td>
+                    <td><span class='badge badge-secondary p-2'><%= transaction.account.title %></span></td>
+                    <td><span class='badge badge-primary p-2'><%= transaction&.budget&.objective_name %></span></td>
                     <td><%= render 'actions', transaction: transaction %></td>
                   </tr>
                 </tbody>
               <% end %>
             </table>
-            <div class="card-footer balance-diary text-right"><%= t '.balance_diary', amount: humanized_money_with_symbol(balance_for_that_day(day)), day: day %></div>
+            <div class="card-footer balance-diary text-right"><%= t '.balance_diary', day: I18n.l(day, format: :short), amount: humanized_money_with_symbol(balance_for_that_day(day)) %></div>
           </div>
         </div>
       </div>
     <% end %>
   <% else %>
-    <div class='col-md-12 text-center'>
+    <div class='w-100 text-center'>
       <div class="card">
         <div class='card-body'>
-          <%= fontawesome_icon('', 'fa fa-money', 'font-size: 45px;') %>
-          <h3 class="display-5">Sem movimentações por aqui</h3>
-          <p class="lead">Adicione sua primeira transação</p>
-          <%= modal_to_new_resource(' Adicionar Movimentação', target: '#newTransactionModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
+          <%= render 'shared/cards_for_new_users/transactions' %>
         </div>
       </div>
     </div>
@@ -68,4 +73,6 @@
 </div>
 
 <%= paginate @transactions %>
-<%= render partial: "#{params[:controller]}/modals/new_transaction", locals: { transaction: @transaction = current_profile.transactions.new } %>
+
+<%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_user.transactions.new, local: true } %>
+<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_user.transactions.new, local: true } %>

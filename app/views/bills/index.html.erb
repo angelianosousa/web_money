@@ -1,6 +1,6 @@
 <div class="container">
   <nav class="navbar navbar-light">
-    <%= navlink_bill %>
+    <%= navbrand_link %>
 
     <div class='float-right'>
       <%= filter %>
@@ -13,28 +13,54 @@
 </div>
 
 <div class='row'>
+
   <% if @bills.any? %>
     <div class='col-md-4'>
-      <div class='card'>
+      <div class='card mb-3'>
         <div class='card-body text-center'>
           <%= fontawesome_icon('', 'fa fa-refresh', 'font-size: 45px;') %>
-          <h3 class="display-5">Adicionar Recorrência</h3>
+          <h3 class="display-5">Adicionar Pag. Recorrente</h3>
           <%= modal_to_new_resource('', target: '#newBillModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
         </div>
       </div>
     </div>
+
     <div class='col-md-8'>
-      <div id='bills'>
-        <%= render @bills %>
-      </div>
+      <% @bills.each do |bill| %>
+
+        <div class='col-md-4'>
+          <div class='card border-dark mb-3'>
+            <div class='card-body'>
+
+              <div class='custom-card-text d-flex flex-row justify-content-between mb-3'>
+                <h5><%= bill_type_status(bill.bill_type) %> <%= bill.title %></h5>
+
+                <%= render 'actions', bill: bill %>
+              </div>
+
+              <div class='d-flex flex-row justify-content-between align-items-center'>
+                <span style='font-size: 20px;'><%= humanized_money_with_symbol(bill.price_cents) %></span>
+                <span id="bill_status<%= bill.id %>"><%= bill_payment(bill.status) %></span>
+              </div>
+
+              <div class='d-flex flex-row justify-content-between align-items-center'>
+                <%= bill.paid? ? I18n.l(bill.updated_at.to_date, format: :short) : I18n.l(bill.due_pay, format: :short) %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <%= render partial: "bills/modals/new_payment", locals: { bill: bill } %>
+      <% end %>
     </div>
+
   <% else %>
+
     <div class='col-md-12 text-center'>
       <div class="card">
         <div class='card-body'>
-          <%= fontawesome_icon('', 'fa fa-refresh', 'font-size: 45px;') %>
-          <h3 class="display-5">Adicione sua primeira recorrência</h3>
-          <%= modal_to_new_resource(' Adicionar Recorrência', target: '#newBillModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
+          <%= render 'shared/cards_for_new_users/bills' %>
         </div>
       </div>
     </div>
@@ -45,4 +71,4 @@
   <%= paginate @bills %>
 </div>
 
-<%= render partial: "#{params[:controller]}/modals/new_bill", locals: { bill: @bill = current_profile.bills.build } %>
+<%= render partial: "#{params[:controller]}/modals/new_bill", locals: { bill: @bill = current_user.bills.build, local: true } %>

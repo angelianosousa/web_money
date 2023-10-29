@@ -1,0 +1,8 @@
+<%= fontawesome_icon('', 'fa fa-refresh', 'font-size: 45px;') %>
+<h3 class="display-5">Sem pagagamento recorrente ainda...</h3>
+<p class="lead">Adicione a primeira aqui</p>
+<%= link_to '#', class: 'btn btn-outline-dark btn-md btn-round', data: { toggle: 'modal', target: '#newBillModal' }, style: 'padding-x: 100px;' do %>
+  <span class='icon'>
+    <i class='fa fa-plus-circle'></i> Adicionar Pag. Recorrente
+  </span>
+<% end %>

@@ -6,12 +6,13 @@
       greetings: Bem Vindo
       my_money: Meu dinheiro
       accounts: Contas
-      bills: Recorrências
+      bills: Pag. Recorrentes
       transactions: Movimentações
       user_profile: Perfil
       categories: Categorias
-      dashboard: Painel
+      dashboard: Dashboard
       users: User
+      budgets: Metas
     navbar:
       notifications:
         title: Notificações

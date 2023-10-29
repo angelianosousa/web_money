@@ -1,7 +1,5 @@
 ---
 'pt-BR':
-  hello: 'Olá Mundo'
-
   activerecord:
     attributes:
       transaction:
@@ -9,10 +7,12 @@
         price_cents: Valor
         date: Dia do pagamento
         category_id: Categoria
-        bill_id: Recorrência
+        bill_id: Pag. Recorrente
         account_id: Conta
+        budget_id: Meta
       errors:
         models:
+          invalid_movement: Conta %{account_title} não possui saldo suficiente.
           transaction:
             one: Transação
             other: Transações

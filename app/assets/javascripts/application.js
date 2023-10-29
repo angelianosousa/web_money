@@ -20,14 +20,20 @@
 
 function showFlashNotification(message_type, message) {
   $.notify({
-    icon: 'fa fa-bell',
-    message: message
+    icon: 'fa-solid fa-bell',
+    message: message,
   },{
+    element: 'body',
     type: message_type,
     timer: 4000,
+    allow_dismiss: true,
     placement: {
       from: 'top',
       align: 'right'
+    },
+    animate: {
+      enter: 'animated fadeInDown',
+      exit: 'animated fadeOutUp'
     }
   });
 }

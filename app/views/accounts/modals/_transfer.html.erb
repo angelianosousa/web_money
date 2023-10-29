@@ -11,20 +11,20 @@
       <div class="modal-body">
         <%= form_with(url: transfer_between_accounts_accounts_path, local: true) do |form| %>
 
-          <%= form.hidden_field :user_profile_id, value: current_user.user_profile.id %>
+          <%= form.hidden_field :user_id, value: current_user.id %>
 
           <div class='form-group'>
-            <%= form.label :price_cents %>
+            <%= form.label :price_cents, t('.form.price_cents') %>
             <%= form.number_field :price_cents, step: :any, autofocus: true, class:'form-control' %>
           </div>
 
           <div class='form-group'>
-            <%= form.label :account_id_out, 'Conta origem' %>
+            <%= form.label :account_id_out, t('.form.account_id_out') %>
             <%= form.select :account_id_out, accounts_options_for_select, {}, { class:'form-control' } %>
           </div>
 
           <div class='form-group'>
-            <%= form.label :account_id_in, 'Conta destino' %>
+            <%= form.label :account_id_in, t('.form.account_id_in') %>
             <%= form.select :account_id_in, accounts_options_for_select, {}, { class:'form-control' } %>
           </div>
 

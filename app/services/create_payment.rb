@@ -1,36 +1,44 @@
+# frozen_string_literal: true
+
+# CreatePayment
 class CreatePayment < ApplicationService
-  
-  def initialize(profile, bill, params)
-    @params   = params
-    @profile  = profile
-    @bill     = bill
-    @account  = @profile.accounts.find(params.delete(:account_id))
-    @category = @profile.categories.find(params.delete(:category_id))
+  def initialize(user, bill, params)
+    super()
+    @params      = params
+    @user        = user
+    @bill        = bill
+    @transaction = build_transaction
   end
 
   def call
     ActiveRecord::Base.transaction do
-      create_transaction
+      return payment_without_bill unless @bill.present?
 
-      @bill.paid!
-      @bill.due_pay += Date.today.next_month.month
-      @bill.save!
+      @bill.update(due_pay: @bill.due_pay.next_month, status: :paid) if @transaction.save!
     rescue ActiveRecord::RecordInvalid => e
       p e.message
     end
 
-    return @bill
+    @bill
   end
 
-  def create_transaction
-    @bill.transactions.build(
-      account: @account,
-      user_profile: @profile,
-      category: @category,
+  def build_transaction
+    CreateTransaction.call(@user, transaction_params)
+  end
+
+  def transaction_params
+    {
+      account_id: @params[:account_id],
+      category_id: @params[:category_id],
       price_cents: @params[:price_cents],
       description: @params[:description],
-      date: Date.today.to_datetime
-    )
+      move_type: @bill.bill_type,
+      date: Date.today.to_datetime,
+      bill_id: @bill.id
+    }
   end
 
+  def payment_without_bill
+    @transaction.errors.add :base, :invalid, message: 'Transação sem id do pagamento recorrente'
+  end
 end

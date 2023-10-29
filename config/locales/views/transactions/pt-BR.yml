@@ -2,15 +2,18 @@
 'pt-BR':
   transactions:
     index:
-      title: Movimentações %{balance}
-      new_resource: ' Add Movimentação'
-      balance_diary: Balanço do dia %{amount}
+      title: Movimentações
+      new_resource: ' Nova Movimentação'
+      balance_diary: "%{day} | %{amount}"
       table_title: Titulo
+      current_balance: Balanço | %{balance}
     edit:
       title: ' Editar movimentação'
     modals:
-      new_transaction:
-        title: Add movimentação
+      new_recipe:
+        title: Receita
+      new_expense:
+        title: Despesa
       show:
         title: Ver movimentação
     search_filter:
@@ -21,8 +24,8 @@
       search: Pesquisar
       clear: Limpar
     create:
-      notice: Movimentação criada com sucesso!!
+      success: Movimentação criada com sucesso!!
     update:
-      notice: Movimentação atualizada com sucesso!!
+      success: Movimentação atualizada com sucesso!!
     destroy:
-      notice: Movimentação removida com sucesso!!
+      success: Movimentação removida com sucesso!!

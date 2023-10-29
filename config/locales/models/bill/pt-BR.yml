@@ -18,8 +18,8 @@
         expense: Despesa
     models:
       bill:
-        one: Recorrência
-        other: Recorrências
+        one: Pag. Recorrente
+        other: Pag. Recorrentes
       transaction:
         one: Transação
         other: Transações

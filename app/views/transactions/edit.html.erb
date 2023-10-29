@@ -5,7 +5,7 @@
       <div class="clearfix"></div>
     </div>
     <div class="x_content">
-      <%= render 'form', transaction: @transaction, url: transaction_path(@transaction), local: true %>
+      <%= render 'form', transaction: @transaction, url: transaction_path(@transaction), data: { local: true, move_type: 'all' } %>
     </div>
   </div>
 </div>
