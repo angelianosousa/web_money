@@ -6,7 +6,7 @@
       <% user_conquest = achieve.finished?(current_user) %>
       <% next if user_conquest || !achieve.previous_level_finished?(current_user) %>
 
-      <div class='card-deck col-sm-4'>
+      <div class='card-group col-sm-4'>
         <div class='card card-achieve-<%= level %> w-100 mb-2'>
           <h4 class='card-header d-flex flex-row justify-content-between'>
             <%= t(".codes.#{achieve.code.parameterize}") %>

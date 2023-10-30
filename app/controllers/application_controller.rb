@@ -2,13 +2,12 @@
 
 # Base Application Entity Controller
 class ApplicationController < ActionController::Base
-  add_flash_types :notice, :alert, :warning
+  add_flash_types :success, :danger, :warning
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_active_storage_host
 
   layout :layout_by_resource
-
-  helper_method :current_user
 
   def layout_by_resource
     if controller_name == 'registrations' && (action_name == 'edit' || action_name == 'update')
@@ -57,5 +56,9 @@ class ApplicationController < ActionController::Base
         :avatar, :username, :email, :password, :password_confirmation, :new_password, :current_password
       )
     end
+  end
+
+  def set_active_storage_host
+    ActiveStorage::Current.host = request.base_url
   end
 end
