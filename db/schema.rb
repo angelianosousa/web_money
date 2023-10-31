@@ -64,7 +64,8 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
 
   create_table "bills", force: :cascade do |t|
     t.string "title"
-    t.decimal "price_cents"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "BRL", null: false
     t.date "due_pay"
     t.integer "bill_type"
     t.integer "status", default: 0

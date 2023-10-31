@@ -4,15 +4,16 @@
 #
 # Table name: bills
 #
-#  id          :bigint           not null, primary key
-#  bill_type   :integer
-#  due_pay     :date
-#  price_cents :decimal(, )
-#  status      :integer          default("pending")
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :bigint           not null
+#  id             :bigint           not null, primary key
+#  bill_type      :integer
+#  due_pay        :date
+#  price_cents    :integer          default(0), not null
+#  price_currency :string           default("BRL"), not null
+#  status         :integer          default("pending")
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :bigint           not null
 #
 # Indexes
 #
