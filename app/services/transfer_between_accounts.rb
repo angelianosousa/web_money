@@ -14,7 +14,7 @@ class TransferBetweenAccounts < ApplicationService
 
   def call
     return @user if accounts_equals? || invalid_excharge
-    # byebug
+
     ActiveRecord::Base.transaction do
       create_excharge
       create_deposit
