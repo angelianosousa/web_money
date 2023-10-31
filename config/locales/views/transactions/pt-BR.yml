@@ -18,7 +18,7 @@
         title: Ver movimentação
     search_filter:
       category: Categoria
-      account: Conta
+      account: Banco
       price_cents: Valor
       date: Data
       search: Pesquisar

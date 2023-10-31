@@ -5,13 +5,13 @@ default: &default
   timeout: 5000
 
   # remove if local running
-  host: postgres
-  user: postgres
-  password: password
+  # host: postgres
+  # user: postgres
+  # password: password
 
 development:
   <<: *default
-  database: web_money_development
+  database: web_money_development_two
 
 test:
   <<: *default

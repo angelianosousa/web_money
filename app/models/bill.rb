@@ -26,14 +26,15 @@ class Bill < ApplicationRecord
   enum status: %i[pending paid]
   enum bill_type: %i[recipe expense]
 
-  validates :status, :bill_type, :due_pay, :title, presence: true
-  validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
-  validates :title, uniqueness: { case_sensitive: true }
-  belongs_to :user
-  has_many :transactions, dependent: :destroy
-
   monetize :price_cents
   register_currency :brl
+
+  validates :status, :bill_type, :due_pay, :title, presence: true
+  validates :price, numericality: { greater_than_or_equal_to: 1 }
+  validates :title, uniqueness: { case_sensitive: true }
+
+  belongs_to :user
+  has_many :transactions, dependent: :destroy
 
   paginates_per 9
 

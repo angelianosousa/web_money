@@ -5,7 +5,7 @@
       title: Dashboard | Balanço %{balance}
     modals:
       new_account:
-        title: Nova conta
+        title: Nova banco
       new_transaction:
         title: Nova movimentação
       new_bill:
@@ -20,7 +20,7 @@
       recipes: Receitas
       expenses: Despesas
       categories: Categorias
-      accounts: Minhas contas
+      accounts: Meus bancos
       bills: Pag. Recorrentes
       days: Dias
       value: Valor (R$)
@@ -31,4 +31,4 @@
     create_transaction:
       success: Movimentação criada com sucesso!!
     create_account:
-      success: Conta criada com sucesso!!
+      success: Banco criado com sucesso!!

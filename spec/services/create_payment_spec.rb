@@ -14,13 +14,13 @@ RSpec.describe CreatePayment do
         user.achievements = [achievement_money_managed, achievement_money_movement, achievement_budget_reached]
       end
     end
-    let(:account) { create(:account, user_id: user.id, price_cents: 1000) }
+    let(:account) { create(:account, user_id: user.id, price: 1000) }
 
     context 'Success scenario' do
       describe 'Paid a recipe' do
         let(:bill_recipe) { create(:bill, user_id: user.id, bill_type: :recipe) }
         let(:transaction_params) do
-          attributes_for(:transaction, price_cents: bill_recipe.price_cents, account_id: account.id)
+          attributes_for(:transaction, price: bill_recipe.price, account_id: account.id)
         end
         let(:payment) { CreatePayment.call(user, bill_recipe, transaction_params) }
 
@@ -38,9 +38,9 @@ RSpec.describe CreatePayment do
       end
 
       describe 'Paid a expense' do
-        let(:bill_expense) { create(:bill, user_id: user.id, bill_type: :expense, price_cents: account.price_cents) }
+        let(:bill_expense) { create(:bill, user_id: user.id, bill_type: :expense, price: account.price) }
         let(:transaction_params) do
-          attributes_for(:transaction, price_cents: bill_expense.price_cents, account_id: account.id,
+          attributes_for(:transaction, price: bill_expense.price, account_id: account.id,
                                        move_type: bill_expense.bill_type)
         end
         let(:payment) { CreatePayment.call(user, bill_expense, transaction_params) }
@@ -56,9 +56,9 @@ RSpec.describe CreatePayment do
     end
 
     context 'Fail scenario' do
-      let(:bill_expense) { create(:bill, user_id: user.id, bill_type: :expense, price_cents: 1500) }
+      let(:bill_expense) { create(:bill, user_id: user.id, bill_type: :expense, price: 1500) }
       let(:transaction_params) do
-        attributes_for(:transaction, price_cents: bill_expense.price_cents,
+        attributes_for(:transaction, price: bill_expense.price_cents,
                                      move_type: bill_expense.bill_type, account_id: account.id)
       end
 

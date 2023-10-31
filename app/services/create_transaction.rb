@@ -26,8 +26,8 @@ class CreateTransaction < ApplicationService
       category_id: @params[:category_id],
       bill_id: @params[:bill_id],
       budget_id: @params[:budget_id],
-      price_cents: @params[:price_cents],
-      date: DateTime.now,
+      price: @params[:price],
+      date: @params[:date] || DateTime.now,
       move_type: @params[:move_type]
     }
   end

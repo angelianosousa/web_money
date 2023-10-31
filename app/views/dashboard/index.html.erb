@@ -1,7 +1,7 @@
 <div class='container' style="padding-bottom: 70px;">
 
   <nav class="navbar navbar-light">
-    <% balance = humanized_money_with_symbol(current_user.accounts.sum(:price_cents)) %>
+    <% balance = Money.from_cents(current_user.accounts.sum(:price_cents)).format %>
     <%= navbrand_link(t('.title', balance: balance)) %>
 
     <div class='d-flex justify-content-center align-items-center'>

@@ -29,7 +29,7 @@ module TransactionsHelper
 
     content_tag :span, class: symbol.to_s, id: "transaction#{transaction.id}",
                        style: "color: #{color};font-family: Poppins; font-size: 15px." do
-      humanized_money_with_symbol(transaction.price_cents).to_s
+      humanized_money_with_symbol(transaction.price).to_s
     end
   end
 

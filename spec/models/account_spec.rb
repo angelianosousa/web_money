@@ -5,7 +5,7 @@
 # Table name: accounts
 #
 #  id             :bigint           not null, primary key
-#  price_cents    :integer          not null
+#  price_cents    :integer          default(0), not null
 #  price_currency :string           default("BRL"), not null
 #  title          :string
 #  created_at     :datetime         not null
@@ -27,7 +27,6 @@ RSpec.describe Account, type: :model do
     it { is_expected.to belong_to(:user).required }
     it { is_expected.to have_many(:transactions).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:title) }
-    it { is_expected.to validate_numericality_of(:price_cents) }
   end
 
   describe '#save' do
@@ -37,9 +36,8 @@ RSpec.describe Account, type: :model do
       context 'when submit invalid attributes' do
         it 'should not be valid' do
           expect(account.valid?).to be_falsey
-          expect(account.errors.messages[:user]).to include 'é obrigatório(a)'
-          expect(account.errors.messages[:price_cents]).to  include 'não é um número'
-          expect(account.errors.messages[:title]).to        include 'não pode ficar em branco'
+          expect(account.errors.messages[:user]).to  include 'é obrigatório(a)'
+          expect(account.errors.messages[:title]).to include 'não pode ficar em branco'
         end
 
         it 'should not save' do

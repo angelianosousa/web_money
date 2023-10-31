@@ -40,7 +40,7 @@ FactoryBot.define do
     category_id { create(:category).id }
     account_id  { create(:account).id }
     description { Faker::Lorem.paragraph(sentence_count: 2) }
-    price_cents { rand(100..500) }
+    price       { rand(100..500) }
     date        { Faker::Date.in_date_period }
     move_type   { 'recipe' }
 
@@ -67,7 +67,7 @@ FactoryBot.define do
       category_id {}
       account_id  {}
       description {}
-      price_cents {}
+      price       {}
       move_type   {}
       date        {}
     end

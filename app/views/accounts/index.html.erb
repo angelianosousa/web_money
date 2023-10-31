@@ -9,7 +9,7 @@
     <div class='card mb-3'>
       <div class='card-body text-center'>
         <%= fontawesome_icon('', 'fa fa-bank', 'font-size: 45px;') %>
-        <h3 class="display-5">Adicionar conta</h3>
+        <h3 class="display-5">Adicionar banco</h3>
         <%= modal_to_new_resource('', target: '#newAccountModal', class_name: 'btn btn-outline-dark btn-round', style_css: 'padding-x: 100px;') %>
       </div>
     </div>
@@ -24,7 +24,7 @@
                 <%= render 'actions', account: account %>
               </div>
               <h4><%= account.title %></h4>
-              <p><%= humanized_money_with_symbol(account.price_cents) %></p>
+              <p><%= humanized_money_with_symbol(account.price) %></p>
             </div>
           </div>
         </div>

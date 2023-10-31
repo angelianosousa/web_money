@@ -14,7 +14,7 @@ RSpec.describe CreateTransaction do
         user.achievements = [achievement_money_managed, achievement_money_movement, achievement_budget_reached]
       end
     end
-    let(:account) { create(:account, user_id: user.id, price_cents: 1000) }
+    let(:account) { create(:account, user_id: user.id, price: 1000) }
 
     context 'Success scenario' do
       let(:transaction_params) do
@@ -54,15 +54,14 @@ RSpec.describe CreateTransaction do
 
     context 'Fail scenario' do
       let(:transaction_params) do
-        attributes_for(:transaction, account_id: account.id, price_cents: nil, date: nil, user_id: nil)
+        attributes_for(:transaction, account_id: account.id, price: nil, date: nil, user_id: nil)
       end
       let(:transaction) { CreateTransaction.call(user, transaction_params) }
 
       describe 'when given invalid transaction params' do
         it 'should not be valid' do
           expect(transaction.valid?).to be_falsey
-          expect(transaction.errors.messages[:price_cents]).to include 'não é um número', 'não pode ficar em branco'
-          # expect(transaction.errors.messages[:date]).to         include 'não pode ficar em branco'
+          expect(transaction.errors.messages[:price]).to include 'deve ser maior ou igual a 1'
         end
 
         it 'should not save' do

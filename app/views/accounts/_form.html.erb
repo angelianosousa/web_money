@@ -8,13 +8,6 @@
     </div>
   </div>
 
-  <div class='form-group'>
-    <div class="field">
-      <%= form.label :price_cents %>
-      <%= form.number_field :price_cents, placeholder: 'R$0,00', min: 0, class:'form-control', step: :any %>
-    </div>
-  </div>
-
   <div class="actions">
     <%= form.submit t('save'), class:'btn btn-primary' %>
     <%= link_to t('back'), accounts_path, class:'btn btn-secondary' %>

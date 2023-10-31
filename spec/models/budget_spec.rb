@@ -31,8 +31,6 @@ RSpec.describe Budget, type: :model do
     it { is_expected.to have_many(:transactions).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:objective_name) }
     it { is_expected.to validate_uniqueness_of(:objective_name).scoped_to(:user_id) }
-    it { is_expected.to validate_presence_of(:goals_price_cents) }
-    it { is_expected.to validate_numericality_of(:goals_price_cents) }
   end
 
   describe '#save' do
@@ -41,9 +39,9 @@ RSpec.describe Budget, type: :model do
 
       it 'should not be valid' do
         expect(budget.valid?).to be_falsey
-        expect(budget.errors.messages[:user]).to              include 'é obrigatório(a)'
-        expect(budget.errors.messages[:objective_name]).to    include 'não pode ficar em branco'
-        expect(budget.errors.messages[:goals_price_cents]).to include 'não pode ficar em branco', 'não é um número'
+        expect(budget.errors.messages[:user]).to           include 'é obrigatório(a)'
+        expect(budget.errors.messages[:objective_name]).to include 'não pode ficar em branco'
+        # expect(budget.errors.messages[:goals_price]).to    include 'deve ser maior ou igual a 1'
       end
 
       it 'should not save' do

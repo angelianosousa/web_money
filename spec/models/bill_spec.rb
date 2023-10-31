@@ -30,9 +30,7 @@ RSpec.describe Bill, type: :model do
     it { is_expected.to have_many(:transactions).dependent(:destroy) }
     it { is_expected.to define_enum_for(:status) }
     it { is_expected.to define_enum_for(:bill_type) }
-    it { is_expected.to validate_presence_of(:price_cents) }
     it { is_expected.to validate_presence_of(:due_pay) }
-    it { is_expected.to validate_numericality_of(:price_cents) }
   end
 
   describe '#save' do
@@ -41,12 +39,12 @@ RSpec.describe Bill, type: :model do
 
       it 'should not be valid' do
         expect(bill.valid?).to be_falsey
-        expect(bill.errors.messages[:user]).to include 'é obrigatório(a)'
-        expect(bill.errors.messages[:title]).to        include 'não pode ficar em branco'
-        expect(bill.errors.messages[:price_cents]).to  include 'não pode ficar em branco', 'não é um número'
-        expect(bill.errors.messages[:bill_type]).to    include 'não pode ficar em branco'
-        expect(bill.errors.messages[:status]).to       include 'não pode ficar em branco'
-        expect(bill.errors.messages[:due_pay]).to      include 'não pode ficar em branco'
+        expect(bill.errors.messages[:user]).to      include 'é obrigatório(a)'
+        expect(bill.errors.messages[:title]).to     include 'não pode ficar em branco'
+        expect(bill.errors.messages[:price]).to     include 'deve ser maior ou igual a 1'
+        expect(bill.errors.messages[:bill_type]).to include 'não pode ficar em branco'
+        expect(bill.errors.messages[:status]).to    include 'não pode ficar em branco'
+        expect(bill.errors.messages[:due_pay]).to   include 'não pode ficar em branco'
       end
 
       it 'should not save' do

@@ -4,12 +4,11 @@
     attributes:
       account:
         title: Titulo
-        price_cents: Montante
         price: Montante
         price_currency: Moeda
         created_at: Criado em...
         updated_at: Atualizado em...
     models:
       account:
-        one: Conta
-        other: Contas
+        one: Banco
+        other: Bancos

@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2023_09_15_034147) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "title"
-    t.integer "price_cents", null: false
+    t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "BRL", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

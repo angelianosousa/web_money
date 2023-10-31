@@ -5,7 +5,7 @@
 # Table name: accounts
 #
 #  id             :bigint           not null, primary key
-#  price_cents    :integer          not null
+#  price_cents    :integer          default(0), not null
 #  price_currency :string           default("BRL"), not null
 #  title          :string
 #  created_at     :datetime         not null
@@ -22,14 +22,14 @@
 #
 FactoryBot.define do
   factory :account do
-    user_id     { create(:user).id }
-    title       { Faker::Bank.name }
-    price_cents { rand(200..2000) }
+    user_id { create(:user).id }
+    title   { Faker::Bank.name }
+    price   { rand(200..2000) }
 
     trait :invalid do
-      user_id     {}
-      title       {}
-      price_cents {}
+      user_id {}
+      title   {}
+      price   {}
     end
   end
 end

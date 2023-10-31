@@ -30,10 +30,10 @@ class CreatePayment < ApplicationService
     {
       account_id: @params[:account_id],
       category_id: @params[:category_id],
-      price_cents: @params[:price_cents],
+      price: @params[:price],
       description: @params[:description],
       move_type: @bill.bill_type,
-      date: Date.today.to_datetime,
+      date: @params[:date] || Date.today.to_datetime,
       bill_id: @bill.id
     }
   end
