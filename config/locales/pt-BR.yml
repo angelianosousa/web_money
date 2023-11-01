@@ -1,8 +1,13 @@
 ---
 'pt-BR':    
   months: Meses
+  add_bill: Adicionar Pag. Recorrente
+  add_account: Adicionar Banco
+  add_transaction: Adicionar Movimentação
+  add_budget: Adicionar Meta
+  add_first: Adicione o(a) primeiro(a) aqui
   button_title:
-    new_account: ' Nova conta'
+    new_account: ' Novo banco'
     new_bill: ' Novo Pag. Recorrente'
     new_recipe: ' Receita'
     new_expense: ' Despesa'

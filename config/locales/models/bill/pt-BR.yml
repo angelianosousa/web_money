@@ -4,7 +4,7 @@
     attributes:
       bill:
         title: Titulo
-        price_cents: Valor
+        price: Valor
         due_pay: Vencimento
         bill_type: Tipo
         status: Status

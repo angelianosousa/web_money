@@ -39,7 +39,7 @@ class Budget < ApplicationRecord
   end
 
   def progress
-    transactions.any? ? (transactions.sum(:price).to_f / goals_price).to_f * 100 : 0
+    transactions.any? ? (transactions.sum(:price_cents).to_f / goals_price_cents).to_f * 100 : 0
   end
 
   def self.finished(user)

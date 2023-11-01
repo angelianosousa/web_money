@@ -71,6 +71,6 @@ class TransactionsController < ApplicationController
 
   def perform_search
     @q = current_user.transactions.ransack(params[:q])
-    @transactions = @q.result.order(created_at: :desc).group_by(&:date) # .page(params[:page]).per(5)
+    @transactions = @q.result.order(date: :desc).group_by(&:date)
   end
 end

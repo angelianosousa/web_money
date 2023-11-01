@@ -9,12 +9,11 @@
         category_id: Categoria
         bill_id: Pag. Recorrente
         account_id: Banco
-        account: Banco
-        user: Usuário
         budget_id: Meta
       errors:
         models:
           invalid_movement: Banco %{account_title} não possui saldo suficiente.
+          invalid_bill_movement:  "Pag. Recorrente: %{bill_title} já foi pago!"
           transaction:
             one: Transação
             other: Transações

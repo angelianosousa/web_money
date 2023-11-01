@@ -6,4 +6,4 @@
         objective_name: Nome
         date_limit: Data limite
         user_id: Perfil
-        goals_price_cents: Valor
+        goals_price: Valor

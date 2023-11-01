@@ -43,12 +43,12 @@ end
 
 # Categorias
 ## Despesas
-['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet', 'Transferência saída'].each do |category|
+['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
   user.categories.find_or_create_by!(title: category, category_type: :expense)
 end
 
 ## Receitas
-['Salário', 'Serviço', 'Investimentos', 'Transferência entrada'].each do |category|
+['Salário', 'Serviço', 'Investimentos'].each do |category|
   user.categories.find_or_create_by!(title: category, category_type: :recipe)
 end
 

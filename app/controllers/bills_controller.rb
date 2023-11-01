@@ -32,15 +32,6 @@ class BillsController < ApplicationController
     end
   end
 
-  def new_transaction
-    @bill = find_bill_by(params.delete(:bill_id))
-    set_warning_flash_if_bill_already_paid
-
-    @result = create_payment if @bill.pending?
-
-    handle_new_transaction
-  end
-
   # PATCH/PUT /bills/1 or /bills/1.json
   def update
     respond_to do |format|
@@ -84,17 +75,5 @@ class BillsController < ApplicationController
     else
       flash.now[:danger] = @bill.errors.full_messages.to_sentence
     end
-  end
-
-  def set_warning_flash_if_bill_already_paid
-    flash.now[:warning] = t('.bill_paid') if @bill.paid?
-  end
-
-  def create_payment
-    CreatePayment.call(current_user, @bill, params)
-  end
-
-  def find_bill_by(params)
-    current_user.bills.find(params)
   end
 end

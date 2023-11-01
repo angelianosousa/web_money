@@ -50,6 +50,46 @@ RSpec.describe CreateTransaction do
           expect(account.price_cents).to be < amount_account_before
         end
       end
+
+      describe 'Paying a recipe' do
+        let(:bill_recipe) { create(:bill, user_id: user.id, bill_type: :recipe) }
+        let(:transaction_params) do
+          attributes_for(:transaction, price: bill_recipe.price, account_id: account.id, bill_id: bill_recipe.id)
+        end
+        let(:transaction) { CreateTransaction.call(user, transaction_params) }
+
+        it 'bill status @paid' do
+          transaction.save
+          bill_recipe.reload
+          expect(bill_recipe.status).to eq('paid')
+        end
+
+        it 'bill should have a new transaction' do
+          transaction.save
+          bill_recipe.reload
+          expect(bill_recipe.transactions.count).to eq(1)
+        end
+      end
+
+      describe 'Paying a expense bill' do
+        let(:bill_expense) { create(:bill, user_id: user.id, bill_type: :expense) }
+        let(:transaction_params) do
+          attributes_for(:transaction, price: bill_expense.price, account_id: account.id, bill_id: bill_expense.id)
+        end
+        let(:transaction) { CreateTransaction.call(user, transaction_params) }
+
+        it 'bill status @paid' do
+          transaction.save
+          bill_expense.reload
+          expect(bill_expense.status).to eq('paid')
+        end
+
+        it 'bill should have a new transaction' do
+          transaction.save
+          bill_expense.reload
+          expect(bill_expense.transactions.count).to eq(1)
+        end
+      end
     end
 
     context 'Fail scenario' do
@@ -66,6 +106,65 @@ RSpec.describe CreateTransaction do
 
         it 'should not save' do
           expect(transaction.save).to be_falsey
+        end
+      end
+
+      describe 'Paying a recipe bill' do
+        let(:bill_recipe) { create(:bill, user_id: user.id, bill_type: :recipe) }
+        let(:transaction_params) do
+          attributes_for(:transaction, price: nil, account_id: account.id, bill_id: bill_recipe.id)
+        end
+        let(:transaction) { CreateTransaction.call(user, transaction_params) }
+
+        it '@transaction with price nil so @bill have status pending' do
+          expect(transaction.save).to be_falsey
+          bill_recipe.reload
+          expect(bill_recipe.status).to eq('pending')
+        end
+
+        it '@bill should have zero transactions' do
+          bill_recipe.reload
+          expect(bill_recipe.transactions.count).to eq(0)
+        end
+      end
+
+      describe 'Paying a expense bill' do
+        let(:bill_expense) { create(:bill, user_id: user.id, bill_type: :expense) }
+        let(:transaction_params) do
+          attributes_for(:transaction, price: nil, account_id: account.id, bill_id: bill_expense.id)
+        end
+        let(:transaction) { CreateTransaction.call(user, transaction_params) }
+
+        it '@bill status pending' do
+          expect(transaction.save).to be_falsey
+          bill_expense.reload
+          expect(bill_expense.status).to eq('pending')
+        end
+
+        it 'bill should have zero transactions' do
+          bill_expense.reload
+          expect(bill_expense.transactions.count).to eq(0)
+        end
+      end
+
+      describe 'Paying bill was paid' do
+        let(:bill) { create(:bill, user_id: user.id, bill_type: :recipe) }
+        let(:transaction_params) do
+          attributes_for(:transaction, price: nil, account_id: account.id, bill_id: bill.id)
+        end
+        let(:transaction) { CreateTransaction.call(user, transaction_params) }
+
+        it 'transaction must be invalid' do
+          expect(transaction.valid?).to be_falsey
+        end
+
+        it 'transaction must be save' do
+          expect(transaction.save).to be_falsey
+        end
+
+        it 'trying pay a bill was paid' do
+          bill.reload
+          expect(bill.status).to eq('pending')
         end
       end
     end
