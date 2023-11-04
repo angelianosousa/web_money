@@ -28,19 +28,19 @@ jobs:
         image: vitornovaes/web-money-ru3-ra6
         ports:
           - 3000:3000
-    env:
-      RAILS_ENV: development
-      REDIS_URL: redis://localhost:6379/0
-      POSTGRES_HOST: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+        env:
+          RAILS_ENV: development
+          REDIS_URL: redis://redis:6379/0
+          POSTGRES_HOST: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
     steps:
       - uses: actions/checkout@v4
       - uses: cypress-io/github-action@v6
         with:
           browser: chrome
           headed: true
-          config: baseUrl=http://localhost:3000
+          config: baseUrl=http://web:3000
   # e2e-firefox:
   #   if: ${{ always() }}
   #   needs: [e2e-chrome]
