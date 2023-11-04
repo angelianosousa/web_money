@@ -5,7 +5,7 @@ Cypress.Commands.add("navBarTesting", (url) => {
   // Verify Dashboard Li
   cy.get("#sidebarCollapse").click();
 
-  cy.get("#sidebar").should("be.active");
+  cy.get("#sidebar").scrollIntoView().should("be.visible");
 
   cy.get("ul.list-unstyled.components li")
     .eq(0)
