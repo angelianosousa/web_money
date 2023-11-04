@@ -1,0 +1,33 @@
+name: E2E On Cypress
+on: [pull_request]
+
+jobs:
+  e2e-chrome:
+    runs-on: ubuntu-latest
+    name: E2E on Chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          headed: true
+  e2e-firefox:
+    if: ${{ always() }}
+    needs: [e2e-chrome]
+    runs-on: ubuntu-22.04
+    name: E2E on Firefox
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cypress-io/github-action@v6
+        with:
+          browser: firefox
+  e2e-edge:
+    if: ${{ always() }}
+    needs: [e2e-firefox]
+    runs-on: ubuntu-22.04
+    name: E2E on Edge
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cypress-io/github-action@v6
+        with:
+          browser: edge
