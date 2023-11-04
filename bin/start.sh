@@ -15,5 +15,6 @@ echo ""
 bundle check || bundle install
 bundle exec rails db:setup db:migrate
 bundle exec rake assets:precompile
+bundle exec rails s -p 3000 -b 0.0.0.0
 
 exec "$@"
