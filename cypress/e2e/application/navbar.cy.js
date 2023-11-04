@@ -1,6 +1,6 @@
 Cypress.Commands.add("navBarTesting", (url) => {
-  // cy.visit(url);
-  cy.visit();
+  cy.visit(url);
+  // cy.visit();
 
   // Verify Dashboard Li
   cy.get("#sidebarCollapse").click();
@@ -72,24 +72,24 @@ Cypress.Commands.add("navBarTesting", (url) => {
   // Verify RightSideBar Components
 
   // Verify Notificações
-  // cy.visit(url);
-  cy.visit();
+  cy.visit(url);
+  // cy.visit();
 
   cy.get('a[href="/notifications"]').click();
 
   cy.url().should("eq", "http://localhost:3000/notifications");
 
   // Verify Editar Perfil
-  // cy.visit(url);
-  cy.visit();
+  cy.visit(url);
+  // cy.visit();
 
   cy.get('a[href="/user_profile/1/edit"]').click();
 
   cy.url().should("eq", "http://localhost:3000/user_profile/1/edit");
 
   // Verify Logout Deny
-  // cy.visit(url);
-  cy.visit();
+  cy.visit(url);
+  // cy.visit();
   cy.window({ log: false }).then((win) => {
     if (typeof win.confirm.original === "undefined") {
       cy.stub(win, "confirm").as("confirm");
@@ -100,8 +100,8 @@ Cypress.Commands.add("navBarTesting", (url) => {
   cy.get('a[href="/users/sign_out"]').click();
 
   // Verify Logout Acceptance
-  // cy.visit(url);
-  cy.visit();
+  cy.visit(url);
+  // cy.visit();
   cy.get("@confirm").invoke("restore");
   cy.get('a[href="/users/sign_out"]').click();
 });
