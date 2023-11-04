@@ -1,6 +1,7 @@
 describe("Verificação dos campos de E-mail e Senha ", () => {
   it("Deve verificar se o campo de e-mail não está vazio", () => {
-    cy.visit("http://localhost:3000/users/sign_up");
+    // cy.visit("http://localhost:3000/users/sign_up");
+    cy.visit();
 
     cy.get('input[type="Email"]').type(" ");
 
@@ -12,7 +13,8 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
   });
 
   it("Deve verificar se o campo de e-mail contém um e-mail válido", () => {
-    cy.visit("http://localhost:3000/users/sign_up");
+    // cy.visit("http://localhost:3000/users/sign_up");
+    cy.visit();
 
     cy.get('input[type="Email"]').type("email_invalido");
 
@@ -24,7 +26,8 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
   });
 
   it("Deve verificar se e-mail já não está cadastrado", () => {
-    cy.visit("http://localhost:3000/users/sign_up");
+    // cy.visit("http://localhost:3000/users/sign_up");
+    cy.visit();
 
     cy.get('input[type="Email"]').type("user@user.com");
 
@@ -36,7 +39,8 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
   });
 
   it("Deve verificar se o campo de senha não está vazio", () => {
-    cy.visit("http://localhost:3000/users/sign_up");
+    // cy.visit("http://localhost:3000/users/sign_up");
+    cy.visit();
 
     cy.get('input[type="Email"]').type("newuser@newuser.com");
     cy.get('input[name="user[password]"]').type(" ");
@@ -49,7 +53,8 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
   });
 
   it("Deve verificar se o campo de senha contém menos de 6 caracteres", () => {
-    cy.visit("http://localhost:3000/users/sign_up");
+    // cy.visit("http://localhost:3000/users/sign_up");
+    cy.visit();
 
     cy.get('input[type="Email"]').type("newuser@newuser.com");
     cy.get('input[name="user[password]"]').type("123");
@@ -62,7 +67,8 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
   });
 
   it("Deve verificar se o campo de Senha de Confirmação está diferente do campo de Senha", () => {
-    cy.visit("http://localhost:3000/users/sign_up");
+    // cy.visit("http://localhost:3000/users/sign_up");
+    cy.visit();
 
     cy.get('input[type="Email"]').type("newuser@newuser.com");
     cy.get('input[name="user[password]"]').type("123456");
@@ -76,7 +82,8 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
   });
 
   it("Deve verificar se o cadastro de novo usuário foi concluído com sucesso.", () => {
-    cy.visit("http://localhost:3000/users/sign_up");
+    // cy.visit("http://localhost:3000/users/sign_up");
+    cy.visit();
 
     const randomAccountNumber = Math.floor(Math.random() * 9000) + 1000;
     const baseEmail = `newuser${randomAccountNumber}@newuser.com`;

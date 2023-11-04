@@ -1,16 +1,24 @@
 name: E2E On Cypress
-on: [pull_request]
+on:
+  pull_request:
+    types: [synchronize]
 
 jobs:
   e2e-chrome:
     runs-on: ubuntu-latest
     name: E2E on Chrome
+    services:
+      web:
+        image: vitornovaes/web-money-ru3-ra6
+        ports:
+          - 3000:3000
     steps:
       - uses: actions/checkout@v4
       - uses: cypress-io/github-action@v6
         with:
           browser: chrome
           headed: true
+          config: baseUrl=http://web:3000
   e2e-firefox:
     if: ${{ always() }}
     needs: [e2e-chrome]
@@ -21,6 +29,7 @@ jobs:
       - uses: cypress-io/github-action@v6
         with:
           browser: firefox
+          config: baseUrl=http://web:3000
   e2e-edge:
     if: ${{ always() }}
     needs: [e2e-firefox]
@@ -31,3 +40,4 @@ jobs:
       - uses: cypress-io/github-action@v6
         with:
           browser: edge
+          config: baseUrl=http://web:3000
