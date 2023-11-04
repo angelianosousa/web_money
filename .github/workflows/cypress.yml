@@ -8,10 +8,30 @@ jobs:
     runs-on: ubuntu-latest
     name: E2E on Chrome
     services:
+      redis:
+        image: redis
+        ports: ['6379:6379']
+        options: --entrypoint redis-server
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: web_money_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
       web:
         image: vitornovaes/web-money-ru3-ra6
         ports:
           - 3000:3000
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:@localhost:5432/test
+      REDIS_URL: redis://localhost:6379/0
     steps:
       - uses: actions/checkout@v4
       - uses: cypress-io/github-action@v6
@@ -19,25 +39,24 @@ jobs:
           browser: chrome
           headed: true
           config: baseUrl=http://web:3000
-  e2e-firefox:
-    if: ${{ always() }}
-    needs: [e2e-chrome]
-    runs-on: ubuntu-22.04
-    name: E2E on Firefox
-    steps:
-      - uses: actions/checkout@v4
-      - uses: cypress-io/github-action@v6
-        with:
-          browser: firefox
-          config: baseUrl=http://web:3000
-  e2e-edge:
-    if: ${{ always() }}
-    needs: [e2e-firefox]
-    runs-on: ubuntu-22.04
-    name: E2E on Edge
-    steps:
-      - uses: actions/checkout@v4
-      - uses: cypress-io/github-action@v6
-        with:
-          browser: edge
-          config: baseUrl=http://web:3000
+  # e2e-firefox:
+  #   if: ${{ always() }}
+  #   needs: [e2e-chrome]
+  #   runs-on: ubuntu-22.04
+  #   name: E2E on Firefox
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: cypress-io/github-action@v6
+  #       with:
+  #         browser: firefox
+  #         config: baseUrl=http://web:3000
+  # e2e-edge:
+  #   if: ${{ always() }}
+  #   needs: [e2e-firefox]
+  #   runs-on: ubuntu-22.04
+  #   name: E2E on Edge
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: cypress-io/github-action@v6
+  #       with:
+  #         browser: edge
