@@ -16,7 +16,7 @@ RUN mkdir -p /node_modules && chown -R webmoney:webmoney ./
 USER webmoney
 
 COPY --chown=webmoney Gemfile Gemfile.lock ./
-COPY --chown=webmoney package.json package-lock.json ./
+COPY --chown=webmoney package.json ./
 RUN npm install
 
 COPY --chown=webmoney . .
