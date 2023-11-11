@@ -74,6 +74,15 @@ Gerar as tabelas do banco de dados
   yarn cypress open
 ~~~
 
+
+## Running in Docker
+
+~~~bash
+  docker compose up web
+  docker compose run --rm rspec
+  docker comopose run --rm rspec spec/<path>
+~~~
+
 Docs [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)
 
 ## Author

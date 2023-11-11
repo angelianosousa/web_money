@@ -1,10 +1,11 @@
 Cypress.Commands.add("navBarTesting", (url) => {
   cy.visit(url);
+  // cy.visit();
 
   // Verify Dashboard Li
   cy.get("#sidebarCollapse").click();
 
-  cy.get("#sidebar").should("be.visible");
+  cy.get("#sidebar").scrollIntoView().should("be.visible");
 
   cy.get("ul.list-unstyled.components li")
     .eq(0)
@@ -16,7 +17,7 @@ Cypress.Commands.add("navBarTesting", (url) => {
   // Verify Contas Li
   cy.get("#sidebarCollapse").click();
 
-  cy.get("#sidebar").should("be.visible");
+  cy.get("#sidebar").scrollIntoView().should("be.visible");
 
   cy.get("ul.list-unstyled.components li").eq(0).should("have.class", "active");
   cy.get("ul.list-unstyled.components li").eq(1).click();
@@ -26,7 +27,7 @@ Cypress.Commands.add("navBarTesting", (url) => {
   // Verify Metas Li
   cy.get("#sidebarCollapse").click();
 
-  cy.get("#sidebar").should("be.visible");
+  cy.get("#sidebar").scrollIntoView().should("be.visible");
 
   cy.get("ul.list-unstyled.components li").eq(1).should("have.class", "active");
   cy.get("ul.list-unstyled.components li").eq(2).click();
@@ -36,7 +37,7 @@ Cypress.Commands.add("navBarTesting", (url) => {
   // Verify Movimentações Li
   cy.get("#sidebarCollapse").click();
 
-  cy.get("#sidebar").should("be.visible");
+  cy.get("#sidebar").scrollIntoView().should("be.visible");
 
   cy.get("ul.list-unstyled.components li").eq(2).should("have.class", "active");
   cy.get("ul.list-unstyled.components li").eq(3).click();
@@ -46,7 +47,7 @@ Cypress.Commands.add("navBarTesting", (url) => {
   // Verify Categorias Li
   cy.get("#sidebarCollapse").click();
 
-  cy.get("#sidebar").should("be.visible");
+  cy.get("#sidebar").scrollIntoView().should("be.visible");
 
   cy.get("ul.list-unstyled.components li").eq(3).should("have.class", "active");
   cy.get("ul.list-unstyled.components li").eq(4).click();
@@ -56,7 +57,7 @@ Cypress.Commands.add("navBarTesting", (url) => {
   // Verify Recorrencias Li
   cy.get("#sidebarCollapse").click();
 
-  cy.get("#sidebar").should("be.visible");
+  cy.get("#sidebar").scrollIntoView().should("be.visible");
 
   cy.get("ul.list-unstyled.components li").eq(4).should("have.class", "active");
   cy.get("ul.list-unstyled.components li").eq(5).click();
@@ -65,13 +66,14 @@ Cypress.Commands.add("navBarTesting", (url) => {
 
   cy.get("#sidebarCollapse").click();
 
-  cy.get("#sidebar").should("be.visible");
+  cy.get("#sidebar").scrollIntoView().should("be.visible");
   cy.get("ul.list-unstyled.components li").eq(5).should("have.class", "active");
 
   // Verify RightSideBar Components
 
   // Verify Notificações
   cy.visit(url);
+  // cy.visit();
 
   cy.get('a[href="/notifications"]').click();
 
@@ -79,6 +81,7 @@ Cypress.Commands.add("navBarTesting", (url) => {
 
   // Verify Editar Perfil
   cy.visit(url);
+  // cy.visit();
 
   cy.get('a[href="/user_profile/1/edit"]').click();
 
@@ -86,6 +89,7 @@ Cypress.Commands.add("navBarTesting", (url) => {
 
   // Verify Logout Deny
   cy.visit(url);
+  // cy.visit();
   cy.window({ log: false }).then((win) => {
     if (typeof win.confirm.original === "undefined") {
       cy.stub(win, "confirm").as("confirm");
@@ -97,6 +101,7 @@ Cypress.Commands.add("navBarTesting", (url) => {
 
   // Verify Logout Acceptance
   cy.visit(url);
+  // cy.visit();
   cy.get("@confirm").invoke("restore");
   cy.get('a[href="/users/sign_out"]').click();
 });
