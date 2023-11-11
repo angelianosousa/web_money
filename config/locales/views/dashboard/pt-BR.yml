@@ -2,7 +2,7 @@
 'pt-BR':
   dashboard:
     index:
-      title: Dashboard | Balanço %{balance}
+      title: Dashboard | Saldo %{balance}
     modals:
       new_account:
         title: Nova banco
@@ -25,7 +25,7 @@
       days: Dias
       value: Valor (R$)
     tile_dashboard:
-      current_balance: Balanço
+      current_balance: Saldo
       total_recipes: Receitas
       total_expenses: Despesas
     create_transaction:

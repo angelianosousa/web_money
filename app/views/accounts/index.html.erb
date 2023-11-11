@@ -29,6 +29,9 @@
           </div>
         </div>
       </div>
+
+      <%#= render partial: "transactions/modals/new_recipe",  locals: { transaction: @transaction = current_user.transactions.new, local: false, account: @account = account } %>
+      <%#= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_user.transactions.new, local: false, account: @account = account } %>
     <% end %>
   </div>
 </div>
@@ -39,5 +42,3 @@
 
 <%= render partial: "accounts/modals/transfer" %>
 <%= render partial: "accounts/modals/new_account",     locals: { account: @account = current_user.accounts.new, local: true } %>
-<%= render partial: "transactions/modals/new_recipe",  locals: { transaction: @transaction = current_user.transactions.new, local: false } %>
-<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_user.transactions.new, local: false } %>

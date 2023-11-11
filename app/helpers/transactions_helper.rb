@@ -37,6 +37,6 @@ module TransactionsHelper
     recipes  = current_user.transactions.recipes.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
     expenses = current_user.transactions.expenses.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
 
-    (recipes - expenses)
+    Money.from_cents(recipes - expenses).format
   end
 end

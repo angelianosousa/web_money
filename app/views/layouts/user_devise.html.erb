@@ -26,9 +26,9 @@
         <div class='row d-flex justify-content-center'>
 
           <div class='col-12 col-sm-5'>
-            <div class='card card-style' style='margin-top: 80px;'>
+            <div class='card card-style my-5'>
               <div class='card-body'>
-                <%= image_tag 'logo-banner.png', class: 'img-fluid' %>
+                <%= image_tag 'banner-fundo-branco-720x192.png', class: 'img-fluid' %>
 
                 <%= yield %>
               </div>
@@ -40,14 +40,10 @@
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <% resource.errors.full_messages.each do |msg|%>
-      <%= javascript_tag do %>
-        $.notify(
-          '<%= msg %>',
-          { type: 'danger', allow_dismiss: true }
-        );
+    <%= javascript_tag do %>
+      <% flash.each do |type, msg| %>
+        showFlashNotification('danger', "<%= msg %>")
       <% end %>
     <% end %>
-
   </body>
 </html>

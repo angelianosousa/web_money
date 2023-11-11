@@ -44,8 +44,8 @@ class Budget < ApplicationRecord
 
   def self.finished(user)
     budgets = []
-    budgets.push user.budgets.map do |b|
-      return b if b.progress.round(2) >= 100
+    user.budgets.map do |b|
+      return budgets.push b if b.progress.round(2) >= 100
     end
 
     budgets

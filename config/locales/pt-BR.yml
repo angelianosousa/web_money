@@ -30,8 +30,8 @@
       already_confirmed: "já foi confirmado, por favor tente fazer login"
       not_locked: "não foi bloqueado"
       not_saved:
-        one: "1 erro evitou que este %{resource} fosse gravado:"
-        other: "%{count} erros evitaram que este %{resource} fosse gravado:"
+        one: "1 erro evitou que este usuário fosse salvo:"
+        other: "%{count} erros evitaram que este usuário fosse salvo:"
 
   devise:
     failure:
@@ -43,6 +43,8 @@
       invalid_token: 'O token de autenticação não é válido.'
       timeout: 'A sua sessão expirou, por favor faça login novamente para poder continuar.'
       inactive: 'A sua conta ainda não foi ativada.'
+      user:
+        not_found_in_database: Usuário não encontrado no banco de dados.
     sessions:
       signed_in: 'Fez login com sucesso.'
       signed_out: 'Fez logout com sucesso.'

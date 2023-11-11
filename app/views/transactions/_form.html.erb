@@ -25,7 +25,8 @@
       </div>
       <div class='form-group'>
         <%= form.label :account_id %>
-        <%= form.select :account_id, options_for_select(accounts_options_for_select, (@transaction.account_id rescue nil)), {}, { class:'form-control' } %>
+        <% default_account = @account.present? ? @account.id : @transaction.account_id %>
+        <%= form.select :account_id, options_for_select(accounts_options_for_select, (default_account rescue nil)), {}, { class:'form-control' } %>
       </div>
     </div>
 

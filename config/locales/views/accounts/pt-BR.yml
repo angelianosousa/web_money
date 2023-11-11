@@ -4,7 +4,7 @@
     index:
       title: Bancos
       new_resource: ' Nova Banco'
-      current_balance: Balanço | %{balance}
+      current_balance: Saldo | %{balance}
     edit:
       title: Editar Banco
     modals:
