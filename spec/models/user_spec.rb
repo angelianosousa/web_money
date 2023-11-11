@@ -37,8 +37,8 @@ RSpec.describe User, type: :model do
       context 'when submit invalid attributes' do
         it 'should not be valid' do
           expect(user.valid?).to be_falsey
-          expect(user.errors.messages[:email]).to  include 'não pode ficar em branco'
-          expect(user.errors.messages[:password]).to  include 'não pode ficar em branco'
+          expect(user.errors.messages[:email]).to include 'não pode ficar em branco'
+          expect(user.errors.messages[:password]).to include 'não pode ficar em branco'
         end
 
         it 'should not save' do

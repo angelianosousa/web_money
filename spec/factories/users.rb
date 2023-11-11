@@ -26,9 +26,9 @@ FactoryBot.define do
     password_confirmation { 'password' }
 
     trait :invalid do
-      email                 { }
-      password              { }
-      password_confirmation { }
+      email                 {}
+      password              {}
+      password_confirmation {}
     end
   end
 end

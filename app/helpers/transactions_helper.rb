@@ -34,8 +34,8 @@ module TransactionsHelper
   end
 
   def balance_for_that_day(day)
-    recipes  = current_user.transactions.recipes.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
-    expenses = current_user.transactions.expenses.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
+    recipes  = current_user.transactions.recipes.where('date <= ?', day.end_of_day).sum(:price_cents)
+    expenses = current_user.transactions.expenses.where('date <= ?', day.end_of_day).sum(:price_cents)
 
     Money.from_cents(recipes - expenses).format
   end
