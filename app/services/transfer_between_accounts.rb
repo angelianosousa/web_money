@@ -6,25 +6,25 @@ class TransferBetweenAccounts < ApplicationService
   # 2. Validar se a conta tem dinheiro suficiente para transação
   # 3. Realizar transação caso seja possível
 
-  def initialize(profile, params)
+  def initialize(user, params)
     super()
-    @profile = profile
-    @params  = params
+    @user   = user
+    @params = params
   end
 
   def call
-    return false if accounts_equals? || invalid_excharge
+    return @user if accounts_equals? || invalid_excharge
 
     ActiveRecord::Base.transaction do
       create_excharge
       create_deposit
     end
 
-    true
+    @user
   end
 
   def create_excharge
-    transaction = CreateTransaction.call(@profile, transaction_params.merge!({ account_id: @params[:account_id_out] }))
+    transaction = CreateTransaction.call(@user, transaction_params.merge!({ account_id: @params[:account_id_out] }))
     @account_out = account_out
     if transaction.save
       @account_out.price_cents -= transaction.price_cents
@@ -35,7 +35,7 @@ class TransferBetweenAccounts < ApplicationService
   end
 
   def create_deposit
-    transaction = CreateTransaction.call(@profile, transaction_params.merge!({ account_id: @params[:account_id_in] }))
+    transaction = CreateTransaction.call(@user, transaction_params.merge!({ account_id: @params[:account_id_in] }))
     @account_in = account_in
     if transaction.save
       @account_in.price_cents += transaction.price_cents
@@ -48,24 +48,31 @@ class TransferBetweenAccounts < ApplicationService
   private
 
   def accounts_equals?
-    @params[:account_id_in] == @params[:account_id_out]
+    return false unless @params[:account_id_in] == @params[:account_id_out]
+
+    message = I18n.t('accounts.transfer_between_accounts.errors.same_account')
+    @user.errors.add :base, :transfer_invalid, message: message
   end
 
   def account_out
-    @profile.accounts.find(@params[:account_id_out])
+    @user.accounts.find(@params[:account_id_out])
   end
 
   def account_in
-    @profile.accounts.find(@params[:account_id_in])
+    @user.accounts.find(@params[:account_id_in])
   end
 
   def invalid_excharge
-    account_out.price_cents < @params[:price_cents].to_f
+    # byebug
+    return false unless account_out.price < Money.new(@params[:price])
+
+    message = I18n.t('accounts.transfer_between_accounts.errors.insufficient_amount', account_title: account_out.title)
+    @user.errors.add :base, :transfer_invalid, message: message
   end
 
   def transaction_params
     {
-      price_cents: @params[:price_cents],
+      price: @params[:price],
       description: @params[:description],
       move_type: :transfer,
       date: Date.today.to_datetime

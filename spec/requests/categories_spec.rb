@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Categories', type: :request do
   let(:user)     { create(:user) }
-  let(:category) { create(:category, user_profile: user.user_profile) }
+  let(:category) { create(:category, user: user) }
 
   before do
     sign_in user
@@ -34,7 +34,7 @@ RSpec.describe 'Categories', type: :request do
     end
 
     context 'Fail Scenario' do
-      let(:category_attributes_invalid) { attributes_for(:category, user_profile: user.user_profile, title: nil) }
+      let(:category_attributes_invalid) { attributes_for(:category, user: user, title: nil) }
 
       it 'should not save category with title empty' do
         params = { category: category_attributes_invalid }
@@ -56,7 +56,7 @@ RSpec.describe 'Categories', type: :request do
 
   describe 'PATCH /categories/:id' do
     context 'Success Scenario' do
-      let(:category_attributes) { attributes_for(:category, user_profile: user.user_profile) }
+      let(:category_attributes) { attributes_for(:category, user: user) }
 
       it 'update category, should return success' do
         params = { category: category_attributes }
@@ -70,7 +70,7 @@ RSpec.describe 'Categories', type: :request do
     end
 
     context 'Fail Scenario' do
-      let(:category_attributes_invalid) { attributes_for(:category, user_profile: user.user_profile, title: nil) }
+      let(:category_attributes_invalid) { attributes_for(:category, user: user, title: nil) }
 
       describe 'when given title, date or price_cents empty' do
         it 'should not save' do

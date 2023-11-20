@@ -36,7 +36,7 @@
               <thead>
                 <tr>
                   <th style='width:200px;'><%= model_class.human_attribute_name :description %></th>
-                  <th><%= model_class.human_attribute_name :price_cents %></th>
+                  <th><%= model_class.human_attribute_name :price %></th>
                   <th><%= model_class.human_attribute_name :category_id %></th>
                   <th><%= model_class.human_attribute_name :account_id %></th>
                   <th><%= model_class.human_attribute_name :budget_id %></th>
@@ -56,7 +56,7 @@
                 </tbody>
               <% end %>
             </table>
-            <div class="card-footer balance-diary text-right"><%= t '.balance_diary', day: I18n.l(day, format: :short), amount: humanized_money_with_symbol(balance_for_that_day(day)) %></div>
+            <div class="card-footer balance-diary text-right"><%= t '.balance_diary', day: I18n.l(day, format: :short), amount: balance_for_that_day(day) %></div>
           </div>
         </div>
       </div>
@@ -74,5 +74,5 @@
 
 <%= paginate @transactions %>
 
-<%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>
-<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>
+<%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_user.transactions.new, local: true, account: @account = nil } %>
+<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_user.transactions.new, local: true, account: @account = nil } %>

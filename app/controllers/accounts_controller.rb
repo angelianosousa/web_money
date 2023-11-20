@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = current_profile.accounts.page(params[:page]).order(created_at: :desc)
+    @accounts = current_user.accounts.page(params[:page]).order(created_at: :desc)
   end
 
   # GET /accounts/1/edit
@@ -14,7 +14,7 @@ class AccountsController < ApplicationController
 
   # POST /accounts or /accounts.json
   def create
-    @account = current_profile.accounts.new(account_params)
+    @account = current_user.accounts.new(account_params)
 
     respond_to do |format|
       if @account.save
@@ -37,12 +37,12 @@ class AccountsController < ApplicationController
   end
 
   def transfer_between_accounts
-    @result = TransferBetweenAccounts.call(current_profile, params)
-
-    if @result
+    @result = TransferBetweenAccounts.call(current_user, params)
+    # byebug
+    if @result.errors.empty?
       redirect_to accounts_path, flash: { success: t('.success') }
     else
-      redirect_to accounts_path, flash: { danger: 'Saldo insuficiente para operação' }
+      redirect_to accounts_path, flash: { danger: @result.errors.full_messages }
     end
   end
 
@@ -60,11 +60,11 @@ class AccountsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_account
-    @account = current_profile.accounts.find(params[:id])
+    @account = current_user.accounts.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def account_params
-    params.require(:account).permit(:title, :price_cents, :user_profile_id)
+    params.require(:account).permit(:title, :price)
   end
 end

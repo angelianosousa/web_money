@@ -51,4 +51,30 @@ RSpec.describe Achievement, type: :model do
       end
     end
   end
+
+  let(:achieve_money_managed_silver) { create(:achievement, level: :silver, code: :money_managed, points: 100) }
+  let(:achieve_money_managed_golden) { create(:achievement, level: :golden, code: :money_managed, points: 1000) }
+  let(:user) do
+    create(:user) do |user|
+      user.achievements = [achieve_money_managed_silver]
+    end
+  end
+
+  describe '.finished?' do
+    context 'check when a achievement was complete' do
+      it 'achieve have to be marked as finished' do
+        user.profile_achievements.find_by(achievement_id: achieve_money_managed_silver).update(points_reached: 100)
+
+        expect(achieve_money_managed_silver.finished?(user)).to be_truthy
+      end
+    end
+  end
+
+  # describe '.previous_level_finished?' do
+  #   context 'check when a achievement have previous level finished' do
+  #     user.profile_achievements.find_by(achievement_id: achieve_money_managed_silver).update(points_reached: 100)
+
+  #     expect(achieve_money_managed_golden.previous_level_finished?(user)).to be_truthy
+  #   end
+  # end
 end

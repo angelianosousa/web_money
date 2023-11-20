@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Budgets', type: :request do
   let(:user) { create(:user) }
-  let(:budget) { create(:budget, user_profile: user.user_profile) }
+  let(:budget) { create(:budget, user: user) }
 
   before do
     sign_in user
@@ -19,7 +19,7 @@ RSpec.describe 'Budgets', type: :request do
   end
 
   describe 'POST /budgets' do
-    let(:budget_attributes) { attributes_for(:budget, user_profile: user.user_profile) }
+    let(:budget_attributes) { attributes_for(:budget, user: user) }
 
     context 'Success Scenario' do
       it 'should save with valid attributes' do
@@ -36,7 +36,7 @@ RSpec.describe 'Budgets', type: :request do
 
     context 'Fail Scenario' do
       let(:budget_attributes_invalid) do
-        attributes_for(:budget, user_profile: user.user_profile, objective_name: nil, date_limit: nil,
+        attributes_for(:budget, user: user, objective_name: nil, date_limit: nil,
                                 goals_price_cents: -1)
       end
 
@@ -52,7 +52,7 @@ RSpec.describe 'Budgets', type: :request do
 
   describe 'PUT | PATCH /budgets/:id' do
     context 'Success Scenario' do
-      let(:budget_attributes) { attributes_for(:budget, user_profile: user.user_profile) }
+      let(:budget_attributes) { attributes_for(:budget, user: user) }
 
       it 'update budget, should return success' do
         params = { budget: budget_attributes }
@@ -67,7 +67,7 @@ RSpec.describe 'Budgets', type: :request do
 
     context 'Fail Scenario' do
       let(:budget_attributes_invalid) do
-        attributes_for(:budget, user_profile: user.user_profile, objective_name: nil, date_limit: nil,
+        attributes_for(:budget, user: user, objective_name: nil, date_limit: nil,
                                 goals_price_cents: -1)
       end
 

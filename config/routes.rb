@@ -6,19 +6,17 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :bills, except: [:new] do
-    post 'new_transaction'
-  end
+  resources :bills, except: [:new]
   
   resources :accounts, except: %i[show new] do
     post :transfer_between_accounts, on: :collection
   end
   
-  resources :dashboard, only: :index
-  resources :user_profile,  only: %i[edit update destroy]
-  resources :transactions,  except: %i[show new]
-  resources :budgets,       except: %i[show new]
-  resources :categories,    except: [:show]
+  resources :dashboard,    only:   %i[index]
+  resources :users,        only:   %i[edit update destroy]
+  resources :transactions, except: %i[show new]
+  resources :budgets,      except: %i[show new]
+  resources :categories,   except: %i[show]
   
   resources :notifications, only: [:index] do
     patch :mark_as_read, on: :member

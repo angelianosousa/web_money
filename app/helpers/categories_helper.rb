@@ -3,7 +3,7 @@
 # Categories Helper
 module CategoriesHelper
   def category_options_for_select(filter)
-    return current_profile.categories.collect { |c| [c.title.upcase, c.id] } if filter == 'all'
+    return current_user.categories.collect { |c| [c.title.upcase, c.id] } if filter == 'all'
 
     map_category_options.fetch(filter.to_sym).call
   end
@@ -18,8 +18,8 @@ module CategoriesHelper
 
   def map_category_options
     {
-      'recipe': -> { current_profile.categories.recipes.collect { |c| [c.title.upcase, c.id] } },
-      'expense': -> { current_profile.categories.expenses.collect { |c| [c.title.upcase, c.id] } }
+      'recipe': -> { current_user.categories.recipes.collect { |c| [c.title.upcase, c.id] } },
+      'expense': -> { current_user.categories.expenses.collect { |c| [c.title.upcase, c.id] } }
     }
   end
 end

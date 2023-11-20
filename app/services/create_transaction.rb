@@ -2,34 +2,57 @@
 
 # CreateTransaction
 class CreateTransaction < ApplicationService
-  def initialize(user_profile, params)
+  def initialize(user, params)
     super()
-    @user_profile       = user_profile
-    @transaction_params = params
+    @user   = user
+    @params = params
   end
 
   def call
-    @account     = find_account
-    @transaction = @account.transactions.build(transaction_params)
+    @transaction = @user.transactions.build(transaction_params)
+
+    check_if_has_to_update_bill if @transaction.valid? && @params[:bill_id]
+
     @transaction
   end
 
   private
 
   def find_account
-    @user_profile.accounts.find(@transaction_params[:account_id])
+    @user.accounts.find(@params[:account_id])
+  end
+
+  def find_bill
+    @user.bills.find(@params[:bill_id])
+  end
+
+  def check_if_has_to_update_bill
+    return unless @params[:bill_id].present?
+
+    @bill = check_if_bill_was_paid
+    @bill.update(due_pay: @bill.due_pay.next_month, status: :paid)
+  end
+
+  def check_if_bill_was_paid
+    @bill = find_bill
+
+    return @bill if @bill.pending?
+
+    message = I18n.t('activerecord.attributes.errors.models.invalid_bill_payment', bill_title: @transaction.bill.title)
+
+    @transaction.errors.add :base, :invalid, message: message
   end
 
   def transaction_params
     {
-      price_cents: @transaction_params[:price_cents],
-      date: DateTime.now,
-      account_id: @account.id,
-      user_profile_id: @user_profile.id,
-      category_id: @transaction_params[:category_id],
-      bill_id: @transaction_params[:bill_id],
-      budget_id: @transaction_params[:budget_id],
-      move_type: @transaction_params[:move_type]
+      user_id: @user.id,
+      account_id: @params[:account_id],
+      category_id: @params[:category_id],
+      bill_id: @params[:bill_id],
+      budget_id: @params[:budget_id],
+      price: @params[:price],
+      date: @params[:date] || DateTime.now,
+      move_type: @params[:move_type]
     }
   end
 end

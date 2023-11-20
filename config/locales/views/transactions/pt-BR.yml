@@ -6,7 +6,7 @@
       new_resource: ' Nova Movimentação'
       balance_diary: "%{day} | %{amount}"
       table_title: Titulo
-      current_balance: Balanço | %{balance}
+      current_balance: Saldo | %{balance}
     edit:
       title: ' Editar movimentação'
     modals:
@@ -18,7 +18,7 @@
         title: Ver movimentação
     search_filter:
       category: Categoria
-      account: Conta
+      account: Banco
       price_cents: Valor
       date: Data
       search: Pesquisar

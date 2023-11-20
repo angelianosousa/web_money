@@ -5,9 +5,9 @@ default: &default
   timeout: 5000
 
   # remove if local running
-  host: <%= ENV.fetch('POSTGRES_HOST', 'postgres') %>
-  username: <%= ENV.fetch('POSTGRES_USER', 'postgres') %>
-  password: <%= ENV.fetch('POSTGRES_PASSWORD', 'password') %>
+  host: postgres
+  user: postgres
+  password: password
 
 development:
   <<: *default

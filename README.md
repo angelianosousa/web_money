@@ -1,6 +1,7 @@
-# Web Money
+# Web Money - Gestão de Finanças Pessoais
 
 ## Descrição
+
 Web Money é um sistema financeiro onde os usuários podem adicionar
 suas despesas ou receitas, registrar transações e acompanhar suas
 movimentações diariamente. Dividindo os registros em diferentes categorias,
@@ -13,12 +14,11 @@ metas financeiras e desbloqueio de conquistas conforme estiver avançando
 nos seus planos e no uso do sistema.
 
 ## Próximos passos
+
 * Adicionar configuração de notificação de Pag. Recorrentes
 * O sistema deve deixar uma notificação padrão de Pag. Recorrente para 1 dia antes do vencimento
 * Relatórios de movimentações
 * Exportação / Importação de planilhas (Movimentações)
-
-## Start
 
 ### Dependências
 
@@ -46,6 +46,12 @@ Gerar as tabelas do banco de dados
 ### Rodando projeto
 
 ~~~bash
+  rails s -p 3000
+~~~
+
+### Rodando projeto com docker
+
+~~~bash
   rails s
   docker compose up web
 ~~~
@@ -64,6 +70,17 @@ Gerar as tabelas do banco de dados
   rspec spec/services # Testes dos Services Objects
 ~~~
 
+Docs [Rspec-rails](https://rspec.info/features/6-0/rspec-rails/)
+
+* Para ver o relatorio de cobertura de testes, execute os testes primeiro e depois rode o comando abaixo
+
+~~~bash
+  xdg-open coverage/index.html
+~~~
+
+Docs [Simplecov](https://github.com/simplecov-ruby/simplecov)
+
+
 ## Running Cypress
 
 ~~~bash
@@ -74,16 +91,15 @@ Gerar as tabelas do banco de dados
   yarn cypress open
 ~~~
 
+Docs [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)
 
-## Running in Docker
+## Executando os testes no Docker
 
 ~~~bash
   docker compose up web
   docker compose run --rm rspec
   docker comopose run --rm rspec spec/<path>
 ~~~
-
-Docs [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)
 
 ## Author
 

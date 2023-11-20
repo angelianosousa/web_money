@@ -3,8 +3,8 @@
 # Notifications Routes Controller
 class NotificationsController < ApplicationController
   def index
-    @notifications_read = Notification.read(current_user.user_profile.id).page(params[:page])
-    @notifications_unread = Notification.unread(current_user.user_profile.id).page(params[:page])
+    @notifications_read = Notification.read(current_user.id).page(params[:page])
+    @notifications_unread = Notification.unread(current_user.id).page(params[:page])
   end
 
   def mark_as_read

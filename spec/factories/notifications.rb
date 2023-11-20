@@ -4,34 +4,34 @@
 #
 # Table name: notifications
 #
-#  id              :bigint           not null, primary key
-#  description     :string
-#  read            :boolean          default(FALSE)
-#  title           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  user_profile_id :bigint
+#  id          :bigint           not null, primary key
+#  description :string
+#  read        :boolean          default(FALSE)
+#  title       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :bigint           not null
 #
 # Indexes
 #
-#  index_notifications_on_user_profile_id  (user_profile_id)
+#  index_notifications_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_profile_id => user_profiles.id)
+#  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
   factory :notification do
-    user_profile_id { create(:user_profile).id }
-    title           { Faker::Restaurant.type }
-    description     { Faker::Restaurant.description }
-    read            { false }
+    user_id     { create(:user).id }
+    title       { Faker::Restaurant.type }
+    description { Faker::Restaurant.description }
+    read        { false }
 
     trait :invalid do
-      user_profile_id {}
-      title           {}
-      description     {}
-      read            {}
+      user_id     {}
+      title       {}
+      description {}
+      read        {}
     end
   end
 end

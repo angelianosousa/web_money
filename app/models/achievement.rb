@@ -30,20 +30,20 @@ class Achievement < ApplicationRecord
     end
   end
 
-  def previous_level_finished?(current_profile)
+  def previous_level_finished?(current_user)
     previous_level = Achievement.levels[level] - 1
     achieve        = Achievement.find_by(code: code, level: previous_level)
     return true unless achieve.present?
 
-    achieve.finished?(current_profile)
+    achieve.finished?(current_user)
   end
 
-  def finished?(current_profile)
-    profile_achieve_points(current_profile, self) >= points
+  def finished?(current_user)
+    profile_achieve_points(current_user, self) >= points
   end
 
-  def profile_achieve_points(current_profile, achieve)
-    ProfileAchievement.find_by(user_profile: current_profile, achievement: achieve).points_reached
+  def profile_achieve_points(current_user, achieve)
+    current_user.profile_achievements.find_by(achievement: achieve).points_reached
   end
 end
 
