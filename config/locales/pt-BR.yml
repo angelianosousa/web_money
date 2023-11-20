@@ -18,6 +18,9 @@
     bill_type_options_for_select:
       expense: Despesa
       recipe: Receita
+    bill_status_options_for_select:
+      pending: Pendente
+      paid: Pago
   number:
     format:
       delimiter: ","

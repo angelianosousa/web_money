@@ -41,4 +41,13 @@ module BillsHelper
       [t(status_key, scope: translations_scope), status_key]
     end
   end
+
+  def bill_status_options_for_select
+    translations_scope = %i[helpers bill_status_options_for_select]
+
+    Bill.statuses.map do |status_key, _value|
+      [t(status_key, scope: translations_scope), status_key]
+    end
+  end
+  
 end

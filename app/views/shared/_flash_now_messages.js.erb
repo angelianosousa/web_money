@@ -1,7 +1,0 @@
-<% if resource.errors.any? %>
-  <% resource.errors.full_messages.each do |message| %>
-    showFlashNotification("danger", "<%= message %>");
-  <% end %>
-<% else %>
-  showFlashNotification('success', "<%= flash[:success] %>");
-<% end %>

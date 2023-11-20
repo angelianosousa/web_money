@@ -11,7 +11,7 @@ default: &default
 
 development:
   <<: *default
-  database: web_money_development_two
+  database: web_money_development_tree
 
 test:
   <<: *default
