@@ -3,10 +3,6 @@
     <% type = 'danger' if type == 'alert' %>
     <% type = 'success' if type == 'notice' %>
 
-    <% if flash.key?('notice') || flash.key?('alert') %>
-      showFlashNotification("<%= type %>", "<%= message %>");
-    <% else %>
-      showFlashNotification("<%= type %>", "<%= message.join(', ') %>");
-    <% end %>
+    showFlashNotification("<%= type %>", "<%= message %>");
   <% end %>
 <% end %>

@@ -49,5 +49,4 @@ module BillsHelper
       [t(status_key, scope: translations_scope), status_key]
     end
   end
-  
 end
