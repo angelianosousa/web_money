@@ -65,7 +65,7 @@ Gerar as tabelas do banco de dados
 * Se quiser rodar testes especificos você pode passar o caminho da pasta com os testes que deve rodar
 
 ~~~bash
-  rspec spec/models # Testes unitarios
+  rspec spec/models   # Testes unitarios
   rspec spec/requests # Testes de Integração
   rspec spec/services # Testes dos Services Objects
 ~~~
@@ -103,6 +103,15 @@ Docs [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)
 ## Modelagem do Banco de Dados
 
 ![Modelagem do banco de dados](web_money_diagram.png)
+
+## Gerando documentação
+
+~~~bash
+  yardoc
+  yard server
+~~~
+
+Docs [Yard](https://yardoc.org/)
 
 ## Author
 
