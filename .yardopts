@@ -1,0 +1,5 @@
+--no-private
+--readme README.md
+--yardopts yardopts
+--files spec/factories/*.rb,spec/models/*.rb,spec/requests/*.rb,spec/services/*.rb
+app/models/*.rb
