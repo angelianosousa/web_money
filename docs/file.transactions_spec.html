@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: transactions_spec
+  
+    &mdash; Documentation by YARD 0.9.34
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "transactions_spec";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: transactions_spec</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><pre class="code ruby"><span class='comment'># frozen_string_literal: true
+</span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails_helper</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='const'>RSpec</span><span class='period'>.</span><span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Transactions</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:request</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:achievement_money_managed</span><span class='rparen'>)</span>  <span class='lbrace'>{</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:achievement</span><span class='comma'>,</span> <span class='label'>level:</span> <span class='symbol'>:silver</span><span class='comma'>,</span> <span class='label'>code:</span> <span class='symbol'>:money_managed</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:achievement_money_movement</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:achievement</span><span class='comma'>,</span> <span class='label'>level:</span> <span class='symbol'>:silver</span><span class='comma'>,</span> <span class='label'>code:</span> <span class='symbol'>:money_movement</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:achievement_budget_reached</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:achievement</span><span class='comma'>,</span> <span class='label'>level:</span> <span class='symbol'>:silver</span><span class='comma'>,</span> <span class='label'>code:</span> <span class='symbol'>:budget_reached</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:user</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:user</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_user'>user</span><span class='op'>|</span>
+      <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_achievements'>achievements</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_achievement_money_managed'>achievement_money_managed</span><span class='comma'>,</span> <span class='id identifier rubyid_achievement_money_movement'>achievement_money_movement</span><span class='comma'>,</span> <span class='id identifier rubyid_achievement_budget_reached'>achievement_budget_reached</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:transaction</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:transaction</span><span class='comma'>,</span> <span class='label'>user:</span> <span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
+      <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_create_category'>create_category</span><span class='lparen'>(</span><span class='id identifier rubyid_attributes_for'>attributes_for</span><span class='lparen'>(</span><span class='symbol'>:category</span><span class='comma'>,</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_create_account'>create_account</span><span class='lparen'>(</span><span class='id identifier rubyid_attributes_for'>attributes_for</span><span class='lparen'>(</span><span class='symbol'>:account</span><span class='comma'>,</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_before'>before</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_sign_in'>sign_in</span> <span class='id identifier rubyid_user'>user</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>GET /transactions</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>User access the transaction screen</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>And see all your transactions</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_transactions_path'>transactions_path</span>
+
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_http_status'>have_http_status</span><span class='lparen'>(</span><span class='int'>200</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>POST /transactions</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:account</span><span class='rparen'>)</span>  <span class='lbrace'>{</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:account</span><span class='comma'>,</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:category</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:category</span><span class='comma'>,</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+    <span class='id identifier rubyid_context'>context</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Success Scenario</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:transaction_attributes</span><span class='rparen'>)</span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_attributes_for'>attributes_for</span><span class='lparen'>(</span><span class='symbol'>:transaction</span><span class='comma'>,</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>account_id:</span> <span class='id identifier rubyid_account'>account</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>category_id:</span> <span class='id identifier rubyid_category'>category</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+
+      <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fill the form with valid information</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>should save transaction with valid attributes</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+          <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>transaction:</span> <span class='id identifier rubyid_transaction_attributes'>transaction_attributes</span> <span class='rbrace'>}</span>
+          <span class='id identifier rubyid_post'>post</span> <span class='id identifier rubyid_transactions_path'>transactions_path</span><span class='comma'>,</span> <span class='label'>params:</span> <span class='id identifier rubyid_params'>params</span>
+
+          <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_http_status'>have_http_status</span><span class='lparen'>(</span><span class='int'>302</span><span class='rparen'>)</span>
+          <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_redirect_to'>redirect_to</span><span class='lparen'>(</span><span class='id identifier rubyid_transactions_path'>transactions_path</span><span class='rparen'>)</span>
+          <span class='id identifier rubyid_follow_redirect!'>follow_redirect!</span>
+          <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>transactions.create.success</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>GET /transactions/:id/edit</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Getting transaction update form</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_edit_transaction_path'>edit_transaction_path</span><span class='lparen'>(</span><span class='id identifier rubyid_transaction'>transaction</span><span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_http_status'>have_http_status</span><span class='lparen'>(</span><span class='int'>200</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>PATCH /transactions/:id</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_context'>context</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Success Scenario</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:transaction_attributes</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_attributes_for'>attributes_for</span><span class='lparen'>(</span><span class='symbol'>:transaction</span><span class='comma'>,</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+      <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>update transaction</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>should return success</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+          <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>transaction:</span> <span class='id identifier rubyid_transaction_attributes'>transaction_attributes</span> <span class='rbrace'>}</span>
+          <span class='id identifier rubyid_patch'>patch</span> <span class='id identifier rubyid_transaction_path'>transaction_path</span><span class='lparen'>(</span><span class='id identifier rubyid_transaction'>transaction</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>params:</span> <span class='id identifier rubyid_params'>params</span>
+
+          <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_http_status'>have_http_status</span><span class='lparen'>(</span><span class='int'>302</span><span class='rparen'>)</span>
+          <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_redirect_to'>redirect_to</span><span class='lparen'>(</span><span class='id identifier rubyid_transactions_path'>transactions_path</span><span class='rparen'>)</span>
+          <span class='id identifier rubyid_follow_redirect!'>follow_redirect!</span>
+          <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>transactions.update.success</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># context &#39;Fail Scenario&#39; do
+</span>    <span class='comment'>#   let(:transaction_attributes_invalid) { attributes_for(:transaction, :invalid)}
+</span>
+    <span class='comment'>#   it &#39;should not update transactin with invalid attributes&#39; do
+</span>    <span class='comment'>#     params = { transaction: transaction_attributes_invalid }
+</span>    <span class='comment'>#     patch transaction_path(transaction), params: params
+</span>
+    <span class='comment'>#     expect(response).to have_http_status(302)
+</span>    <span class='comment'>#     expect(response).to redirect_to(edit_transaction_path(transaction))
+</span>    <span class='comment'>#     expect(transaction).to raise ActiveRecord::RecordInvalid
+</span>    <span class='comment'>#   end
+</span>    <span class='comment'># end
+</span>  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>DELETE /transactions/:id</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>should delete transaction</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_expect'>expect</span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_transaction_path'>transaction_path</span><span class='lparen'>(</span><span class='id identifier rubyid_transaction'>transaction</span><span class='rparen'>)</span>
+      <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_change'>change</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Transaction.html" title="Transaction (class)">Transaction</a></span></span><span class='comma'>,</span> <span class='symbol'>:count</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_by'>by</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_http_status'>have_http_status</span><span class='lparen'>(</span><span class='symbol'>:redirect</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_follow_redirect!'>follow_redirect!</span>
+      <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>transactions.destroy.success</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre></div></div>
+
+      <div id="footer">
+  Generated on Thu Nov 23 01:13:00 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.34 (ruby-3.0.6).
+</div>
+
+    </div>
+  </body>
+</html>

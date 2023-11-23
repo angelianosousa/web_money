@@ -100,10 +100,6 @@ Docs [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)
   docker comopose run --rm rspec spec/<path>
 ~~~
 
-## Modelagem do Banco de Dados
-
-![Modelagem do banco de dados](web_money_diagram.png)
-
 ## Gerando documentação
 
 ~~~bash
@@ -112,6 +108,10 @@ Docs [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)
 ~~~
 
 Docs [Yard](https://yardoc.org/)
+
+## Modelagem do Banco de Dados
+
+![Modelagem do banco de dados](web_money_diagram.png)
 
 ## Author
 
