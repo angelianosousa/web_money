@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: bill_spec
+  
+    &mdash; Documentation by YARD 0.9.34
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "bill_spec";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: bill_spec</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><pre class="code ruby"><span class='comment'># frozen_string_literal: true
+</span>
+<span class='comment'># == Schema Information
+</span><span class='comment'>#
+</span><span class='comment'># Table name: bills
+</span><span class='comment'>#
+</span><span class='comment'>#  id             :bigint           not null, primary key
+</span><span class='comment'>#  bill_type      :integer
+</span><span class='comment'>#  due_pay        :date
+</span><span class='comment'>#  price_cents    :integer          default(0), not null
+</span><span class='comment'>#  price_currency :string           default(&quot;BRL&quot;), not null
+</span><span class='comment'>#  status         :integer          default(&quot;pending&quot;)
+</span><span class='comment'>#  title          :string
+</span><span class='comment'>#  created_at     :datetime         not null
+</span><span class='comment'>#  updated_at     :datetime         not null
+</span><span class='comment'>#  user_id        :bigint           not null
+</span><span class='comment'>#
+</span><span class='comment'># Indexes
+</span><span class='comment'>#
+</span><span class='comment'>#  index_bills_on_user_id  (user_id)
+</span><span class='comment'>#
+</span><span class='comment'># Foreign Keys
+</span><span class='comment'>#
+</span><span class='comment'>#  fk_rails_...  (user_id =&gt; users.id)
+</span><span class='comment'>#
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails_helper</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='const'>RSpec</span><span class='period'>.</span><span class='id identifier rubyid_describe'>describe</span> <span class='const'><span class='object_link'><a href="Bill.html" title="Bill (class)">Bill</a></span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:model</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Validations</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_it'>it</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_is_expected'>is_expected</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_belong_to'>belong_to</span><span class='lparen'>(</span><span class='symbol'>:user</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_required'>required</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_it'>it</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_is_expected'>is_expected</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_many'>have_many</span><span class='lparen'>(</span><span class='symbol'>:transactions</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_dependent'>dependent</span><span class='lparen'>(</span><span class='symbol'>:destroy</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_it'>it</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_is_expected'>is_expected</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_define_enum_for'>define_enum_for</span><span class='lparen'>(</span><span class='symbol'>:status</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_it'>it</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_is_expected'>is_expected</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_define_enum_for'>define_enum_for</span><span class='lparen'>(</span><span class='symbol'>:bill_type</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_it'>it</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_is_expected'>is_expected</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_validate_presence_of'>validate_presence_of</span><span class='lparen'>(</span><span class='symbol'>:due_pay</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#save</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_context'>context</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>when title is empty</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:bill</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='symbol'>:bill</span><span class='comma'>,</span> <span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+      <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>should not be valid</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_falsey'>be_falsey</span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span>      <span class='id identifier rubyid_include'>include</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>é obrigatório(a)</span><span class='tstring_end'>&#39;</span></span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='lbracket'>[</span><span class='symbol'>:title</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span>     <span class='id identifier rubyid_include'>include</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>não pode ficar em branco</span><span class='tstring_end'>&#39;</span></span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='lbracket'>[</span><span class='symbol'>:price</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span>     <span class='id identifier rubyid_include'>include</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deve ser maior ou igual a 1</span><span class='tstring_end'>&#39;</span></span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='lbracket'>[</span><span class='symbol'>:bill_type</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>não pode ficar em branco</span><span class='tstring_end'>&#39;</span></span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span>    <span class='id identifier rubyid_include'>include</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>não pode ficar em branco</span><span class='tstring_end'>&#39;</span></span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='lbracket'>[</span><span class='symbol'>:due_pay</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span>   <span class='id identifier rubyid_include'>include</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>não pode ficar em branco</span><span class='tstring_end'>&#39;</span></span>
+      <span class='kw'>end</span>
+
+      <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>should not save</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_falsey'>be_falsey</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_context'>context</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>when title is full</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_let'>let</span><span class='lparen'>(</span><span class='symbol'>:bill</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='symbol'>:bill</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+      <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>should be valid</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+      <span class='kw'>end</span>
+
+      <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>should be saved</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_bill'>bill</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre></div></div>
+
+      <div id="footer">
+  Generated on Thu Nov 23 00:44:32 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.34 (ruby-3.0.6).
+</div>
+
+    </div>
+  </body>
+</html>

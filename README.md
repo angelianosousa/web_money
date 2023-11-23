@@ -20,7 +20,7 @@ nos seus planos e no uso do sistema.
 * Relatórios de movimentações
 * Exportação / Importação de planilhas (Movimentações)
 
-### Dependências
+## Dependências
 
 * ruby 3.0.6
 * rails 6.0.1
@@ -29,7 +29,7 @@ nos seus planos e no uso do sistema.
 * Chartkick and groupdate for charts
 * Fontawesome 4.6.3
 
-### Construindo projeto
+## Construindo projeto
 
 Instale as dependências do projeto
 
@@ -43,20 +43,20 @@ Gerar as tabelas do banco de dados
   rails db:setup
 ~~~
 
-### Rodando projeto
+## Rodando projeto
 
 ~~~bash
   rails s -p 3000
 ~~~
 
-### Rodando projeto com docker
+### Usando docker
 
 ~~~bash
   rails s
   docker compose up web
 ~~~
 
-### Rodando os testes
+## Rodando os testes
 
 ~~~bash
   rspec
@@ -65,7 +65,7 @@ Gerar as tabelas do banco de dados
 * Se quiser rodar testes especificos você pode passar o caminho da pasta com os testes que deve rodar
 
 ~~~bash
-  rspec spec/models # Testes unitarios
+  rspec spec/models   # Testes unitarios
   rspec spec/requests # Testes de Integração
   rspec spec/services # Testes dos Services Objects
 ~~~
@@ -80,8 +80,7 @@ Docs [Rspec-rails](https://rspec.info/features/6-0/rspec-rails/)
 
 Docs [Simplecov](https://github.com/simplecov-ruby/simplecov)
 
-
-## Running Cypress
+### Testes E2E com Cypress
 
 ~~~bash
   yarn cypress install
@@ -93,13 +92,26 @@ Docs [Simplecov](https://github.com/simplecov-ruby/simplecov)
 
 Docs [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)
 
-## Executando os testes no Docker
+### Executando os testes no Docker
 
 ~~~bash
   docker compose up web
   docker compose run --rm rspec
   docker comopose run --rm rspec spec/<path>
 ~~~
+
+## Modelagem do Banco de Dados
+
+![Modelagem do banco de dados](web_money_diagram.png)
+
+## Gerando documentação
+
+~~~bash
+  yardoc
+  yard server
+~~~
+
+Docs [Yard](https://yardoc.org/)
 
 ## Author
 
