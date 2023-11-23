@@ -24,5 +24,11 @@ FactoryBot.define do
     email                 { Faker::Internet.email }
     password              { 'password' }
     password_confirmation { 'password' }
+
+    trait :invalid do
+      email                 {}
+      password              {}
+      password_confirmation {}
+    end
   end
 end

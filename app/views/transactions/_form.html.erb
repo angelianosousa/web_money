@@ -3,8 +3,14 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-        <%= form.label :price_cents %>
-        <%= form.number_field :price_cents, placeholder: 'R$0,00', class:"form-control" %>
+        <%= form.label :price %>
+        <% if data[:bill].present? %>
+          <% currency = number_to_currency(data[:bill].price, unit: '') %>
+        <% else %>
+          <% currency = number_to_currency(form.object.price, unit: '') %>
+        <% end %>
+
+        <%= form.text_field :price, value: currency, placeholder: 'R$0,00', class:"form-control" %>
       </div>
       <div class="form-group">
         <%= form.label :date %>
@@ -19,7 +25,8 @@
       </div>
       <div class='form-group'>
         <%= form.label :account_id %>
-        <%= form.select :account_id, options_for_select(accounts_options_for_select, (@transaction.account_id rescue nil)), {}, { class:'form-control' } %>
+        <% default_account = @account.present? ? @account.id : @transaction.account_id %>
+        <%= form.select :account_id, options_for_select(accounts_options_for_select, (default_account rescue nil)), {}, { class:'form-control' } %>
       </div>
     </div>
 
@@ -33,6 +40,7 @@
     <% end %>
 
     <%= form.hidden_field :move_type, value: data[:move_type] %>
+    <%= form.hidden_field :bill_id, value: data[:bill].id rescue nil %>
 
     <div class='col-md-12'>
       <div class="form-group">
@@ -44,6 +52,9 @@
 
   <div class="actions">
     <%= form.submit t('save'), class:"btn btn-primary" %>
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+    <% if params[:action] != 'edit' %>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    <% end %>
   </div>
 <% end %>

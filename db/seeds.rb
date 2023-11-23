@@ -43,12 +43,12 @@ end
 
 # Categorias
 ## Despesas
-['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet', 'Transferência saída'].each do |category|
+['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
   user.categories.find_or_create_by!(title: category, category_type: :expense)
 end
 
 ## Receitas
-['Salário', 'Serviço', 'Investimentos', 'Transferência entrada'].each do |category|
+['Salário', 'Serviço', 'Investimentos'].each do |category|
   user.categories.find_or_create_by!(title: category, category_type: :recipe)
 end
 
@@ -63,7 +63,7 @@ user.accounts.each do |account|
       account: account,
       category: category,
       move_type: category.category_type,
-      price_cents: rand(100..5000),
+      price_cents: rand(100_00..5_000_00),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
 
@@ -76,7 +76,7 @@ end
 %w[Água Energia Internet].each do |bill|
   user.bills.find_or_create_by(
     title: bill,
-    price_cents: rand(100..5000),
+    price_cents: rand(100_00..5_000_00),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
     bill_type: :expense,
     status: :pending,
@@ -88,7 +88,7 @@ end
 ['Salário', 'Investimentos', 'Renda Extra'].each do |bill|
   user.bills.find_or_create_by(
     title: bill,
-    price_cents: rand(100..5000),
+    price_cents: rand(100_00..5_000_00),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
     bill_type: :recipe,
     status: :pending,
@@ -108,7 +108,7 @@ user.bills.each do |bill|
       account: user.accounts.sample,
       category: category,
       move_type: category.category_type,
-      price_cents: rand(100..5000),
+      price_cents: rand(100_00..5_000_00),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
 
@@ -120,7 +120,7 @@ end
 ['Reserva de Emergência', 'Aposentadoria', 'Carro Novo'].each do |e|
   user.budgets.find_or_create_by!(
     objective_name: e,
-    goals_price_cents: rand(5000..99_999),
+    goals_price_cents: rand(1_000_00..99_000_00),
     date_limit: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today.end_of_year)
   )
 end
@@ -138,7 +138,7 @@ user.budgets.each do |budget|
       category: category,
       budget: budget,
       move_type: category.category_type,
-      price_cents: rand(100..5000),
+      price_cents: rand(100_00..5_000_00),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
   end

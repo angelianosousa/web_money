@@ -6,9 +6,9 @@
         codes:
           money_managed: Gestão consciente
           budget_reached: Batendo metas
-          bill_in_day: Contas em dia
+          bill_in_day: Pagamentos em dia
           profile_time: Cuidando do dinheiro
-          money_movement: Conta movimentada
+          money_movement: Dinheiro movimentado
         levels:
           silver: Level Prata
           golden: Level Ouro

@@ -32,15 +32,6 @@ class BillsController < ApplicationController
     end
   end
 
-  def new_transaction
-    @bill = find_bill_by(params.delete(:bill_id))
-    set_warning_flash_if_bill_already_paid
-
-    @result = create_payment if @bill.pending?
-
-    handle_new_transaction
-  end
-
   # PATCH/PUT /bills/1 or /bills/1.json
   def update
     respond_to do |format|
@@ -71,11 +62,11 @@ class BillsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def bill_params
-    params.require(:bill).permit(:user_id, :title, :price_cents, :due_pay, :bill_type, :status)
+    params.require(:bill).permit(:user_id, :title, :price, :due_pay, :bill_type, :status)
   end
 
   def transaction_params
-    params.require(:transaction).permit(:account_id, :category_id, :user_id, :description, :price_cents, :date)
+    params.require(:transaction).permit(:account_id, :category_id, :user_id, :description, :price, :date)
   end
 
   def handle_new_transaction
@@ -84,17 +75,5 @@ class BillsController < ApplicationController
     else
       flash.now[:danger] = @bill.errors.full_messages.to_sentence
     end
-  end
-
-  def set_warning_flash_if_bill_already_paid
-    flash.now[:warning] = t('.bill_paid') if @bill.paid?
-  end
-
-  def create_payment
-    CreatePayment.call(current_user, @bill, params)
-  end
-
-  def find_bill_by(params)
-    current_user.bills.find(params)
   end
 end

@@ -50,9 +50,8 @@ class Transaction < ApplicationRecord
 
   # Validations
   validates :date, presence: true
-  validates :price_cents, presence: true, numericality: { greater_than_or_equal_to: 1 }
+  validates :price, numericality: { greater_than_or_equal_to: 1 }
   validate :validate_expense, if: :excharge_valid?
-  validates :account_id, presence: true
 
   # Callbacks
   after_save :check_deposit
@@ -65,14 +64,14 @@ class Transaction < ApplicationRecord
   def check_deposit
     return unless recipe?
 
-    account.price_cents += price_cents.to_f
+    account.price_cents += price_cents
     account.save
   end
 
   def check_excharge
     return unless expense?
 
-    account.price_cents -= price_cents.to_f
+    account.price_cents -= price_cents
     account.save
   end
 
@@ -105,7 +104,7 @@ class Transaction < ApplicationRecord
   def excharge_valid?
     return if recipe? || transfer? || account.nil?
 
-    account.price_cents < price_cents.to_f
+    account.price_cents.to_f < price_cents.to_f
   end
 
   # Must be error if are recipe or are expense value is higher that account amount

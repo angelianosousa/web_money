@@ -4,15 +4,16 @@
     attributes:
       transaction:
         description: Descrição
-        price_cents: Valor
+        price: Valor
         date: Dia do pagamento
         category_id: Categoria
         bill_id: Pag. Recorrente
-        account_id: Conta
+        account_id: Banco
         budget_id: Meta
       errors:
         models:
-          invalid_movement: Conta %{account_title} não possui saldo suficiente.
+          invalid_movement: Banco %{account_title} não possui saldo suficiente.
+          invalid_bill_movement:  "Pag. Recorrente: %{bill_title} já foi pago!"
           transaction:
             one: Transação
             other: Transações

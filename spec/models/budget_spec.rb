@@ -31,8 +31,16 @@ RSpec.describe Budget, type: :model do
     it { is_expected.to have_many(:transactions).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:objective_name) }
     it { is_expected.to validate_uniqueness_of(:objective_name).scoped_to(:user_id) }
-    it { is_expected.to validate_presence_of(:goals_price_cents) }
-    it { is_expected.to validate_numericality_of(:goals_price_cents) }
+  end
+
+  let(:achievement_money_managed)  { create(:achievement, level: :silver, code: :money_managed) }
+  let(:achievement_money_movement) { create(:achievement, level: :silver, code: :money_movement) }
+  let(:achievement_budget_reached) { create(:achievement, level: :silver, code: :budget_reached) }
+
+  let(:user) do
+    create(:user) do |u|
+      u.achievements << [achievement_money_managed, achievement_money_movement, achievement_budget_reached]
+    end
   end
 
   describe '#save' do
@@ -41,9 +49,8 @@ RSpec.describe Budget, type: :model do
 
       it 'should not be valid' do
         expect(budget.valid?).to be_falsey
-        expect(budget.errors.messages[:user]).to              include 'é obrigatório(a)'
-        expect(budget.errors.messages[:objective_name]).to    include 'não pode ficar em branco'
-        expect(budget.errors.messages[:goals_price_cents]).to include 'não pode ficar em branco', 'não é um número'
+        expect(budget.errors.messages[:user]).to           include 'é obrigatório(a)'
+        expect(budget.errors.messages[:objective_name]).to include 'não pode ficar em branco'
       end
 
       it 'should not save' do
@@ -61,6 +68,29 @@ RSpec.describe Budget, type: :model do
       it 'should be saved' do
         expect(budget.save).to be_truthy
       end
+    end
+  end
+
+  describe '#finished' do
+    let(:budget) { create(:budget, user: user, goals_price: 100_00) }
+    let(:transactions) { create_list(:transaction, 2, user: user, budget: budget, price: 50_00) }
+
+    it 'return budget with 100 progress' do
+      budget.reload
+      transactions.first.reload
+
+      budgets_finished = Budget.finished(user)
+      expect(budgets_finished.count).to eq(1)
+      expect(budgets_finished.first.progress).to eq(100)
+      expect(budget.transactions.count).to eq(2)
+    end
+
+    let(:budget_unfineshed) { create(:budget, user: user, goals_price: 100_00) }
+
+    it 'return zero budgets' do
+      budgets_finished = Budget.finished(user)
+
+      expect(budgets_finished.count.zero?).to be_truthy
     end
   end
 end

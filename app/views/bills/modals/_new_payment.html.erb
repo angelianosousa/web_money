@@ -9,53 +9,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= form_with(url: bill_new_transaction_path(bill), local: false) do |form| %>
-
-          <%= form.hidden_field :bill_id, value: bill %>
-
-          <div class="row">
-            <div class="col-md-6 col-xl-6 col-sm-6">
-              <div class="form-group">
-                <%= form.label :price_cents, Transaction.human_attribute_name(:price_cents) %>
-                <%= form.number_field :price_cents, step: :any, value: bill.price_cents, class:"form-control" %>
-              </div>
-              <div class="form-group">
-                <%= form.label :date %>
-                <%= form.date_field :date, class:"form-control", min: Date.today.beginning_of_month, value: Date.today %>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-6 col-sm-6">
-              <div class="form-group">
-                <%= form.label :category_id %>
-                <%= form.select :category_id, options_for_select(category_options_for_select(bill.bill_type), (@transaction.category_id rescue nil)), {}, {class:"form-control"} %>
-              </div>
-              <div class='form-group'>
-                <%= form.label :account_id %>
-                <%= form.select :account_id, accounts_options_for_select, {}, { class:'form-control' } %>
-              </div>
-            </div>
-            <div class='col-md-12'>
-              <div class="form-group">
-                <%= form.label :description %>
-                <%= form.text_area :description, class:"form-control" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="actions">
-            <%= form.submit t('save'), class:"btn btn-primary", form_id: 'form_transaction' %>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-          </div>
-        <% end %>
+        <%= render 'transactions/form', transaction: @transaction, data: { local: local, bill: bill, move_type: bill.bill_type } %>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-  $('#paymentModal_<%= bill.id %>').on('show.bs.modal', function () {
-    $('#bill_id').val('<%= bill.id %>');
-    $('#price_cents').val('<%= bill.price_cents %>');
-    $('#price_cents').trigger('focus');
-  })
-</script>

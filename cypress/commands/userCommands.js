@@ -1,5 +1,6 @@
 Cypress.Commands.add("loginSuccessfully", () => {
   cy.visit("http://localhost:3000/users/sign_in");
+  // cy.visit();
 
   cy.get('input[placeholder="Email"]').type("user@user.com");
   cy.get('input[placeholder="Sua senha"]').type("user123");

@@ -4,15 +4,16 @@
 #
 # Table name: bills
 #
-#  id          :bigint           not null, primary key
-#  bill_type   :integer
-#  due_pay     :date
-#  price_cents :decimal(, )
-#  status      :integer          default("pending")
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :bigint           not null
+#  id             :bigint           not null, primary key
+#  bill_type      :integer
+#  due_pay        :date
+#  price_cents    :integer          default(0), not null
+#  price_currency :string           default("BRL"), not null
+#  status         :integer          default("pending")
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :bigint           not null
 #
 # Indexes
 #
@@ -24,20 +25,20 @@
 #
 FactoryBot.define do
   factory :bill do
-    user_id { create(:user).id }
-    title       { Faker::Lorem.word }
-    price_cents { rand(100..5000) }
-    due_pay     { Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today) }
-    bill_type   { %w[recipe expense].sample }
-    status      { 'pending' }
+    user_id   { create(:user).id }
+    title     { Faker::Lorem.word }
+    price     { rand(100..5000) }
+    due_pay   { Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today) }
+    bill_type { %w[recipe expense].sample }
+    status    { 'pending' }
 
     trait :invalid do
-      user_id     {}
-      title       {}
-      price_cents {}
-      due_pay     {}
-      bill_type   {}
-      status      {}
+      user_id   {}
+      title     {}
+      price     {}
+      due_pay   {}
+      bill_type {}
+      status    {}
     end
   end
 end

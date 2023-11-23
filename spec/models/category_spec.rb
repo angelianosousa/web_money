@@ -38,8 +38,8 @@ RSpec.describe Category, type: :model do
 
       it 'should not be valid' do
         expect(category.valid?).to be_falsey
-        expect(category.errors.messages[:user]).to include 'é obrigatório(a)'
-        expect(category.errors.messages[:title]).to        include 'não pode ficar em branco'
+        expect(category.errors.messages[:user]).to  include 'é obrigatório(a)'
+        expect(category.errors.messages[:title]).to include 'não pode ficar em branco'
       end
 
       it 'should not save' do

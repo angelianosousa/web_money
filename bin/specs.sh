@@ -2,7 +2,7 @@
 set -e
 
 bundle check || bundle install
-bundle exec rails db:create db:migrate
+bundle exec rails db:drop db:create db:migrate
 
 echo "    ______     ______     ______   ______     ______       "
 echo "   /\  == \   /\  ___\   /\  == \ /\  ___\   /\  ___\      "

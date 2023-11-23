@@ -39,14 +39,16 @@ class User < ApplicationRecord
   has_many :achievements, -> { order(:code) }, through: :profile_achievements, dependent: :destroy
 
   def building_profile
-    User.transaction do
-      accounts.create(title: 'Banco X', price_cents: 0)
-      accounts.create(title: 'Banco Y', price_cents: 0)
+    ActiveRecord::Base.transaction do
+      accounts.create(title: 'Banco X', price: 0)
+      accounts.create(title: 'Banco Y', price: 0)
 
       categories.create(title: 'Despesa X', category_type: 'expense')
       categories.create(title: 'Receita X', category_type: 'recipe')
 
-      self.achievements = Achievement.all
+      Achievement.all.each do |achieve|
+        profile_achievements.create(achievement: achieve, points_reached: 0)
+      end
     end
   rescue ActiveRecord::RecordInvalid => e
     p e.message

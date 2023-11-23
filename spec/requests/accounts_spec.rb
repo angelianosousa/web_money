@@ -93,7 +93,7 @@ RSpec.describe 'Accounts', type: :request do
       end
 
       describe 'When given a amount minor than 0' do
-        let(:account_with_amount_negative) { attributes_for(:account, user: user, price_cents: -1) }
+        let(:account_with_amount_negative) { attributes_for(:account, user: user, price: -1) }
 
         it 'should return account invalid' do
           params = { account: account_with_amount_negative }
@@ -120,13 +120,13 @@ RSpec.describe 'Accounts', type: :request do
   end
 
   describe 'POST /accounts/transfer_between_accounts' do
-    let(:account_out) { create(:account, user: user, price_cents: 1000) }
+    let(:account_out) { create(:account, user: user, price: 1000) }
 
     context 'Success Scenario' do
       it 'User fil form with valid information' do
         params = {
           user: user,
-          price_cents: 500,
+          price: 500,
           account_id_in: account.id,
           account_id_out: account_out.id
         }
@@ -146,7 +146,7 @@ RSpec.describe 'Accounts', type: :request do
         it 'Movement should get error for same account' do
           params = {
             user: user,
-            price_cents: 100,
+            price: 100,
             account_id_in: new_account.id,
             account_id_out: new_account.id
           }
@@ -159,22 +159,22 @@ RSpec.describe 'Accounts', type: :request do
       end
 
       describe 'when user get more money than available on account' do
-        let(:account_out) { create(:account, user: user, price_cents: 100) }
+        let(:new_account_out) { create(:account, user: user, price: 100) }
 
         it 'Should get a error for amount insufficient' do
           params = {
             user: user,
-            price_cents: 200,
+            price: 200_00,
             account_id_in: account.id,
-            account_id_out: account_out.id
+            account_id_out: new_account_out.id
           }
 
           post transfer_between_accounts_accounts_path, params: params
           expect(response).to have_http_status(302)
           follow_redirect!
-          # byebug
+
           message = I18n.t('accounts.transfer_between_accounts.errors.insufficient_amount',
-                           account_title: account_out.title)
+                           account_title: new_account_out.title)
           expect(response.body).to include message
         end
       end

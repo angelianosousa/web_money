@@ -19,7 +19,7 @@
       <div class='card mb-3'>
         <div class='card-body text-center'>
           <%= fontawesome_icon('', 'fa fa-refresh', 'font-size: 45px;') %>
-          <h3 class="display-5">Adicionar Pag. Recorrente</h3>
+          <h3 class="display-5"><%= t('add_bill') %></h3>
           <%= modal_to_new_resource('', target: '#newBillModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
         </div>
       </div>
@@ -39,7 +39,7 @@
               </div>
 
               <div class='d-flex flex-row justify-content-between align-items-center'>
-                <span style='font-size: 20px;'><%= humanized_money_with_symbol(bill.price_cents) %></span>
+                <span style='font-size: 20px;'><%= humanized_money_with_symbol(bill.price) %></span>
                 <span id="bill_status<%= bill.id %>"><%= bill_payment(bill.status) %></span>
               </div>
 
@@ -51,7 +51,7 @@
           </div>
         </div>
 
-        <%= render partial: "bills/modals/new_payment", locals: { bill: bill } %>
+        <%= render partial: "bills/modals/new_payment", locals: { transaction: @transaction = current_user.transactions.build, local: false, bill: bill } %>
       <% end %>
     </div>
 

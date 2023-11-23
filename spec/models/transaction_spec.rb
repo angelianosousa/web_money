@@ -46,10 +46,7 @@ RSpec.describe Transaction, type: :model do
     it { is_expected.to belong_to(:budget).optional }
     it { is_expected.to belong_to(:bill).optional }
 
-    it { is_expected.to validate_presence_of(:price_cents) }
     it { is_expected.to validate_presence_of(:date) }
-
-    it { is_expected.to validate_numericality_of(:price_cents) }
     it { is_expected.to define_enum_for(:move_type) }
   end
 
@@ -63,7 +60,7 @@ RSpec.describe Transaction, type: :model do
     end
   end
 
-  let(:account)          { create(:account, price_cents: 1000, user: user) }
+  let(:account)          { create(:account, price: 1000, user: user) }
   let(:category_recipe)  { create(:category, category_type: :recipe, user: user) }
   let(:category_expense) { create(:category, category_type: :expense, user: user) }
 
@@ -74,17 +71,16 @@ RSpec.describe Transaction, type: :model do
 
         it 'should not be valid' do
           expect(transaction.valid?).to be_falsey
-          expect(transaction.errors.messages[:account]).to      include 'é obrigatório(a)'
-          expect(transaction.errors.messages[:user]).to         include 'é obrigatório(a)'
-          expect(transaction.errors.messages[:price_cents]).to  include 'não é um número'
-          expect(transaction.errors.messages[:price_cents]).to  include 'não pode ficar em branco'
-          expect(transaction.errors.messages[:date]).to         include 'não pode ficar em branco'
+          expect(transaction.errors.messages[:account]).to include 'é obrigatório(a)'
+          expect(transaction.errors.messages[:user]).to    include 'é obrigatório(a)'
+          expect(transaction.errors.messages[:price]).to   include 'deve ser maior ou igual a 1'
+          expect(transaction.errors.messages[:date]).to    include 'não pode ficar em branco'
         end
       end
 
       context 'when a expense are higher than value in accout' do
         let(:transaction) do
-          build(:transaction, account_id: account.id, move_type: :expense, price_cents: 1001, user_id: user.id)
+          build(:transaction, account_id: account.id, move_type: :expense, price: 1001, user_id: user.id)
         end
 
         it 'should not be valid' do
@@ -162,7 +158,7 @@ RSpec.describe Transaction, type: :model do
   describe '.check_excharge' do
     context 'Fail scenario' do
       let(:transaction) do
-        build(:transaction, price_cents: 1001, move_type: :expense, category: category_expense, account: account,
+        build(:transaction, price: 1001, move_type: :expense, category: category_expense, account: account,
                             user: user)
       end
 
@@ -177,14 +173,6 @@ RSpec.describe Transaction, type: :model do
         transaction.check_excharge
         account.reload
         expect(transaction.expense?).to be_truthy
-        expect(account.price_cents).to eq(current_value)
-      end
-
-      it 'should not save a recipe movement' do
-        current_value = account.price_cents
-        transaction.check_excharge
-        account.reload
-
         expect(account.price_cents).to eq(current_value)
       end
     end

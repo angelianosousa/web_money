@@ -62,7 +62,7 @@ class TransactionsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def transaction_params
     params.require(:transaction).permit(:account_id, :category_id, :bill_id, :budget_id, :user_id,
-                                        :description, :price_cents, :date, :move_type)
+                                        :description, :price, :date, :move_type)
   end
 
   def set_default_search_params
@@ -71,6 +71,6 @@ class TransactionsController < ApplicationController
 
   def perform_search
     @q = current_user.transactions.ransack(params[:q])
-    @transactions = @q.result.order(created_at: :desc).group_by(&:date) # .page(params[:page]).per(5)
+    @transactions = @q.result.order(date: :desc).group_by(&:date)
   end
 end

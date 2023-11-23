@@ -30,13 +30,12 @@ class Budget < ApplicationRecord
   monetize :goals_price_cents
   register_currency :brl
 
-  validates :goals_price_cents, presence: true,
-                                numericality: { greater_or_equal_than: 1 }
+  validates :goals_price, numericality: { greater_or_equal_than: 1 }
 
   validates :objective_name, presence: true, uniqueness: { scope: :user_id }
 
   def title
-    "#{Money.from_amount(goals_price_cents).format} | #{objective_name}"
+    "#{Money.from_cents(goals_price).format} | #{objective_name}"
   end
 
   def progress
@@ -45,8 +44,8 @@ class Budget < ApplicationRecord
 
   def self.finished(user)
     budgets = []
-    budgets.push user.budgets.map do |b|
-      return b if b.progress.round(2) >= 100
+    user.budgets.map do |b|
+      return budgets.push b if b.progress.round(2) >= 100
     end
 
     budgets

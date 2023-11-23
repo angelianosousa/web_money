@@ -1,15 +1,7 @@
 # frozen_string_literal: true
 
 # Helper
-module UserProfileHelper
-  def flash_class(level)
-    if level == 'notice'
-      'success'
-    else
-      'danger'
-    end
-  end
-
+module UsersHelper
   def achieve_icon(achieve)
     icon_mapping = {
       'money_movement' => 'fa-solid fa-money-bill-transfer',

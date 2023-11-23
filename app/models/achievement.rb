@@ -44,8 +44,6 @@ class Achievement < ApplicationRecord
 
   def profile_achieve_points(current_user, achieve)
     current_user.profile_achievements.find_by(achievement: achieve).points_reached
-
-    # ProfileAchievement.find_by(user: current_user, achievement: achieve).points_reached
   end
 end
 

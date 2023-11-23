@@ -50,7 +50,8 @@ class TransferBetweenAccounts < ApplicationService
   def accounts_equals?
     return false unless @params[:account_id_in] == @params[:account_id_out]
 
-    @user.errors.add :base, :transfer_invalid, message: 'Transferência inválida, tem de selecionar contas diferentes.'
+    message = I18n.t('accounts.transfer_between_accounts.errors.same_account')
+    @user.errors.add :base, :transfer_invalid, message: message
   end
 
   def account_out
@@ -62,15 +63,16 @@ class TransferBetweenAccounts < ApplicationService
   end
 
   def invalid_excharge
-    return false unless account_out.price_cents < @params[:price_cents].to_f
+    # byebug
+    return false unless account_out.price < Money.new(@params[:price])
 
-    @user.errors.add :base, :transfer_invalid,
-                     message: "Transferência inválida, #{account_out.title} não possui saldo suficiente"
+    message = I18n.t('accounts.transfer_between_accounts.errors.insufficient_amount', account_title: account_out.title)
+    @user.errors.add :base, :transfer_invalid, message: message
   end
 
   def transaction_params
     {
-      price_cents: @params[:price_cents],
+      price: @params[:price],
       description: @params[:description],
       move_type: :transfer,
       date: Date.today.to_datetime
