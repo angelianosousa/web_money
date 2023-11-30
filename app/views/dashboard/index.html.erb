@@ -1,8 +1,7 @@
 <div class='container' style="padding-bottom: 70px;">
 
   <nav class="navbar navbar-light">
-    <% balance = humanized_money_with_symbol(current_profile.accounts.sum(:price_cents)) %>
-    <%= navbrand_link(t('.title', balance: balance)) %>
+    <%= navbrand_link(t('.title', balance: Money.from_cents(@current_balance).format)) %>
 
     <div class='d-flex justify-content-center align-items-center'>
 
@@ -41,16 +40,16 @@
   </div>
   
   <div class="row-lg">
-    <% if current_profile.transactions.any? %>
+    <% if current_user.transactions.any? %>
       <%= render 'tile_dashboard' %><br>
       <%= render 'chart_cards' %>
     <% else %>
-      <%= render 'information_for_new_users' %>
+      <%= render 'shared/how_webmoney_works' %>
     <% end %>
   </div>
 </div>
 
-<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
-<%= render partial: "transactions/modals/new_recipe",  locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
-<%= render partial: "accounts/modals/new_account",     locals: { account: @account = current_profile.accounts.new, local: false } %>
-<%= render partial: "bills/modals/new_bill",           locals: { bill: @bill = current_profile.bills.new, local: false } %>
+<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_user.transactions.new, local: false, account: @account = nil } %>
+<%= render partial: "transactions/modals/new_recipe",  locals: { transaction: @transaction = current_user.transactions.new, local: false, account: @account = nil } %>
+<%= render partial: "accounts/modals/new_account",     locals: { account: @account = current_user.accounts.new, local: false } %>
+<%= render partial: "bills/modals/new_bill",           locals: { bill: @bill = current_user.bills.new, local: false } %>

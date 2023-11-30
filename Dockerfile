@@ -1,4 +1,4 @@
-FROM ruby:3.0.5 AS builder
+FROM ruby:3.0.6 AS builder
 
 ARG RAILS_ENV
 ENV RACK_ENV=$RAILS_ENV
@@ -11,15 +11,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   nodejs && gem install -N bundler && gem install rubocop
 
 RUN adduser --disabled-password --gecos "" webmoney
-USER webmoney
 WORKDIR /home/webmoney/web
+RUN mkdir -p /node_modules && chown -R webmoney:webmoney ./
+USER webmoney
 
 COPY --chown=webmoney Gemfile Gemfile.lock ./
 COPY --chown=webmoney package.json ./
-RUN if [[ "$RAILS_ENV" == "production" ]]; then bundle install --without development test; else bundle install; fi
-RUN npm install && bundle exec rails assets:precompile
+RUN npm install
 
 COPY --chown=webmoney . .
+RUN if [[ "$RAILS_ENV" == "production" ]]; then bundle install --without development test; else bundle install; fi
+RUN bundle exec rails assets:precompile
 
 FROM builder AS test
 

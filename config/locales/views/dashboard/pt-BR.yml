@@ -2,14 +2,14 @@
 'pt-BR':
   dashboard:
     index:
-      title: Dashboard | Balanço %{balance}
+      title: Dashboard | Saldo %{balance}
     modals:
       new_account:
-        title: Nova conta
+        title: Nova banco
       new_transaction:
         title: Nova movimentação
       new_bill:
-        title: Nova recorrência
+        title: Nova Pag. Recorrente
     search_filter:
       category: Por categoria
       price: Preço (R$)
@@ -20,15 +20,15 @@
       recipes: Receitas
       expenses: Despesas
       categories: Categorias
-      accounts: Minhas contas
-      bills: Recorrências
+      accounts: Meus bancos
+      bills: Pag. Recorrentes
       days: Dias
       value: Valor (R$)
     tile_dashboard:
-      current_balance: Balanço
+      current_balance: Saldo
       total_recipes: Receitas
       total_expenses: Despesas
     create_transaction:
       success: Movimentação criada com sucesso!!
     create_account:
-      success: Conta criada com sucesso!!
+      success: Banco criado com sucesso!!

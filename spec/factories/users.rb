@@ -10,6 +10,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  username               :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -20,8 +21,14 @@
 #
 FactoryBot.define do
   factory :user do
-    email { Faker::Internet.email }
-    password { 'password' }
+    email                 { Faker::Internet.email }
+    password              { 'password' }
     password_confirmation { 'password' }
+
+    trait :invalid do
+      email                 {}
+      password              {}
+      password_confirmation {}
+    end
   end
 end

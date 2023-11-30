@@ -9,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 achievements = [
-  'Movemente a plataforma e com isso construa o hábito de acompanhar suas finanças regularmente.',
+  'Movimente a plataforma e com isso construa o hábito de acompanhar suas finanças regularmente.',
   'Acumule pontos conforme sua receita aumenta',
   'Cada meta batida significa uma superação.',
   'Continue pagando suas contas em dia',
@@ -36,104 +36,111 @@ Achievement.create(description: achievements[2], code: :budget_reached, level: :
 # Achievement.create(description: achievements[4], code: :profile_time, points: 3)
 # Achievement.create(description: achievements[4], code: :profile_time, points: 5)
 
-User.create(email: 'user@user.com', password: 'user123', password_confirmation: 'user123')
-
-user_profile = User.last.user_profile
+user = User.find_or_create_by(email: 'user@user.com') do |u|
+  u.password = 'user123'
+  u.password_confirmation = 'user123'
+end
 
 # Categorias
 ## Despesas
-['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet', 'Transferência saída'].each do |category|
-  user_profile.categories.find_or_create_by!(title: category, user_profile: user_profile, category_type: :expense)
+['Casa', 'Transporte', 'Alimentação', 'Supermercado', 'Internet'].each do |category|
+  user.categories.find_or_create_by!(title: category, category_type: :expense)
 end
 
 ## Receitas
-['Salário', 'Serviço', 'Investimentos', 'Transferência entrada'].each do |category|
-  user_profile.categories.find_or_create_by!(title: category, user_profile: user_profile, category_type: :recipe)
+['Salário', 'Serviço', 'Investimentos'].each do |category|
+  user.categories.find_or_create_by!(title: category, category_type: :recipe)
 end
 
 # Contas
-user_profile.accounts.each do |account|
-  250.times do
-    category = user_profile.categories.sample
+user.accounts.each do |account|
+  25.times do
+    category = user.categories.sample
 
-    user_profile.transactions.create(
+    user.transactions.build(
       description: Faker::Lorem.question(word_count: rand(2..5)),
-      user_profile: user_profile,
+      user: user,
       account: account,
       category: category,
-      price_cents: rand(100..5000),
+      move_type: category.category_type,
+      price_cents: rand(100_00..5_000_00),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
+
+    user.save
   end
 end
 
-# Recorrências
+# Pag. Recorrentes
 ## Despesas
 %w[Água Energia Internet].each do |bill|
-  user_profile.bills.create(
+  user.bills.find_or_create_by(
     title: bill,
-    price_cents: rand(100..5000),
+    price_cents: rand(100_00..5_000_00),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
     bill_type: :expense,
     status: :pending,
-    user_profile: user_profile
+    user: user
   )
 end
 
 ## Receitas
 ['Salário', 'Investimentos', 'Renda Extra'].each do |bill|
-  user_profile.bills.create(
+  user.bills.find_or_create_by(
     title: bill,
-    price_cents: rand(100..5000),
+    price_cents: rand(100_00..5_000_00),
     due_pay: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today),
     bill_type: :recipe,
     status: :pending,
-    user_profile: user_profile
+    user: user
   )
 end
 
-## Transações das recorrências
-user_profile.bills.each do |bill|
-  100.times do
-    category = user_profile.categories.sample
+## Transações dos Pag. Recorrentes
+user.bills.each do |bill|
+  10.times do
+    category = user.categories.sample
 
-    Transaction.create!(
+    transaction = Transaction.new(
       description: Faker::Lorem.question(word_count: rand(2..5)),
-      user_profile: user_profile,
+      user: user,
       bill: bill,
-      account: user_profile.accounts.sample,
+      account: user.accounts.sample,
       category: category,
-      price_cents: rand(100..5000),
+      move_type: category.category_type,
+      price_cents: rand(100_00..5_000_00),
       date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
     )
+
+    transaction.save
   end
 end
 
 # Meta
 ['Reserva de Emergência', 'Aposentadoria', 'Carro Novo'].each do |e|
-  Budget.create!(
+  user.budgets.find_or_create_by!(
     objective_name: e,
-    goals_price_cents: rand(5000..99_999),
-    date_limit: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today.end_of_year),
-    user_profile: user_profile
+    goals_price_cents: rand(1_000_00..99_000_00),
+    date_limit: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today.end_of_year)
   )
 end
 
 ## Transações das metas
 
-user_profile.budgets.each do |budget|
-  category = user_profile.categories.recipes.sample
+user.budgets.each do |budget|
+  category = user.categories.recipes.sample
 
-    10.times do
-      Transaction.create!(
-        description: Faker::Lorem.question(word_count: rand(2..5)),
-        user_profile: user_profile,
-        account: user_profile.accounts.sample,
-        category: category,
-        budget: budget,
-        price_cents: rand(100..5000),
-        date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
-      )
-    end
+  10.times do
+    Transaction.create!(
+      description: Faker::Lorem.question(word_count: rand(2..5)),
+      user: user,
+      account: user.accounts.sample,
+      category: category,
+      budget: budget,
+      move_type: category.category_type,
+      price_cents: rand(100_00..5_000_00),
+      date: Faker::Date.between(from: 12.month.ago.beginning_of_month, to: Date.today)
+    )
   end
+end
 

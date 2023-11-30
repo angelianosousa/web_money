@@ -14,17 +14,29 @@ module TransactionsHelper
   end
 
   def value_style(transaction)
-    symbol = transaction.category.recipe? ? ['fa fa-arrow-up'] : ['fa fa-arrow-down']
+    if transaction.recipe?
+      symbol = 'fa fa-arrow-up'
+      color = 'green'
+    end
+    if transaction.expense?
+      symbol = 'fa fa-arrow-down'
+      color = 'red'
+    end
+    if transaction.transfer?
+      symbol = 'fa fa-exchange'
+      color = 'blue'
+    end
 
-    content_tag :span, class: symbol.to_s, id: "transaction#{transaction.id}" do
-      humanized_money_with_symbol(transaction.price_cents).to_s
+    content_tag :span, class: symbol.to_s, id: "transaction#{transaction.id}",
+                       style: "color: #{color};font-family: Poppins; font-size: 15px." do
+      humanized_money_with_symbol(transaction.price).to_s
     end
   end
 
   def balance_for_that_day(day)
-    recipes  = current_profile.transactions.recipes.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
-    expenses = current_profile.transactions.expenses.where('date <= ?', day.to_datetime.end_of_day).sum(:price_cents)
+    recipes  = current_user.transactions.recipes.where('date <= ?', day.end_of_day).sum(:price_cents)
+    expenses = current_user.transactions.expenses.where('date <= ?', day.end_of_day).sum(:price_cents)
 
-    (recipes - expenses)
+    Money.from_cents(recipes - expenses).format
   end
 end

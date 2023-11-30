@@ -55,4 +55,4 @@
 
 </div>
 
-<%= render partial: "#{params[:controller]}/modals/new", locals: { budget: @budget = current_profile.budgets.build } %>
+<%= render partial: "#{params[:controller]}/modals/new", locals: { budget: @budget = current_user.budgets.build } %>

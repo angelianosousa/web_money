@@ -9,7 +9,7 @@ class TransactionsController < ApplicationController
     set_default_search_params
     perform_search
 
-    @balance = current_profile.accounts.sum(:price_cents)
+    @balance = current_user.accounts.sum(:price_cents)
     @transactions = Kaminari.paginate_array(@transactions.to_a).page(params[:page]).per(5)
   end
 
@@ -18,11 +18,11 @@ class TransactionsController < ApplicationController
 
   # POST /transactions or /transactions.json
   def create
-    @transaction = CreateTransaction.call(current_profile, transaction_params)
+    @transaction = CreateTransaction.call(current_user, transaction_params)
 
     respond_to do |format|
-      if @transaction.errors.none?
-        handle_successful_creation(format, transactions_path, @transaction)
+      if @transaction.save
+        handle_successful_creation(format, transactions_url, @transaction)
       else
         handle_failed_creation(format, transactions_url, @transaction)
       end
@@ -35,7 +35,7 @@ class TransactionsController < ApplicationController
       if @transaction.update(transaction_params)
         handle_successful_update(format, transactions_url, @transaction)
       else
-        handle_failed_update(format, transactions_url, @transaction)
+        handle_failed_update(format, edit_transaction_url(@transaction), @transaction)
       end
     end
   end
@@ -56,21 +56,21 @@ class TransactionsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_transaction
-    @transaction = current_profile.transactions.find(params[:id])
+    @transaction = current_user.transactions.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def transaction_params
-    params.require(:transaction).permit(:account_id, :category_id, :bill_id, :budget_id, :user_profile_id,
-                                        :description, :price_cents, :date)
+    params.require(:transaction).permit(:account_id, :category_id, :bill_id, :budget_id, :user_id,
+                                        :description, :price, :date, :move_type)
   end
 
   def set_default_search_params
-    params[:q] ||= { user_profile_id_eq: current_profile.id }
+    params[:q] ||= { user_id_eq: current_user.id }
   end
 
   def perform_search
-    @q = current_profile.transactions.ransack(params[:q])
-    @transactions = @q.result.order(created_at: :desc).group_by(&:date) # .page(params[:page]).per(5)
+    @q = current_user.transactions.ransack(params[:q])
+    @transactions = @q.result.order(date: :desc).group_by(&:date)
   end
 end

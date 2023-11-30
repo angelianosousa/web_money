@@ -1,6 +1,6 @@
 <%= fontawesome_icon('', 'fa fa-money-bill-transfer', 'font-size: 45px;') %>
 <h3 class="display-5">Sem movimentações ainda...</h3>
-<p class="lead">Adicione a primeira aqui</p>
+<p class="lead"><%= t('add_first') %></p>
 <div class='d-flex flex-row justify-content-center'>
   <%= link_to '#', class: 'btn btn-outline-success btn-md btn-round', data: { toggle: 'modal', target: '#newRecipeModal' }, style: 'width:120px' do %>
     <span class='icon'>

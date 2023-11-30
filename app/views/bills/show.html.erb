@@ -7,7 +7,7 @@
           <h4 class='ml-2'><%= t '.title', bill: @bill.title %> </h4>
         </span>
 
-        <p style='font-size: 15px;'><strong><%= Bill.human_attribute_name :price_cents %></strong>: <%= humanized_money_with_symbol @bill.price_cents %></p>
+        <p style='font-size: 15px;'><strong><%= Bill.human_attribute_name :price_cents %></strong>: <%= humanized_money_with_symbol @bill.price %></p>
         <p style='font-size: 15px;'><strong><%= Bill.human_attribute_name :due_pay %></strong>: <%= l @bill.due_pay, format: :short %></p>
       </div>
     </div>
@@ -28,7 +28,7 @@
 <div class='container'>
   <div class='card border-dark'>
     <div class='card-header'>
-      <h3 class='mt-3'><%= t '.balance', balance: humanized_money_with_symbol(@transactions.sum(:price_cents)) %></h3>
+      <h3 class='mt-3'><%= t '.balance', balance: Money.from_cents(@transactions.sum(:price_cents)).format %></h3>
     </div>
 
     <div class='card-body table-responsive'>
@@ -44,7 +44,7 @@
           <tbody class='border-bottom'>
             <tr>
               <td><%= transaction.account.title %></td>
-              <td><%= transaction.category.title %></td>
+              <td><%= transaction.category&.title %></td>
               <td><%= value_style transaction %></td>
               <td><%= transaction.date %></td>
               <td><%= transaction.description %></td>

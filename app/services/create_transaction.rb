@@ -2,53 +2,57 @@
 
 # CreateTransaction
 class CreateTransaction < ApplicationService
-  def initialize(profile, params)
+  def initialize(user, params)
     super()
-    @profile            = profile
-    @category           = @profile.categories.find(params.delete(:category_id))
-    @account            = @profile.accounts.find(params.delete(:account_id))
-    @budget             = @profile.budgets.find(params.delete(:budget_id)) if params[:budget_id].present?
-    @transaction        = @account.transactions.build
-    @transaction_params = params
+    @user   = user
+    @params = params
   end
 
   def call
-    valid_transaction if @category.expense?
-    return @transaction unless @transaction.errors.none?
+    @transaction = @user.transactions.build(transaction_params)
 
-    transaction_payment_create
-    count_points_to_achieve if @transaction.save
+    check_if_has_to_update_bill if @transaction.valid? && @params[:bill_id]
 
     @transaction
   end
 
   private
 
-  def validate_excharge
-    @account.price_cents > @transaction_params[:price_cents].to_f
+  def find_account
+    @user.accounts.find(@params[:account_id])
   end
 
-  def valid_transaction
-    return if validate_excharge
-
-    @transaction.errors.add :base, :invalid,
-                            message: "Conta #{@account.title} não possui saldo suficiente."
+  def find_bill
+    @user.bills.find(@params[:bill_id])
   end
 
-  def transaction_payment_create
-    Transaction.transaction do
-      @transaction.user_profile = @profile
-      @transaction.category     = @category
-      @transaction.description  = @transaction_params[:description]
-      @transaction.price_cents  = @transaction_params[:price_cents].to_f
-      @transaction.budget       = @budget if @budget.present?
-      @transaction.date         = Date.today.to_datetime
-    end
+  def check_if_has_to_update_bill
+    return unless @params[:bill_id].present?
+
+    @bill = check_if_bill_was_paid
+    @bill.update(due_pay: @bill.due_pay.next_month, status: :paid)
   end
 
-  def count_points_to_achieve
-    CountAchievePoints.call(@profile, :money_movement)
-    CountAchievePoints.call(@profile, :money_managed)
-    CountAchievePoints.call(@profile, :budget_reached) if @budget.present?
+  def check_if_bill_was_paid
+    @bill = find_bill
+
+    return @bill if @bill.pending?
+
+    message = I18n.t('activerecord.attributes.errors.models.invalid_bill_payment', bill_title: @transaction.bill.title)
+
+    @transaction.errors.add :base, :invalid, message: message
+  end
+
+  def transaction_params
+    {
+      user_id: @user.id,
+      account_id: @params[:account_id],
+      category_id: @params[:category_id],
+      bill_id: @params[:bill_id],
+      budget_id: @params[:budget_id],
+      price: @params[:price],
+      date: @params[:date] || DateTime.now,
+      move_type: @params[:move_type]
+    }
   end
 end

@@ -16,23 +16,22 @@ require 'rails_helper'
 
 RSpec.describe Achievement, type: :model do
   describe 'Validations' do
-    subject { build(:achievement) }
-
     it { is_expected.to define_enum_for(:level) }
     it { is_expected.to define_enum_for(:code) }
-    it { is_expected.to validate_numericality_of(:points_reached) }
-    it { is_expected.to validate_numericality_of(:total_points) }
+    it { is_expected.to validate_numericality_of(:points) }
     it { is_expected.to validate_presence_of(:description) }
-    it { is_expected.to have_many(:profile_achievements) }
-    it { is_expected.to have_many(:user_profiles).through(:profile_achievements) }
   end
 
   describe '#save' do
-    context 'when title is empty' do
-      let(:achievement) { build(:achievement, code: '', level: '') }
+    context 'when code or / and level is empty' do
+      let(:achievement) { build(:achievement, :invalid) }
 
       it 'should not be valid' do
         expect(achievement.valid?).to be_falsey
+        expect(achievement.errors.messages[:description]).to include 'não pode ficar em branco'
+        expect(achievement.errors.messages[:code]).to        include 'não pode ficar em branco'
+        expect(achievement.errors.messages[:level]).to       include 'não pode ficar em branco'
+        expect(achievement.errors.messages[:points]).to      include 'não é um número'
       end
 
       it 'should not save' do
@@ -40,7 +39,7 @@ RSpec.describe Achievement, type: :model do
       end
     end
 
-    context 'when title is full' do
+    context 'when code and level is full' do
       let(:achievement) { build(:achievement) }
 
       it 'should be valid' do
@@ -52,4 +51,30 @@ RSpec.describe Achievement, type: :model do
       end
     end
   end
+
+  let(:achieve_money_managed_silver) { create(:achievement, level: :silver, code: :money_managed, points: 100) }
+  let(:achieve_money_managed_golden) { create(:achievement, level: :golden, code: :money_managed, points: 1000) }
+  let(:user) do
+    create(:user) do |user|
+      user.achievements = [achieve_money_managed_silver]
+    end
+  end
+
+  describe '.finished?' do
+    context 'check when a achievement was complete' do
+      it 'achieve have to be marked as finished' do
+        user.profile_achievements.find_by(achievement_id: achieve_money_managed_silver).update(points_reached: 100)
+
+        expect(achieve_money_managed_silver.finished?(user)).to be_truthy
+      end
+    end
+  end
+
+  # describe '.previous_level_finished?' do
+  #   context 'check when a achievement have previous level finished' do
+  #     user.profile_achievements.find_by(achievement_id: achieve_money_managed_silver).update(points_reached: 100)
+
+  #     expect(achieve_money_managed_golden.previous_level_finished?(user)).to be_truthy
+  #   end
+  # end
 end
