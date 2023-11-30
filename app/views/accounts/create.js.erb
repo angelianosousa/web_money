@@ -1,2 +1,7 @@
 $('#newAccountModal').modal('hide');
-<%= render 'shared/error_messages', resource: @account %>
+
+<% if @account.errors.any? %>
+  <%= render 'shared/error_messages', resource: @account %>
+<% else %>
+  <%= render 'shared/flash_messages' %>
+<% end %>

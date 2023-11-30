@@ -3,13 +3,13 @@
   accounts:
     index:
       title: Bancos
-      new_resource: ' Nova Banco'
+      new_resource: ' Novo Banco'
       current_balance: Saldo | %{balance}
     edit:
       title: Editar Banco
     modals:
       new_account:
-        title: Nova Banco
+        title: Novo Banco
       transfer:
         title: Transferência entre Bancos
         form:
@@ -17,7 +17,7 @@
           account_id_in: Banco destino
           account_id_out: Banco saida
     create:
-      success: Banco criada com sucesso!!
+      success: Banco criado com sucesso!!
     update:
       success: Banco atualizada com sucesso!!
     destroy:

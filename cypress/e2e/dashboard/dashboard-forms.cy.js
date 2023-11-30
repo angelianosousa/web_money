@@ -8,7 +8,7 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
     cy.openRecipeModal();
 
     cy.get("#newRecipeModal").within(() => {
-      cy.get("#transaction_price_cents").type("0");
+      cy.get("#transaction_price").clear().type("0");
       cy.get('input[type="submit"][value="Salvar"]').click();
     });
 
@@ -21,7 +21,7 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
     cy.openRecipeModal();
 
     cy.get("#newRecipeModal").within(() => {
-      cy.get("#transaction_price_cents").type("100");
+      cy.get("#transaction_price").clear().type("100");
       cy.get('input[type="submit"][value="Salvar"]').click();
     });
 
@@ -34,7 +34,7 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
     cy.openExpenseModal();
 
     cy.get("#newExpenseModal").within(() => {
-      cy.get("#transaction_price_cents").type("0");
+      cy.get("#transaction_price").clear().type("0");
       cy.get('input[type="submit"][value="Salvar"]').click();
     });
 
@@ -47,14 +47,15 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
     cy.openExpenseModal();
 
     cy.get("#newExpenseModal").within(() => {
-      cy.get("#transaction_price_cents").type("100");
+      cy.get("#transaction_price").clear().type("100");
       cy.get('input[type="submit"][value="Salvar"]').click();
     });
 
     cy.get("span").should("contain", "Movimentação criada com sucesso!!");
   });
 
-  it("Deve testar a criação de Nova conta sem Título.", () => {
+  // Account
+  it("Deve testar a criação de Novo banco sem Título.", () => {
     cy.loginSuccessfully();
 
     cy.openNewAccountModal();
@@ -66,20 +67,21 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
     cy.get("span").should("contain", "Titulo não pode ficar em branco");
   });
 
-  it("Deve testar a criação de Nova conta com Título e sem Montante.", () => {
+  it("Deve testar a criação de Novo banco com Título.", () => {
     cy.loginSuccessfully();
 
     cy.openNewAccountModal();
 
-    cy.get("#account_title").type("Titulo");
+    cy.get("#account_title").type("Titulo do Banco");
     cy.get("#newAccountModal")
       .find('input[type="submit"][value="Salvar"]')
       .click();
 
-    cy.get("span").should("contain", "Conta criada com sucesso");
+    cy.get("span").should("contain", "Banco criado com sucesso");
   });
 
-  it("Deve testar a criação de Nova Recorrência sem Título.", () => {
+  // Bill
+  it("Deve testar a criação de Novo Pag. Recorrente sem Título.", () => {
     cy.loginSuccessfully();
 
     cy.openNewBillModal();
@@ -91,7 +93,7 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
     cy.get("span").should("contain", "Titulo não pode ficar em branco");
   });
 
-  it("Deve testar a criação de Nova Recorrência com Título e sem Vencimento.", () => {
+  it("Deve testar a criação de Novo Pag. Recorrente com Título e sem Vencimento.", () => {
     cy.loginSuccessfully();
 
     cy.openNewBillModal();
@@ -104,7 +106,7 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
     cy.get("span").should("contain", "Vencimento não pode ficar em branco");
   });
 
-  it("Deve testar a criação de Nova Recorrência com Título, Vencimento e sem Valor.", () => {
+  it("Deve testar a criação de Novo Pag. Recorrente com Título, Vencimento e sem Valor.", () => {
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString().split("T")[0];
     cy.loginSuccessfully();
@@ -118,10 +120,10 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
       .find('input[type="submit"][value="Salvar"]')
       .click();
 
-    cy.get("span").should("contain", "Valor não pode ficar em branco");
+    cy.get("span").should("contain", "Valor deve ser maior ou igual a 1");
   });
 
-  it("Deve testar a criação de Nova Recorrência com Título, Vencimento e Valor e Tipo Receita.", () => {
+  it("Deve testar a criação de Novo Pag. Recorrente com Título, Vencimento e Valor e Tipo Receita.", () => {
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString().split("T")[0];
     cy.loginSuccessfully();
@@ -130,9 +132,9 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
 
     cy.get("#bill_due_pay").type(formattedDate);
 
-    cy.get("#bill_title").type("Título");
+    cy.get("#bill_title").type("Título Receita");
 
-    cy.get("#bill_price_cents").type("123.45");
+    cy.get("#bill_price").type("123.45");
 
     cy.get("#bill_bill_type").select("recipe");
 
@@ -140,10 +142,10 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
       .find('input[type="submit"][value="Salvar"]')
       .click();
 
-    cy.get("span").should("contain", "Recorrência criada com sucesso");
+    cy.get("span").should("contain", "Pag. Recorrente criado com sucesso");
   });
 
-  it("Deve testar a criação de Nova Recorrência com Título, Vencimento e Valor e Tipo Despesa.", () => {
+  it("Deve testar a criação de Nova Pag. Recorrente com Título, Vencimento e Valor e Tipo Despesa.", () => {
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString().split("T")[0];
     cy.loginSuccessfully();
@@ -152,9 +154,9 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
 
     cy.get("#bill_due_pay").type(formattedDate);
 
-    cy.get("#bill_title").type("Título");
+    cy.get("#bill_title").type("Título Despesa");
 
-    cy.get("#bill_price_cents").type("123.45");
+    cy.get("#bill_price").type("123.45");
 
     cy.get("#bill_bill_type").select("expense");
 
@@ -162,6 +164,6 @@ describe("Verificação dos formulários na página de Dashboard ", () => {
       .find('input[type="submit"][value="Salvar"]')
       .click();
 
-    cy.get("span").should("contain", "Recorrência criada com sucesso");
+    cy.get("span").should("contain", "Pag. Recorrente criado com sucesso");
   });
 });

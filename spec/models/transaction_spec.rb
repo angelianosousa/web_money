@@ -158,7 +158,7 @@ RSpec.describe Transaction, type: :model do
   describe '.check_excharge' do
     context 'Fail scenario' do
       let(:transaction) do
-        build(:transaction, price: 1001, move_type: :expense, category: category_expense, account: account,
+        build(:transaction, price: 2000, move_type: :expense, category: category_expense, account: account,
                             user: user)
       end
 
@@ -171,6 +171,7 @@ RSpec.describe Transaction, type: :model do
       it 'should not excharge a account that does not have enough money' do
         current_value = account.price_cents
         transaction.check_excharge
+        # byebug
         account.reload
         expect(transaction.expense?).to be_truthy
         expect(account.price_cents).to eq(current_value)
