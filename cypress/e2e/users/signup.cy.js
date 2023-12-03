@@ -19,7 +19,7 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
     cy.get('input[type="submit"]').click();
     cy.get('input[type="Email"]')
       .invoke("prop", "validationMessage")
-      .should("include", 'Inclua um "@"');
+      .should("include", "Please include an '@' in the email address.");
   });
   it("Deve verificar se e-mail já não está cadastrado", () => {
     cy.visit("http://localhost:3000/users/sign_up");

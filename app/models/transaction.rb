@@ -62,14 +62,14 @@ class Transaction < ApplicationRecord
   paginates_per 7
 
   def check_deposit
-    return unless recipe?
+    return if expense?
 
     account.price_cents += price_cents
     account.save
   end
 
   def check_excharge
-    return unless expense?
+    return if recipe? || excharge_valid?
 
     account.price_cents -= price_cents
     account.save
@@ -84,7 +84,7 @@ class Transaction < ApplicationRecord
   private
 
   def count_points
-    return if transfer_between_account?
+    return if transfer_between_account? || !new_record?
 
     CountAchievePoints.call(user, :money_movement)
     CountAchievePoints.call(user, :money_managed)
@@ -102,7 +102,7 @@ class Transaction < ApplicationRecord
   end
 
   def excharge_valid?
-    return if recipe? || transfer? || account.nil?
+    return false if recipe? || transfer? || account.nil?
 
     account.price_cents.to_f < price_cents.to_f
   end

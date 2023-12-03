@@ -5,7 +5,7 @@
       title: Dashboard | Saldo %{balance}
     modals:
       new_account:
-        title: Nova banco
+        title: Novo banco
       new_transaction:
         title: Nova movimentação
       new_bill:
