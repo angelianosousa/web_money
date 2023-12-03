@@ -13,7 +13,7 @@ describe("Verificação dos componentes na página de Dashboard ", () => {
     cy.navBarTesting(URL);
   });
 
-  it("Deve se o título da página redireciona normalmente.", () => {
+  it("Deve verificar se o título da página redireciona normalmente.", () => {
     cy.loginSuccessfully();
 
     cy.get('a[href="dashboard"]').click();

@@ -8,7 +8,10 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
 
     cy.get('input[placeholder="Email"]')
       .invoke("prop", "validationMessage")
-      .should("include", "Please fill out this field.");
+      .should((texto) => {
+        expect(texto).to.include("Preencha este campo") ||
+          expect(texto).to.include("Please fill out this field");
+      });
   });
 
   it("Deve verificar se o campo de e-mail contém um e-mail válido", () => {
@@ -20,7 +23,12 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
 
     cy.get('input[placeholder="Email"]')
       .invoke("prop", "validationMessage")
-      .should("include", "Please include an '@' in the email address.");
+      .should((texto) => {
+        expect(texto).to.include('Inclua um "@"') ||
+          expect(texto).to.include(
+            "Please include an '@' in the email address."
+          );
+      });
   });
 
   it("Deve verificar se o campo de senha não está vazio", () => {
@@ -33,7 +41,10 @@ describe("Verificação dos campos de E-mail e Senha ", () => {
 
     cy.get('input[placeholder="Sua senha"]')
       .invoke("prop", "validationMessage")
-      .should("include", "Please fill out this field.");
+      .should((texto) => {
+        expect(texto).to.include("Preencha este campo") ||
+          expect(texto).to.include("Please fill out this field");
+      });
   });
 
   it("Deve verificar se o usuário possui não possui cadastro.", () => {
