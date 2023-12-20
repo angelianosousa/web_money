@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= render 'transactions/form', transaction: @transaction, data: { local: local, move_type: 'expense' } %>
+        <%= render 'transactions/form', transaction: @transaction, data: { local: local, move_type: 'expense' }, account: @account %>
       </div>
     </div>
   </div>

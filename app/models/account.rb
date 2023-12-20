@@ -1,25 +1,27 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: accounts
 #
-#  id              :bigint           not null, primary key
-#  price_cents     :integer          default(0), not null
-#  price_currency  :string           default("BRL"), not null
-#  title           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  user_profile_id :bigint           not null
+#  id             :bigint           not null, primary key
+#  price_cents    :integer          default(0), not null
+#  price_currency :string           default("BRL"), not null
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :bigint           not null
 #
 # Indexes
 #
-#  index_accounts_on_user_profile_id  (user_profile_id)
+#  index_accounts_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_profile_id => user_profiles.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Account < ApplicationRecord
-  belongs_to :user_profile
+  belongs_to :user
   has_many :transactions, dependent: :destroy
 
   # Money Rails
@@ -28,7 +30,7 @@ class Account < ApplicationRecord
 
   # Validations
   validates :title, presence: true
-  validates :price_cents, numericality: { greater_than_or_equal_to: 0 }
+  validates :price, numericality: { greater_than_or_equal_to: 0 }, on: :update
 
   # Kaminari
   paginates_per 12

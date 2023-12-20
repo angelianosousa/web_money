@@ -22,30 +22,24 @@
 
   <body>
     <div class="animate form login_form">
-      <section class="login_content" style='width: 40%;'>
+      <div class="login_content">
+        <div class='row d-flex justify-content-center'>
 
-        <div class='card card-style mt-5'>
-          <div class='card-body'>
-            <%= image_tag 'logo-banner.png' %>
+          <div class='col-12 col-sm-5'>
+            <div class='card card-style my-5'>
+              <div class='card-body'>
+                <%= image_tag 'banner-fundo-branco-720x192.png', class: 'img-fluid' %>
 
-            <%= yield %>            
+                <%= yield %>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
-    <% unless resource.errors.empty? %>
-      <% resource.errors.full_messages.each do |msg|%>
-        <%= javascript_tag do %>
-          $.notify(
-            '<%= msg %>',
-            { type: 'danger', allow_dismiss: true }
-          );
-        <% end %>
-      <% end %>
-    <% end %>
 
+    <%= render 'shared/flash_messages' %>
   </body>
 </html>

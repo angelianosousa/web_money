@@ -3,22 +3,22 @@
   transactions:
     index:
       title: Movimentações
-      new_resource: ' Add Movimentação'
+      new_resource: ' Nova Movimentação'
       balance_diary: "%{day} | %{amount}"
       table_title: Titulo
-      current_balance: Balanço | %{balance}
+      current_balance: Saldo | %{balance}
     edit:
       title: ' Editar movimentação'
     modals:
       new_recipe:
-        title: Add Receita
+        title: Receita
       new_expense:
-        title: Add Despesa
+        title: Despesa
       show:
         title: Ver movimentação
     search_filter:
       category: Categoria
-      account: Conta
+      account: Banco
       price_cents: Valor
       date: Data
       search: Pesquisar

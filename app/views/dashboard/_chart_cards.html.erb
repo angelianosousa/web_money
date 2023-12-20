@@ -18,20 +18,18 @@
       <!-- Pills content -->
       <div class="tab-content mt-3" id="myTabContent">
         <div class="tab-pane fade show active" id="transactions-recipes" role="tabpanel" aria-labelledby="transactions-recipes-tab">
-          
-          <div class='card-body'>            
-            <%= area_chart @transactions.recipes.group(:date).sum(:price_cents), legend: false,
-              title: "#{title_recipes}", curve: true, xtitle: t('.days'),
+          <div class='card-body'>
+            <%= area_chart @transactions.recipes.map { |data| [data.date, data.price_cents / 100.0]}, legend: false,
+              title: title_recipes, curve: true, xtitle: t('.days'),
               download: { filename: "#{title_recipes} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' }, colors:['#2F4F4F'] %>
           </div>
 
         </div>
         <div class="tab-pane fade" id="transactions-expenses" role="tabpanel" aria-labelledby="transactions-expenses-tab">
-          
           <div class='card-body'>
-            <%= area_chart @transactions.expenses.group(:date).sum(:price_cents), legend: false,
-              title: "#{title_expenses}", curve: true, xtitle: t('.days'),
-              download: { filename: "#{title_expenses} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' }, colors:['#DC143C'] %>
+            <%= area_chart @transactions.expenses.map { |data| [data.date, data.price_cents / 100.0]}, legend: false,
+              title: title_expenses, curve: true, xtitle: t('.days'), colors:['#DC143C'],
+              download: { filename: "#{title_expenses} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' } %>
           </div>
           
         </div>
@@ -47,11 +45,12 @@
 <div class='row'>
   <div class='col-md-6 mb-3'>
     <div class='card border border-secondary'>
+
       <div class='card-body'>
         <!-- Scope -->
-        <%= column_chart Transaction.recipes.group_by_month(:date).sum(:price_cents).map { |date, transactions| [date.strftime('%b %y'), transactions] }, legend: false,
-          title: "#{title_recipes}", curve: true, xtitle: t('months'),
-          download: { filename: "#{title_recipes} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' }, colors:['#2F4F4F'] %>
+        <%= column_chart @transactions.recipes.group_by_month(:date).sum(:price_cents).map { |date, transactions| [date.strftime('%b'), transactions / 100.0] }, legend: false,
+          title: "#{title_recipes}", curve: true, xtitle: t('months'), colors:['#2F4F4F'],
+          download: { filename: "#{title_recipes} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' } %>
       </div>
     </div>
   </div>
@@ -60,9 +59,9 @@
     <div class='card border border-secondary'>
       <div class='card-body'>
         <!-- Scope -->
-        <%= column_chart Transaction.expenses.group_by_month(:date).sum(:price_cents).map { |date, transactions| [date.strftime('%b %y'), transactions] }, legend: false,
-          title: "#{title_expenses}", curve: true, xtitle: t('months'),
-          download: { filename: "#{title_expenses} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' }, colors:['#DC143C'] %>
+        <%= column_chart @transactions.expenses.group_by_month(:date).sum(:price_cents).map { |date, transactions| [date.strftime('%b'), transactions / 100.0] }, legend: false,
+          title: "#{title_expenses}", curve: true, xtitle: t('months'), colors:['#DC143C'],
+          download: { filename: "#{title_expenses} #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff' } %>
       </div>
     </div>
   </div>
@@ -74,22 +73,110 @@
 <div class='row'>
   <div class='col-md-6 mb-3'>
     <div class='card border border-secondary'>
-      <div class='card-body'>
-        <!-- Scope -->
-        <% title = t '.categories' %>
-        <%= column_chart @categories, legend: false, colors: ['#FF8C00'],
-        title: "#{title}", download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
+      <!-- Header pills options -->
+      <ul class="nav nav-pills mt-3 pl-3" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="categories-recipes-tab" data-toggle="tab" href="#categories-recipes" role="tab" aria-controls="categories-recipes" aria-selected="true"><%= title_recipes %></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="categories-expenses-tab" data-toggle="tab" href="#categories-expenses" role="tab" aria-controls="categories-expenses" aria-selected="false"><%= title_expenses %></a>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-3" id="myTabContent">
+        <div class="tab-pane fade show active" id="categories-recipes" role="tabpanel" aria-labelledby="categories-recipes-tab">
+          
+          <div class='card-body'>
+            <!-- Scope -->
+            <% title = t '.categories' %>
+            <%= column_chart @categories.recipes.map { |data| { name: data.title, data: { data.created_at.strftime('%B') => data.transactions.sum(:price_cents) / 100.0 }}}, legend: false, colors: ['#2F4F4F'],
+            title: title, download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
+          </div>
+
+        </div>
+        <div class="tab-pane fade" id="categories-expenses" role="tabpanel" aria-labelledby="categories-expenses-tab">
+          
+          <div class='card-body'>
+            <!-- Scope -->
+            <% title = t '.categories' %>
+            <%= column_chart @categories.expenses.map { |data| { name: data.title, data: { data.created_at.strftime('%B') => data.transactions.sum(:price_cents) / 100.0 }}}, legend: false, colors: ['#DC143C'],
+            title: title, download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
+          </div>
+          
+        </div>
       </div>
+
     </div>
   </div>
+
+  <!-- ============================================================================================= -->
+
   <div class='col-md-6 mb-3'>
-    <div class='card border border-secondary'>
-      <div class='card-body'>
-        <!-- Scope -->
-        <% title = t '.bills' %>
-        <%= column_chart @bills, legend: false, colors:['#00008B'], 
-        title: "#{title}", download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
+    <div class='card border border-dark h-100'>
+      <!-- Header pills options -->
+      <ul class="nav nav-pills mt-3 pl-3" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="bills-due-pay-tab" data-toggle="tab" href="#bills-due-pay" role="tab" aria-controls="bills-due-pay" aria-selected="true"><%= 'Pag. Pendentes' %></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="bills-recipes-tab" data-toggle="tab" href="#bills-recipes" role="tab" aria-controls="bills-recipes" aria-selected="false"><%= title_recipes %></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="bills-expenses-tab" data-toggle="tab" href="#bills-expenses" role="tab" aria-controls="bills-expenses" aria-selected="false"><%= title_expenses %></a>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-3" id="myTabContent">
+        <div class="tab-pane fade show active" id="bills-due-pay" role="tabpanel" aria-labelledby="bills-due-pay-tab">
+          
+          <div class='card-body'>
+            <!-- Scope -->
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th scope="col"><%= Bill.human_attribute_name :title %></th>
+                  <th scope="col"><%= Bill.human_attribute_name :due_pay %></th>
+                  <th scope="col"><%= Bill.human_attribute_name :price %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @bills.pending.each do |bill| %>
+                  <tr>
+                    <td><%= bill.title %></td>
+                    <td><%= l bill.due_pay, format: :short %></td>
+                    <td><%= bill.price.format %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="tab-pane fade" id="bills-recipes" role="tabpanel" aria-labelledby="bills-recipes-tab">
+          <% title = t '.bills' %>
+          <div class='card-body'>
+            <!-- Scope -->
+            <% title = t '.bills' %>
+            <%= column_chart @bills.recipes.map { |data| [data.title, data.price_cents / 100.0] }, legend: false, colors:['#2F4F4F'],
+            title: title, download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
+          </div>
+          
+        </div>
+
+        <div class="tab-pane fade" id="bills-expenses" role="tabpanel" aria-labelledby="bills-expenses-tab">
+          <div class='card-body'>
+            <!-- Scope -->
+            <% title = t '.bills' %>
+            <%= column_chart @bills.expenses.map { |data| [data.title, data.price_cents / 100.0] }, legend: false, colors:['#DC143C'], 
+            title: title, download: { filename: "#{title} - #{Date.today.strftime('%d/%m/%y')}", background:'#ffffff'} %>
+          </div>
+          
+        </div>
       </div>
+
     </div>
   </div>
+
 </div>

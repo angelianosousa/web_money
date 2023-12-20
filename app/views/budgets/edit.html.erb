@@ -5,7 +5,7 @@
       <div class="clearfix"></div>
     </div>
     <div class="x_content">
-      <%= render 'form', budget: @budget %>
+      <%= render 'form', budget: @budget, url: budget_path(@budget), local: true %>
     </div>
   </div>
 </div>

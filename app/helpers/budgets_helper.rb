@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
+# Helper
 module BudgetsHelper
   def budget_options_for_select
-    current_profile.budgets.map { |budget| ["#{budget.objective_name} - #{Money.from_amount(budget.goals_price_cents).format}", budget.id] }
+    current_user.budgets.map do |budget|
+      ["#{budget.objective_name} - #{humanized_money_with_symbol(budget.goals_price)}", budget.id]
+    end
   end
 end

@@ -8,32 +8,32 @@
   </div>
 
   <ul class="list-unstyled components">
-    <li>
+    <li class='<%= 'active' if params[:controller] == 'dashboard' %>'>
       <%= link_to dashboard_index_path do %>
         <i class="fa-solid fa-pie-chart"></i> <%= t '.dashboard' %>
       <% end %>
     </li>
-    <li>
+    <li class='<%= 'active' if params[:controller] == 'accounts' %>'>
       <%= link_to accounts_path do %>
         <i class='fa fa-bank' style='text-align:left;'></i> <%= t '.accounts' %>
       <% end %>
     </li>
-    <li>
-      <%= link_to budgets_path do %>
-        <i class='fa-solid fa-piggy-bank' style='text-align:left;'></i> <%= t '.budgets' %>
-      <% end %>
-    </li>
-    <li>
+    <li class='<%= 'active' if params[:controller] == 'transactions' %>'>
       <%= link_to transactions_path do %>
         <i class='fa-solid fa-money-bill-transfer' style='text-align:left;'></i> <%= t '.transactions' %>
       <% end %>
     </li>
-    <li>
+    <li class='<%= 'active' if params[:controller] == 'categories' %>'>
       <%= link_to categories_path do %>
         <i class='fa-solid fa-list-ol' style='text-align:left;'></i> <%= t '.categories' %>
       <% end %>
     </li>
-    <li>
+    <li class='<%= 'active' if params[:controller] == 'budgets' %>'>
+      <%= link_to budgets_path do %>
+        <i class='fa-solid fa-piggy-bank' style='text-align:left;'></i> <%= t '.budgets' %>
+      <% end %>
+    </li>
+    <li class='<%= 'active' if params[:controller] == 'bills' %>'>
       <%= link_to bills_path do %>
         <i class='fa fa-refresh' style='text-align:left;'></i> <%= t '.bills' %>
       <% end %>
@@ -61,6 +61,6 @@
       $('#sidebar').removeClass('active');
       // hide overlay
       $('.overlay').removeClass('active');
-    });        
+    });
   });
 </script>

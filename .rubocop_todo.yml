@@ -1,0 +1,32 @@
+# .rubocop.yml
+AllCops:
+  TargetRubyVersion: 3.0
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  Exclude:
+    - 'db/**/*'
+    - 'bin/**/*'
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 16
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# Metrics/AbcSize:
+#   Enabled: false
+
+# Style/Documentation:
+#   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'db/**/*.rb'
+    - '**/schema.rb'
+    - 'config/**/*.rb'

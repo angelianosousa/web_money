@@ -1,4 +1,15 @@
 $('#newRecipeModal').modal('hide');
 $('#newExpenseModal').modal('hide');
-$('#transaction<%= @transaction.account_id %>').html('<%= humanized_money_with_symbol(@transaction.account.price_cents) %>')
-<%= render 'shared/flash_now_messages' %>
+
+<% if @transaction.bill.present? %>
+  $('#paymentModal_<%= @transaction.bill_id %>').modal('hide');
+  $('#bill_status_<%= @transaction.bill_id %>').html('<%= bill_payment(@transaction.bill.status) %>')
+<% end %>
+
+$('#transaction<%= @transaction.account_id %>').html('<%= humanized_money_with_symbol(@transaction.account.price) %>')
+
+<% if @transaction.errors.any? %>
+  <%= render 'shared/error_messages', resource: @transaction %>
+<% else %>
+  <%= render 'shared/flash_messages' %>
+<% end %>

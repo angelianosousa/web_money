@@ -1,0 +1,5 @@
+---
+'pt-BR':
+  notifications:
+    mark_as_read:
+      success: Notificação marcada como lida

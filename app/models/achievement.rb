@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: achievements
@@ -5,14 +7,44 @@
 #  id          :bigint           not null, primary key
 #  code        :integer
 #  description :string
-#  goal        :jsonb
-#  icon        :string
-#  reached     :integer          default(0)
+#  level       :integer          default("golden")
+#  points      :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 class Achievement < ApplicationRecord
-  enum code: %i[money_movement money_managed budget_reached bill_in_day profile_time]
+  enum code: %i[money_movement money_managed budget_reached]
+  enum level: %i[silver golden diamond]
+
+  validates :description, :code, :level, presence: true
+  validates :points, numericality: { greater_or_equal_than: 0 }
+
+  def how_to_earn_points
+    case code
+    when 'money_movement'
+      'Cada movimentação vale 10 pontos'.html_safe
+    when 'money_managed'
+      'O valor de cada transação vale 10 pontos'.html_safe
+    when 'budget_reached'
+      'Cada meta batida vale 100 pontos'.html_safe
+    end
+  end
+
+  def previous_level_finished?(current_user)
+    previous_level = Achievement.levels[level] - 1
+    achieve        = Achievement.find_by(code: code, level: previous_level)
+    return true unless achieve.present?
+
+    achieve.finished?(current_user)
+  end
+
+  def finished?(current_user)
+    profile_achieve_points(current_user, self) >= points
+  end
+
+  def profile_achieve_points(current_user, achieve)
+    current_user.profile_achievements.find_by(achievement: achieve).points_reached
+  end
 end
 
 # Achievements

@@ -11,7 +11,7 @@
         <div class='row'>
           <div class='col-sm'>
             <h5><%= Transaction.human_attribute_name :category_id %></h5> 
-            <p><%= transaction.category.title %></p>
+            <p><%= transaction.category&.title %></p>
           </div>
           <div class='col-sm'>
             <h5><%= Transaction.human_attribute_name :account_id %></h5>
@@ -25,7 +25,7 @@
         
         <div class='row'>
           <div class='col-sm'>
-            <h5><%= Transaction.human_attribute_name :price_cents %></h5>
+            <h5><%= Transaction.human_attribute_name :price %></h5>
             <%= value_style(transaction) %>
           </div>
 
