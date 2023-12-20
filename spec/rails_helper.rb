@@ -40,9 +40,9 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
                                                                ])
 
 SimpleCov.start do
-  add_group 'Controllers', 'app/controllers'
-  add_group 'Models', 'app/models'
-  add_group 'Services', 'app/services'
+  add_group 'Integration Tests', 'app/controllers'
+  add_group 'Unit Tests', 'app/models'
+  add_group 'Services Test', 'app/services'
 end
 
 # Checks for pending migrations and applies them before tests are run.

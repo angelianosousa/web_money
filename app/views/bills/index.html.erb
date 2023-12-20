@@ -39,8 +39,8 @@
               </div>
 
               <div class='d-flex flex-row justify-content-between align-items-center'>
-                <span style='font-size: 20px;'><%= humanized_money_with_symbol(bill.price) %></span>
-                <span id="bill_status<%= bill.id %>"><%= bill_payment(bill.status) %></span>
+                <span style='font-size: 20px;'><%= bill.price.format %></span>
+                <span id="bill_status_<%= bill.id %>"><%= bill_payment(bill.status) %></span>
               </div>
 
               <div class='d-flex flex-row justify-content-between align-items-center'>
