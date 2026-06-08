@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: achievements
@@ -5,17 +7,23 @@
 #  id          :bigint           not null, primary key
 #  code        :integer
 #  description :string
-#  goal        :jsonb
-#  icon        :string
-#  reached     :integer          default(0)
+#  level       :integer          default("golden")
+#  points      :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 FactoryBot.define do
   factory :achievement do
-    user_profile { user_profile }
-    code { "MyString" }
-    goal { 1 }
-    reached { 1 }
+    description { Faker::Lorem.paragraph(sentence_count: 2) }
+    code        { %i[money_movement money_managed budget_reached].sample }
+    level       { %i[silver golden diamond].sample }
+    points      { rand(1..1000) }
+
+    trait :invalid do
+      description {}
+      code        {}
+      level       {}
+      points      {}
+    end
   end
 end

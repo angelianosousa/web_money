@@ -1,4 +1,8 @@
-<%= fontawesome_icon('', 'fa fa-money', 'font-size: 45px;') %>
-<h3 class="display-5">Sem orçamentos ainda...</h3>
-<p class="lead">Crie o seu primeiro aqui</p>
-<%= modal_to_new_resource(' Add Orçamento', target: '#newBudgetModal', class_name: 'btn btn-outline-dark btn-round btn-md', style_css: 'padding-x: 100px;') %>
+<%= fontawesome_icon('', 'fa fa-piggy-bank', 'font-size: 45px;') %>
+<h3 class="display-5">Sem metas ainda...</h3>
+<p class="lead"><%= t('add_first') %></p>
+<%= link_to '#', class: 'btn btn-outline-dark btn-md btn-round', data: { toggle: 'modal', target: '#newBudgetModal' }, style: 'padding-x: 100px;' do %>
+  <span class='icon'>
+    <i class='fa fa-plus-circle'></i> <%= t('add_budget') %>
+  </span>
+<% end %>

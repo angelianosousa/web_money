@@ -13,7 +13,7 @@
       <span class='icon'><i class="fa fa-trash pull-right"></i></span> Deletar
     <% end %>
     <% unless bill.paid? %>
-      <%= link_to '#', class: "dropdown-item py-3", style:'font-size:14px;', data: { toggle: 'modal', target: "#paymentModal_#{bill.id}" } do %>
+      <%= link_to '#', class: "dropdown-item py-3", id: "pay_bill_#{bill.id}", style:'font-size:14px;', data: { toggle: 'modal', target: "#paymentModal_#{bill.id}" } do %>
         <span class='icon'><i class="fa fa-money-bill pull-right"></i></span> Pagar
       <% end %>
     <% end %>

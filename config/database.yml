@@ -3,9 +3,11 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-  host: postgres
+
+  # remove if local running
+  host: localhost
   user: postgres
-  password: password
+  password: postgres
 
 development:
   <<: *default

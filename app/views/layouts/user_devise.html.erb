@@ -21,31 +21,24 @@
   </head>
 
   <body>
-    <div class="animate form login_form">
-      <section class="login_content" style='width: 40%;'>
-
-        <div class='card card-style mt-5'>
+    <div class="animate login_form">
+      <div class="login_content">
+        <div class='card card-style my-5'>
           <div class='card-body'>
-            <%= image_tag 'logo-banner.png' %>
+            <%= image_tag 'banner-fundo-branco-720x192.png', class: 'img-fluid' %>
 
-            <%= yield %>            
+            <%= yield %>
           </div>
         </div>
-      </section>
+      </div>
     </div>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
-    <% unless resource.errors.empty? %>
-      <% resource.errors.full_messages.each do |msg|%>
-        <%= javascript_tag do %>
-          $.notify(
-            '<%= msg %>',
-            { type: 'danger', allow_dismiss: true }
-          );
-        <% end %>
+
+    <%= javascript_tag do %>
+      <% flash.each do |type, msg| %>
+        showFlashNotification('danger', "<%= msg %>")
       <% end %>
     <% end %>
-
   </body>
 </html>

@@ -4,7 +4,7 @@
     attributes:
       bill:
         title: Titulo
-        price_cents: Valor
+        price: Valor
         due_pay: Vencimento
         bill_type: Tipo
         status: Status
@@ -18,8 +18,8 @@
         expense: Despesa
     models:
       bill:
-        one: Recorrência
-        other: Recorrências
+        one: Pag. Recorrente
+        other: Pag. Recorrentes
       transaction:
         one: Transação
         other: Transações

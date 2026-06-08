@@ -1,6 +1,8 @@
 branch-defaults:
   achievments:
     environment: staging
+  testes:
+    environment: webmoney-dev
 environment-defaults:
   staging:
     branch: null
