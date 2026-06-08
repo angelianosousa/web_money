@@ -11,4 +11,4 @@
   <i class='fa fa-eye'></i>
 <% end %>
 
-<%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_profile.transactions.new, local: true } %>
+<%= render partial: "transactions/modals/new_recipe", locals: { transaction: @transaction = current_user.transactions.new, local: true } %>

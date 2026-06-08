@@ -1,4 +1,5 @@
 $('#newRecipeModal').modal('hide');
 $('#newExpenseModal').modal('hide');
-$('#transaction<%= @transaction.account_id %>').html('<%= humanized_money_with_symbol(@transaction.account.price_cents) %>')
-<%= render 'shared/flash_now_messages' %>
+$('#paymentModal_<%= @transaction.bill_id %>').modal('hide');
+$('#transaction<%= @transaction.account_id %>').html('<%= humanized_money_with_symbol(@transaction.account.price) %>')
+<%= render 'shared/error_messages', resource: @transaction %>

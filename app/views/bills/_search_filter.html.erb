@@ -3,34 +3,34 @@
     <div class='mx-2'>
       <div class='form-group col-md-2'>
         <%= f.label :bill_type_eq, t('.bill_type'), class: 'label-control' %>
-        <%= f.select :bill_type_eq, options_for_select(Bill.bill_types.keys, (params[:q][:bill_type_eq] rescue nil)), 
+        <%= f.select :bill_type_eq, options_for_select(bill_type_options_for_select, (params[:q][:bill_type_eq] rescue nil)), 
                                     { include_blank: 'All' },
                                     { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
       </div>
 
       <div class='form-group col-md-2'>
         <%= f.label :status_eq, t('.status'), class:'label-control' %>
-        <%= f.select :status_eq, options_for_select(Bill.statuses.keys, (params[:q][:status_eq] rescue nil)),
+        <%= f.select :status_eq, options_for_select(bill_status_options_for_select, (params[:q][:status_eq] rescue nil)),
                                 { include_blank: 'All' },
                                 { data: { style: 'btn btn-link' },  class: 'custom-select' } %>
       </div>
 
       <div class='form-group col-md-1'>
-        <%= f.label :price_cents, t('.price_cents'), class:'label-control' %>
-        <%= f.number_field :price_cents_gteq, value: (params[:q][:price_cents_gteq] rescue nil), class:'form-control', in:0..999999, placeholder: 'Min' %>
+        <%= f.label :price, t('.price_cents'), class:'label-control' %>
+        <%= f.number_field :price_gteq, value: (params[:q][:price_gteq] rescue nil), class:'form-control', in:0..999999, placeholder: 'Min' %>
       </div>
 
       <div class='form-group col-md-1'>
-        <%= f.number_field :price_cents_lteq, value: (params[:q][:price_cents_lteq] rescue nil), class:'form-control', in:0..999999, placeholder: 'Max', style:'margin-top: 25px;' %>
+        <%= f.number_field :price_lteq, value: (params[:q][:price_lteq] rescue nil), class:'form-control', in:0..999999, placeholder: 'Max', style:'margin-top: 25px;' %>
       </div>
 
       <div class='form-group col-md-2'>
         <%= f.label :due_pay, t('.due_pay'), class:'label-control' %>
-        <%= f.date_field :due_pay_gteq, value: (params[:q][:due_pay_gteq] rescue nil), class:'form-control', value: Date.today %>
+        <%= f.date_field :due_pay_gteq, value: (params[:q][:due_pay_gteq] rescue  Date.today), class:'form-control' %>
       </div>
 
       <div class='form-group col-md-2'>
-        <%= f.date_field :due_pay_lteq, value: (params[:q][:due_pay_lteq] rescue nil), class:'form-control', value: Date.today, style:'margin-top: 25px;' %>
+        <%= f.date_field :due_pay_lteq, value: (params[:q][:due_pay_lteq] rescue  Date.today), class:'form-control', style:'margin-top: 25px;' %>
       </div>
       
       <div class='form-group col-md-2 d-flex flex-column'>

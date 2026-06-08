@@ -77,10 +77,42 @@ a .dropdown-item:visited, .dropdown-item:hover {
 
 .bg-web-money-green {
   background-color: $web-money-dark-green;
-  color: $web-money-white;
+  color: $web-money-white !important;
 }
 
 #navbar_home{
   background-color: $web-money-dark-green !important;
   color: $web-money-white !important;
+}
+
+// Achievements Section
+
+.card.card-achieve-silver {
+  border: solid 1px $achieve-silver !important;
+
+  & > .card-header {
+    background-color: $achieve-silver !important;
+    color: $web-money-white !important;
+    padding: 8px 10px;
+  }
+}
+
+.card-achieve-golden{
+  border: solid 1px $achieve-golden;
+
+  & > .card-header {
+    background-color: $achieve-golden;
+    color: $web-money-white !important;
+    padding: 8px 10px;
+  }
+}
+
+.card-achieve-diamond{
+  border: solid 1px $achieve-diamond;
+
+  & > .card-header {
+    background-color: $achieve-diamond;
+    color: $web-money-white !important;
+    padding: 8px 10px;
+  }
 }

@@ -9,7 +9,7 @@
     <div class='card mb-3'>
       <div class='card-body text-center'>
         <%= fontawesome_icon('', 'fa fa-bank', 'font-size: 45px;') %>
-        <h3 class="display-5">Adicionar conta</h3>
+        <h3 class="display-5"><%= t('add_account') %></h3>
         <%= modal_to_new_resource('', target: '#newAccountModal', class_name: 'btn btn-outline-dark btn-round', style_css: 'padding-x: 100px;') %>
       </div>
     </div>
@@ -24,11 +24,14 @@
                 <%= render 'actions', account: account %>
               </div>
               <h4><%= account.title %></h4>
-              <p><%= humanized_money_with_symbol(account.price_cents) %></p>
+              <p><%= humanized_money_with_symbol(account.price) %></p>
             </div>
           </div>
         </div>
       </div>
+
+      <%#= render partial: "transactions/modals/new_recipe",  locals: { transaction: @transaction = current_user.transactions.new, local: false, account: @account = account } %>
+      <%#= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_user.transactions.new, local: false, account: @account = account } %>
     <% end %>
   </div>
 </div>
@@ -38,6 +41,4 @@
 </div>
 
 <%= render partial: "accounts/modals/transfer" %>
-<%= render partial: "accounts/modals/new_account",     locals: { account: @account = current_profile.accounts.new } %>
-<%= render partial: "transactions/modals/new_recipe",  locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
-<%= render partial: "transactions/modals/new_expense", locals: { transaction: @transaction = current_profile.transactions.new, local: false } %>
+<%= render partial: "accounts/modals/new_account",     locals: { account: @account = current_user.accounts.new, local: true } %>
