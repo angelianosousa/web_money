@@ -5,9 +5,9 @@ default: &default
   timeout: 5000
 
   # remove if local running
-  host: postgres
+  host: localhost
   user: postgres
-  password: password
+  password: postgres
 
 development:
   <<: *default
