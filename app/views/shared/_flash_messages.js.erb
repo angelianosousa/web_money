@@ -1,0 +1,5 @@
+<% flash.each do |flash_type, message| %>
+  <% unless flash[:alert] || flash[:danger] %>
+    showFlashNotification("<%= flash_type %>", "<%= message %>");
+  <% end %>
+<% end %>
